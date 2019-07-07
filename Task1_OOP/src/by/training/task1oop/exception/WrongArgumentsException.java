@@ -1,7 +1,7 @@
 package by.training.task1oop.exception;
 
 /**
- * Exception witch is thrown when arguments incorrect.
+ * Exception which is thrown when arguments incorrect.
  */
 public class WrongArgumentsException extends Exception {
     /**

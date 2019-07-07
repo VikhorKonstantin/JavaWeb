@@ -7,9 +7,9 @@ import by.training.task1oop.entity.PlaneType;
 import by.training.task1oop.entity.TransportPlane;
 
 /**
- * Factory class witch is for creating planes objects.
+ * Factory class which is for creating planes objects.
  */
-public abstract class PlaneFactory {
+public interface PlaneFactory {
     /**
      * @param planeType creating plane's type
      * @param id        planeId.
@@ -19,11 +19,11 @@ public abstract class PlaneFactory {
      * @param param     unique param.
      * @return plane object.
      */
-    public static Plane createPlane(final PlaneType planeType, final long id,
+    static Plane createPlane(final PlaneType planeType, final long id,
                                     final int capacity, final int load,
                                     final int consumption,
                                     final Object param) {
-        Plane plane = null;
+        Plane plane;
         switch (planeType) {
             case PASSENGER:
                 PassengerPlaneType type = (PassengerPlaneType) param;
