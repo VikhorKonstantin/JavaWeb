@@ -7,7 +7,7 @@ public final class StringParser {
     /**
      * Regular expression for separator.
      */
-    public static final String SEP_REGEX = "\\s+";
+    private static final String SEP_REGEX = "\\s+";
 
     /**
      * Unable creating of object.
@@ -19,8 +19,7 @@ public final class StringParser {
      * @return list of strings obtained by splitting a fileLine
      */
     public static List<String> parseString(final String fileLine) {
-        List<String> stringList = Arrays.asList(fileLine.
+        return Arrays.asList(fileLine.
                 trim().split(SEP_REGEX));
-        return stringList;
     }
 }

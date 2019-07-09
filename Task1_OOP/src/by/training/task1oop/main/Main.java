@@ -10,7 +10,7 @@ public class Main {
         PlaneReader planeReader = new PlaneReader();
         AirCompanyCreator airCompanyCreator = new AirCompanyCreator();
         AirCompany airCompany =airCompanyCreator.createAirCompany(
-                planeReader.readFromFrile("input/input.txt"));
+                planeReader.readFromFile("input/input.txt"));
         System.out.println(airCompany.readById(9865976558L));
 
     }

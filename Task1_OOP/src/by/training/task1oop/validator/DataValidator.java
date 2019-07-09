@@ -12,39 +12,39 @@ public class DataValidator {
     /**
      * A constant holding the maximum value of seating capacity.
      */
-    public static final int MAX_SEATING_CAPACITY = 500;
+    private static final int MAX_SEATING_CAPACITY = 500;
     /**
      * A constant holding the minimum value of seating capacity.
      */
-    public static final int MIN_SEATING_CAPACITY = 2;
+    private static final int MIN_SEATING_CAPACITY = 2;
     /**
      * A constant holding the maximum value of payload.
      */
-    public static final int MAX_PAYLOAD = 2000;
+    private static final int MAX_PAYLOAD = 2000;
     /**
      * A constant holding the minimum value of payload.
      */
-    public static final int MIN_PAYLOAD = 5;
+    private static final int MIN_PAYLOAD = 5;
     /**
      * A constant holding the maximum value of fuel consumption.
      */
-    public static final int MAX_FUEL_CONSUMPTION = 2000;
+    private static final int MAX_FUEL_CONSUMPTION = 2000;
     /**
      * A constant holding the minimum value of fuel consumption.
      */
-    public static final int MIN_FUEL_CONSUMPTION = 300;
+    private static final int MIN_FUEL_CONSUMPTION = 300;
     /**
      * A constant holding the maximum value of cargo hold amount.
      */
-    public static final int MAX_CARGO_AMOUNT = 1800;
+    private static final int MAX_CARGO_AMOUNT = 1800;
     /**
      * A constant holding the minimum value of cargo hold amount.
      */
-    public static final int MIN_CARGO_AMOUNT = 500;
+    private static final int MIN_CARGO_AMOUNT = 500;
     /**
      * Regular expression for digits.
      */
-    public static final String DIGIT_REGEX = "\\d+";
+    private static final String DIGIT_REGEX = "\\d+";
     /**
      * Type of plane to validate.
      */
@@ -86,18 +86,17 @@ public class DataValidator {
         boolean isValid;
         try {
             isValid = dataIterator.next().matches(DIGIT_REGEX);
-            int seatingCapacity = Integer.valueOf(dataIterator.next());
-            int payload = Integer.valueOf(dataIterator.next());
-            int fuelConsumption = Integer.valueOf(dataIterator.next());
-            PassengerPlaneType type =
-                    PassengerPlaneType.valueOf(dataIterator.next());
-            isValid = isInRange(seatingCapacity,
+            int seatingCapacity = Integer.parseInt(dataIterator.next());
+            int payload = Integer.parseInt(dataIterator.next());
+            int fuelConsumption = Integer.parseInt(dataIterator.next());
+            PassengerPlaneType.valueOf(dataIterator.next());
+            isValid &= isInRange(seatingCapacity,
                     MIN_SEATING_CAPACITY, MAX_SEATING_CAPACITY)
                     && isInRange(payload,
                     MIN_PAYLOAD, MAX_PAYLOAD)
                     && isInRange(fuelConsumption,
                     MIN_FUEL_CONSUMPTION, MAX_FUEL_CONSUMPTION);
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException  e) {
             throw new WrongArgumentsException(e);
         }
         return isValid;
@@ -117,11 +116,11 @@ public class DataValidator {
         boolean isValid;
         try {
             isValid = dataIterator.next().matches(DIGIT_REGEX);
-            int seatingCapacity = Integer.valueOf(dataIterator.next());
-            int payload = Integer.valueOf(dataIterator.next());
-            int fuelConsumption = Integer.valueOf(dataIterator.next());
-            int cargoHoldAmount = Integer.valueOf(dataIterator.next());
-            isValid = isInRange(seatingCapacity,
+            int seatingCapacity = Integer.parseInt(dataIterator.next());
+            int payload = Integer.parseInt(dataIterator.next());
+            int fuelConsumption = Integer.parseInt(dataIterator.next());
+            int cargoHoldAmount = Integer.parseInt(dataIterator.next());
+            isValid &= isInRange(seatingCapacity,
                     MIN_SEATING_CAPACITY, MAX_SEATING_CAPACITY)
                     && isInRange(payload,
                     MIN_PAYLOAD, MAX_PAYLOAD)
@@ -129,7 +128,7 @@ public class DataValidator {
                     MIN_FUEL_CONSUMPTION, MAX_FUEL_CONSUMPTION)
                     && isInRange(cargoHoldAmount,
                     MIN_CARGO_AMOUNT, MAX_CARGO_AMOUNT);
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             throw new WrongArgumentsException(e);
         }
         return isValid;

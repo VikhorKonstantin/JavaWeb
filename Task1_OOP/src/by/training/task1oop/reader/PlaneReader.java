@@ -22,8 +22,8 @@ public class PlaneReader {
      * @param filename name of file to read
      * @return list of file lines as String objects
      */
-    public List<String> readFromFrile(final String filename) {
-        List<String> stringList = new ArrayList<>();
+    public List<String> readFromFile(final String filename) {
+        List<String> stringList;
         try (FileReader fileReader = new FileReader(filename);
             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             stringList = bufferedReader.lines().collect(Collectors.toList());

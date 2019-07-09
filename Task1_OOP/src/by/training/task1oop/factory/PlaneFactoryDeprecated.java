@@ -7,9 +7,11 @@ import by.training.task1oop.entity.PlaneType;
 import by.training.task1oop.entity.TransportPlane;
 
 /**
+ * @deprecated since 09.07.2019.
  * Factory class which is for creating planes objects.
  */
-public interface PlaneFactory {
+@Deprecated(since = "09.07.2019")
+public interface PlaneFactoryDeprecated {
     /**
      * @param planeType creating plane's type
      * @param id        planeId.
