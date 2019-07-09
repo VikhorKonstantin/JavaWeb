@@ -7,6 +7,7 @@ import by.training.task1oop.exception.WrongArgumentsException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class DataValidator {
     /**
@@ -56,18 +57,24 @@ public class DataValidator {
      * @return true(false) if data valid(invalid)
      */
     public boolean isDataValid(final List<String> data) {
-        Iterator<String> dataIterator = data.listIterator();
-        try {
-            planeType = PlaneType.valueOf(dataIterator.next());
-            if (planeType.equals(PlaneType.PASSENGER)) {
-                return isPassengerPlaneDataValid(dataIterator);
-            } else {
-                return isTransportPlaneDataValid(dataIterator);
+        Optional<List<String>> optionalData = Optional.ofNullable(data);
+        if(optionalData.isPresent()){
+            Iterator<String> dataIterator = optionalData.get().listIterator();
+            try {
+                planeType = PlaneType.valueOf(dataIterator.next());
+                if (planeType.equals(PlaneType.PASSENGER)) {
+                    return isPassengerPlaneDataValid(dataIterator);
+                } else {
+                    return isTransportPlaneDataValid(dataIterator);
+                }
+            } catch (NoSuchElementException
+                    | IllegalArgumentException | WrongArgumentsException e) {
+                return false;
             }
-        } catch (NoSuchElementException
-                | IllegalArgumentException | WrongArgumentsException e) {
+        } else {
             return false;
         }
+
 
     }
 

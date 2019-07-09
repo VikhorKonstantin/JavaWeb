@@ -1,7 +1,9 @@
 package by.training.task1oop.parser;
 
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public final class StringParser {
     /**
@@ -19,7 +21,13 @@ public final class StringParser {
      * @return list of strings obtained by splitting a fileLine
      */
     public static List<String> parseString(final String fileLine) {
-        return Arrays.asList(fileLine.
-                trim().split(SEP_REGEX));
+        Optional<String> stringOptional = Optional.ofNullable(fileLine);
+        if(stringOptional.isPresent()){
+            return Arrays.asList(stringOptional.orElseGet(String::new).
+                    trim().split(SEP_REGEX));
+        } else {
+            return null;
+        }
+
     }
 }

@@ -1,0 +1,9 @@
+<suite name ="Test suite">
+    <test name = "Task1Test">
+        <classes>
+            <class name="test.task1oop.parser.StringParserTest"/>
+            <class name="test.task1oop.reader.PlaneReaderTest"/>
+            <class name="test.task1oop.validator.DataValidatorTest"/>
+        </classes>
+    </test>
+</suite>
