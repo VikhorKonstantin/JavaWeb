@@ -39,15 +39,6 @@ public class AirCompany implements Repository {
         planes.add(plane);
     }
 
-//    @Override
-//    public void update(Plane plane) {//Уточнить!!!
-//        for(var p: planes){
-//            if(p.getPlaneId()==plane.getPlaneId()){
-//                planes.re
-//            }
-//        }
-//    }
-
     /**
      * Delete plane from repository.
      * @param plane plane to delete

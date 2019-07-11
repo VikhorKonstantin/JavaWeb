@@ -12,13 +12,14 @@ public class PassengerPlane extends Plane {
      * @param id          planeId.
      * @param capacity    seatingCapacity.
      * @param load        payload.
-     * @param consumption fuel consumption
-     * @param type        passengerPlaneType
+     * @param consumption fuel consumption.
+     * @param planeName plane's name.
+     * @param type        passengerPlaneType.
      */
     public PassengerPlane(final long id, final int capacity, final int load,
-                          final int consumption,
+                          final int consumption, final String planeName,
                           final PassengerPlaneType type) {
-        super(id, capacity, load, consumption);
+        super(id, capacity, load, consumption, planeName);
         this.passengerPlaneType = type;
     }
 

@@ -4,7 +4,6 @@ import by.training.task1oop.reader.PlaneReader;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.testng.Assert.assertThrows;
@@ -16,7 +15,7 @@ public class PlaneReaderTest {
     @DataProvider(name = "positiveDataForRead")
     public Object[][] createPositiveDataForSqrt() {
         return new Object[][]{
-                {Arrays.asList(
+                {List.of(
                         "TRANSPORT 1265687556 100 350 850 NARROW_BODY",
                                 "TRANSPORT 9865687556 20 1000 3200 800",
                                 "PASSENGER 1956525556 50  350 700 REGIONAL",

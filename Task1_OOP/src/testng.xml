@@ -3,7 +3,11 @@
         <classes>
             <class name="test.task1oop.parser.StringParserTest"/>
             <class name="test.task1oop.reader.PlaneReaderTest"/>
-            <class name="test.task1oop.validator.DataValidatorTest"/>
+            <class name="test.task1oop.validator.PassengerPlaneValidatorTest"/>
+            <class name="test.task1oop.validator.TransportPlaneValidatorTest"/>
+            <class name="test.task1oop.factory.PassengerPlaneFactoryTest"/>
+            <class name="test.task1oop.factory.TransportPlaneFactoryTest"/>
+            <class name="test.task1oop.entity.TransportPlaneTest"/>
         </classes>
     </test>
 </suite>

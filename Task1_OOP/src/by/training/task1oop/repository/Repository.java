@@ -16,12 +16,6 @@ public interface Repository {
      */
     void add(Plane plane);
 
-//    /**
-//     * Update plane statement.
-//     * @param plane plane to update
-//     */
-//    void update(Plane plane);
-
     /**
      * Delete plane from repository.
      * @param plane plane to delete

@@ -2,7 +2,8 @@ package by.training.task1oop.main;
 
 import by.training.task1oop.reader.PlaneReader;
 import by.training.task1oop.repository.AirCompany;
-import by.training.task1oop.repository.AirCompanyCreator;
+import by.training.task1oop.service.AirCompanyCreator;
+
 //will be replaced by using tests..
 
 public class Main {
@@ -12,6 +13,7 @@ public class Main {
         AirCompany airCompany =airCompanyCreator.createAirCompany(
                 planeReader.readFromFile("input/input.txt"));
         System.out.println(airCompany.readById(9865976558L));
+
 
     }
 }

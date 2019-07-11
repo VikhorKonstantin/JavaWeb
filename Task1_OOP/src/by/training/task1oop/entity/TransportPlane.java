@@ -13,13 +13,22 @@ public class TransportPlane extends Plane {
      * @param capacity seatingCapacity.
      * @param load  payload.
      * @param consumption fuel consumption
+     * @param planeName plane's name
      * @param holdAmount cargoHoldAmount
      */
     public TransportPlane(final long id, final int capacity,
                           final int load, final int consumption,
+                          final String planeName,
                           final  int holdAmount) {
-        super(id, capacity, load, consumption);
+        super(id, capacity, load, consumption, planeName);
         this.cargoHoldAmount = holdAmount;
+    }
+
+    /**
+     * @return cargoHoldAmount.
+     */
+    public int getCargoHoldAmount() {
+        return cargoHoldAmount;
     }
 
     /**

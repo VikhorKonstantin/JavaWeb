@@ -23,19 +23,26 @@ public abstract class Plane {
      * fuel consumption per hour.
      */
     private int fuelConsumption;
+    /**
+     * plane's name.
+     */
+    private String name;
 
     /**
      * @param id          planeId.
      * @param capacity    seatingCapacity.
      * @param load        payload.
-     * @param consumption fuel consumption
+     * @param consumption fuel consumption.
+     * @param planeName plane's name.
      */
     public Plane(final long id, final int capacity,
-                 final int load, final int consumption) {
+                 final int load, final int consumption,
+                 final String planeName) {
         this.planeId = id;
         this.seatingCapacity = capacity;
         this.payload = load;
         this.fuelConsumption = consumption;
+        this.name = planeName;
     }
 
     /**
@@ -65,6 +72,12 @@ public abstract class Plane {
     public int getFuelConsumption() {
         return fuelConsumption;
     }
+    /**
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
 
     /**
      * @param o object to compare with.
@@ -82,7 +95,8 @@ public abstract class Plane {
         return planeId == plane.planeId
                 && seatingCapacity == plane.seatingCapacity
                 && payload == plane.payload
-                && fuelConsumption == plane.fuelConsumption;
+                && fuelConsumption == plane.fuelConsumption
+                && name.equals(plane.name);
     }
 
     /**
@@ -90,7 +104,8 @@ public abstract class Plane {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(planeId, seatingCapacity, payload, fuelConsumption);
+        return Objects.hash(planeId, seatingCapacity,
+                payload, fuelConsumption, name);
     }
 
     /**
@@ -98,11 +113,10 @@ public abstract class Plane {
      */
     @Override
     public String toString() {
-        return "Plane{"
-                + "planeId=" + planeId
+        return "Plane{" + "planeId=" + planeId
                 + ", seatingCapacity=" + seatingCapacity
                 + ", payload=" + payload
                 + ", fuelConsumption=" + fuelConsumption
-                + '}';
+                + ", name='" + name + '\'' + '}';
     }
 }
