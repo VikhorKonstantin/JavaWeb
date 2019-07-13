@@ -31,5 +31,6 @@ public abstract class PlaneFactory {
      * @return {@link by.training.task1oop.entity.Plane visualLabel}
      * @throws WrongArgumentsException if input data invalid
      */
-    public abstract Plane createPlane(List<String> planeParams) throws WrongArgumentsException;
+    public abstract Plane createPlane(List<String> planeParams)
+            throws WrongArgumentsException;
 }

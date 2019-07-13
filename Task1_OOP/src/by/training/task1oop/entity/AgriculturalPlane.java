@@ -32,6 +32,23 @@ public class AgriculturalPlane extends Plane {
         this.cropsProcessingEfficiency = newCropsProcessingEfficiency;
     }
 
+    /**
+     * @return chemicalTankCapacity
+     */
+    public int getChemicalTankCapacity() {
+        return chemicalTankCapacity;
+    }
+
+    /**
+     * @return cropsProcessingEfficiency
+     */
+    public int getCropsProcessingEfficiency() {
+        return cropsProcessingEfficiency;
+    }
+    /**
+     * @param o object to compare with.
+     * @return true(false) if objects equals(not equals)
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -47,13 +64,17 @@ public class AgriculturalPlane extends Plane {
         return chemicalTankCapacity == that.chemicalTankCapacity
                 && cropsProcessingEfficiency == that.cropsProcessingEfficiency;
     }
-
+    /**
+     * @return hash code  of a plane.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), chemicalTankCapacity,
                 cropsProcessingEfficiency);
     }
-
+    /**
+     * @return string representing the specified object.
+     */
     @Override
     public String toString() {
         return "AgriculturalPlane{" + super.toString()

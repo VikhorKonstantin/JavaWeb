@@ -23,6 +23,16 @@ public class PassengerPlane extends Plane {
         this.passengerPlaneType = type;
     }
 
+    /**
+     * @return passengerPlaneType.
+     */
+    public PassengerPlaneType getPassengerPlaneType() {
+        return passengerPlaneType;
+    }
+    /**
+     * @param o object to compare with.
+     * @return true(false) if objects equals(not equals)
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -37,12 +47,16 @@ public class PassengerPlane extends Plane {
         PassengerPlane that = (PassengerPlane) o;
         return passengerPlaneType == that.passengerPlaneType;
     }
-
+    /**
+     * @return hash code  of a plane.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), passengerPlaneType);
     }
-
+    /**
+     * @return string representing the specified object.
+     */
     @Override
     public String toString() {
         return "PassengerPlane{" + super.toString()

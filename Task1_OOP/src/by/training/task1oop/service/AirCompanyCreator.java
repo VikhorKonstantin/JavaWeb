@@ -34,6 +34,9 @@ public class AirCompanyCreator {
      * string represented transport plane in input file.
      */
     private static final String AGRICULTURE = "AGRICULTURE";
+    /**
+     * logger message.
+     */
     private static final String LOG_MESSAGE = "Invalid args in line: ";
     /**
      * @param planesParams list parameters necessary for creating planes.
