@@ -7,31 +7,11 @@ import by.training.task1oop.validator.TransportPlaneValidator;
 
 import java.util.List;
 
-public final class TransportPlaneFactory implements PlaneFactory {
+public final class TransportPlaneFactory extends PlaneFactory {
     /**
      * Transport Plane Factory instance.
      */
     private static final TransportPlaneFactory INSTANCE;
-    /**
-     * index of planeId in arguments.
-     */
-    private static final int ID_INDEX = 1;
-    /**
-     * index of seatingCapacity in arguments.
-     */
-    private static final int CAPACITY_INDEX = 2;
-    /**
-     * index of payload in arguments.
-     */
-    private static final int PAYLOAD_INDEX = 3;
-    /**
-     * index of fuelConsumption in arguments.
-     */
-    private static final int CONSUMPTION_INDEX = 4;
-    /**
-     * index of name in arguments.
-     */
-    private static final int NAME_INDEX = 5;
     /**
      * index of cargoHoldAmount in arguments.
      */

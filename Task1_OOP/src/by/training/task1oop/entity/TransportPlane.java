@@ -9,19 +9,19 @@ public class TransportPlane extends Plane {
      */
     private int cargoHoldAmount;
     /**
-     * @param id planeId.
-     * @param capacity seatingCapacity.
-     * @param load  payload.
-     * @param consumption fuel consumption
-     * @param planeName plane's name
-     * @param holdAmount cargoHoldAmount
+     * @param newId planeId.
+     * @param newCapacity seatingCapacity.
+     * @param newPayload  payload.
+     * @param newConsumption fuel consumption
+     * @param newName plane's name
+     * @param newCargoHoldAmount cargoHoldAmount
      */
-    public TransportPlane(final long id, final int capacity,
-                          final int load, final int consumption,
-                          final String planeName,
-                          final  int holdAmount) {
-        super(id, capacity, load, consumption, planeName);
-        this.cargoHoldAmount = holdAmount;
+    public TransportPlane(final long newId, final int newCapacity,
+                          final int newPayload, final int newConsumption,
+                          final String newName,
+                          final  int newCargoHoldAmount) {
+        super(newId, newCapacity, newPayload, newConsumption, newName);
+        this.cargoHoldAmount = newCargoHoldAmount;
     }
 
     /**
@@ -31,10 +31,6 @@ public class TransportPlane extends Plane {
         return cargoHoldAmount;
     }
 
-    /**
-     * @param o object to compare with.
-     * @return true(false) if objects equals(not equals)
-     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -49,17 +45,11 @@ public class TransportPlane extends Plane {
         TransportPlane that = (TransportPlane) o;
         return cargoHoldAmount == that.cargoHoldAmount;
     }
-    /**
-     * @return hash code  of a plane.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), cargoHoldAmount);
     }
 
-    /**
-     * @return string representing the specified object.
-     */
     @Override
     public String toString() {
         return "TransportPlane{" + super.toString()

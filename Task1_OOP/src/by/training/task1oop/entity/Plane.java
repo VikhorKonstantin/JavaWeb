@@ -29,20 +29,20 @@ public abstract class Plane {
     private String name;
 
     /**
-     * @param id          planeId.
-     * @param capacity    seatingCapacity.
-     * @param load        payload.
-     * @param consumption fuel consumption.
-     * @param planeName plane's name.
+     * @param newId          planeId.
+     * @param newCapacity    seatingCapacity.
+     * @param newPayload        payload.
+     * @param newConsumption fuel consumption.
+     * @param newName plane's name.
      */
-    public Plane(final long id, final int capacity,
-                 final int load, final int consumption,
-                 final String planeName) {
-        this.planeId = id;
-        this.seatingCapacity = capacity;
-        this.payload = load;
-        this.fuelConsumption = consumption;
-        this.name = planeName;
+    public Plane(final long newId, final int newCapacity,
+                 final int newPayload, final int newConsumption,
+                 final String newName) {
+        this.planeId = newId;
+        this.seatingCapacity = newCapacity;
+        this.payload = newPayload;
+        this.fuelConsumption = newConsumption;
+        this.name = newName;
     }
 
     /**

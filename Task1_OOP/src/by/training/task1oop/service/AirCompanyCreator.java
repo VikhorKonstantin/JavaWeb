@@ -2,6 +2,7 @@ package by.training.task1oop.service;
 
 import by.training.task1oop.entity.Plane;
 import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.factory.AgriculturalPlaneFactory;
 import by.training.task1oop.factory.PassengerPlaneFactory;
 import by.training.task1oop.factory.TransportPlaneFactory;
 import by.training.task1oop.parser.StringParser;
@@ -29,7 +30,11 @@ public class AirCompanyCreator {
      * string represented transport plane in input file.
      */
     private static final String TRANSPORT = "TRANSPORT";
-
+    /**
+     * string represented transport plane in input file.
+     */
+    private static final String AGRICULTURE = "AGRICULTURE";
+    private static final String LOG_MESSAGE = "Invalid args in line: ";
     /**
      * @param planesParams list parameters necessary for creating planes.
      * @return AirCompany
@@ -40,6 +45,8 @@ public class AirCompanyCreator {
                 PassengerPlaneFactory.getInstance();
         TransportPlaneFactory transportPlaneFactory =
                 TransportPlaneFactory.getInstance();
+        AgriculturalPlaneFactory agriculturalPlaneFactory =
+                AgriculturalPlaneFactory.getInstance();
         for (var paramString : planesParams) {
             List<String> params = StringParser.parseString(paramString);
             String planeType = params.get(TYPE_INDEX);
@@ -48,7 +55,7 @@ public class AirCompanyCreator {
                     try {
                         planes.add(passengerPlaneFactory.createPlane(params));
                     } catch (WrongArgumentsException e) {
-                        logger.info("Invalid args in line: " + paramString, e);
+                        logger.info(LOG_MESSAGE + paramString, e);
                     }
                     break;
 
@@ -56,12 +63,21 @@ public class AirCompanyCreator {
                     try {
                         planes.add(transportPlaneFactory.createPlane(params));
                     } catch (WrongArgumentsException e) {
-                        logger.info("Invalid args in line: " + paramString, e);
+                        logger.info(LOG_MESSAGE + paramString, e);
+                    }
+                    break;
+
+                case AGRICULTURE:
+                    try {
+                        planes.add(
+                                agriculturalPlaneFactory.createPlane(params));
+                    } catch (WrongArgumentsException e) {
+                        logger.info(LOG_MESSAGE + paramString, e);
                     }
                     break;
 
                 default:
-                    logger.info("Invalid plane type: " + planeType);
+                    logger.info(LOG_MESSAGE + planeType);
 
             }
         }

@@ -1,23 +1,17 @@
 package by.training.task1oop.validator;
 
+import by.training.task1oop.entity.PassengerPlaneType;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class TransportPlaneValidator extends PlaneValidator {
+public class PassengerPlaneValidator extends PlaneValidator {
     /**
-     * string represented transport plane in input file.
+     * string represented passenger plane in input file.
      */
-    private static final String TRANSPORT = "TRANSPORT";
+    private static final String PASSENGER = "PASSENGER";
+
     /**
-     * A constant holding the maximum value of cargo hold amount.
-     */
-    private static final int MAX_CARGO_AMOUNT = 1800;
-    /**
-     * A constant holding the minimum value of cargo hold amount.
-     */
-    private static final int MIN_CARGO_AMOUNT = 500;
-    /**
-     * Validating data necessary for creating transport plane.
+     * Validating data necessary for creating passenger plane.
      * @param argsList list of params to validate
      * @return true(false) if data valid(invalid)
      */
@@ -27,14 +21,12 @@ public class TransportPlaneValidator extends PlaneValidator {
         boolean isValid;
         try {
             var dataIterator = argsList.listIterator();
-            isValid = dataIterator.next().equals(TRANSPORT);
+            isValid = dataIterator.next().equals(PASSENGER);
             isValid &= super.isValid(argsList.subList(COMMON_ARGS_INDEX,
                     COMMON_ARGS_INDEX + COMMON_ARGS_NUMBER));
             var uniqueDataIterator = argsList.listIterator(COMMON_ARGS_INDEX
                     + COMMON_ARGS_NUMBER);
-            int cargoHoldAmount = Integer.parseInt(uniqueDataIterator.next());
-            isValid &= isInRange(cargoHoldAmount,
-                    MIN_CARGO_AMOUNT, MAX_CARGO_AMOUNT);
+            PassengerPlaneType.valueOf(uniqueDataIterator.next());
         } catch (IllegalArgumentException | NullPointerException
                 | NoSuchElementException e) {
             return false;
