@@ -1,6 +1,6 @@
 package test.task1oop.validator;
 
-import by.training.task1oop.validator.TransportPlaneValidator;
+import by.training.task1oop.bean.validator.TransportPlaneValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

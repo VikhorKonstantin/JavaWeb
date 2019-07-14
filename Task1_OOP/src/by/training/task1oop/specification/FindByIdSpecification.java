@@ -1,17 +1,17 @@
 package by.training.task1oop.specification;
 
-import by.training.task1oop.entity.Plane;
+import by.training.task1oop.bean.entity.Plane;
 
 public class FindByIdSpecification implements FindSpecification<Plane> {
     /**
      * planeId we are search a plane with.
      */
-    private int planeId;
+    private long planeId;
 
     /**
      * @param newPlaneId planeId.
      */
-    public FindByIdSpecification(final int newPlaneId) {
+    public FindByIdSpecification(final long newPlaneId) {
         this.planeId = newPlaneId;
     }
     /**

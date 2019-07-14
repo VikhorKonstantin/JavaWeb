@@ -1,6 +1,6 @@
 package test.task1oop.entity;
 
-import by.training.task1oop.entity.TransportPlane;
+import by.training.task1oop.bean.entity.TransportPlane;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;

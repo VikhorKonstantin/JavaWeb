@@ -1,9 +1,9 @@
 package test.task1oop.factory;
 
-import by.training.task1oop.entity.PassengerPlane;
-import by.training.task1oop.entity.PassengerPlaneType;
+import by.training.task1oop.bean.entity.PassengerPlane;
+import by.training.task1oop.bean.entity.PassengerPlaneType;
 import by.training.task1oop.exception.WrongArgumentsException;
-import by.training.task1oop.factory.PassengerPlaneFactory;
+import by.training.task1oop.bean.factory.PassengerPlaneFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

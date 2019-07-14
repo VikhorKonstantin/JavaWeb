@@ -1,6 +1,6 @@
 package test.task1oop.reader;
 
-import by.training.task1oop.reader.PlaneReader;
+import by.training.task1oop.service.reader.PlaneReader;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

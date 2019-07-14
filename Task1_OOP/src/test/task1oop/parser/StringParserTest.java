@@ -1,6 +1,6 @@
 package test.task1oop.parser;
 
-import by.training.task1oop.parser.StringParser;
+import by.training.task1oop.service.parser.StringParser;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

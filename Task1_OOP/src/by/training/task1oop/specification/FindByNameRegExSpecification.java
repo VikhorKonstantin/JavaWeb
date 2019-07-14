@@ -1,6 +1,6 @@
 package by.training.task1oop.specification;
 
-import by.training.task1oop.entity.Plane;
+import by.training.task1oop.bean.entity.Plane;
 
 public class FindByNameRegExSpecification implements FindSpecification<Plane> {
     /**
