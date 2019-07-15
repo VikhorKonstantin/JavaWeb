@@ -7,7 +7,7 @@ public enum PassengerPlaneType {
     /**
      *The largest airliners are wide-body jets.
      */
-    WHIDE_BODY,
+    WIDE_BODY,
     /**
      *A smaller, more common class of airliners
      * is the narrow-body or single-aisle aircraft.
@@ -21,5 +21,5 @@ public enum PassengerPlaneType {
      * The lightest of short-haul regional feeder airliner
      * type aircraft that carry 19 or fewer passenger seats.
      */
-    COMMUTER;
+    COMMUTER
 }

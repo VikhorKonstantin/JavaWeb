@@ -2,9 +2,8 @@ package by.training.task1oop.view;
 
 import by.training.task1oop.controller.AirCompanyController;
 
-//will be replaced by using tests..
 
-public class Main {
+class Main {
     public static void main(String[] args) {
         AirCompanyController airCompanyController = new AirCompanyController();
         String response = airCompanyController.executeTask("INIT",

@@ -9,7 +9,7 @@ import java.util.List;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class AgriculturalPlaneValidatorTest {
-    AgriculturalPlaneValidator planeValidator = new AgriculturalPlaneValidator();
+    private AgriculturalPlaneValidator planeValidator = new AgriculturalPlaneValidator();
     @DataProvider(name = "dataForValidation")
     public Object[][] createDataForValidator() {
         return new Object[][]{{List.of("AGRICULTURAL", "1265687556",

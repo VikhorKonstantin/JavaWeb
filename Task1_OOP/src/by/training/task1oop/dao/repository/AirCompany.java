@@ -14,6 +14,9 @@ public class AirCompany implements Repository<Plane> {
      */
     private List<Plane> planes = new ArrayList<>();
 
+    /**
+     * empty constructor.
+     */
     public AirCompany() {
     }
 
@@ -64,7 +67,9 @@ public class AirCompany implements Repository<Plane> {
         return planes.isEmpty();
     }
 
-
+    /**
+     * @return List of planes.
+     */
     @Override
     public List<Plane> getAll() {
         return planes;
@@ -79,14 +84,16 @@ public class AirCompany implements Repository<Plane> {
         ArrayList<Plane> planeList = new ArrayList<>();
         if (specification instanceof FindSpecification) {
             for (var plane: planes) {
-                if (((FindSpecification<Plane>) specification).isSatisfiedBy(plane)) {
+                if (((FindSpecification<Plane>) specification)
+                        .isSatisfiedBy(plane)) {
                     planeList.add(plane);
                 }
             }
         } else {
             if (specification instanceof SortSpecification) {
                 planeList.addAll(planes);
-                planeList.sort(((SortSpecification<Plane>) specification).sortBy());
+                planeList.sort(((SortSpecification<Plane>) specification)
+                        .sortBy());
             }
         }
         return planeList;

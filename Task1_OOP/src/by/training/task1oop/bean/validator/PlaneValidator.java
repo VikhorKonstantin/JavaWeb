@@ -1,7 +1,7 @@
 package by.training.task1oop.bean.validator;
 import java.util.List;
 
-public abstract class PlaneValidator {
+abstract class PlaneValidator {
     /**
      * A constant holding the maximum value of seating capacity.
      */
@@ -33,17 +33,17 @@ public abstract class PlaneValidator {
     /**
      * number of arguments in argsList.
      */
-    protected static final int COMMON_ARGS_NUMBER = 5;
+    static final int COMMON_ARGS_NUMBER = 5;
     /**
      * number of unique args before common's.
      */
-    protected static final int COMMON_ARGS_INDEX = 1;
+    static final int COMMON_ARGS_INDEX = 1;
     /**
      * Validating data from file's line.
      * @param argsList data from file's line
      * @return true(false) if data valid(invalid)
      */
-    public boolean isValid(final List<String> argsList) {
+    boolean isValid(final List<String> argsList) {
         boolean isValid;
         try {
             var dataIterator = argsList.listIterator();
@@ -73,7 +73,7 @@ public abstract class PlaneValidator {
      * @param b right bound of range.
      * @return true(false) if value is in [a, b] range(not in range).
      */
-    protected boolean isInRange(final int value, final int a, final int b) {
+    boolean isInRange(final int value, final int a, final int b) {
         return (value >= a && value <= b);
     }
 }

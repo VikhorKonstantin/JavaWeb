@@ -6,13 +6,14 @@ import by.training.task1oop.dao.repository.Repository;
 
 import java.util.List;
 
-public class AirCompanyInitializer {
+class AirCompanyInitializer {
 
     /**
-     * @param planesParams list parameters necessary for creating planes.
-     * @return AirCompany
+     * @param planesParams List of params of plane.
+     * @param repository repository to init.
      */
-    public void initAirCompany(final List<String> planesParams, Repository<Plane> repository) {
+    void initAirCompany(final List<String> planesParams,
+                              final Repository<Plane> repository) {
         AddService addService = new AddService();
         for (var paramString : planesParams) {
             addService.addPlane(paramString, repository);

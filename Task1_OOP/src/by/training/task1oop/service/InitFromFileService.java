@@ -6,11 +6,17 @@ import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.service.reader.PlaneReader;
 
 public class InitFromFileService {
-    public String initFromFile(String fileName) {
+    /**
+     * service that init repository from file.
+     * @param fileName file name
+     * @return response
+     */
+    public String initFromFile(final String fileName) {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository<Plane> repository = repositoryFactory.getPlaneRepository();
         PlaneReader planeReader = new PlaneReader();
-        AirCompanyInitializer airCompanyInitializer = new AirCompanyInitializer();
+        AirCompanyInitializer airCompanyInitializer =
+                new AirCompanyInitializer();
         airCompanyInitializer.initAirCompany(
                 planeReader.readFromFile(fileName), repository);
         StringBuilder result = new StringBuilder();

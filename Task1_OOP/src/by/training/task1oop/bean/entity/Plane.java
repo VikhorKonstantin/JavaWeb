@@ -35,9 +35,9 @@ public abstract class Plane {
      * @param newConsumption fuel consumption.
      * @param newName plane's name.
      */
-    public Plane(final long newId, final int newCapacity,
-                 final int newPayload, final int newConsumption,
-                 final String newName) {
+    Plane(final long newId, final int newCapacity,
+          final int newPayload, final int newConsumption,
+          final String newName) {
         this.planeId = newId;
         this.seatingCapacity = newCapacity;
         this.payload = newPayload;

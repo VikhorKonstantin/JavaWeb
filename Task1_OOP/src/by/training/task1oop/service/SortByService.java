@@ -3,7 +3,11 @@ package by.training.task1oop.service;
 import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
-import by.training.task1oop.specification.*;
+import by.training.task1oop.specification.SortByFuelConsumptionReversed;
+import by.training.task1oop.specification.SortByNameAndIdSpecification;
+import by.training.task1oop.specification.SortByNameSpecification;
+import by.training.task1oop.specification.SortSpecification;
+import by.training.task1oop.specification.Specification;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,17 +25,20 @@ public class SortByService {
         SPECIFICATION_MAP.put("NAME_ID", new SortByNameAndIdSpecification());
         SPECIFICATION_MAP.put("FUEL_CONSUMPTION_REVERSED",
                 new SortByFuelConsumptionReversed());
-
     }
 
-    public String sortBy(String property) {
+    /**
+     * @param property to sort by.
+     * @return response.
+     */
+    public String sortBy(final String property) {
         String specificationName = property.toUpperCase();
         Specification specification = SPECIFICATION_MAP.get(specificationName);
         Optional<Specification> optionalSpecification =
                 Optional.ofNullable(specification);
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository<Plane> repository = repositoryFactory.getPlaneRepository();
-        if (optionalSpecification.isPresent()){
+        if (optionalSpecification.isPresent()) {
             List<Plane> planes = repository.query(optionalSpecification.get());
             StringBuilder result = new StringBuilder();
             for (var plane : planes) {

@@ -7,7 +7,10 @@ import by.training.task1oop.bean.factory.TransportPlaneFactory;
 import by.training.task1oop.exception.WrongArgumentsException;
 import by.training.task1oop.service.parser.StringParser;
 
-public class PlaneCreator {
+public final class PlaneCreator {
+    /**
+     * PlaneCreator instance.
+     */
     private static final PlaneCreator INSTANCE = new PlaneCreator();
     /**
      * index of plane type in list of params.
@@ -29,13 +32,22 @@ public class PlaneCreator {
      * logger message.
      */
     private static final String LOG_MESSAGE = "Invalid args in line: ";
-    private PlaneCreator(){
-
+    private PlaneCreator() {
     }
-    public static PlaneCreator getInstance(){
+
+    /**
+     * @return INSTANCE.
+     */
+    public static PlaneCreator getInstance() {
         return INSTANCE;
     }
-    public Plane createPlane(String args) throws WrongArgumentsException {
+
+    /**
+     * @param args args to create a plane.
+     * @return Plane
+     * @throws WrongArgumentsException if plane creation impossible
+     */
+    public Plane createPlane(final String args) throws WrongArgumentsException {
         var params = StringParser.parseString(args);
         String planeType = params.get(TYPE_INDEX);
         PassengerPlaneFactory passengerPlaneFactory =

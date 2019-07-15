@@ -5,27 +5,27 @@ import by.training.task1oop.exception.WrongArgumentsException;
 
 import java.util.List;
 
-public abstract class AbstractFactory {
+abstract class AbstractFactory {
     /**
      * index of planeId in arguments.
      */
-    protected static final int ID_INDEX = 1;
+    static final int ID_INDEX = 1;
     /**
      * index of seatingCapacity in arguments.
      */
-    protected static final int CAPACITY_INDEX = 2;
+    static final int CAPACITY_INDEX = 2;
     /**
      * index of payload in arguments.
      */
-    protected static final int PAYLOAD_INDEX = 3;
+    static final int PAYLOAD_INDEX = 3;
     /**
      * index of fuelConsumption in arguments.
      */
-    protected static final int CONSUMPTION_INDEX = 4;
+    static final int CONSUMPTION_INDEX = 4;
     /**
      * index of name in arguments.
      */
-    protected static final int NAME_INDEX = 5;
+    static final int NAME_INDEX = 5;
     /**
      * @param planeParams list of params to create a plane.
      * @return {@link by.training.task1oop.bean.entity.Plane visualLabel}

@@ -1,8 +1,5 @@
 package by.training.task1oop.service;
 
-import by.training.task1oop.bean.factory.AgriculturalPlaneFactory;
-import by.training.task1oop.bean.factory.PassengerPlaneFactory;
-import by.training.task1oop.bean.factory.TransportPlaneFactory;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.exception.WrongArgumentsException;
@@ -19,10 +16,22 @@ public class AddService {
      * logger message.
      */
     private static final String LOG_MESSAGE = "Invalid args in line: ";
+    /**
+     * positive scenario message.
+     */
     private static final String POSITIVE_MESSAGE = "Plane was added";
-    private static final String NEGATIVE_MESSAGE = "Plane wasn't added," +
-            " check args";
-    public String addPlane(String args, Repository repository) {
+    /**
+     * negative scenario message.
+     */
+    private static final String NEGATIVE_MESSAGE = "Plane wasn't added,"
+            + " check args";
+
+    /**
+     * @param args for creating plane to add.
+     * @param repository repository to add plane to.
+     * @return response
+     */
+    String addPlane(final String args, final Repository repository) {
         PlaneCreator planeCreator = PlaneCreator.getInstance();
         try {
             repository.add(planeCreator.createPlane(args));
@@ -33,7 +42,11 @@ public class AddService {
         return POSITIVE_MESSAGE;
     }
 
-    public String addPlane(String args) {
+    /**
+     * @param args for creating plane to add.
+     * @return response
+     */
+    public String addPlane(final String args) {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository repository = repositoryFactory.getPlaneRepository();
         return addPlane(args, repository);

@@ -15,11 +15,22 @@ public class DeleteService {
      * logger message.
      */
     private static final String LOG_MESSAGE = "Invalid args in line: ";
+    /**
+     * positive scenario message.
+     */
     private static final String POSITIVE_MESSAGE = "Plane was deleted";
-    private static final String NEGATIVE_MESSAGE = "Plane wasn't deleted," +
-            " check args";
+    /**
+     * Negative scenario message.
+     */
+    private static final String NEGATIVE_MESSAGE = "Plane wasn't deleted,"
+            + " check args";
 
-    public String deletePlane(String args, Repository repository) {
+    /**
+     * @param args of plane to delete.
+     * @param repository to delete from.
+     * @return response.
+     */
+    String deletePlane(final String args, final Repository repository) {
         PlaneCreator planeCreator = PlaneCreator.getInstance();
         try {
             repository.delete(planeCreator.createPlane(args));
@@ -29,8 +40,11 @@ public class DeleteService {
         }
         return POSITIVE_MESSAGE;
     }
-
-    public String deletePlane(String args) {
+    /**
+     * @param args of plane to delete.
+     * @return response.
+     */
+    public String deletePlane(final String args) {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository repository = repositoryFactory.getPlaneRepository();
         return deletePlane(args, repository);

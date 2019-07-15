@@ -22,7 +22,22 @@ public class FindByService {
      */
     private final Map<String, Function<String, Specification>>
             specificationMap = new HashMap<>();
-
+    /**
+     * wrong property name message.
+     */
+    private static final String WRONG_PROPERTY_NAME =
+            "Wrong name of property to find by";
+    /**
+     * index of first element.
+     */
+    private static final int START_INDEX = 0;
+    /**
+     * params delimiter char.
+     */
+    private static final char DELIMITER = ' ';
+    /**
+     * init specification map.
+     */
     public FindByService() {
         specificationMap.put("ID", this::findById);
         specificationMap.put("NAME_REGEX", this::findByNameRegex);
@@ -32,9 +47,13 @@ public class FindByService {
         specificationMap.put("PAYLOAD_RANGE", this::findByPayloadRange);
     }
 
+    /**
+     * @param args arguments of request.
+     * @return response.
+     */
     public String findBy(final String args) {
-        String property = args.substring(0, args.indexOf(' '));
-        String params = args.substring(args.indexOf(' '));
+        String property = args.substring(START_INDEX, args.indexOf(DELIMITER));
+        String params = args.substring(args.indexOf(DELIMITER));
         String specificationName = property.toUpperCase();
         Specification specification = specificationMap.
                 get(specificationName).apply(params);
@@ -51,35 +70,57 @@ public class FindByService {
             }
             return result.toString();
         } else {
-            return "Wrong name of property to find by";
+            return WRONG_PROPERTY_NAME;
         }
     }
 
+    /**
+     * @param name name to find by.
+     * @return FindByNameSpecification
+     */
     private Specification findByName(final String name) {
         return new FindByNameSpecification(name);
     }
 
+    /**
+     * @param idString planeId to find by.
+     * @return FindByIdSpecification
+     */
     private Specification findById(final String idString) {
        long id = Long.parseLong(idString);
        return new FindByIdSpecification(id);
     }
 
+    /**
+     * @param regex to find by.
+     * @return FindByNameRegExSpecification
+     */
     private Specification findByNameRegex(final String regex) {
         return new FindByNameRegExSpecification(regex);
     }
+
+    /**
+     * @param rangeString payload range to find by.
+     * @return FindByPayloadRangeSpecification
+     */
     private Specification findByPayloadRange(final String rangeString) {
         int a = Integer.parseInt(
-                rangeString.substring(0, rangeString.indexOf(' ')));
+                rangeString.substring(START_INDEX,
+                        rangeString.indexOf(DELIMITER)));
         int b = Integer.parseInt(rangeString.substring(
-                rangeString.indexOf(' '), rangeString.length()));
+                rangeString.indexOf(DELIMITER)));
         return new FindByPayloadRangeSpecification(a, b);
     }
 
+    /**
+     * @param params to find by.
+     * @return FindByPayloadAndSeatingCapacity specification
+     */
     private Specification findByPayloadAndSeatingCapacity(final String params) {
         int payload = Integer.parseInt(
-                params.substring(0, params.indexOf(' ')));
+                params.substring(START_INDEX, params.indexOf(DELIMITER)));
         int seatingCapacity = Integer.parseInt(params.substring(
-                params.indexOf(' '), params.length()));
+                params.indexOf(DELIMITER)));
         return new FindByPayloadAndSeatingCapacity(payload, seatingCapacity);
 
     }
