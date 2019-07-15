@@ -3,18 +3,8 @@ package by.training.task1oop.service;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.exception.WrongArgumentsException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class DeleteService {
-    /**
-     * Logger.
-     */
-    private static Logger logger = LogManager.getLogger();
-    /**
-     * logger message.
-     */
-    private static final String LOG_MESSAGE = "Invalid args in line: ";
     /**
      * positive scenario message.
      */
@@ -29,22 +19,26 @@ public class DeleteService {
      * @param args of plane to delete.
      * @param repository to delete from.
      * @return response.
+     * @throws WrongArgumentsException if request invalid
      */
-    String deletePlane(final String args, final Repository repository) {
+    String deletePlane(final String args, final Repository repository)
+            throws WrongArgumentsException {
+
         PlaneCreator planeCreator = PlaneCreator.getInstance();
         try {
             repository.delete(planeCreator.createPlane(args));
         } catch (WrongArgumentsException e) {
-            logger.error(LOG_MESSAGE + args, e);
-            return NEGATIVE_MESSAGE;
+            throw new WrongArgumentsException(NEGATIVE_MESSAGE, e);
         }
         return POSITIVE_MESSAGE;
     }
     /**
      * @param args of plane to delete.
      * @return response.
+     * @throws WrongArgumentsException if request invalid
      */
-    public String deletePlane(final String args) {
+    public String deletePlane(final String args)
+            throws WrongArgumentsException {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository repository = repositoryFactory.getPlaneRepository();
         return deletePlane(args, repository);

@@ -3,19 +3,10 @@ package by.training.task1oop.service;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.exception.WrongArgumentsException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 
 public class AddService {
-    /**
-     * Logger.
-     */
-    private static Logger logger = LogManager.getLogger();
-    /**
-     * logger message.
-     */
-    private static final String LOG_MESSAGE = "Invalid args in line: ";
     /**
      * positive scenario message.
      */
@@ -30,14 +21,15 @@ public class AddService {
      * @param args for creating plane to add.
      * @param repository repository to add plane to.
      * @return response
+     * @throws WrongArgumentsException if request invalid
      */
-    String addPlane(final String args, final Repository repository) {
+    String addPlane(final String args, final Repository repository)
+            throws WrongArgumentsException {
         PlaneCreator planeCreator = PlaneCreator.getInstance();
         try {
             repository.add(planeCreator.createPlane(args));
         } catch (WrongArgumentsException e) {
-            logger.error(LOG_MESSAGE + args, e);
-            return NEGATIVE_MESSAGE;
+           throw new WrongArgumentsException(NEGATIVE_MESSAGE, e);
         }
         return POSITIVE_MESSAGE;
     }
@@ -45,8 +37,9 @@ public class AddService {
     /**
      * @param args for creating plane to add.
      * @return response
+     * @throws WrongArgumentsException if request invalid
      */
-    public String addPlane(final String args) {
+    public String addPlane(final String args) throws WrongArgumentsException {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository repository = repositoryFactory.getPlaneRepository();
         return addPlane(args, repository);

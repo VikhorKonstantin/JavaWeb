@@ -7,7 +7,7 @@ import by.training.task1oop.bean.factory.TransportPlaneFactory;
 import by.training.task1oop.exception.WrongArgumentsException;
 import by.training.task1oop.service.parser.StringParser;
 
-public final class PlaneCreator {
+final class PlaneCreator {
     /**
      * PlaneCreator instance.
      */
@@ -38,7 +38,7 @@ public final class PlaneCreator {
     /**
      * @return INSTANCE.
      */
-    public static PlaneCreator getInstance() {
+    static PlaneCreator getInstance() {
         return INSTANCE;
     }
 
@@ -47,7 +47,7 @@ public final class PlaneCreator {
      * @return Plane
      * @throws WrongArgumentsException if plane creation impossible
      */
-    public Plane createPlane(final String args) throws WrongArgumentsException {
+    Plane createPlane(final String args) throws WrongArgumentsException {
         var params = StringParser.parseString(args);
         String planeType = params.get(TYPE_INDEX);
         PassengerPlaneFactory passengerPlaneFactory =

@@ -2,20 +2,11 @@ package by.training.task1oop.service;
 
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.training.task1oop.exception.WrongArgumentsException;
 
 import java.util.Optional;
 
 public class ReadByIdService {
-    /**
-     * Logger.
-     */
-    private static Logger logger = LogManager.getLogger();
-    /**
-     * logger message.
-     */
-    private static final String LOG_MESSAGE = "Invalid args in line: ";
     /**
      * negative scenario message.
      */
@@ -29,8 +20,10 @@ public class ReadByIdService {
      * @param args consist plane index.
      * @param repository repository to find in.
      * @return response.
+     * @throws WrongArgumentsException if request invalid
      */
-    String readById(final String args, final Repository repository) {
+    String readById(final String args, final Repository repository)
+            throws WrongArgumentsException {
         try {
             var optionalPlane = Optional.ofNullable(repository.readById(
                             Long.parseLong(args)));
@@ -40,16 +33,16 @@ public class ReadByIdService {
                 return NO_SUCH_ELEMENT;
             }
         } catch (NumberFormatException e) {
-            logger.error(LOG_MESSAGE + args, e);
-            return NEGATIVE_MESSAGE;
+            throw new WrongArgumentsException(NEGATIVE_MESSAGE, e);
         }
     }
 
     /**
      * @param args consist plane index.
      * @return response.
+     * @throws WrongArgumentsException if request invalid
      */
-    public String readById(final String args) {
+    public String readById(final String args) throws WrongArgumentsException {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository repository = repositoryFactory.getPlaneRepository();
         return readById(args, repository);

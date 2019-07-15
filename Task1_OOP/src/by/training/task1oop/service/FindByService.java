@@ -3,6 +3,7 @@ package by.training.task1oop.service;
 import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
+import by.training.task1oop.exception.WrongArgumentsException;
 import by.training.task1oop.specification.FindByIdSpecification;
 import by.training.task1oop.specification.FindByNameRegExSpecification;
 import by.training.task1oop.specification.FindByNameSpecification;
@@ -50,10 +51,15 @@ public class FindByService {
     /**
      * @param args arguments of request.
      * @return response.
+     * @throws WrongArgumentsException if request invalid
      */
-    public String findBy(final String args) {
-        String property = args.substring(START_INDEX, args.indexOf(DELIMITER));
-        String params = args.substring(args.indexOf(DELIMITER));
+    public String findBy(final String args) throws WrongArgumentsException {
+        Optional<String> optionalArgs = Optional.ofNullable(args);
+        String safeArgs = optionalArgs.orElseThrow(
+                () -> new WrongArgumentsException(WRONG_PROPERTY_NAME));
+        String property = safeArgs.
+                substring(START_INDEX, safeArgs.indexOf(DELIMITER));
+        String params = safeArgs.substring(safeArgs.indexOf(DELIMITER));
         String specificationName = property.toUpperCase();
         Specification specification = specificationMap.
                 get(specificationName).apply(params);
@@ -61,17 +67,16 @@ public class FindByService {
                 Optional.ofNullable(specification);
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository<Plane> repository = repositoryFactory.getPlaneRepository();
-        if (optionalSpecification.isPresent()) {
-            List<Plane> planes = repository.query(optionalSpecification.get());
-            StringBuilder result = new StringBuilder();
-            for (var plane : planes) {
-                result.append(plane);
-                result.append('\n');
-            }
-            return result.toString();
-        } else {
-            return WRONG_PROPERTY_NAME;
+        List<Plane> planes = repository.query(
+                        optionalSpecification.
+                        orElseThrow(() -> new WrongArgumentsException(
+                                WRONG_PROPERTY_NAME)));
+        StringBuilder result = new StringBuilder();
+        for (var plane : planes) {
+            result.append(plane);
+            result.append('\n');
         }
+        return result.toString();
     }
 
     /**
@@ -122,8 +127,5 @@ public class FindByService {
         int seatingCapacity = Integer.parseInt(params.substring(
                 params.indexOf(DELIMITER)));
         return new FindByPayloadAndSeatingCapacity(payload, seatingCapacity);
-
     }
-
-
 }
