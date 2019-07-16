@@ -1,4 +1,4 @@
-package test.task1oop.factory;
+package test.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.PassengerPlane;
 import by.training.task1oop.bean.entity.PassengerPlaneType;

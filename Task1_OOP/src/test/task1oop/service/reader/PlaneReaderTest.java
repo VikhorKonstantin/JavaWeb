@@ -1,4 +1,4 @@
-package test.task1oop.reader;
+package test.task1oop.service.reader;
 
 import by.training.task1oop.service.reader.PlaneReader;
 import org.testng.annotations.DataProvider;

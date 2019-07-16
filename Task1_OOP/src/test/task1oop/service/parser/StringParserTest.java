@@ -1,4 +1,4 @@
-package test.task1oop.parser;
+package test.task1oop.service.parser;
 
 import by.training.task1oop.service.parser.StringParser;
 import org.testng.annotations.DataProvider;

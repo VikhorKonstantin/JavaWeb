@@ -1,4 +1,4 @@
-package test.task1oop.entity;
+package test.task1oop.bean.entity;
 
 import by.training.task1oop.bean.entity.TransportPlane;
 import org.testng.annotations.Test;

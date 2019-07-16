@@ -1,13 +1,13 @@
 <suite name ="Test suite">
     <test name = "Task1Test">
         <classes>
-            <class name="test.task1oop.parser.StringParserTest"/>
-            <class name="test.task1oop.reader.PlaneReaderTest"/>
-            <class name="test.task1oop.validator.PassengerPlaneValidatorTest"/>
-            <class name="test.task1oop.validator.TransportPlaneValidatorTest"/>
-            <class name="test.task1oop.factory.PassengerPlaneFactoryTest"/>
-            <class name="test.task1oop.factory.TransportPlaneFactoryTest"/>
-            <class name="test.task1oop.entity.TransportPlaneTest"/>
+            <class name="test.task1oop.service.parser.StringParserTest"/>
+            <class name="test.task1oop.service.reader.PlaneReaderTest"/>
+            <class name="test.task1oop.bean.validator.PassengerPlaneValidatorTest"/>
+            <class name="test.task1oop.bean.validator.TransportPlaneValidatorTest"/>
+            <class name="test.task1oop.bean.factory.PassengerPlaneFactoryTest"/>
+            <class name="test.task1oop.bean.factory.TransportPlaneFactoryTest"/>
+            <class name="test.task1oop.bean.entity.TransportPlaneTest"/>
         </classes>
     </test>
 </suite>

@@ -4,25 +4,14 @@ import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.exception.WrongArgumentsException;
-import by.training.task1oop.specification.FindByIdSpecification;
-import by.training.task1oop.specification.FindByNameRegExSpecification;
-import by.training.task1oop.specification.FindByNameSpecification;
-import by.training.task1oop.specification.FindByPayloadAndSeatingCapacity;
-import by.training.task1oop.specification.FindByPayloadRangeSpecification;
-import by.training.task1oop.specification.Specification;
+import by.training.task1oop.specification.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class FindByService {
-    /**
-     * specification Map name and specification.
-     */
-    private final Map<String, Function<String, Specification>>
-            specificationMap = new HashMap<>();
     /**
      * wrong property name message.
      */
@@ -36,6 +25,11 @@ public class FindByService {
      * params delimiter char.
      */
     private static final char DELIMITER = ' ';
+    /**
+     * specification Map name and specification.
+     */
+    private final Map<String, ThrowingFunction<String, Specification, WrongArgumentsException>>
+            specificationMap = new HashMap<>();
     /**
      * init specification map.
      */
@@ -57,75 +51,112 @@ public class FindByService {
         Optional<String> optionalArgs = Optional.ofNullable(args);
         String safeArgs = optionalArgs.orElseThrow(
                 () -> new WrongArgumentsException(WRONG_PROPERTY_NAME));
-        String property = safeArgs.
-                substring(START_INDEX, safeArgs.indexOf(DELIMITER));
-        String params = safeArgs.substring(safeArgs.indexOf(DELIMITER));
-        String specificationName = property.toUpperCase();
-        Specification specification = specificationMap.
-                get(specificationName).apply(params);
-        Optional<Specification> optionalSpecification =
-                Optional.ofNullable(specification);
-        RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
-        Repository<Plane> repository = repositoryFactory.getPlaneRepository();
-        List<Plane> planes = repository.query(
-                        optionalSpecification.
-                        orElseThrow(() -> new WrongArgumentsException(
-                                WRONG_PROPERTY_NAME)));
-        StringBuilder result = new StringBuilder();
-        for (var plane : planes) {
-            result.append(plane);
-            result.append('\n');
+        try {
+            String property = safeArgs.
+                    substring(START_INDEX, safeArgs.indexOf(DELIMITER));
+
+            String params = safeArgs.substring(safeArgs.indexOf(DELIMITER)).trim();
+            String specificationName = property.toUpperCase();
+            Specification specification = specificationMap.
+                    get(specificationName).apply(params);
+            Optional<Specification> optionalSpecification =
+                    Optional.ofNullable(specification);
+            RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
+            Repository<Plane> repository = repositoryFactory.getPlaneRepository();
+            List<Plane> planes = repository.query(
+                    optionalSpecification.
+                            orElseThrow(() -> new WrongArgumentsException(
+                                    WRONG_PROPERTY_NAME)));
+//
+
+            return planes.toString();
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new WrongArgumentsException(WRONG_PROPERTY_NAME);
         }
-        return result.toString();
     }
 
     /**
      * @param name name to find by.
      * @return FindByNameSpecification
      */
-    private Specification findByName(final String name) {
-        return new FindByNameSpecification(name);
+    private Specification findByName(final String name)
+            throws WrongArgumentsException {
+        var safeName = Optional.ofNullable(name).orElseThrow(
+                () -> new WrongArgumentsException(WRONG_PROPERTY_NAME)
+        );
+        return new FindByNameSpecification(safeName);
     }
 
     /**
      * @param idString planeId to find by.
      * @return FindByIdSpecification
      */
-    private Specification findById(final String idString) {
-       long id = Long.parseLong(idString);
-       return new FindByIdSpecification(id);
+    private Specification findById(final String idString)
+            throws WrongArgumentsException {
+        try {
+            long id = Long.parseLong(idString);
+            return new FindByIdSpecification(id);
+        } catch (NumberFormatException e) {
+            throw new WrongArgumentsException(WRONG_PROPERTY_NAME, e);
+        }
     }
 
     /**
      * @param regex to find by.
      * @return FindByNameRegExSpecification
      */
-    private Specification findByNameRegex(final String regex) {
-        return new FindByNameRegExSpecification(regex);
+    private Specification findByNameRegex(final String regex)
+            throws WrongArgumentsException {
+        var safeRegex = Optional.ofNullable(regex).orElseThrow(
+                () -> new WrongArgumentsException(WRONG_PROPERTY_NAME)
+        );
+        return new FindByNameRegExSpecification(safeRegex);
     }
 
     /**
      * @param rangeString payload range to find by.
      * @return FindByPayloadRangeSpecification
      */
-    private Specification findByPayloadRange(final String rangeString) {
-        int a = Integer.parseInt(
-                rangeString.substring(START_INDEX,
-                        rangeString.indexOf(DELIMITER)));
-        int b = Integer.parseInt(rangeString.substring(
-                rangeString.indexOf(DELIMITER)));
-        return new FindByPayloadRangeSpecification(a, b);
+    private Specification findByPayloadRange(final String rangeString)
+            throws WrongArgumentsException {
+        try {
+            int a = Integer.parseInt(
+                    rangeString.substring(START_INDEX,
+                            rangeString.indexOf(DELIMITER)));
+            int b = Integer.parseInt(rangeString.substring(
+                    rangeString.indexOf(DELIMITER)).trim());
+            return new FindByPayloadRangeSpecification(a, b);
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            throw new WrongArgumentsException(WRONG_PROPERTY_NAME, e);
+        }
+
     }
 
     /**
      * @param params to find by.
      * @return FindByPayloadAndSeatingCapacity specification
      */
-    private Specification findByPayloadAndSeatingCapacity(final String params) {
-        int payload = Integer.parseInt(
-                params.substring(START_INDEX, params.indexOf(DELIMITER)));
-        int seatingCapacity = Integer.parseInt(params.substring(
-                params.indexOf(DELIMITER)));
-        return new FindByPayloadAndSeatingCapacity(payload, seatingCapacity);
+    private Specification findByPayloadAndSeatingCapacity(final String params)
+            throws WrongArgumentsException {
+        try {
+            int payload = Integer.parseInt(
+                    params.substring(START_INDEX, params.indexOf(DELIMITER)));
+            int seatingCapacity = Integer.parseInt(params.substring(
+                    params.indexOf(DELIMITER)).trim());
+            return new FindByPayloadAndSeatingCapacity(payload, seatingCapacity);
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            throw new WrongArgumentsException(WRONG_PROPERTY_NAME, e);
+        }
+
+    }
+
+    /**
+     * @param <T> param type.
+     * @param <R> return type.
+     * @param <E> exception type.
+     */
+    @FunctionalInterface
+    private interface ThrowingFunction<T, R, E extends Exception> {
+        R apply(T t) throws E;
     }
 }

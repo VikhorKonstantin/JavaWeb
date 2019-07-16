@@ -1,4 +1,4 @@
-package test.task1oop.factory;
+package test.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.TransportPlane;
 import by.training.task1oop.exception.WrongArgumentsException;

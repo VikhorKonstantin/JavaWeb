@@ -1,4 +1,4 @@
-package test.task1oop.validator;
+package test.task1oop.bean.validator;
 
 import by.training.task1oop.bean.validator.PassengerPlaneValidator;
 import org.testng.annotations.DataProvider;

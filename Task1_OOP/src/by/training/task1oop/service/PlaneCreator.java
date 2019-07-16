@@ -7,6 +7,8 @@ import by.training.task1oop.bean.factory.TransportPlaneFactory;
 import by.training.task1oop.exception.WrongArgumentsException;
 import by.training.task1oop.service.parser.StringParser;
 
+import java.util.Optional;
+
 final class PlaneCreator {
     /**
      * PlaneCreator instance.
@@ -29,9 +31,9 @@ final class PlaneCreator {
      */
     private static final String AGRICULTURE = "AGRICULTURE";
     /**
-     * logger message.
+     * EXCEPTION message.
      */
-    private static final String LOG_MESSAGE = "Invalid args in line: ";
+    private static final String EXCEPTION_MESSAGE = "Invalid args in line: ";
     private PlaneCreator() {
     }
 
@@ -48,7 +50,10 @@ final class PlaneCreator {
      * @throws WrongArgumentsException if plane creation impossible
      */
     Plane createPlane(final String args) throws WrongArgumentsException {
-        var params = StringParser.parseString(args);
+        var safeArgs = Optional.ofNullable(args).orElseThrow(
+                () -> new WrongArgumentsException(EXCEPTION_MESSAGE)
+        );
+        var params = StringParser.parseString(safeArgs);
         String planeType = params.get(TYPE_INDEX);
         PassengerPlaneFactory passengerPlaneFactory =
                 PassengerPlaneFactory.getInstance();
@@ -64,7 +69,7 @@ final class PlaneCreator {
             case AGRICULTURE:
                 return agriculturalPlaneFactory.createPlane(params);
             default:
-                throw new WrongArgumentsException(LOG_MESSAGE + planeType);
+                throw new WrongArgumentsException(EXCEPTION_MESSAGE + planeType);
         }
     }
 }
