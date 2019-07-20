@@ -1,48 +1,32 @@
 package by.training.task1oop.service;
 
+import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.service.exception.ServiceException;
 
+import java.util.Optional;
 
 
 public class AddService {
     /**
-     * positive scenario message.
+     * exception message.
      */
-    private static final String POSITIVE_MESSAGE = "Plane was added";
-    /**
-     * negative scenario message.
-     */
-    private static final String NEGATIVE_MESSAGE = "Plane wasn't added,"
+    private static final String EXCEPTION_MESSAGE = "Plane wasn't added,"
             + " check args";
 
     /**
-     * @param args for creating plane to add.
-     * @param repository repository to add plane to.
+     * @param plane plane to add.
      * @return response
-     * @throws WrongArgumentsException if request invalid
+     * @throws ServiceException if request invalid
      */
-    String addPlane(final String args, final Repository repository)
-            throws WrongArgumentsException {
-        PlaneCreator planeCreator = PlaneCreator.getInstance();
-        try {
-            repository.add(planeCreator.createPlane(args));
-        } catch (WrongArgumentsException e) {
-           throw new WrongArgumentsException(NEGATIVE_MESSAGE, e);
-        }
-        return POSITIVE_MESSAGE;
-    }
-
-    /**
-     * @param args for creating plane to add.
-     * @return response
-     * @throws WrongArgumentsException if request invalid
-     */
-    public String addPlane(final String args) throws WrongArgumentsException {
+    public boolean addPlane(final Plane plane) throws ServiceException {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
-        Repository repository = repositoryFactory.getPlaneRepository();
-        return addPlane(args, repository);
+        Repository<Plane> repository = repositoryFactory.getPlaneRepository();
+        var safePlane = Optional.ofNullable(plane).orElseThrow(
+                () -> new ServiceException(EXCEPTION_MESSAGE)
+        );
+        return repository.add(safePlane);
     }
 
 }

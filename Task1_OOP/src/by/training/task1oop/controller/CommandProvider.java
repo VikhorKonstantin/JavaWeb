@@ -5,7 +5,11 @@ import by.training.task1oop.controller.command.DeletePlaneCommand;
 import by.training.task1oop.controller.command.Executable;
 import by.training.task1oop.controller.command.FindCommand;
 import by.training.task1oop.controller.command.InitFromFileCommand;
+import by.training.task1oop.controller.command.PayloadRequest;
+import by.training.task1oop.controller.command.PayloadUpdateCommand;
 import by.training.task1oop.controller.command.ReadByIdCommand;
+import by.training.task1oop.controller.command.SeatingCapacityRequest;
+import by.training.task1oop.controller.command.SeatingCapacityUpdateCommand;
 import by.training.task1oop.controller.command.SortCommand;
 
 import java.util.HashMap;
@@ -27,6 +31,11 @@ final class CommandProvider {
         executableMap.put("INIT", new InitFromFileCommand());
         executableMap.put("READ", new ReadByIdCommand());
         executableMap.put("SORT", new SortCommand());
+        executableMap.put("GET_PAYLOAD", new PayloadRequest());
+        executableMap.put("GET_SEATING_CAPACITY", new SeatingCapacityRequest());
+        executableMap.put("UPDATE_PAYLOAD", new PayloadUpdateCommand());
+        executableMap.put("UPDATE_SEATING_CAPACITY",
+                new SeatingCapacityUpdateCommand());
     }
 
     /**

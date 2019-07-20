@@ -1,7 +1,7 @@
 package by.training.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.Plane;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.bean.exception.BeanException;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ abstract class AbstractFactory {
     /**
      * @param planeParams list of params to create a plane.
      * @return {@link by.training.task1oop.bean.entity.Plane visualLabel}
-     * @throws WrongArgumentsException if input data invalid
+     * @throws BeanException if input data invalid
      */
     public abstract Plane createPlane(List<String> planeParams)
-            throws WrongArgumentsException;
+            throws BeanException;
 }

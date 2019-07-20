@@ -46,6 +46,41 @@ public abstract class Plane {
     }
 
     /**
+     * @param newPlaneId new plane id.
+     */
+    public void setPlaneId(final long newPlaneId) {
+        this.planeId = newPlaneId;
+    }
+
+    /**
+     * @param newSeatingCapacity new seating capacity.
+     */
+    public void setSeatingCapacity(final int newSeatingCapacity) {
+        this.seatingCapacity = newSeatingCapacity;
+    }
+
+    /**
+     * @param newPayload new payload.
+     */
+    public void setPayload(final int newPayload) {
+        this.payload = newPayload;
+    }
+
+    /**
+     * @param newFuelConsumption new fuel consumption.
+     */
+    public void setFuelConsumption(final int newFuelConsumption) {
+        this.fuelConsumption = newFuelConsumption;
+    }
+
+    /**
+     * @param newName new name.
+     */
+    public void setName(final String newName) {
+        this.name = newName;
+    }
+
+    /**
      * @return planeId unique Id of each plane.
      */
     public long getPlaneId() {

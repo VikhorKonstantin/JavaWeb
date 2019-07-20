@@ -1,7 +1,7 @@
 package by.training.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.AgriculturalPlane;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.bean.exception.BeanException;
 import by.training.task1oop.bean.validator.AgriculturalPlaneValidator;
 
 import java.util.List;
@@ -20,6 +20,11 @@ public final class AgriculturalPlaneFactory extends AbstractFactory {
      * index of cropsProcessingEfficiency in arguments.
      */
     private static final int PROC_EFFICIENCY_INDEX = 7;
+    /**
+     * Exception message.
+     */
+    private static final String EXCEPTION_MESSAGE =
+            "Wrong agricultural plane params: ";
     static {
         INSTANCE = new AgriculturalPlaneFactory();
     }
@@ -33,7 +38,7 @@ public final class AgriculturalPlaneFactory extends AbstractFactory {
     }
     @Override
     public AgriculturalPlane createPlane(final List<String> planeParams)
-            throws WrongArgumentsException {
+            throws BeanException {
         AgriculturalPlaneValidator agriculturalPlaneValidator =
                 new AgriculturalPlaneValidator();
         if (agriculturalPlaneValidator.isValid(planeParams)) {
@@ -46,7 +51,7 @@ public final class AgriculturalPlaneFactory extends AbstractFactory {
                     Integer.parseInt(planeParams.get(TANK_CAPACITY_INDEX)),
                     Integer.parseInt(planeParams.get(PROC_EFFICIENCY_INDEX)));
         } else {
-            throw new WrongArgumentsException("Input data invalid");
+            throw new BeanException(EXCEPTION_MESSAGE + planeParams);
         }
     }
 }

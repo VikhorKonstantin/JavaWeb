@@ -1,4 +1,4 @@
 /**
  * provides classes for reading data.
  */
-package by.training.task1oop.service.reader;
+package by.training.task1oop.dao.reader;

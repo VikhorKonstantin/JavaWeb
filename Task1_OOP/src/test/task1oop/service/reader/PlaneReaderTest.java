@@ -1,6 +1,7 @@
 package test.task1oop.service.reader;
 
-import by.training.task1oop.service.reader.PlaneReader;
+import by.training.task1oop.dao.exception.DAOException;
+import by.training.task1oop.dao.reader.PlaneReader;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -34,17 +35,18 @@ public class PlaneReaderTest {
 
     @Test(description = "negative scenario of readFromFile")
     public void readFromFileNegative() {
-        assertThrows(RuntimeException.class, () -> planeReader.readFromFile("dadFilename.txt"));
+        assertThrows(DAOException.class, () -> planeReader.readFromFile("dadFilename.txt"));
     }
 
     @Test(description = "null scenario of readFromFile")
     public void readFromFileNull() {
-        assertThrows(RuntimeException.class, () -> planeReader.readFromFile(null));
+        assertThrows(DAOException.class, () -> planeReader.readFromFile(null));
 
     }
 
     @Test(description = "positive scenario of readFromFile", dataProvider = "positiveDataForRead")
-    public void readFromFilePositive(List<String> list, String filename) {
+    public void readFromFilePositive(List<String> list, String filename)
+            throws DAOException {
         assertEquals(list, planeReader.readFromFile(filename));
     }
 }

@@ -3,17 +3,12 @@
     <!-- Appender section -->
     <Appenders>
         <!-- File appender -->
-        <File name="controller" fileName="logs/controller.log">
+        <File name="info" fileName="log/info.log">
             <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+                <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
             </PatternLayout>
         </File>
-        <File name="service" fileName="logs/service.log">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-        </File>
-        <File name="fatal" fileName="logs/fatal.log">
+        <File name="fatal" fileName="log/fatal.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
@@ -22,14 +17,11 @@
     <!-- Logger section -->
     <Loggers>
         <!-- Root logger -->
-        <Root level="FATAL">
+        <Root level="ERROR">
             <AppenderRef ref="fatal"/>
         </Root>
-        <logger name="by.training.task1oop.service" level="ALL">
-            <AppenderRef ref="service"/>
-        </logger>
-        <logger name="by.training.task1oop.controller" level="ALL">
-            <AppenderRef ref="controller"/>
+        <logger name="by.training.task1oop" level="INFO" additivity = "false">
+            <AppenderRef ref="info"/>
         </logger>
     </Loggers>
 </Configuration>

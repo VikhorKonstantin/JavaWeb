@@ -1,7 +1,7 @@
 package by.training.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.TransportPlane;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.bean.exception.BeanException;
 import by.training.task1oop.bean.validator.TransportPlaneValidator;
 
 
@@ -16,6 +16,11 @@ public final class TransportPlaneFactory extends AbstractFactory {
      * index of cargoHoldAmount in arguments.
      */
     private static final int CARGO_AMOUNT_INDEX = 6;
+    /**
+     * Exception message.
+     */
+    private static final String EXCEPTION_MESSAGE =
+            "Wrong transport plane params: ";
     static {
         INSTANCE = new TransportPlaneFactory();
     }
@@ -29,7 +34,7 @@ public final class TransportPlaneFactory extends AbstractFactory {
     }
     @Override
     public TransportPlane createPlane(final List<String> planeParams)
-            throws WrongArgumentsException {
+            throws BeanException {
         TransportPlaneValidator transportPlaneValidator =
                 new TransportPlaneValidator();
         if (transportPlaneValidator.isValid(planeParams)) {
@@ -40,7 +45,7 @@ public final class TransportPlaneFactory extends AbstractFactory {
                     planeParams.get(NAME_INDEX),
                     Integer.valueOf(planeParams.get(CARGO_AMOUNT_INDEX)));
         } else {
-            throw new WrongArgumentsException("Input data invalid");
+            throw new BeanException(EXCEPTION_MESSAGE + planeParams);
         }
     }
 }

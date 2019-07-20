@@ -8,22 +8,24 @@ import java.util.List;
 
 public interface Repository<T> {
     /**
-     * @param id unique plane ID.
-     * @return plane by it's id
+     * @param id unique object ID.
+     * @return object by it's id
      */
     Plane readById(long id);
 
     /**
-     * Add plane to repository.
-     * @param plane plane to add
+     * Add object to repository.
+     * @param object plane to add
+     * @return is object was added
      */
-    void add(Plane plane);
+    boolean add(T object);
 
     /**
-     * Delete plane from repository.
-     * @param plane plane to delete
+     * Delete object from repository.
+     * @param object object to delete
+     * @return true if object was deleted
      */
-    void delete(Plane plane);
+    boolean delete(T object);
 
     /**
      * @return list of all objects in repository.
@@ -34,6 +36,11 @@ public interface Repository<T> {
      * @return is repository empty.
      */
     boolean isEmpty();
+
+    /**
+     * clear repository.
+     */
+    void clear();
 
     /**
      * @param specification specification of a query.

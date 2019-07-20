@@ -2,7 +2,7 @@ package test.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.PassengerPlane;
 import by.training.task1oop.bean.entity.PassengerPlaneType;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.bean.exception.BeanException;
 import by.training.task1oop.bean.factory.PassengerPlaneFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,7 +24,7 @@ public class PassengerPlaneFactoryTest {
         };
     }
     @Test(description = "createPlaneTestPositive")
-    public void createPlaneTestPositive() throws WrongArgumentsException {
+    public void createPlaneTestPositive() throws BeanException {
         PassengerPlane expected = new PassengerPlane(15151515, 50,
                 500, 500, "Boeing-247", PassengerPlaneType.NARROW_BODY);
         PassengerPlaneFactory passengerPlaneFactory = PassengerPlaneFactory.getInstance();
@@ -36,6 +36,6 @@ public class PassengerPlaneFactoryTest {
     @Test(description = "createPlaneTestNegative", dataProvider = "NegativeScenarioData")
     public void createPlaneTestNegative(List<String> params) {
         PassengerPlaneFactory passengerPlaneFactory = PassengerPlaneFactory.getInstance();
-        assertThrows(WrongArgumentsException.class,()->passengerPlaneFactory.createPlane(params) );
+        assertThrows(BeanException.class,()->passengerPlaneFactory.createPlane(params) );
     }
 }

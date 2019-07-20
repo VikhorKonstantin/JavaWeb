@@ -1,46 +1,31 @@
 package by.training.task1oop.service;
 
+import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.service.exception.ServiceException;
+
+import java.util.Optional;
 
 public class DeleteService {
+
     /**
-     * positive scenario message.
+     * exception message.
      */
-    private static final String POSITIVE_MESSAGE = "Plane was deleted";
-    /**
-     * Negative scenario message.
-     */
-    private static final String NEGATIVE_MESSAGE = "Plane wasn't deleted,"
+    private static final String EXCEPTION_MESSAGE = "Plane wasn't deleted,"
             + " check args";
 
     /**
-     * @param args of plane to delete.
-     * @param repository to delete from.
-     * @return response.
-     * @throws WrongArgumentsException if request invalid
+     * @param plane plane to delete.
+     * @return response
+     * @throws ServiceException if request invalid
      */
-    String deletePlane(final String args, final Repository repository)
-            throws WrongArgumentsException {
-
-        PlaneCreator planeCreator = PlaneCreator.getInstance();
-        try {
-            repository.delete(planeCreator.createPlane(args));
-        } catch (WrongArgumentsException e) {
-            throw new WrongArgumentsException(NEGATIVE_MESSAGE, e);
-        }
-        return POSITIVE_MESSAGE;
-    }
-    /**
-     * @param args of plane to delete.
-     * @return response.
-     * @throws WrongArgumentsException if request invalid
-     */
-    public String deletePlane(final String args)
-            throws WrongArgumentsException {
+    public boolean deletePlane(final Plane plane) throws ServiceException {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
-        Repository repository = repositoryFactory.getPlaneRepository();
-        return deletePlane(args, repository);
+        Repository<Plane> repository = repositoryFactory.getPlaneRepository();
+        var safePlane = Optional.ofNullable(plane).orElseThrow(
+                () -> new ServiceException(EXCEPTION_MESSAGE)
+        );
+        return repository.delete(safePlane);
     }
 }

@@ -1,10 +1,11 @@
 package by.training.task1oop.service;
 
 import by.training.task1oop.bean.entity.Plane;
+import by.training.task1oop.dao.exception.DAOException;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
-import by.training.task1oop.exception.WrongArgumentsException;
-import by.training.task1oop.service.reader.PlaneReader;
+import by.training.task1oop.service.exception.ServiceException;
+import by.training.task1oop.dao.reader.PlaneReader;
 
 import java.util.Optional;
 
@@ -16,27 +17,25 @@ public class InitFromFileService {
     /**
      * service that init repository from file.
      * @param fileName file name
-     * @return response
-     * @throws WrongArgumentsException if request invalid
+     * @throws ServiceException if request invalid
      */
-    public String initFromFile(final String fileName)
-            throws WrongArgumentsException {
-
+    public void initFromFile(final String fileName)
+            throws ServiceException {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository<Plane> repository = repositoryFactory.getPlaneRepository();
-        PlaneReader planeReader = new PlaneReader();
-        AirCompanyInitializer airCompanyInitializer =
-                new AirCompanyInitializer();
-        Optional<String> oFilename = Optional.ofNullable(fileName);
-        airCompanyInitializer.initAirCompany(
-                planeReader.readFromFile(
-                        oFilename.orElse(DEFAULT_FILE_NAME)),
-                repository);
-        StringBuilder result = new StringBuilder();
-        for (var plane : repository.getAll()) {
-            result.append(plane);
-            result.append('\n');
+        if (!repository.isEmpty()) {
+            repository.clear();
         }
-        return result.toString();
+        PlaneReader planeReader = new PlaneReader();
+        RepositoryInitializer repositoryInitializer =
+                new RepositoryInitializer();
+        Optional<String> oFilename = Optional.ofNullable(fileName);
+        try {
+            repositoryInitializer.initAirCompany(
+                    planeReader.readFromFile(
+                            oFilename.orElse(DEFAULT_FILE_NAME)));
+        } catch (DAOException e) {
+            throw  new ServiceException(e);
+        }
     }
 }

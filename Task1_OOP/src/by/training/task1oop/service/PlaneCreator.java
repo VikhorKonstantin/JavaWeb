@@ -1,15 +1,16 @@
 package by.training.task1oop.service;
 
 import by.training.task1oop.bean.entity.Plane;
+import by.training.task1oop.bean.exception.BeanException;
 import by.training.task1oop.bean.factory.AgriculturalPlaneFactory;
 import by.training.task1oop.bean.factory.PassengerPlaneFactory;
 import by.training.task1oop.bean.factory.TransportPlaneFactory;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.service.exception.ServiceException;
 import by.training.task1oop.service.parser.StringParser;
 
 import java.util.Optional;
 
-final class PlaneCreator {
+public final class PlaneCreator {
     /**
      * PlaneCreator instance.
      */
@@ -31,27 +32,32 @@ final class PlaneCreator {
      */
     private static final String AGRICULTURE = "AGRICULTURE";
     /**
+     *Wrong plane type message.
+     */
+    private static final String WRONG_TYPE = "Wrong plane type";
+    /**
      * EXCEPTION message.
      */
-    private static final String EXCEPTION_MESSAGE = "Invalid args in line: ";
+    private static final String EXCEPTION_MESSAGE = "Plane creating error";
+
     private PlaneCreator() {
     }
 
     /**
      * @return INSTANCE.
      */
-    static PlaneCreator getInstance() {
+    public static PlaneCreator getInstance() {
         return INSTANCE;
     }
 
     /**
      * @param args args to create a plane.
      * @return Plane
-     * @throws WrongArgumentsException if plane creation impossible
+     * @throws ServiceException if plane creation impossible
      */
-    Plane createPlane(final String args) throws WrongArgumentsException {
+    public Plane createPlane(final String args) throws ServiceException {
         var safeArgs = Optional.ofNullable(args).orElseThrow(
-                () -> new WrongArgumentsException(EXCEPTION_MESSAGE)
+                () -> new ServiceException(EXCEPTION_MESSAGE)
         );
         var params = StringParser.parseString(safeArgs);
         String planeType = params.get(TYPE_INDEX);
@@ -61,15 +67,21 @@ final class PlaneCreator {
                 TransportPlaneFactory.getInstance();
         AgriculturalPlaneFactory agriculturalPlaneFactory =
                 AgriculturalPlaneFactory.getInstance();
-        switch (planeType) {
-            case PASSENGER:
-                return passengerPlaneFactory.createPlane(params);
-            case TRANSPORT:
-                return transportPlaneFactory.createPlane(params);
-            case AGRICULTURE:
-                return agriculturalPlaneFactory.createPlane(params);
-            default:
-                throw new WrongArgumentsException(EXCEPTION_MESSAGE + planeType);
+        try {
+            switch (planeType) {
+                case PASSENGER:
+                    return passengerPlaneFactory.createPlane(params);
+                case TRANSPORT:
+                    return transportPlaneFactory.createPlane(params);
+                case AGRICULTURE:
+                    return agriculturalPlaneFactory.createPlane(params);
+                default:
+                    throw new ServiceException(
+                            WRONG_TYPE + planeType);
+            }
+        } catch (BeanException e) {
+            throw new ServiceException(EXCEPTION_MESSAGE, e);
         }
+
     }
 }

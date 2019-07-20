@@ -1,7 +1,7 @@
 package by.training.task1oop.controller.command;
 
-import by.training.task1oop.exception.WrongArgumentsException;
 import by.training.task1oop.service.InitFromFileService;
+import by.training.task1oop.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +10,10 @@ public class InitFromFileCommand implements Executable {
      * Logger.
      */
     private static Logger logger = LogManager.getLogger();
+    /**
+     * success message.
+     */
+    private static final String SUCCESS = "Was initialized successfully";
     /**
      * logger message.
      */
@@ -22,10 +26,11 @@ public class InitFromFileCommand implements Executable {
     public String execute(final String fileName) {
         InitFromFileService service = new InitFromFileService();
         try {
-            return service.initFromFile(fileName);
-        } catch (WrongArgumentsException e) {
+            service.initFromFile(fileName);
+            return SUCCESS;
+        } catch (ServiceException e) {
             logger.info(LOG_MESSAGE, e);
-            return LOG_MESSAGE;
+            return LOG_MESSAGE + e.getMessage();
         }
     }
 }

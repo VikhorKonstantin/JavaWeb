@@ -2,7 +2,7 @@ package by.training.task1oop.bean.factory;
 
 import by.training.task1oop.bean.entity.PassengerPlane;
 import by.training.task1oop.bean.entity.PassengerPlaneType;
-import by.training.task1oop.exception.WrongArgumentsException;
+import by.training.task1oop.bean.exception.BeanException;
 import by.training.task1oop.bean.validator.PassengerPlaneValidator;
 
 import java.util.List;
@@ -17,6 +17,12 @@ public final class PassengerPlaneFactory extends AbstractFactory {
      * index of passengerPlaneType in arguments.
      */
     private static final int PASSENGER_TYPE_INDEX = 6;
+
+    /**
+     * Exception message.
+     */
+    private static final String EXCEPTION_MESSAGE =
+            "Wrong passenger plane params: ";
     static {
         INSTANCE = new PassengerPlaneFactory();
     }
@@ -30,7 +36,7 @@ public final class PassengerPlaneFactory extends AbstractFactory {
     }
     @Override
     public PassengerPlane createPlane(final List<String> planeParams)
-            throws WrongArgumentsException {
+            throws BeanException {
         PassengerPlaneValidator passengerPlaneValidator =
                 new PassengerPlaneValidator();
         if (passengerPlaneValidator.isValid(planeParams)) {
@@ -42,7 +48,7 @@ public final class PassengerPlaneFactory extends AbstractFactory {
                     PassengerPlaneType.valueOf(
                             planeParams.get(PASSENGER_TYPE_INDEX)));
         } else {
-            throw new WrongArgumentsException("Input data invalid");
+            throw new BeanException(EXCEPTION_MESSAGE + planeParams);
         }
     }
 }
