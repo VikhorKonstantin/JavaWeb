@@ -43,7 +43,7 @@ public class PayloadUpdateCommand implements Executable {
             var argList = StringParser.parseString(args);
             boolean isUpdated = service.updatePayloadById(
                     Long.parseLong(argList.get(ID_INDEX)),
-                    Integer.parseInt(argList.get(PAYLOAD_INDEX)));
+                    Integer.parseInt(argList.get(PAYLOAD_INDEX).trim()));
             if (isUpdated) {
                 return POSITIVE_MESSAGE;
             } else {

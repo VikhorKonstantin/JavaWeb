@@ -1,4 +1,4 @@
-package test.task1oop.service.reader;
+package test.task1oop.dao.reader;
 
 import by.training.task1oop.dao.exception.DAOException;
 import by.training.task1oop.dao.reader.PlaneReader;

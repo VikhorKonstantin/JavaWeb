@@ -9,14 +9,30 @@ public class AirCompanyController {
     private final CommandProvider provider = new CommandProvider();
 
     /**
-     * @param commandName name of command to execute.
-     * @param args arguments for command.
+     * Wrong request message.
+     */
+    private static final String WRONG_REQUEST = "Wrong request";
+    /**
+     * Delimiter.
+     */
+    private static final String DELIMITER = " ";
+    /**
+     * @param request name of command to execute.
      * @return response.
      */
-    public String executeTask(final String commandName, final String args) {
-        Executable executionCommand = provider.getCommand(commandName);
-        String response;
-        response = executionCommand.execute(args);
-        return response;
+    public String executeTask(final String request) {
+        try {
+            final String commandName = request.substring(0,
+                    request.indexOf(DELIMITER));
+            final String args = request.substring(
+                    request.indexOf(DELIMITER)).trim();
+            Executable executionCommand = provider.getCommand(commandName);
+            String response;
+            response = executionCommand.execute(args);
+            return response;
+        } catch (StringIndexOutOfBoundsException | NullPointerException e) {
+            return WRONG_REQUEST;
+        }
+
     }
 }

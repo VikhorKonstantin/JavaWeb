@@ -10,9 +10,7 @@ final class RepositoryInitializer {
     /**
      * Logger.
      */
-    private static Logger logger = LogManager.getLogger();
-
-
+    private static Logger logger = LogManager.getLogger("error");
     /**
      * @param planesParams List of params of plane.
      */
@@ -24,7 +22,7 @@ final class RepositoryInitializer {
                 addService.addPlane(
                         planeCreator.createPlane(paramString));
             } catch (ServiceException e) {
-                logger.info(e);
+                logger.error(e);
             }
         }
     }
