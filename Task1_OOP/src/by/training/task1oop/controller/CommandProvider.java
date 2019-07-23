@@ -33,8 +33,8 @@ final class CommandProvider {
         executableMap.put("SORT", new SortCommand());
         executableMap.put("GET_PAYLOAD", new PayloadRequest());
         executableMap.put("GET_SEATING_CAPACITY", new SeatingCapacityRequest());
-        executableMap.put("UPDATE_PAYLOAD", new PayloadUpdateCommand());
-        executableMap.put("UPDATE_SEATING_CAPACITY",
+        executableMap.put("UPDATE_PAYLOAD_BY_ID", new PayloadUpdateCommand());
+        executableMap.put("UPDATE_SEATING_CAPACITY_BY_ID",
                 new SeatingCapacityUpdateCommand());
     }
 

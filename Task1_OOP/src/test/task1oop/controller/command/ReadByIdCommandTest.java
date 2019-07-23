@@ -7,6 +7,7 @@ import by.training.task1oop.bean.entity.TransportPlane;
 import by.training.task1oop.controller.command.ReadByIdCommand;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ public class ReadByIdCommandTest {
     private static final String NO_SUCH_ELEMENT = "No such plane in repository";
     private static final String LOG_MESSAGE = "Invalid args in line: ";
     private ReadByIdCommand command = new ReadByIdCommand();
-    @BeforeTest
+    @BeforeClass
     public void reposInit() {
         RepositoryFactory repositoryFactory = RepositoryFactory.getInstance();
         Repository<Plane> repository = repositoryFactory.getPlaneRepository();

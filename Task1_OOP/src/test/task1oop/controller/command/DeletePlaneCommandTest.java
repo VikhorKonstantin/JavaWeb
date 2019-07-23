@@ -3,6 +3,7 @@ package test.task1oop.controller.command;
 import by.training.task1oop.controller.command.DeletePlaneCommand;
 import by.training.task1oop.service.InitFromFileService;
 import by.training.task1oop.service.exception.ServiceException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ public class DeletePlaneCommandTest {
             "No such plane in the company";
     private static final String EXCEPTION_MESSAGE = "Plane creating error";
 
-    @BeforeTest
+    @BeforeClass
     public void reposInit() throws ServiceException {
         InitFromFileService initFromFileService = new InitFromFileService();
         initFromFileService.initFromFile("input/input.txt");
@@ -40,7 +41,7 @@ public class DeletePlaneCommandTest {
 
     @Test(description = "DeletePlaneResponsePositiveTestTest",
     dataProvider = "Positive plane args")
-    public void addPlaneResponsePositiveTest(String params, String response) {
+    public void deletePlaneResponsePositiveTest(String params, String response) {
         assertEquals(command.execute(params), response);
     }
 

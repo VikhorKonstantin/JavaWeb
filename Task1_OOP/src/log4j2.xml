@@ -3,25 +3,31 @@
     <!-- Appender section -->
     <Appenders>
         <!-- File appender -->
+        <File name="fatal" fileName="log/error.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
+            </PatternLayout>
+        </File>
         <File name="info" fileName="log/info.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
             </PatternLayout>
         </File>
-        <File name="fatal" fileName="log/fatal.log">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-        </File>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
     </Appenders>
     <!-- Logger section -->
     <Loggers>
         <!-- Root logger -->
-        <Root level="ERROR">
-            <AppenderRef ref="fatal"/>
-        </Root>
-        <logger name="by.training.task1oop" level="INFO" additivity = "false">
+        <Root level="ALL">
             <AppenderRef ref="info"/>
+        </Root>
+        <logger name="error" level="ERROR" additivity = "false">
+            <AppenderRef ref="fatal"/>
+        </logger>
+        <logger name="STDOUT" level="INFO">
+            <AppenderRef ref="STDOUT"/>
         </logger>
     </Loggers>
 </Configuration>

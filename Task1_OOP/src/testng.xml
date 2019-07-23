@@ -7,7 +7,8 @@
             <package name="test.task1oop.bean.validator"/>
             <package name="test.task1oop.controller.command"/>
             <package name="test.task1oop.service.parser"/>
-            <package name="test.task1oop.service.reader"/>
+            <package name="test.task1oop.dao.reader"/>
+            <package name="test.task1oop.dao.repository"/>
             <package name="test.task1oop.service"/>
         </packages>
     </test>

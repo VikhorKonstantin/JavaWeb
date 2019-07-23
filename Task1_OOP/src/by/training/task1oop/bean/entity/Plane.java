@@ -6,7 +6,7 @@ import java.util.Objects;
  * Abstract Class that describe a plane.
  */
 
-public abstract class Plane {
+public abstract class Plane extends UpdateSubmissionPublisher {
     /**
      * unique Id of each plane.
      */
@@ -49,35 +49,38 @@ public abstract class Plane {
      * @param newPlaneId new plane id.
      */
     public void setPlaneId(final long newPlaneId) {
-        this.planeId = newPlaneId;
+        planeId = newPlaneId;
     }
 
     /**
      * @param newSeatingCapacity new seating capacity.
      */
     public void setSeatingCapacity(final int newSeatingCapacity) {
-        this.seatingCapacity = newSeatingCapacity;
+        submit(new UpdateData(seatingCapacity, newSeatingCapacity,
+                "SEATING_CAPACITY"));
+        seatingCapacity = newSeatingCapacity;
     }
 
     /**
      * @param newPayload new payload.
      */
     public void setPayload(final int newPayload) {
-        this.payload = newPayload;
+        submit(new UpdateData(payload, newPayload, "PAYLOAD"));
+        payload = newPayload;
     }
 
     /**
      * @param newFuelConsumption new fuel consumption.
      */
     public void setFuelConsumption(final int newFuelConsumption) {
-        this.fuelConsumption = newFuelConsumption;
+        fuelConsumption = newFuelConsumption;
     }
 
     /**
      * @param newName new name.
      */
     public void setName(final String newName) {
-        this.name = newName;
+        name = newName;
     }
 
     /**
@@ -113,6 +116,7 @@ public abstract class Plane {
     public String getName() {
         return name;
     }
+
 
     /**
      * @param o object to compare with.
@@ -154,4 +158,6 @@ public abstract class Plane {
                 + ", fuelConsumption=" + fuelConsumption
                 + ", name='" + name + '\'' + '}';
     }
+
+
 }
