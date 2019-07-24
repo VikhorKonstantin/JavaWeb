@@ -1,4 +1,4 @@
-package by.training.task1oop.specification;
+package by.training.task1oop.dao.repository.specification;
 
 import by.training.task1oop.bean.entity.Plane;
 
