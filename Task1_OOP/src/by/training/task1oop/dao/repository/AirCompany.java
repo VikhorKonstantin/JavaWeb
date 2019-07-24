@@ -3,9 +3,9 @@ package by.training.task1oop.dao.repository;
 import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.bean.entity.UpdateSubmissionPublisher.UpdateData;
 import by.training.task1oop.service.AirCompanyInfoService;
-import by.training.task1oop.specification.FindSpecification;
-import by.training.task1oop.specification.SortSpecification;
-import by.training.task1oop.specification.Specification;
+import by.training.task1oop.dao.repository.specification.FindSpecification;
+import by.training.task1oop.dao.repository.specification.SortSpecification;
+import by.training.task1oop.dao.repository.specification.Specification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

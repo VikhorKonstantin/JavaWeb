@@ -4,11 +4,11 @@ import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.service.exception.ServiceException;
-import by.training.task1oop.specification.SortByFuelConsumptionReversed;
-import by.training.task1oop.specification.SortByNameAndIdSpecification;
-import by.training.task1oop.specification.SortByNameSpecification;
-import by.training.task1oop.specification.SortSpecification;
-import by.training.task1oop.specification.Specification;
+import by.training.task1oop.dao.repository.specification.SortByFuelConsumptionReversed;
+import by.training.task1oop.dao.repository.specification.SortByNameAndIdSpecification;
+import by.training.task1oop.dao.repository.specification.SortByNameSpecification;
+import by.training.task1oop.dao.repository.specification.SortSpecification;
+import by.training.task1oop.dao.repository.specification.Specification;
 
 import java.util.HashMap;
 import java.util.List;

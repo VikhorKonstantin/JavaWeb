@@ -1,4 +1,4 @@
-package by.training.task1oop.specification;
+package by.training.task1oop.dao.repository.specification;
 
 public interface FindSpecification<T> extends Specification {
     /**

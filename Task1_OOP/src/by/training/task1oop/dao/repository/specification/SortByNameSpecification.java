@@ -1,17 +1,16 @@
-package by.training.task1oop.specification;
+package by.training.task1oop.dao.repository.specification;
 
 import by.training.task1oop.bean.entity.Plane;
 
 import java.util.Comparator;
 
-public class SortByNameAndIdSpecification implements SortSpecification<Plane> {
+public class SortByNameSpecification implements SortSpecification<Plane> {
     /**
      * determines which property the list will be sorted by.
      * @return Comparator<T>
      */
     @Override
     public Comparator<Plane> sortBy() {
-        return Comparator.comparing(Plane::getName)
-                .thenComparingLong(Plane::getPlaneId);
+        return Comparator.comparing(Plane::getName);
     }
 }

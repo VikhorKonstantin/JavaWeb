@@ -4,12 +4,12 @@ import by.training.task1oop.bean.entity.Plane;
 import by.training.task1oop.dao.factory.RepositoryFactory;
 import by.training.task1oop.dao.repository.Repository;
 import by.training.task1oop.service.exception.ServiceException;
-import by.training.task1oop.specification.FindByIdSpecification;
-import by.training.task1oop.specification.FindByNameRegExSpecification;
-import by.training.task1oop.specification.FindByNameSpecification;
-import by.training.task1oop.specification.FindByPayloadAndSeatingCapacity;
-import by.training.task1oop.specification.FindByPayloadRangeSpecification;
-import by.training.task1oop.specification.Specification;
+import by.training.task1oop.dao.repository.specification.FindByIdSpecification;
+import by.training.task1oop.dao.repository.specification.FindByNameRegExSpecification;
+import by.training.task1oop.dao.repository.specification.FindByNameSpecification;
+import by.training.task1oop.dao.repository.specification.FindByPayloadAndSeatingCapacity;
+import by.training.task1oop.dao.repository.specification.FindByPayloadRangeSpecification;
+import by.training.task1oop.dao.repository.specification.Specification;
 
 import java.util.HashMap;
 import java.util.List;

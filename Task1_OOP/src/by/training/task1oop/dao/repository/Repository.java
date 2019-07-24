@@ -1,7 +1,7 @@
 package by.training.task1oop.dao.repository;
 
 import by.training.task1oop.bean.entity.Plane;
-import by.training.task1oop.specification.Specification;
+import by.training.task1oop.dao.repository.specification.Specification;
 
 import java.util.List;
 
