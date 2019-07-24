@@ -47,7 +47,7 @@ public class AirCompanyInfoService {
                 );
                 break;
             case "SEATING_CAPACITY":
-                repository.setTotalPayload(
+                repository.setTotalSeatingCapacity(
                         repository.getTotalSeatingCapacity()
                                 + difference
                 );
