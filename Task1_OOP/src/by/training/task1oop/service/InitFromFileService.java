@@ -11,10 +11,6 @@ import java.util.Optional;
 
 public class InitFromFileService {
     /**
-     * default file name.
-     */
-    private static final String DEFAULT_FILE_NAME = "input/input.txt";
-    /**
      * service that init repository from file.
      * @param fileName file name
      * @throws ServiceException if request invalid
@@ -33,7 +29,7 @@ public class InitFromFileService {
         try {
             repositoryInitializer.initAirCompany(
                     planeReader.readFromFile(
-                            oFilename.orElse(DEFAULT_FILE_NAME)));
+                            oFilename.orElseThrow(ServiceException::new)));
         } catch (DAOException e) {
             throw  new ServiceException(e);
         }
