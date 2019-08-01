@@ -1,0 +1,8 @@
+From project dir:
+
+npm install -g gulp
+npm install --save-dev gulp
+npm i
+gulp
+
+May require some seconds to load images (or may require page reloading).
