@@ -1,3 +1,17 @@
+@font-face {
+    font-family: "Lato";
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Lato";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../fonts/Lato/Lato-Bold.ttf") format("truetype");
+}
+
 /*!
  * Bootstrap Reboot v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -25,13 +39,13 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Lato", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff;
+    background-color: #63afd0;
 }
 
 [tabindex="-1"]:focus {
@@ -436,6 +450,16 @@ button.bg-dark:focus {
     background-color: #1d2124 !important;
 }
 
+.bg-submit {
+    background-color: #467bec !important;
+}
+
+a.bg-submit:hover, a.bg-submit:focus,
+button.bg-submit:hover,
+button.bg-submit:focus {
+    background-color: #185ae7 !important;
+}
+
 .bg-white {
     background-color: #fff !important;
 }
@@ -514,6 +538,10 @@ button.bg-dark:focus {
 
 .border-dark {
     border-color: #343a40 !important;
+}
+
+.border-submit {
+    border-color: #467bec !important;
 }
 
 .border-white {
@@ -4422,6 +4450,14 @@ a.text-dark:hover, a.text-dark:focus {
     color: #121416 !important;
 }
 
+.text-submit {
+    color: #467bec !important;
+}
+
+a.text-submit:hover, a.text-submit:focus {
+    color: #1551d0 !important;
+}
+
 .text-body {
     color: #212529 !important;
 }
@@ -6078,6 +6114,42 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5);
 }
 
+.btn-submit {
+    color: #fff;
+    background-color: #467bec;
+    border-color: #467bec;
+}
+
+.btn-submit:hover {
+    color: #fff;
+    background-color: #2362e8;
+    border-color: #185ae7;
+}
+
+.btn-submit:focus, .btn-submit.focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(98, 143, 239, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(98, 143, 239, 0.5);
+}
+
+.btn-submit.disabled, .btn-submit:disabled {
+    color: #fff;
+    background-color: #467bec;
+    border-color: #467bec;
+}
+
+.btn-submit:not(:disabled):not(.disabled):active, .btn-submit:not(:disabled):not(.disabled).active,
+  .show > .btn-submit.dropdown-toggle {
+    color: #fff;
+    background-color: #185ae7;
+    border-color: #1756dc;
+}
+
+.btn-submit:not(:disabled):not(.disabled):active:focus, .btn-submit:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-submit.dropdown-toggle:focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(98, 143, 239, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(98, 143, 239, 0.5);
+}
+
 .btn-outline-primary {
     color: #007bff;
     border-color: #007bff;
@@ -6350,6 +6422,40 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
 }
 
+.btn-outline-submit {
+    color: #467bec;
+    border-color: #467bec;
+}
+
+.btn-outline-submit:hover {
+    color: #fff;
+    background-color: #467bec;
+    border-color: #467bec;
+}
+
+.btn-outline-submit:focus, .btn-outline-submit.focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+}
+
+.btn-outline-submit.disabled, .btn-outline-submit:disabled {
+    color: #467bec;
+    background-color: transparent;
+}
+
+.btn-outline-submit:not(:disabled):not(.disabled):active, .btn-outline-submit:not(:disabled):not(.disabled).active,
+  .show > .btn-outline-submit.dropdown-toggle {
+    color: #fff;
+    background-color: #467bec;
+    border-color: #467bec;
+}
+
+.btn-outline-submit:not(:disabled):not(.disabled):active:focus, .btn-outline-submit:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-outline-submit.dropdown-toggle:focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+}
+
 .btn-link {
     font-weight: 400;
     color: #007bff;
@@ -6541,6 +6647,20 @@ input[type="button"].btn-block {
     color: #040505;
 }
 
+.alert-submit {
+    color: #24407b;
+    background-color: #dae5fb;
+    border-color: #cbdafa;
+}
+
+.alert-submit hr {
+    border-top-color: #b4c9f8;
+}
+
+.alert-submit .alert-link {
+    color: #182b54;
+}
+
 .badge {
     display: inline-block;
     padding: 0.25em 0.4em;
@@ -6713,12 +6833,28 @@ a.badge-dark:focus, a.badge-dark.focus {
     box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
 }
 
+.badge-submit {
+    color: #fff;
+    background-color: #467bec;
+}
+
+a.badge-submit:hover, a.badge-submit:focus {
+    color: #fff;
+    background-color: #185ae7;
+}
+
+a.badge-submit:focus, a.badge-submit.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+}
+
 .tooltip {
     position: absolute;
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Lato", sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -6831,7 +6967,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Lato", sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -8890,6 +9026,22 @@ mark,
     border-color: #1b1e21;
 }
 
+.list-group-item-submit {
+    color: #24407b;
+    background-color: #cbdafa;
+}
+
+.list-group-item-submit.list-group-item-action:hover, .list-group-item-submit.list-group-item-action:focus {
+    color: #24407b;
+    background-color: #b4c9f8;
+}
+
+.list-group-item-submit.list-group-item-action.active {
+    color: #fff;
+    background-color: #24407b;
+    border-color: #24407b;
+}
+
 .badge {
     display: inline-block;
     padding: 0.25em 0.4em;
@@ -9062,6 +9214,22 @@ a.badge-dark:focus, a.badge-dark.focus {
     box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
 }
 
+.badge-submit {
+    color: #fff;
+    background-color: #467bec;
+}
+
+a.badge-submit:hover, a.badge-submit:focus {
+    color: #fff;
+    background-color: #185ae7;
+}
+
+a.badge-submit:focus, a.badge-submit.focus {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(70, 123, 236, 0.5);
+}
+
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -9069,7 +9237,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 
 .img-thumbnail {
     padding: 0.25rem;
-    background-color: #fff;
+    background-color: #63afd0;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
     max-width: 100%;
@@ -9143,8 +9311,8 @@ a.badge-dark:focus, a.badge-dark.focus {
 .nav-tabs .nav-link.active,
   .nav-tabs .nav-item.show .nav-link {
     color: #495057;
-    background-color: #fff;
-    border-color: #dee2e6 #dee2e6 #fff;
+    background-color: #63afd0;
+    border-color: #dee2e6 #dee2e6 #63afd0;
 }
 
 .nav-tabs .dropdown-menu {
@@ -9649,6 +9817,28 @@ a.badge-dark:focus, a.badge-dark.focus {
     background-color: #b9bbbe;
 }
 
+.table-submit,
+.table-submit > th,
+.table-submit > td {
+    background-color: #cbdafa;
+}
+
+.table-submit th,
+.table-submit td,
+.table-submit thead th,
+.table-submit tbody + tbody {
+    border-color: #9fbaf5;
+}
+
+.table-hover .table-submit:hover {
+    background-color: #b4c9f8;
+}
+
+.table-hover .table-submit:hover > td,
+  .table-hover .table-submit:hover > th {
+    background-color: #b4c9f8;
+}
+
 .table-active,
 .table-active > th,
 .table-active > td {
@@ -9764,16 +9954,11 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .navbar-expand-lg {
-    font-family: 'Lato', sans-serif;
     font-size: 35px;
 }
 
 nav.bg-light {
     background-color: #0772a1 !important;
-}
-
-body {
-    background-color: #63afd0;
 }
 
 .rounded-form {
@@ -9788,10 +9973,6 @@ body {
 label.required:after {
     color: red;
     content: " *";
-}
-
-label {
-    font-family: 'Lato', sans-serif;
 }
 
 .bordering {
@@ -9832,10 +10013,6 @@ label {
     font-size: 30px;
 }
 
-label {
-    font-family: 'Lato', sans-serif;
-}
-
 .btn.glo {
     text-decoration: none;
     background-image: -webkit-gradient(linear, right top, left top, from(transparent), color-stop(50%, transparent), color-stop(50%, #0772a1), to(#0772a1));
@@ -9861,12 +10038,7 @@ label {
 }
 
 address {
-    font-family: 'Lato', sans-serif;
     font-size: 20px;
-}
-
-label {
-    font-family: 'Lato', sans-serif;
 }
 
 .bordering {
@@ -9903,4 +10075,40 @@ td:hover {
     -o-transition: transform 300ms linear 0ms,  box-shadow 300ms linear 0ms, z-index 300ms linear 0ms;
     transition: transform 300ms linear 0ms,  box-shadow 300ms linear 0ms, z-index 300ms linear 0ms;
     transition: transform 300ms linear 0ms,  box-shadow 300ms linear 0ms, z-index 300ms linear 0ms,  -webkit-transform 300ms linear 0ms,  -webkit-box-shadow 300ms linear 0ms;
+}
+
+/*==========  Mobile First  ==========*/
+/* Custom, iPhone Retina */
+@media only screen and (min-width: 320px) {
+    .header {
+        font-size: 20%;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width: 480px) {
+    .header {
+        font-size: 20%;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+    .header {
+        font-size: 40%;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+    .header {
+        font-size: 100%;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+    .header {
+        font-size: 100%;
+    }
 }
