@@ -1,0 +1,65 @@
+package by.training.task2threads.bean.factory;
+
+import by.training.task2threads.bean.entity.Matrix;
+import by.training.task2threads.bean.exception.BeanException;
+import by.training.task2threads.bean.validator.MatrixValidator;
+import by.training.task2threads.service.parser.StringParser;
+
+import java.util.List;
+
+/**
+ * Class which provides matrix creations method.
+ */
+public final class MatrixFactory {
+    /**
+     * MatrixFactory instance.
+     */
+    private static final MatrixFactory INSTANCE = new MatrixFactory();
+
+    /**
+     * Makes object creation impossible.
+     */
+    private MatrixFactory() {
+        //Makes object creation impossible.
+    }
+
+    /**
+     * returns MatrixFactory instance.
+     * @return INSTANCE
+     */
+    public static MatrixFactory getINSTANCE() {
+        return INSTANCE;
+    }
+
+    /**
+     * Create matrix.
+     * @param matrixParams params of matrix to create.
+     * @return new Matrix
+     * @throws BeanException if something goes wrong.
+     */
+    public Matrix createMatrix(final List<String> matrixParams)
+            throws BeanException {
+        MatrixValidator matrixValidator = new MatrixValidator();
+        if (matrixValidator.isMatrixDataValid(matrixParams)) {
+            var listIterator = matrixParams.listIterator();
+            final int rowNumberIndex = 0;
+            final int columnNumberIndex = 1;
+            var sizeLine = StringParser.parseString(listIterator.next().trim());
+            final int rowNumber = Integer.parseInt(
+                    sizeLine.get(rowNumberIndex));
+            final int columnNumber = Integer.parseInt(
+                    sizeLine.get(columnNumberIndex));
+            var matrix = new int[rowNumber][columnNumber];
+            for (int i = 0; i < rowNumber; i++) {
+                var digits = StringParser.parseString(
+                        listIterator.next().trim());
+                for (int j = 0; j < columnNumber; j++) {
+                    matrix[i][j] = Integer.parseInt(digits.get(j));
+                }
+            }
+            return new Matrix(rowNumber, columnNumber, matrix);
+        } else {
+            throw new BeanException("Invalid matrix params");
+        }
+    }
+}
