@@ -1,4 +1,4 @@
-package by.training.task8;
+package by.training.task8lock;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -7,7 +7,7 @@ public class Runner {
     public static void main(String[] args) {
 
         CommonResource commonResource= new CommonResource();
-        ReentrantLock locker = new ReentrantLock(); // создаем заглушку
+        ReentrantLock locker = new ReentrantLock();
         for (int i = 1; i < 6; i++){
 
             Thread t = new Thread(new CountThread(commonResource, locker));
@@ -32,9 +32,9 @@ class CountThread implements Runnable{
     }
     public void run(){
 
-        locker.lock(); // устанавливаем блокировку
+        locker.lock();
         try{
-           // res.x=1;
+            res.x=1;
             for (int i = 1; i < 5; i++){
                 System.out.printf("%s %d %n", Thread.currentThread().getName(),
                         res.x);
@@ -46,7 +46,7 @@ class CountThread implements Runnable{
             System.out.println(e.getMessage());
         }
         finally{
-            locker.unlock(); // снимаем блокировку
+            locker.unlock();
         }
     }
 }
