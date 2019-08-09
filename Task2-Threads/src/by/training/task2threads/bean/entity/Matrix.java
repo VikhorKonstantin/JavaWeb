@@ -67,9 +67,20 @@ public class Matrix {
      * @param j column number
      * @return [i][j] element of matrix.
      */
-    public int getElement(final int i, final int j) {
+    public int readElement(final int i, final int j) {
         return matrixContent[i][j];
     }
+
+    /**
+     * Sets [i][j] element of matrix to newElem.
+     * @param i row number
+     * @param j column number
+     * @param newElem new value.
+     */
+    public void writeElement(final int i, final int j, final int newElem) {
+        matrixContent[i][j] = newElem;
+    }
+
     /**
      * Check if two matrices are equals.
      * @param newO matrix to compare.
@@ -107,13 +118,13 @@ public class Matrix {
      */
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < rowNumber; i++) {
             for (int j = 0; j < columnNumber; j++) {
-                stringBuffer.append(matrixContent[i][j]).append('\t');
+                stringBuilder.append(matrixContent[i][j]).append('\t');
             }
-            stringBuffer.append('\n');
+            stringBuilder.append('\n');
         }
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 }

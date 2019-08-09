@@ -2,15 +2,21 @@ package by.training.task2threads.service;
 
 import by.training.task2threads.bean.entity.Matrix;
 import by.training.task2threads.service.exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiplyMatrixService {
+public class MultiplyMatricesService {
+    /**
+     * Logger.
+     */
+    private static Logger logger = LogManager.getLogger("STDOUT");
     /**
      * Number of threads.
      */
-    private static final int THREADS_NUMBER = 7;
+    private static final int THREADS_NUMBER = 8;
     /**
      * First matrix.
      */
@@ -50,9 +56,6 @@ public class MultiplyMatrixService {
         resultRowNumber = matrix1.getRowNumber();
         resultColumnNumber = matrix2.getColumnNumber();
         resultContent = new int[resultRowNumber][resultColumnNumber];
-
-
-
         final int rangeSize = resultRowNumber / THREADS_NUMBER;
         int firstRowIndex = 0;
         int lastRowIndex = rangeSize - 1;
@@ -69,46 +72,21 @@ public class MultiplyMatrixService {
 
 
         var start = System.nanoTime();
-        threads.forEach(Thread::start);
         try {
             for (var thread : threads) {
+                thread.start();
                 thread.join();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new ServiceException(e);
         }
         var finish = System.nanoTime();
-        System.out.println("Time: " + (finish - start));
+        logger.info("Time: " + (finish - start));
         return new Matrix(resultRowNumber, resultColumnNumber, resultContent);
     }
 
-    /**
-     * Calculate row of result matrix.
-     * @param newI index of row
-     * @return result row
-     */
-    private int[] calculateResultRow(final int newI) {
-        int[] resultRow = new int[resultColumnNumber];
-        for (int i = 0; i < resultColumnNumber; i++) {
-            resultRow[i] = calculateResultElem(newI, i);
-        }
-        return resultRow;
-    }
 
-    /**
-     * Calculate element of result matrix.
-     * @param i index of row
-     * @param j index of column
-     * @return element
-     */
-    private int calculateResultElem(final int i, final int j) {
-        var resultElem = 0;
-        for (int k = 0; k <  matrix1.getColumnNumber(); k++) {
-            resultElem += matrix1.getElement(i, k)
-                    * matrix2.getElement(k, j);
-        }
-        return resultElem;
-    }
 
     /**
      * Calculating thread.
@@ -142,6 +120,34 @@ public class MultiplyMatrixService {
             for (int i = firstRowIndex; i <= lastRowIndex; i++) {
                 resultContent[i] = calculateResultRow(i);
             }
+        }
+
+        /**
+         * Calculate row of result matrix.
+         * @param newI index of row
+         * @return result row
+         */
+        private int[] calculateResultRow(final int newI) {
+            int[] resultRow = new int[resultColumnNumber];
+            for (int i = 0; i < resultColumnNumber; i++) {
+                resultRow[i] = calculateResultElem(newI, i);
+            }
+            return resultRow;
+        }
+
+        /**
+         * Calculate element of result matrix.
+         * @param i index of row
+         * @param j index of column
+         * @return element
+         */
+        private int calculateResultElem(final int i, final int j) {
+            var resultElem = 0;
+            for (int k = 0; k <  matrix1.getColumnNumber(); k++) {
+                resultElem += matrix1.readElement(i, k)
+                        * matrix2.readElement(k, j);
+            }
+            return resultElem;
         }
     }
 }

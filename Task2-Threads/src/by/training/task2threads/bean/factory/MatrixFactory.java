@@ -6,16 +6,20 @@ import by.training.task2threads.bean.validator.MatrixValidator;
 import by.training.task2threads.service.parser.StringParser;
 
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Class which provides matrix creations method.
  */
 public final class MatrixFactory {
     /**
-     * MatrixFactory instance.
+     * Instance.
      */
-    private static final MatrixFactory INSTANCE = new MatrixFactory();
-
+    private static MatrixFactory instance = null;
+    /**
+     * Lock for synchronization.
+     */
+    private static ReentrantLock lock = new ReentrantLock();
     /**
      * Makes object creation impossible.
      */
@@ -27,8 +31,16 @@ public final class MatrixFactory {
      * returns MatrixFactory instance.
      * @return INSTANCE
      */
-    public static MatrixFactory getINSTANCE() {
-        return INSTANCE;
+    public static MatrixFactory getInstance() {
+        lock.lock();
+        try {
+            if (instance == null) {
+                instance = new MatrixFactory();
+            }
+        } finally {
+            lock.unlock();
+        }
+        return instance;
     }
 
     /**
