@@ -15,7 +15,7 @@ public class MultiplyMatricesCommand implements Executable {
     /**
      * logger message.
      */
-    private static final String LOG_MESSAGE = "Invalid args in line: ";
+    private static final String LOG_MESSAGE = "Invalid args: ";
     /**
      * @param args for service method
      * @return response
