@@ -3,12 +3,7 @@
     <!-- Appender section -->
     <Appenders>
         <!-- File appender -->
-        <File name="fatal" fileName="log/error.log">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
-            </PatternLayout>
-        </File>
-        <File name="info" fileName="log/info.log">
+        <File name="error" fileName="log/log.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
             </PatternLayout>
@@ -20,11 +15,11 @@
     <!-- Logger section -->
     <Loggers>
         <!-- Root logger -->
-        <Root level="ALL">
-            <AppenderRef ref="info"/>
+        <Root level="INFO">
+            <AppenderRef ref="error"/>
         </Root>
         <logger name="error" level="ERROR" additivity = "false">
-            <AppenderRef ref="fatal"/>
+            <AppenderRef ref="error"/>
         </logger>
         <logger name="STDOUT" level="INFO">
             <AppenderRef ref="STDOUT"/>
