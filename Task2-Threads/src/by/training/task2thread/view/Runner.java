@@ -12,7 +12,7 @@ public final class Runner {
      */
     private static final String COMMANDS_INFO =
             "Command\tArgs\n"
-                    + "FILL\tFILENAME\tNUMBER\n"
+                    + "FILL\tFILENAME\tNUMBER_OF_THREADS\n"
                     + "MULTIPLY\tFILENAME№1\tFILENAME№2\n";
 
     /**

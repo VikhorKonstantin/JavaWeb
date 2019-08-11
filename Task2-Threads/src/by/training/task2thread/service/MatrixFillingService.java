@@ -34,8 +34,18 @@ public class MatrixFillingService {
     /**
      * Invalid matrix message.
      */
-    private static final String INVALID_ARGS_MSG =
-            "Invalid arguments. ";
+    private static final String NULL_MATRIX_MSG =
+            "Null matrix. Check input. ";
+    /**
+     * Invalid matrix message.
+     */
+    private static final String INVALID_MATRIX_MSG =
+            "Matrix should be square. ";
+    /**
+     * Invalid matrix message.
+     */
+    private static final String WRONG_THREAD_NUMBER_MSG =
+            "Number of threads should be greater than 0. ";
     /**
      * Fills matrix diagonal.
      * @param numberOfThreads number of threads using for computing.
@@ -47,11 +57,13 @@ public class MatrixFillingService {
                                final int numberOfThreads)
             throws ServiceException {
         matrix = Optional.ofNullable(newMatrix).orElseThrow(
-                () -> new ServiceException(INVALID_ARGS_MSG)
+                () -> new ServiceException(NULL_MATRIX_MSG)
         );
-        if (matrix.getRowNumber() != matrix.getColumnNumber()
-                || numberOfThreads < 1) {
-            throw new ServiceException(INVALID_ARGS_MSG);
+        if (matrix.getRowNumber() != matrix.getColumnNumber()) {
+            throw new ServiceException(INVALID_MATRIX_MSG);
+        }
+        if (numberOfThreads < 1) {
+            throw new ServiceException(WRONG_THREAD_NUMBER_MSG);
         }
         final int dioLength = matrix.getColumnNumber();
         ThreadFactory threadFactory = FillerThread::new;
