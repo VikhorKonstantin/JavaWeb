@@ -47,6 +47,10 @@ public class MatrixFillingService {
     private static final String WRONG_THREAD_NUMBER_MSG =
             "Number of threads should be greater than 0. ";
     /**
+     * Time out message.
+     */
+    private static final String TIME_OUT_MSG = "Time limit exceeded. ";
+    /**
      * Fills matrix diagonal.
      * @param numberOfThreads number of threads using for computing.
      * @param newMatrix matrix to fill.
@@ -97,7 +101,11 @@ public class MatrixFillingService {
         executorService.shutdown();
         try {
             final long timeout = 1;
-            executorService.awaitTermination(timeout, TimeUnit.MINUTES);
+            var isTerminated =
+                    executorService.awaitTermination(timeout, TimeUnit.MINUTES);
+            if (!isTerminated) {
+                throw new ServiceException(TIME_OUT_MSG);
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new ServiceException(EXC_MSG, e);
