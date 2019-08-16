@@ -24,7 +24,7 @@ public class ParseCommand implements Executable {
         ParseTextFromFileService service = new ParseTextFromFileService();
         try {
             var text = service.parseTextFromFile(args);
-            return text.toString();
+            return text.compose();
         } catch (ServiceException e) {
             logger.info(LOG_MESSAGE, e);
             return LOG_MESSAGE + e.getMessage();

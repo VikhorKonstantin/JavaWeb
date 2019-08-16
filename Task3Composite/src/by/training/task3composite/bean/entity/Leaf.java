@@ -1,17 +1,19 @@
 package by.training.task3composite.bean.entity;
 
-public abstract class Leaf implements TextComponent {
+public class Leaf implements TextComponent {
+    private ComponentType componentType;
     /**
      * Char symbol of parsed text.
      */
     private char character;
 
-    /**
-     * Abstract constructor.
-     * @param newCharacter new character.
-     */
-    public Leaf(final Character newCharacter) {
+    public Leaf(final ComponentType newComponentType, final char newCharacter) {
+        componentType = newComponentType;
         character = newCharacter;
+    }
+
+    public ComponentType getComponentType() {
+        return componentType;
     }
 
     /**
@@ -36,12 +38,8 @@ public abstract class Leaf implements TextComponent {
         return false;
     }
 
-    /**
-     * Returns String representation of Leaf-component.
-     * @return String representation of Leaf-component
-     */
     @Override
-    public String toString() {
+    public String compose() {
         return String.valueOf(character);
     }
 }

@@ -1,7 +1,8 @@
 package by.training.task3composite.service.parser;
 
-import by.training.task3composite.bean.entity.Paragraph;
+import by.training.task3composite.bean.entity.ComponentType;
 import by.training.task3composite.bean.entity.TextComponent;
+import by.training.task3composite.bean.entity.TextComposite;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +26,8 @@ public class TextParser extends AbstractParser {
                 Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(stringToParse);
         while (matcher.find()) {
-            Paragraph paragraph = new Paragraph();
+            TextComposite paragraph =
+                    new TextComposite(ComponentType.PARAGRAPH);
             String stringParagraph = matcher.group();
             if (successor != null) {
                 this.successor.parse(paragraph, stringParagraph.trim());

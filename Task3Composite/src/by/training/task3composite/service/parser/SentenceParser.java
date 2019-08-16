@@ -1,7 +1,8 @@
 package by.training.task3composite.service.parser;
 
-import by.training.task3composite.bean.entity.Lexeme;
+import by.training.task3composite.bean.entity.ComponentType;
 import by.training.task3composite.bean.entity.TextComponent;
+import by.training.task3composite.bean.entity.TextComposite;
 
 public class SentenceParser extends AbstractParser {
     /**
@@ -18,7 +19,7 @@ public class SentenceParser extends AbstractParser {
     public void parse(final TextComponent newComponent,
                       final String stringToParse) {
         for (var stringLexeme : stringToParse.split(LEXEME_REGEX)) {
-            Lexeme lexeme = new Lexeme();
+            TextComposite lexeme = new TextComposite(ComponentType.LEXEME);
             if (successor != null) {
                 this.successor.parse(lexeme,
                         stringLexeme.replaceAll(" ", ""));

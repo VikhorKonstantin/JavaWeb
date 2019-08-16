@@ -1,11 +1,11 @@
 package by.training.task3composite.bean.entity;
 
-public enum PartType {
+public enum ComponentType {
     TEXT("    ","\n    ", ""),
     PARAGRAPH("", " ", ""),
     SENTENCE("", " ", ""),
-    LEXEME("", " ", ""),
-    WORD("", " ", ""),
+    LEXEME("", "", ""),
+    WORD("", "", ""),
     LETTER("", "", ""),
     PUNCTUATION_MARK("", "", "");
 
@@ -13,8 +13,8 @@ public enum PartType {
     private String suffix;
     private String delimiter;
 
-    PartType(final String newPrefix, final String newDelimiter,
-             final String newSuffix) {
+    ComponentType(final String newPrefix, final String newDelimiter,
+                  final String newSuffix) {
         prefix = newPrefix;
         delimiter = newDelimiter;
         suffix= newSuffix;
