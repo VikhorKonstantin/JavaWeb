@@ -11,8 +11,10 @@ public final class Runner {
      * commands information.
      */
     private static final String COMMANDS_INFO =
-            "Command\tArgs\n"
-                    + "PARSE\tFILENAME\n";
+            "Command\tArgs\n" 
+            + "PARSE\tFILENAME\n"
+            +"SORT_PARAGRAPH\tFILENAME\n"
+            +"SORT_WORDS\tFILENAME\n";
 
     /**
      * Logger.

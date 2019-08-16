@@ -38,8 +38,26 @@ public class Leaf implements TextComponent {
         return false;
     }
 
+    /**
+     * Returns component from componentList via index.
+     *
+     * @param index index of component
+     * @return component via index
+     */
+    @Override
+    public TextComponent getComponent(final int index) {
+        return null;
+    }
+
+    @Override
+    public int numberOfComponents() {
+        return 0;
+    }
+
     @Override
     public String compose() {
         return String.valueOf(character);
     }
+    
+    
 }
