@@ -14,6 +14,17 @@ public interface TextComponent {
      * @return true(false) if component was removed(not)
      */
     boolean remove(TextComponent newComponent);
+
+    /**
+     * Returns component from componentList via index.
+     * @param index index of component
+     * @return component via index
+     */
+    TextComponent getComponent(int index);
+
+    int numberOfComponents();
     
     String compose();
+
+    ComponentType getComponentType();
 }

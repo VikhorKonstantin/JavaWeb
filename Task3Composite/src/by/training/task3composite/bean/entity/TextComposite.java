@@ -24,6 +24,7 @@ public class TextComposite implements TextComponent {
      * @param index index of component
      * @return component via index
      */
+    @Override
     public TextComponent getComponent(final int index) {
         return componentList.get(index);
     }
@@ -46,6 +47,10 @@ public class TextComposite implements TextComponent {
     @Override
     public boolean remove(final TextComponent newComponent) {
         return componentList.remove(newComponent);
+    }
+    
+    public int numberOfComponents() {
+        return componentList.size();
     }
 
     @Override

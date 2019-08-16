@@ -2,6 +2,8 @@ package by.training.task3composite.controller;
 
 import by.training.task3composite.controller.command.ParseCommand;
 import by.training.task3composite.controller.command.Executable;
+import by.training.task3composite.controller.command.SortParagraphsCommand;
+import by.training.task3composite.controller.command.SortWordsCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,8 @@ final class CommandProvider {
      */
     CommandProvider() {
         executableMap.put("PARSE", new ParseCommand());
+        executableMap.put("SORT_PARAGRAPH", new SortParagraphsCommand());
+        executableMap.put("SORT_WORDS", new SortWordsCommand());
 
     }
 
