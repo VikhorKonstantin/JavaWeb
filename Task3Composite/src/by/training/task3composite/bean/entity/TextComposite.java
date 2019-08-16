@@ -2,12 +2,22 @@ package by.training.task3composite.bean.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
-public abstract class TextComposite implements TextComponent {
+public class TextComposite implements TextComponent {
     /**
      * List of child-components.
      */
     private List<TextComponent> componentList = new ArrayList<>();
+    private ComponentType componentType;
+
+    public TextComposite(final ComponentType newComponentType) {
+        componentType = newComponentType;
+    }
+
+    public ComponentType getComponentType() {
+        return componentType;
+    }
 
     /**
      * Returns component from componentList via index.
@@ -38,11 +48,17 @@ public abstract class TextComposite implements TextComponent {
         return componentList.remove(newComponent);
     }
 
-    /**
-     * Returns number of child-components.
-     * @return size of componentList
-     */
-    public int numberOfComponents() {
-        return componentList.size();
+    @Override
+    public String compose() {
+        var components = new ArrayList<TextComponent>();
+        var numberOfComponents = componentList.size();
+        for (int i = 0; i < numberOfComponents; ++i) {
+            components.add(getComponent(i));
+        }
+        var type = getComponentType();
+        StringJoiner joiner = new StringJoiner(type.getDelimiter(),
+                type.getPrefix(), type.getSuffix());
+        components.forEach(c -> joiner.add(c.compose()));
+        return joiner.toString();
     }
 }

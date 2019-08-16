@@ -14,11 +14,6 @@ public interface TextComponent {
      * @return true(false) if component was removed(not)
      */
     boolean remove(TextComponent newComponent);
-
-    /**
-     * Returns String representation of component.
-     * @return
-     */
-    @Override
-    String toString();
+    
+    String compose();
 }

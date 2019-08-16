@@ -1,6 +1,7 @@
 package by.training.task3composite.service.parser;
 
-import by.training.task3composite.bean.entity.Letter;
+import by.training.task3composite.bean.entity.ComponentType;
+import by.training.task3composite.bean.entity.Leaf;
 import by.training.task3composite.bean.entity.TextComponent;
 
 public class WordParser extends AbstractParser {
@@ -18,7 +19,8 @@ public class WordParser extends AbstractParser {
     public void parse(final TextComponent newComponent,
                       final String stringToParse) {
         for (var stringLetter : stringToParse.split(DELIM_REGEX)) {
-            Letter letter = new Letter(stringLetter.charAt(0));
+            Leaf letter =
+                    new Leaf(ComponentType.LETTER ,stringLetter.charAt(0));
             newComponent.add(letter);
         }
     }
