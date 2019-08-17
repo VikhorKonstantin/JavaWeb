@@ -23,7 +23,7 @@ public class Controller {
     public String executeTask(final String request) {
         try {
             final String commandName = request.substring(0,
-                    request.indexOf(DELIMITER));
+                    request.indexOf(DELIMITER)).toUpperCase();
             final String args = request.substring(
                     request.indexOf(DELIMITER)).trim();
             Executable executionCommand = provider.getCommand(commandName);

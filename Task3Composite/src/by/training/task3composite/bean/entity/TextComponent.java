@@ -27,4 +27,5 @@ public interface TextComponent {
     String compose();
 
     ComponentType getComponentType();
+    
 }

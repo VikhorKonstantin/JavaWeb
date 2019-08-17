@@ -19,6 +19,7 @@ final class CommandProvider {
         executableMap.put("SORT_PARAGRAPH", new SortParagraphsCommand());
         executableMap.put("SORT_WORDS", new SortWordsCommand());
         executableMap.put("SORT_SENTENCES", new SortSentencesCommand());
+        executableMap.put("SORT_LEXEMES", new SortLexemesCommand());
     }
 
     /**
