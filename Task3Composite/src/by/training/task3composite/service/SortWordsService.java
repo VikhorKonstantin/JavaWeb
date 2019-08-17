@@ -6,7 +6,6 @@ import by.training.task3composite.bean.entity.TextComposite;
 import by.training.task3composite.service.exception.ServiceException;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class SortWordsService {
