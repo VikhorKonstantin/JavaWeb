@@ -15,7 +15,8 @@ public final class Runner {
             + "PARSE\tFILENAME\n"
             +"SORT_PARAGRAPH\tFILENAME\n" 
             +"SORT_SENTENCES\tFILENAME\n"
-            +"SORT_WORDS\tFILENAME\n";
+            +"SORT_WORDS\tFILENAME\n" 
+            +"SORT_LEXEMES\tFILENAME CHAR\n";
 
     /**
      * Logger.
@@ -33,7 +34,7 @@ public final class Runner {
         String command;
         String response;
         logger.info(COMMANDS_INFO);
-        command = scanner.nextLine().toUpperCase();
+        command = scanner.nextLine();
         while (!command.equals("EXIT")) {
             response = controller.executeTask(command);
             logger.info(response);

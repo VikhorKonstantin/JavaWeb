@@ -35,8 +35,7 @@ public class SortWordsService {
         var numberOfComponents = newTextComponent.numberOfComponents();
         var children = new ArrayList<TextComponent>();
         for (int i = 0; i < numberOfComponents; ++i) {
-            var c = newTextComponent.getComponent(i);
-            children.add(c);
+            children.add(newTextComponent.getComponent(i));
         }
         return children;
     }

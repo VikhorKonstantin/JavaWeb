@@ -66,4 +66,10 @@ public class TextComposite implements TextComponent {
         components.forEach(c -> joiner.add(c.compose()));
         return joiner.toString();
     }
+
+    // TODO: 17.08.2019 REMOVE
+    @Override
+    public String toString() {
+        return compose();
+    }
 }
