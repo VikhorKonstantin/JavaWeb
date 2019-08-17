@@ -13,7 +13,8 @@ public final class Runner {
     private static final String COMMANDS_INFO =
             "Command\tArgs\n" 
             + "PARSE\tFILENAME\n"
-            +"SORT_PARAGRAPH\tFILENAME\n"
+            +"SORT_PARAGRAPH\tFILENAME\n" 
+            +"SORT_SENTENCES\tFILENAME\n"
             +"SORT_WORDS\tFILENAME\n";
 
     /**
