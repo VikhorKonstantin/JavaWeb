@@ -45,9 +45,10 @@ public enum ComponentType {
 
     /**
      * Enum constructor.
-     * @param newPrefix new prefix
+     *
+     * @param newPrefix    new prefix
      * @param newDelimiter new delimiter
-     * @param newSuffix new suffix
+     * @param newSuffix    new suffix
      */
     ComponentType(final String newPrefix, final String newDelimiter,
                   final String newSuffix) {
@@ -58,6 +59,7 @@ public enum ComponentType {
 
     /**
      * Returns prefix.
+     *
      * @return prefix
      */
     public String getPrefix() {
@@ -66,6 +68,7 @@ public enum ComponentType {
 
     /**
      * Returns suffix.
+     *
      * @return suffix
      */
     public String getSuffix() {
@@ -74,6 +77,7 @@ public enum ComponentType {
 
     /**
      * Returns delimiter.
+     *
      * @return delimiter
      */
     public String getDelimiter() {

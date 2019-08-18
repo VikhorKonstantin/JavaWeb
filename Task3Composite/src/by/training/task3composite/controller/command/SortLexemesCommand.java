@@ -22,9 +22,12 @@ public class SortLexemesCommand implements Executable {
     @Override
     public String execute(final String args) {
         try {
-            var serviceParams = args.split(" ");
-            String filename = serviceParams[0];
-            Character character = serviceParams[1].charAt(0);
+            final String delimiter = " ";
+            final int fileNameIndex = 0;
+            final int charIndex = 1;
+            var serviceParams = args.split(delimiter);
+            String filename = serviceParams[fileNameIndex];
+            Character character = serviceParams[charIndex].charAt(0);
             SortLexemesService service =
                     new SortLexemesService(character);
             var text = service.parseAndSortLexemes(filename);

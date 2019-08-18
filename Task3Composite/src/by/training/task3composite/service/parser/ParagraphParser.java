@@ -4,6 +4,7 @@ import by.training.task3composite.bean.entity.ComponentType;
 import by.training.task3composite.bean.entity.TextComponent;
 import by.training.task3composite.bean.entity.TextComposite;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,8 @@ public class ParagraphParser extends AbstractParser {
 
     /**
      * Parses paragraph into sentences.
-     * @param newComponent component which should hold data of parsed string
+     *
+     * @param newComponent  component which should hold data of parsed string
      * @param stringToParse string that should be parsed
      */
     @Override
@@ -28,10 +30,10 @@ public class ParagraphParser extends AbstractParser {
         while (matcher.find()) {
             TextComposite sentence = new TextComposite(ComponentType.SENTENCE);
             String stringSentence = matcher.group();
-            if (getSuccessor() != null) {
-                getSuccessor().parse(sentence, stringSentence.trim());
-            }
-            newComponent.add(sentence);
+            var successor = Optional.ofNullable(getSuccessor());
+            successor.ifPresent(s -> {
+                s.parse(sentence, stringSentence.trim());
+                newComponent.add(sentence); });
         }
     }
 }

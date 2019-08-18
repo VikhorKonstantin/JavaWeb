@@ -12,7 +12,8 @@ public class WordParser extends AbstractParser {
 
     /**
      * Parses word into letters.
-     * @param newComponent component which should hold data of parsed string
+     *
+     * @param newComponent  component which should hold data of parsed string
      * @param stringToParse string that should be parsed
      */
     @Override

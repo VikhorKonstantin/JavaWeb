@@ -34,6 +34,7 @@ public class TextComposite implements TextComponent {
 
     /**
      * Returns number of children-components.
+     *
      * @return number of children-components
      */
     public int numberOfComponents() {
@@ -75,6 +76,7 @@ public class TextComposite implements TextComponent {
 
     /**
      * Returns String representation of the TextComponent.
+     *
      * @return String representation of the TextComponent
      */
     @Override

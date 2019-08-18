@@ -12,6 +12,7 @@ public class SortSentencesService {
 
     /**
      * Parse and sort sentences in text.
+     *
      * @param fileName file name of text
      * @return parsed and sorted text
      * @throws ServiceException if something goes wrong
@@ -27,6 +28,7 @@ public class SortSentencesService {
 
     /**
      * Sort sentences in text.
+     *
      * @param textComponent text to sort sentences in
      */
     private void sortSentencesInText(final TextComponent textComponent) {
