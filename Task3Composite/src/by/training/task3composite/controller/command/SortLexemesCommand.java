@@ -1,7 +1,6 @@
 package by.training.task3composite.controller.command;
 
 import by.training.task3composite.service.SortLexemesService;
-import by.training.task3composite.service.SortWordsService;
 import by.training.task3composite.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

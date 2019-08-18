@@ -6,13 +6,21 @@ public abstract class AbstractParser {
     /**
      * Successor. Next part of chain of responsibility.
      */
-    AbstractParser successor;
+    private AbstractParser successor;
     /**
      * Sets this.successor into newSuccessor-value.
      * @param newSuccessor new successor
      */
     public void setSuccessor(final AbstractParser newSuccessor) {
         successor = newSuccessor;
+    }
+
+    /**
+     * Returns successor.
+     * @return successor
+     */
+    AbstractParser getSuccessor() {
+        return successor;
     }
 
     /**

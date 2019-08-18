@@ -10,6 +10,12 @@ import java.util.List;
 
 public class SortWordsService {
 
+    /**
+     * Parses text and sorts words in it.
+     * @param fileName file name of text
+     * @return Parsed and sorted text
+     * @throws ServiceException if something goes wrong
+     */
     public TextComposite parseAndSortWords(final String fileName)
             throws ServiceException {
         ParseTextFromFileService parseTextService =
@@ -18,9 +24,12 @@ public class SortWordsService {
         sortWordsInText(text);
         return text;
     }
-    
-    private void sortWordsInText(TextComponent textComponent) {
-        
+
+    /**
+     * Sort words in text.
+     * @param textComponent text to sort words in
+     */
+    private void sortWordsInText(final TextComponent textComponent) {
         if (textComponent.getComponentType() == ComponentType.SENTENCE) {
             sortWordsInSentence(textComponent);
         } else {
@@ -30,8 +39,14 @@ public class SortWordsService {
             }
         }
     }
+
+    /**
+     * Returns all children-components of the component.
+     * @param newTextComponent component to read children of
+     * @return List of children-components
+     */
     private List<TextComponent> readAllChildren(
-            TextComponent newTextComponent) {
+            final TextComponent newTextComponent) {
         var numberOfComponents = newTextComponent.numberOfComponents();
         var children = new ArrayList<TextComponent>();
         for (int i = 0; i < numberOfComponents; ++i) {
@@ -39,26 +54,28 @@ public class SortWordsService {
         }
         return children;
     }
-    
-    private void sortWordsInSentence(TextComponent sentence) {
+
+    /**
+     * Sorts words in sentence.
+     * @param sentence sentence to sort words in
+     */
+    private void sortWordsInSentence(final TextComponent sentence) {
         var lexemes = readAllChildren(sentence);
         lexemes.forEach(sentence::remove);
         lexemes.sort((l1, l2) -> {
                     var parts1 = readAllChildren(l1);
                     var parts2 = readAllChildren(l2);
                     int length1 = parts1.stream()
-                            .filter(c -> c.getComponentType() ==
-                                    ComponentType.WORD)
+                            .filter(c -> c.getComponentType()
+                                    == ComponentType.WORD)
                             .mapToInt(TextComponent::numberOfComponents).sum();
                     int length2 = parts2.stream()
-                            .filter(c -> c.getComponentType() ==
-                                    ComponentType.WORD)
+                            .filter(c -> c.getComponentType()
+                                    == ComponentType.WORD)
                             .mapToInt(TextComponent::numberOfComponents).sum();
                     return length1 - length2;
                 }
         );
         lexemes.forEach(sentence::add);
     }
-
-    
 }

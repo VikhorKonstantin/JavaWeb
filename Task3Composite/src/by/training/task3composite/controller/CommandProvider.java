@@ -1,6 +1,11 @@
 package by.training.task3composite.controller;
 
-import by.training.task3composite.controller.command.*;
+import by.training.task3composite.controller.command.Executable;
+import by.training.task3composite.controller.command.ParseCommand;
+import by.training.task3composite.controller.command.SortLexemesCommand;
+import by.training.task3composite.controller.command.SortParagraphsCommand;
+import by.training.task3composite.controller.command.SortSentencesCommand;
+import by.training.task3composite.controller.command.SortWordsCommand;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -22,10 +22,21 @@ public interface TextComponent {
      */
     TextComponent getComponent(int index);
 
+    /**
+     * Returns number of components.
+     * @return number of components
+     */
     int numberOfComponents();
-    
+
+    /**
+     * Returns string representation of TextComponent.
+     * @return string representation of TextComponent
+     */
     String compose();
 
+    /**
+     * Returns type of component.
+     * @return type of component
+     */
     ComponentType getComponentType();
-    
 }

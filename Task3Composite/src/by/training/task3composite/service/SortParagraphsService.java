@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class SortParagraphsService {
-    
+    /**
+     * Parse and sort text.
+     * @param fileName file name of text
+     * @return sorted text
+     * @throws ServiceException if something goes wrong
+     */
     public TextComposite parseAndSortParagraph(final String fileName)
             throws ServiceException {
         ParseTextFromFileService parseTextService =
@@ -19,7 +24,7 @@ public class SortParagraphsService {
         var paragraphs = new ArrayList<TextComponent>();
         var numberOfParagraphs = text.numberOfComponents();
         for (int i = 0; i < numberOfParagraphs; ++i) {
-            paragraphs.add( text.getComponent(i));
+            paragraphs.add(text.getComponent(i));
         }
         paragraphs.stream()
                 .sorted(Comparator.comparing(TextComponent::numberOfComponents))

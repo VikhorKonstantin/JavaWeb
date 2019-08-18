@@ -50,8 +50,8 @@ public class LexemeParser extends AbstractParser {
             }
             var txt = matcher.group(WORD_PART);
             TextComposite word = new TextComposite(ComponentType.WORD);
-            if (this.successor != null) {
-                successor.parse(word, txt);
+            if (getSuccessor() != null) {
+                getSuccessor().parse(word, txt);
                 newComponent.add(word);
             }
             var ap = matcher.group(PUNCT_AFTER);

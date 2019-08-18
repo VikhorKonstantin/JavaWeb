@@ -20,8 +20,8 @@ public class SentenceParser extends AbstractParser {
                       final String stringToParse) {
         for (var stringLexeme : stringToParse.split(LEXEME_REGEX)) {
             TextComposite lexeme = new TextComposite(ComponentType.LEXEME);
-            if (successor != null) {
-                this.successor.parse(lexeme,
+            if (getSuccessor() != null) {
+                getSuccessor().parse(lexeme,
                         stringLexeme.replaceAll(" ", ""));
             }
             newComponent.add(lexeme);

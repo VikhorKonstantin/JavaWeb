@@ -11,12 +11,12 @@ public final class Runner {
      * commands information.
      */
     private static final String COMMANDS_INFO =
-            "Command\tArgs\n" 
+            "Command\tArgs\n"
             + "PARSE\tFILENAME\n"
-            +"SORT_PARAGRAPH\tFILENAME\n" 
-            +"SORT_SENTENCES\tFILENAME\n"
-            +"SORT_WORDS\tFILENAME\n" 
-            +"SORT_LEXEMES\tFILENAME CHAR\n";
+            + "SORT_PARAGRAPH\tFILENAME\n"
+            + "SORT_SENTENCES\tFILENAME\n"
+            + "SORT_WORDS\tFILENAME\n"
+            + "SORT_LEXEMES\tFILENAME CHAR\n";
 
     /**
      * Logger.
