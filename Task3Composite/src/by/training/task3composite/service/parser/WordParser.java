@@ -20,7 +20,7 @@ public class WordParser extends AbstractParser {
                       final String stringToParse) {
         for (var stringLetter : stringToParse.split(DELIM_REGEX)) {
             Leaf letter =
-                    new Leaf(ComponentType.LETTER ,stringLetter.charAt(0));
+                    new Leaf(ComponentType.LETTER, stringLetter.charAt(0));
             newComponent.add(letter);
         }
     }

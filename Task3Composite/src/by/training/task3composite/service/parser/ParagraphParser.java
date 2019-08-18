@@ -28,8 +28,8 @@ public class ParagraphParser extends AbstractParser {
         while (matcher.find()) {
             TextComposite sentence = new TextComposite(ComponentType.SENTENCE);
             String stringSentence = matcher.group();
-            if (successor != null) {
-                this.successor.parse(sentence, stringSentence.trim());
+            if (getSuccessor() != null) {
+                getSuccessor().parse(sentence, stringSentence.trim());
             }
             newComponent.add(sentence);
         }

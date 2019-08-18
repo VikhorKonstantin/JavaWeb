@@ -10,6 +10,12 @@ import java.util.Comparator;
 
 public class SortSentencesService {
 
+    /**
+     * Parse and sort sentences in text.
+     * @param fileName file name of text
+     * @return parsed and sorted text
+     * @throws ServiceException if something goes wrong
+     */
     public TextComposite parseAndSortSentences(final String fileName)
             throws ServiceException {
         ParseTextFromFileService parseTextService =
@@ -17,9 +23,13 @@ public class SortSentencesService {
         TextComposite text = parseTextService.parseTextFromFile(fileName);
         sortSentencesInText(text);
         return text;
-        
     }
-    private void sortSentencesInText(TextComponent textComponent) {
+
+    /**
+     * Sort sentences in text.
+     * @param textComponent text to sort sentences in
+     */
+    private void sortSentencesInText(final TextComponent textComponent) {
         if (textComponent.getComponentType() == ComponentType.PARAGRAPH) {
             var numberOfComponents = textComponent.numberOfComponents();
             var sentences = new ArrayList<TextComponent>();

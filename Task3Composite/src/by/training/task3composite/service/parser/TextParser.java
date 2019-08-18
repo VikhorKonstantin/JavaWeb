@@ -29,8 +29,8 @@ public class TextParser extends AbstractParser {
             TextComposite paragraph =
                     new TextComposite(ComponentType.PARAGRAPH);
             String stringParagraph = matcher.group();
-            if (successor != null) {
-                this.successor.parse(paragraph, stringParagraph.trim());
+            if (getSuccessor() != null) {
+                getSuccessor().parse(paragraph, stringParagraph.trim());
             }
             newComponent.add(paragraph);
         }
