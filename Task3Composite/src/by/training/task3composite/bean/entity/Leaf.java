@@ -2,7 +2,7 @@ package by.training.task3composite.bean.entity;
 
 public class Leaf implements TextComponent {
     /**
-     * ComponentType of leaf.
+     * ComponentType of the Leaf.
      */
     private ComponentType componentType;
     /**
@@ -12,8 +12,9 @@ public class Leaf implements TextComponent {
 
     /**
      * Creates new Leaf.
+     *
      * @param newComponentType leaf type
-     * @param newCharacter new character
+     * @param newCharacter     new character
      */
     public Leaf(final ComponentType newComponentType, final char newCharacter) {
         componentType = newComponentType;
@@ -21,9 +22,11 @@ public class Leaf implements TextComponent {
     }
 
     /**
-     * Returns type of Leaf.
+     * Returns type of the Leaf.
+     *
      * @return componentType
      */
+    @Override
     public ComponentType getComponentType() {
         return componentType;
     }
@@ -63,6 +66,7 @@ public class Leaf implements TextComponent {
 
     /**
      * Returns 0 because Leaf has no children.
+     *
      * @return 0
      */
     @Override
@@ -72,6 +76,7 @@ public class Leaf implements TextComponent {
 
     /**
      * Returns string representation of character.
+     *
      * @return string representation of character
      */
     @Override

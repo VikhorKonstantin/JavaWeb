@@ -11,6 +11,7 @@ import java.util.Comparator;
 public class SortParagraphsService {
     /**
      * Parse and sort text.
+     *
      * @param fileName file name of text
      * @return sorted text
      * @throws ServiceException if something goes wrong

@@ -1,10 +1,11 @@
 package by.training.task3composite.service.parser;
 
-import by.training.task3composite.bean.entity.Leaf;
 import by.training.task3composite.bean.entity.ComponentType;
+import by.training.task3composite.bean.entity.Leaf;
 import by.training.task3composite.bean.entity.TextComponent;
 import by.training.task3composite.bean.entity.TextComposite;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,8 @@ public class LexemeParser extends AbstractParser {
 
     /**
      * Parses lexeme into word and punctuation marks.
-     * @param newComponent component which should hold data of parsed string
+     *
+     * @param newComponent  component which should hold data of parsed string
      * @param stringToParse string that should be parsed
      */
     @Override
@@ -50,10 +52,10 @@ public class LexemeParser extends AbstractParser {
             }
             var txt = matcher.group(WORD_PART);
             TextComposite word = new TextComposite(ComponentType.WORD);
-            if (getSuccessor() != null) {
-                getSuccessor().parse(word, txt);
-                newComponent.add(word);
-            }
+            var successor = Optional.ofNullable(getSuccessor());
+            successor.ifPresent(s -> {
+                s.parse(word, txt);
+                newComponent.add(word); });
             var ap = matcher.group(PUNCT_AFTER);
             if (!ap.isEmpty()) {
                 for (int i = 0; i < ap.length(); ++i) {

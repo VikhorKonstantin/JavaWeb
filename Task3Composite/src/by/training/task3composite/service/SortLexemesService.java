@@ -17,7 +17,8 @@ public class SortLexemesService {
     private Character character;
 
     /**
-     * Creates new service.
+     * Creates new SortLexemesService by Character.
+     *
      * @param newCharacter new character to compare by.
      */
     public SortLexemesService(final Character newCharacter) {
@@ -26,8 +27,9 @@ public class SortLexemesService {
 
     /**
      * Parse and sort text.
+     *
      * @param fileName file name of text
-     * @return orted text
+     * @return Sorted text
      * @throws ServiceException if something goes wrong
      */
     public TextComposite parseAndSortLexemes(final String fileName)
@@ -35,27 +37,29 @@ public class SortLexemesService {
         ParseTextFromFileService parseTextService =
                 new ParseTextFromFileService();
         TextComposite text = parseTextService.parseTextFromFile(fileName);
-        sortSentencesInText(text);
+        sortLexemesInText(text);
         return text;
 
     }
-    private void sortSentencesInText(final TextComponent textComponent) {
+
+    private void sortLexemesInText(final TextComponent textComponent) {
         if (textComponent.getComponentType() == ComponentType.SENTENCE) {
             var lexemes = readAllChildren(textComponent);
             lexemes.forEach(textComponent::remove);
             lexemes.sort(
                     Comparator.comparing(
-                    l -> countNumberOfCharacter((TextComponent) l))
+                            l -> countNumberOfCharacter((TextComponent) l))
                             .reversed()
                             .thenComparing(l -> ((TextComponent) l).compose()));
             lexemes.forEach(textComponent::add);
         } else {
             var numberOfComponents = textComponent.numberOfComponents();
             for (int i = 0; i < numberOfComponents; ++i) {
-                sortSentencesInText(textComponent.getComponent(i));
+                sortLexemesInText(textComponent.getComponent(i));
             }
         }
     }
+
     private int countNumberOfCharacter(final TextComponent lexeme) {
         var words = readAllChildren(lexeme).stream()
                 .filter(c -> c.getComponentType() == ComponentType.WORD)
@@ -63,8 +67,9 @@ public class SortLexemesService {
         int numberOfChar = 0;
         for (var word : words) {
             var letters = readAllChildren(word);
+            final String stringOfCharacter = String.valueOf(character);
             numberOfChar += letters.stream()
-                    .filter(l -> l.compose().equals(String.valueOf(character)))
+                    .filter(l -> l.compose().equals(stringOfCharacter))
                     .count();
         }
         return numberOfChar;

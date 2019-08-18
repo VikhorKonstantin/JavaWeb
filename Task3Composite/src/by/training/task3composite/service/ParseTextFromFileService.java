@@ -21,6 +21,7 @@ public class ParseTextFromFileService {
 
     /**
      * Parses text from file.
+     *
      * @param fileName name of file with text to parse
      * @return Text
      * @throws ServiceException if something goes wrong

@@ -12,6 +12,7 @@ public class SortWordsService {
 
     /**
      * Parses text and sorts words in it.
+     *
      * @param fileName file name of text
      * @return Parsed and sorted text
      * @throws ServiceException if something goes wrong
@@ -27,6 +28,7 @@ public class SortWordsService {
 
     /**
      * Sort words in text.
+     *
      * @param textComponent text to sort words in
      */
     private void sortWordsInText(final TextComponent textComponent) {
@@ -41,22 +43,8 @@ public class SortWordsService {
     }
 
     /**
-     * Returns all children-components of the component.
-     * @param newTextComponent component to read children of
-     * @return List of children-components
-     */
-    private List<TextComponent> readAllChildren(
-            final TextComponent newTextComponent) {
-        var numberOfComponents = newTextComponent.numberOfComponents();
-        var children = new ArrayList<TextComponent>();
-        for (int i = 0; i < numberOfComponents; ++i) {
-            children.add(newTextComponent.getComponent(i));
-        }
-        return children;
-    }
-
-    /**
      * Sorts words in sentence.
+     *
      * @param sentence sentence to sort words in
      */
     private void sortWordsInSentence(final TextComponent sentence) {
@@ -77,5 +65,21 @@ public class SortWordsService {
                 }
         );
         lexemes.forEach(sentence::add);
+    }
+
+    /**
+     * Returns all children-components of the component.
+     *
+     * @param newTextComponent component to read children of
+     * @return List of children-components
+     */
+    private List<TextComponent> readAllChildren(
+            final TextComponent newTextComponent) {
+        var numberOfComponents = newTextComponent.numberOfComponents();
+        var children = new ArrayList<TextComponent>();
+        for (int i = 0; i < numberOfComponents; ++i) {
+            children.add(newTextComponent.getComponent(i));
+        }
+        return children;
     }
 }
