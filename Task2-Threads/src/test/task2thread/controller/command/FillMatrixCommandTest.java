@@ -23,7 +23,7 @@ public class FillMatrixCommandTest {
      * Service exception message.
      */
     private static final String INVALID_ARGS_MSG =
-            "Invalid arguments. ";
+            "Matrix should be square. ";
     /**
      * Name of exception.
      */
@@ -51,7 +51,8 @@ public class FillMatrixCommandTest {
                 {"test_input/bad_size_for_filling.txt 2",
                         LOG_MESSAGE + INVALID_ARGS_MSG},
                 {"test_input/test_matrix_valid.txt 0",
-                        LOG_MESSAGE + INVALID_ARGS_MSG},
+                        LOG_MESSAGE
+                        + "Number of threads should be greater than 0. "},
                 {"test_input/test_matrix_valid.txt",
                         LOG_MESSAGE + "Index 1 out-of-bounds for length 1"},
                 {"test_input/test_matrix_valid.txt 5555555555555555555555555",
