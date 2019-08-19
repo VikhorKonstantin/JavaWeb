@@ -27,10 +27,10 @@ public class SortLexemesCommand implements Executable {
             final int charIndex = 1;
             var serviceParams = args.split(delimiter);
             String filename = serviceParams[fileNameIndex];
-            Character character = serviceParams[charIndex].charAt(0);
+            char character = serviceParams[charIndex].charAt(0);
             SortLexemesService service =
-                    new SortLexemesService(character);
-            var text = service.parseAndSortLexemes(filename);
+                    new SortLexemesService();
+            var text = service.parseAndSortLexemes(filename, character);
             return text.compose();
         } catch (ServiceException e) {
             logger.info(LOG_MESSAGE, e);
