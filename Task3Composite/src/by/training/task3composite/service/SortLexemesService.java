@@ -17,23 +17,16 @@ public class SortLexemesService {
     private Character character;
 
     /**
-     * Creates new SortLexemesService by Character.
-     *
-     * @param newCharacter new character to compare by.
-     */
-    public SortLexemesService(final Character newCharacter) {
-        character = newCharacter;
-    }
-
-    /**
      * Parse and sort text.
      *
      * @param fileName file name of text
      * @return Sorted text
      * @throws ServiceException if something goes wrong
      */
-    public TextComposite parseAndSortLexemes(final String fileName)
+    public TextComposite parseAndSortLexemes(final String fileName,
+                                             final char newCharacter)
             throws ServiceException {
+        character = newCharacter;
         ParseTextFromFileService parseTextService =
                 new ParseTextFromFileService();
         TextComposite text = parseTextService.parseTextFromFile(fileName);
