@@ -28,9 +28,9 @@ public class FileStringReaderTest {
                         + " point of using Ipsum is that \n"
                         + "it has a more-or-less normal distribution of"
                         + " letters, as opposed to using 'Content here, \n"
-                        + "content here', making it look like readable" 
+                        + "content here', making it look like readable"
                         + " English.\n"
-                        + "    It is a established fact that a reader" 
+                        + "    It is a established fact that a reader"
                         + " will be of a page when looking at its layout.\n"
                         + "    Bye?!"},
                 {"",

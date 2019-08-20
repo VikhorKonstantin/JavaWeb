@@ -8,8 +8,9 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 public class LeafTest {
-    
-    
+    /**
+     * Test of constructor.
+     */
     @Test(description = "Constructor test")
     public void constructorLeafTest() {
         ComponentType type = ComponentType.LETTER;

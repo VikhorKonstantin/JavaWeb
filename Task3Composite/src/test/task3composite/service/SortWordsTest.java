@@ -1,6 +1,6 @@
 package test.task3composite.service;
 
-import by.training.task3composite.service.SortLexemesService;
+import by.training.task3composite.service.SortWordsService;
 import by.training.task3composite.service.exception.ServiceException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -8,11 +8,11 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertEquals;
 
-public class SortLexemesTest {
+public class SortWordsTest {
     /**
      * Service to test.
      */
-    private SortLexemesService service = new SortLexemesService();
+    private SortWordsService service = new SortWordsService();
 
     /**
      * Creates NegativeScenarioData.
@@ -27,17 +27,17 @@ public class SortLexemesTest {
     }
 
     /**
-     * Tests parseAndSortLexemes() on positive scenario data.
+     * Tests parseAndSortWords() on positive scenario data.
      *
      * @throws ServiceException if something goes wrong
      */
     @Test(description = "Test on positive scenario data")
-    public void parseAndSortLexemesTestPositive() throws ServiceException {
-        final String fileName = "test_input/lexeme_sort_data.txt";
-        final char ch = 'e';
-        final String expectedString = "    eee. sentence ee New";
-        assertEquals(service.parseAndSortLexemes(fileName, ch).compose(),
-                expectedString);
+    public void parseAndSortWordsTestPositive() throws ServiceException {
+        final String fileName = "test_input/words_sort_data.txt";
+        final String expectedString =
+                "    a a It is fact that will. reader established";
+        assertEquals(expectedString,
+                service.parseAndSortWords(fileName).compose());
     }
 
     /**
@@ -46,10 +46,9 @@ public class SortLexemesTest {
      * @throws ServiceException if something goes wrong
      */
     @Test(description = "Test on empty file")
-    public void parseAndSortLexemesFileTestEmpty() throws ServiceException {
+    public void parseAndSortWordsTestEmpty() throws ServiceException {
         final String fileName = "test_input/test_empty.txt";
-        final char dummyCharacter = ' ';
-        var text = service.parseAndSortLexemes(fileName, dummyCharacter);
+        var text = service.parseAndSortWords(fileName);
         assertEquals(text.compose(), "    ");
     }
 
@@ -60,10 +59,8 @@ public class SortLexemesTest {
      */
     @Test(description = "Test on negative scenario data",
             dataProvider = "NegativeScenarioData")
-    public void parseAndSortLexemesTestNegative(final String fileName) {
-        final char dummyCharacter = ' ';
+    public void parseAndSortWordsTestNegative(final String fileName) {
         assertThrows(ServiceException.class,
-                () -> service.parseAndSortLexemes(fileName, dummyCharacter));
+                () -> service.parseAndSortWords(fileName));
     }
-
 }

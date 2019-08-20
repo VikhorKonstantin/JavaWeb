@@ -8,8 +8,9 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 public class TextCompositeTest {
-    
-    
+    /**
+     * TextComposite constructor test.
+     */
     @Test(description = "TextComposite constructor test")
     public void constructorTextComposite() {
         ComponentType type = ComponentType.LETTER;
@@ -18,7 +19,6 @@ public class TextCompositeTest {
         Leaf leaf = new Leaf(type, character);
         ComponentType compositeType = ComponentType.WORD;
         TextComposite textComposite = new TextComposite(compositeType);
-        
         var isCorrect = textComposite.add(leaf)
                 && textComposite.getComponent(0).equals(leaf)
                 && textComposite.compose().equals(valueOfChar)
@@ -27,5 +27,4 @@ public class TextCompositeTest {
                 && textComposite.remove(leaf);
         assertTrue(isCorrect);
     }
-    
 }
