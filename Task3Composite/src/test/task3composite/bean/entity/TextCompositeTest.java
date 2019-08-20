@@ -1,4 +1,4 @@
-package test.task3composite.bean;
+package test.task3composite.bean.entity;
 
 import by.training.task3composite.bean.entity.ComponentType;
 import by.training.task3composite.bean.entity.Leaf;

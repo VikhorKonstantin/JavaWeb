@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertEquals;
 
-public class SortParagraphsTest {
+public class SortParagraphsServiceTest {
     /**
      * Service to test.
      */
