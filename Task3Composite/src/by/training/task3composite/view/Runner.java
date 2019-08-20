@@ -14,7 +14,7 @@ public final class Runner {
      * Choose language message.
      */
     private static final String CHOOSE_LANG =
-            "1 — английский\n2 — белорусский\nЛюбой — русский";
+            "1 - английский\n2 - белорусский\nЛюбой - русский";
     /**
      * Logger.
      */
@@ -100,6 +100,7 @@ public final class Runner {
 
         /**
          * Changes locale.
+         *
          * @param locale new locale
          */
         public void changeResource(final Locale locale) {
@@ -108,6 +109,7 @@ public final class Runner {
 
         /**
          * Returns String by key.
+         *
          * @param key key of required String
          * @return String
          */

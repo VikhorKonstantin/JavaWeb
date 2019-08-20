@@ -19,7 +19,8 @@ public class SortLexemesService {
     /**
      * Parse and sort text.
      *
-     * @param fileName file name of text
+     * @param fileName     file name of text
+     * @param newCharacter character to sort by
      * @return Sorted text
      * @throws ServiceException if something goes wrong
      */
