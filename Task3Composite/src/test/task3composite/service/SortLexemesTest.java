@@ -2,7 +2,6 @@ package test.task3composite.service;
 
 import by.training.task3composite.service.SortLexemesService;
 import by.training.task3composite.service.exception.ServiceException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -19,7 +18,7 @@ public class SortLexemesTest {
         };
     }
     
-    @Test(description = "Test on negative scenario data")
+    @Test(description = "Test on positive scenario data")
     public void parseTextFromFileTestPositive() throws ServiceException {
         final String fileName = "test_input/lexeme_sort_data.txt";
         final char ch = 'e';

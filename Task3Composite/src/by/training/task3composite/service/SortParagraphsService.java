@@ -30,6 +30,7 @@ public class SortParagraphsService {
         paragraphs.stream()
                 .sorted(Comparator.comparing(TextComponent::numberOfComponents))
                 .forEach(sortedText::add);
+        sortedText.compose();
         return sortedText;
     }
 }
