@@ -32,7 +32,7 @@ public class FileStringReaderTest {
                         + " English.\n"
                         + "    It is a established fact that a reader"
                         + " will be of a page when looking at its layout.\n"
-                        + "    Bye?!"},
+                        + "    Bye?!", "test_input/correct.txt"},
                 {"",
                         "test_input/test_empty.txt"}};
     }
@@ -59,15 +59,15 @@ public class FileStringReaderTest {
     /**
      * positive scenario of readFromFile.
      *
-     * @param list     expected list
+     * @param expected     expected string
      * @param filename file name
      * @throws DAOException if something goes wrong
      */
     @Test(description = "positive scenario of readFromFile",
             dataProvider = "positiveDataForRead")
-    public void readFromFilePositive(final String list,
+    public void readFromFilePositive(final String expected,
                                      final String filename)
             throws DAOException {
-        assertEquals(list, planeReader.readFromFile(filename));
+        assertEquals(expected, planeReader.readFromFile(filename));
     }
 }
