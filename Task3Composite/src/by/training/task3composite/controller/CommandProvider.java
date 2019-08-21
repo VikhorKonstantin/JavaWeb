@@ -1,5 +1,6 @@
 package by.training.task3composite.controller;
 
+import by.training.task3composite.controller.command.ChooseLocaleAndViewCommands;
 import by.training.task3composite.controller.command.Executable;
 import by.training.task3composite.controller.command.ParseCommand;
 import by.training.task3composite.controller.command.SortLexemesCommand;
@@ -25,6 +26,7 @@ final class CommandProvider {
         executableMap.put("SORT_WORDS", new SortWordsCommand());
         executableMap.put("SORT_SENTENCES", new SortSentencesCommand());
         executableMap.put("SORT_LEXEMES", new SortLexemesCommand());
+        executableMap.put("CHANGE_LOCALE", new ChooseLocaleAndViewCommands());
     }
 
     /**
