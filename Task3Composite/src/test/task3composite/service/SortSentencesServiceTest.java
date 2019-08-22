@@ -35,13 +35,13 @@ public class SortSentencesServiceTest {
     public void parseAndSortSentencesTestPositive() throws ServiceException {
         final String fileName = "test_input/sentences_sort_data.txt";
         final String expectedString =
-                "    It is a long established fact that a \n"
+                "    It is a long established fact that a "
                         + "reader will be distracted by the readable content of"
                         + " a page when looking at its layout?! "
                         + "The point of using Ipsum is that it"
-                        + " has a more-or-less \n"
+                        + " has a more-or-less "
                         + "normal distribution of letters, as opposed to using"
-                        + " 'Content here, \n"
+                        + " 'Content here, "
                         + "content here', making it look like "
                         + "readable English.";
         assertEquals(expectedString,
