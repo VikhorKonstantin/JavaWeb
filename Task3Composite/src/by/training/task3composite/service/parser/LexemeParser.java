@@ -27,7 +27,7 @@ public class LexemeParser extends AbstractParser {
      * Regular expression to parse lexeme into word and punctuation marks.
      */
     private static final String PUNCTUATION_REGEX =
-            "(?<bp>\\p{Punct}*\n*)(?<txt>\\p{Alnum}+\n*)+(?<ap>\\p{Punct}*\n*)";
+            "(?<bp>\\p{Punct}*)(?<txt>\\p{Alnum}+)+(?<ap>\\p{Punct}*)";
 
     /**
      * Parses lexeme into word and punctuation marks.

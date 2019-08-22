@@ -10,7 +10,7 @@ public class SentenceParser extends AbstractParser {
     /**
      * Regex to split sentence into lexemes.
      */
-    private static final String LEXEME_REGEX = "[ \t]+";
+    private static final String LEXEME_REGEX = "\\s+";
 
     /**
      * Parses sentence into lexemes.

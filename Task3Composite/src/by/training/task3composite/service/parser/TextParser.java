@@ -13,7 +13,7 @@ public class TextParser extends AbstractParser {
      * Regular expression to parse text into paragraph.
      */
     private static final String PARAGRAPH_REGEX =
-            "(?sm)^( *[^\\s]+?.*?(?:\\?!|!|\\?|\\.{1,3}+) *)$";
+            "(?sm)^(\\s*[^\\s]+?.*?(?:\\?!|!|\\?|\\.{1,3}+)\\s*)$";
 
     /**
      * Parses text into paragraph.
