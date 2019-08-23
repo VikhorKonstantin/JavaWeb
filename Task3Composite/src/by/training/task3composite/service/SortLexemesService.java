@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * Service which reads and parses text from file and sorts lexemes in sentences.
+ */
 public class SortLexemesService {
     /**
      * Character to compare by.

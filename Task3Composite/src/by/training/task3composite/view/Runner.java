@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+/**
+ * Provides dialog with user.
+ */
 public final class Runner {
     /**
      * Logger.

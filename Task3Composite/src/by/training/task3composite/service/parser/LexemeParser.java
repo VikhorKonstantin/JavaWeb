@@ -9,6 +9,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses lexemes.
+ */
 public class LexemeParser extends AbstractParser {
     /**
      * Name of capture group that captures punctuation marks before word.

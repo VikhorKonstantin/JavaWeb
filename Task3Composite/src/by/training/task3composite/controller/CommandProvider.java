@@ -11,6 +11,9 @@ import by.training.task3composite.controller.command.SortWordsCommand;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Provides access to commands by CommandName.
+ */
 final class CommandProvider {
     /**
      * commands map.

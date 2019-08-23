@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Provides parsing of a paragraph.
+ */
 public class ParagraphParser extends AbstractParser {
     /**
      * Regular expression to parse paragraph into sentences.

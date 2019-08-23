@@ -7,7 +7,10 @@ import by.training.task3composite.service.exception.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Service which reads and parses text
+ * from file and sorts words in sentences.
+ */
 public class SortWordsService {
 
     /**

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
+/**
+ * Text composite. Holds TextComponents and provides some operations with them.
+ */
 public class TextComposite implements TextComponent {
     /**
      * List of child-components.

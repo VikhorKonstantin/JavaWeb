@@ -13,6 +13,9 @@ import by.training.task3composite.service.parser.WordParser;
 
 import java.util.Optional;
 
+/**
+ * Service which reads and parses text from file.
+ */
 public class ParseTextFromFileService {
     /**
      * Exception message.

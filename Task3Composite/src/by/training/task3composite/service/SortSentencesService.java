@@ -8,6 +8,10 @@ import by.training.task3composite.service.exception.ServiceException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Service which reads and parses text from file
+ * and sorts sentences in paragraphs.
+ */
 public class SortSentencesService {
 
     /**
