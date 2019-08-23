@@ -2,6 +2,9 @@ package by.training.task3composite.controller;
 
 import by.training.task3composite.controller.command.Executable;
 
+/**
+ * Provides connection between view and services.
+ */
 public class Controller {
     /**
      * Command provider.

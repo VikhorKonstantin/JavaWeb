@@ -2,6 +2,9 @@ package by.training.task3composite.service.parser;
 
 import by.training.task3composite.bean.entity.TextComponent;
 
+/**
+ * Describe behavior of Parsers.
+ */
 public abstract class AbstractParser {
     /**
      * Successor. Next part of chain of responsibility.

@@ -6,6 +6,9 @@ import by.training.task3composite.bean.entity.TextComposite;
 
 import java.util.Optional;
 
+/**
+ * Provides parsing of a sentence.
+ */
 public class SentenceParser extends AbstractParser {
     /**
      * Regex to split sentence into lexemes.

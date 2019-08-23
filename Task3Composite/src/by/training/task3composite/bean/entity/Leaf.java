@@ -1,5 +1,8 @@
 package by.training.task3composite.bean.entity;
 
+/**
+ * Leaf-component. Can't have any children.
+ */
 public class Leaf implements TextComponent {
     /**
      * ComponentType of the Leaf.

@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Provides parsing of a text.
+ */
 public class TextParser extends AbstractParser {
     /**
      * Regular expression to parse text into paragraph.

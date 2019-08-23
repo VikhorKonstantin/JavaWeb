@@ -1,5 +1,8 @@
 package by.training.task3composite.bean.entity;
 
+/**
+ * Represents Part of a text-composite.
+ */
 public interface TextComponent {
     /**
      * Add new component.

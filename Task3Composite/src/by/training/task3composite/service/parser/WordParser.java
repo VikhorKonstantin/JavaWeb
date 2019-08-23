@@ -4,6 +4,9 @@ import by.training.task3composite.bean.entity.ComponentType;
 import by.training.task3composite.bean.entity.Leaf;
 import by.training.task3composite.bean.entity.TextComponent;
 
+/**
+ * Provides parsing of a word.
+ */
 public class WordParser extends AbstractParser {
     /**
      * Regex to split word into letters.
