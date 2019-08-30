@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-public class GemsSaxBuilder {
+public class GemsSaxBuilder extends AbstractGemsBuilder {
     
     
     
@@ -25,7 +25,7 @@ public class GemsSaxBuilder {
             String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
             SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
             Schema schema = xsdFactory.newSchema(new File(xsdFileName));
-            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParserFactory factory = SAXParserFactory.newDefaultInstance();
             factory.setNamespaceAware(true);
             factory.setValidating(false);
             factory.setSchema(schema);
