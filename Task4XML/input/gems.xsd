@@ -1,0 +1,138 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        targetNamespace="http://training.by/task4xml"
+        xmlns:tns="http://training.by/task4xml"
+        elementFormDefault="qualified">
+
+    <element name="Gems">
+        <complexType>
+            <sequence>
+                <element ref="tns:gem" minOccurs="2"
+                         maxOccurs="16">
+                </element>
+            </sequence>
+        </complexType>
+        <unique name="IdUnique">
+            <selector xpath="*"/>
+            <field xpath="@stoneId"/>
+        </unique>
+    </element>
+
+    <complexType name="Gem">
+        <sequence>
+
+            <element name="preciousness" type="tns:Preciousness" minOccurs="1"/>
+
+            <element name="origin" type="string"
+                     minOccurs="0" default="Belarus"/>
+
+            <element name="gemType" type="tns:GemType" minOccurs="1"/>
+
+            <element name="visualParameters"
+                     type="tns:VisualParameters" minOccurs="1"/>
+
+            <element name="value" type="tns:Value" minOccurs="1"/>
+
+        </sequence>
+
+        <attribute name="gemId" type="tns:GemId" use="required"/>
+        <attribute name="auctionDate" type="tns:Date" use="optional"
+                   default="2000-01-01"/>
+
+    </complexType>
+
+    <complexType name="FamousGemType">
+        <complexContent>
+            <extension base="tns:Gem">
+                <sequence>
+                    <element name="name" type="ID" minOccurs="1"/>
+                    <element name="foundationDate"
+                             type="tns:FoundationDate" minOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <simpleType name="Preciousness">
+        <restriction base="string">
+            <enumeration value="PRECIOUS"/>
+            <enumeration value="SEMI_PRECIOUS"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="GemType">
+        <restriction base="string">
+            <enumeration value="DIAMOND"/>
+            <enumeration value="RUBY"/>
+            <enumeration value="SAPPHIRE"/>
+            <enumeration value="PEARL"/>
+            <enumeration value="AMETHYST"/>
+            <enumeration value="GARNET"/>
+            <enumeration value="TOURMALINE"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="VisualParameters">
+        <sequence>
+            <element name="color" type="string" minOccurs="1"/>
+            <element name="transparency" type="tns:Transparency" minOccurs="1"/>
+            <element name="cuttingMethod" minOccurs="0" default="7">
+                <simpleType>
+                    <restriction base="positiveInteger">
+                        <minInclusive value="4"/>
+                        <maxInclusive value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="Value">
+        <restriction base="float">
+            <maxExclusive value="100000.0"/>
+            <minExclusive value="0"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Transparency">
+        <restriction base="nonNegativeInteger">
+            <maxExclusive value="100"/>
+            <minExclusive value="0"/>
+        </restriction>
+    </simpleType>
+
+
+    <!--Month Year-->
+    <simpleType name="FoundationDate">
+        <restriction base="string">
+            <pattern value="([a-zA-Z]+\s+[0-9]{4})|(Unknown)"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Date">
+        <annotation>
+            <appinfo>
+                <jaxb:javaType name="java.time.LocalDate"
+                               parseMethod="valueOf" printMethod="toString"/>
+            </appinfo>
+        </annotation>
+        <restriction base="date">
+            <minInclusive value="1000-01-01"/>
+            <maxInclusive value="9999-12-31"/>
+        </restriction>
+        
+    </simpleType>
+
+    <simpleType name="GemId">
+        <restriction base="long">
+            <minExclusive value="0"/>
+        </restriction>
+    </simpleType>
+
+    <element name="gem" type="tns:Gem" abstract="false"/>
+    <element name="famousGem" type="tns:FamousGemType"
+             substitutionGroup="tns:gem"/>
+
+</schema>
+    

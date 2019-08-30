@@ -1,0 +1,215 @@
+<?xml version="1.1" encoding="utf-8" ?>
+<Gems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://training.by/task4xml"
+      xsi:schemaLocation="http://training.by/task4xml gems.xsd">
+
+    <famousGem gemId="9326565568" auctionDate="2019-02-05">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>South Africa</origin>
+        <gemType>DIAMOND</gemType>
+        <visualParameters>
+            <color>Amber</color>
+            <transparency>92</transparency>
+            <cuttingMethod>7</cuttingMethod>
+        </visualParameters>
+        <value>
+            102.48
+        </value>
+        <name>AshbergDiamond</name>
+        <foundationDate>Unknown</foundationDate>
+    </famousGem>
+
+    <gem gemId="7495496877" auctionDate="2019-02-05">
+        <preciousness>SEMI_PRECIOUS</preciousness>
+        <origin>Russian Federation</origin>
+        <gemType>TOURMALINE</gemType>
+        <visualParameters>
+            <color>Blue</color>
+            <transparency>79</transparency>
+        </visualParameters>
+        <value>10</value>
+    </gem>
+    
+    <famousGem gemId="334984681">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>Southeast Asia</origin>
+        <gemType>RUBY</gemType>
+        <visualParameters>
+            <color>Red</color>
+            <transparency>90</transparency>
+            <cuttingMethod>8</cuttingMethod>
+        </visualParameters>
+        <value>100.32</value>
+        <name>DeLongStarRuby</name>
+        <foundationDate>June 1964</foundationDate>
+    </famousGem>
+
+    <gem gemId="7867668858">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>Russian Federation</origin>
+        <gemType>DIAMOND</gemType>
+        <visualParameters>
+            <color>Colorless</color>
+            <transparency>90</transparency>
+        </visualParameters>
+        <value>15</value>
+    </gem>
+    
+    <famousGem gemId="864874818">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>South Africa</origin>
+        <gemType>SAPPHIRE</gemType>
+        <visualParameters>
+            <color>Blue</color>
+            <transparency>87</transparency>
+            <cuttingMethod>7</cuttingMethod>
+        </visualParameters>
+        <value>
+            104
+        </value>
+        <name>StuartSapphire</name>
+        <foundationDate>Unknown</foundationDate>
+    </famousGem>
+    
+    <gem gemId="5498464878">
+        <preciousness>SEMI_PRECIOUS</preciousness>
+        <origin>South Africa</origin>
+        <gemType>TOURMALINE</gemType>
+        <visualParameters>
+            <color>Blue</color>
+            <transparency>79</transparency>
+        </visualParameters>
+        <value>10</value>
+    </gem>
+    
+    <gem gemId="87584654">
+        <preciousness>SEMI_PRECIOUS</preciousness>
+        <origin>South Africa</origin>
+        <gemType>GARNET</gemType>
+        <visualParameters>
+            <color>Red</color>
+            <transparency>85</transparency>
+            <cuttingMethod>8</cuttingMethod>
+        </visualParameters>
+        <value>12</value>
+    </gem>
+    
+    <famousGem gemId="8788468776">
+        <preciousness>PRECIOUS</preciousness>
+        <gemType>PEARL</gemType>
+        <visualParameters>
+            <color>White</color>
+            <transparency>1</transparency>
+        </visualParameters>
+        <value>575</value>
+        <name>ArcoValleyPearl</name>
+        <foundationDate>Unknown</foundationDate>
+    </famousGem>
+
+    <gem gemId="759859887778">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>Russian Federation</origin>
+        <gemType>SAPPHIRE</gemType>
+        <visualParameters>
+            <color>Blue</color>
+            <transparency>89</transparency>
+        </visualParameters>
+        <value>14</value>
+    </gem>
+    
+    <famousGem gemId="6468451864">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>USSR</origin>
+        <gemType>DIAMOND</gemType>
+        <visualParameters>
+            <color>colorless</color>
+            <transparency>95</transparency>
+        </visualParameters>
+        <value>320.65</value>
+        <name>AlexanderPushkin</name>
+        <foundationDate>December 1989</foundationDate>
+    </famousGem>
+
+    <gem gemId="87686">
+        <preciousness>SEMI_PRECIOUS</preciousness>
+        <gemType>PEARL</gemType>
+        <visualParameters>
+            <color>White</color>
+            <transparency>85</transparency>
+        </visualParameters>
+        <value>30</value>
+    </gem>
+
+    <famousGem gemId="549845484" auctionDate="2019-02-06">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>Australia</origin>
+        <gemType>DIAMOND</gemType>
+        <visualParameters>
+            <color>Pink</color>
+            <transparency>92</transparency>
+            <cuttingMethod>8</cuttingMethod>
+        </visualParameters>
+        <value>
+            12.76
+        </value>
+        <name>ArgylePinkJubilee</name>
+        <foundationDate>August 2011</foundationDate>
+    </famousGem>
+    
+    <gem gemId="5168795648">
+        <preciousness>SEMI_PRECIOUS</preciousness>
+        <origin>Russia</origin>
+        <gemType>GARNET</gemType>
+        <visualParameters>
+            <color>Red</color>
+            <transparency>85</transparency>
+        </visualParameters>
+        <value>20</value>
+    </gem>
+
+    <famousGem gemId="879846846548" auctionDate="2019-02-06">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>India</origin>
+        <gemType>DIAMOND</gemType>
+        <visualParameters>
+            <color>Colorless</color>
+            <transparency>93</transparency>
+            <cuttingMethod>9</cuttingMethod>
+        </visualParameters>
+        <value>
+            78.54
+        </value>
+        <name>ArchdukeJoseph</name>
+        <foundationDate>November 2012</foundationDate>
+    </famousGem>
+
+
+    <famousGem gemId="46845186">
+        <preciousness>PRECIOUS</preciousness>
+        <origin>South Africa</origin>
+        <gemType>DIAMOND</gemType>
+        <visualParameters>
+            <color>Yellow</color>
+            <transparency>93</transparency>
+        </visualParameters>
+        <value>
+            104.52
+        </value>
+        <name>Deepdene</name>
+        <foundationDate>Unknown</foundationDate>
+    </famousGem>
+
+    <gem gemId="87484678779" auctionDate="2000-01-03">
+        <preciousness>SEMI_PRECIOUS</preciousness>
+        <gemType>TOURMALINE</gemType>
+        <visualParameters>
+            <color>Blue</color>
+            <transparency>89</transparency>
+            <cuttingMethod>7</cuttingMethod>
+        </visualParameters>
+        <value>17</value>
+    </gem>
+    
+    
+    
+</Gems>
