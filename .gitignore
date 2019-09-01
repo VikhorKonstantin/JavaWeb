@@ -1,6 +1,8 @@
 ﻿*.iml
+*.class
 .DS_Store/
 .idea/
 out/
 lib/
 log/
+target/

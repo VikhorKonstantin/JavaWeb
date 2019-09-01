@@ -6,6 +6,7 @@ public enum GemPropertyEnum {
     PRECIOUSNESS("preciousness"),
     GEM_TYPE("gemType"),
     ORIGIN("origin"),
+    VISUAL_PARAMS("visualParameters"),
     COLOR("color"),
     TRANSPARENCY("transparency"),
     CUTTING_METHOD("cuttingMethod"),

@@ -140,7 +140,11 @@
         <value>30</value>
     </gem>
 
+<<<<<<< HEAD
     <famousGem gemId="549845484" auctionDate="2019-02-06">
+=======
+    <famousGem gemId="549845484">
+>>>>>>> task4branch
         <preciousness>PRECIOUS</preciousness>
         <origin>Australia</origin>
         <gemType>DIAMOND</gemType>
