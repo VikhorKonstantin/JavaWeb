@@ -5,7 +5,7 @@ import by.training.task4xml.service.exception.ServiceException;
 
 import java.util.Set;
 
-public class Director {
+public final class ParseDirector {
     public static Set<Gem> createUser(final BaseGemsBuilder builder,
                                       final String xmlFileName,
                                       final String xsdFileName)

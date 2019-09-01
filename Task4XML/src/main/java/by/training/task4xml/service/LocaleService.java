@@ -61,8 +61,8 @@ public class LocaleService {
         final String parserTypeKey = "parserType";
         final String parserType = resourceManager.getString(parserTypeKey);
         StringJoiner joiner = new StringJoiner("\n");
-        joiner.add(startInfo).add("PARSE " + parserType + " "
-                + xmlFileName + " " + xsdFileName)
+        joiner.add(startInfo).add("PARSE\t" + parserType + "\t"
+                + xmlFileName + "\t" + xsdFileName)
                 .add("CHANGE_LOCALE\t" + "RU\\ENG\\BY");
         return joiner.toString();
     }

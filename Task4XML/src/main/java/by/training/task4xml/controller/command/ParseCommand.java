@@ -3,8 +3,9 @@ package by.training.task4xml.controller.command;
 
 import by.training.task4xml.bean.entity.Gem;
 import by.training.task4xml.service.BaseGemsBuilder;
-import by.training.task4xml.service.Director;
+import by.training.task4xml.service.GemsDomBuilder;
 import by.training.task4xml.service.GemsSaxBuilder;
+import by.training.task4xml.service.ParseDirector;
 import by.training.task4xml.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,12 +34,13 @@ public class ParseCommand implements Executable {
     /**
      * Command to parse with StAX parser.
      */
-    private static final String STAX = "StAX";
+    private static final String STAX = "STAX";
     
     private final Map<String, BaseGemsBuilder> builderMap = new HashMap<>();
 
     public ParseCommand() {
         builderMap.put(SAX, new GemsSaxBuilder());
+        builderMap.put(DOM, new GemsDomBuilder());
     }
 
     /**
@@ -48,7 +50,6 @@ public class ParseCommand implements Executable {
     @Override
     public String execute(final String args) {
         BaseGemsBuilder builder;
-        Director director = new Director();
         try {
             final String delimiter = "\\s+";
             var argsArray = args.split(delimiter);
@@ -56,10 +57,10 @@ public class ParseCommand implements Executable {
             final int xmlFileIndex = 1;
             final int xsdFileIndex = 2;
             var commandStr = argsArray[commandIndex];
-            builder = builderMap.get(commandStr);
+            builder = builderMap.get(commandStr.toUpperCase());
             var xmlFileName = argsArray[xmlFileIndex];
             var xsdFileName = argsArray[xsdFileIndex];
-            var gems = director.createUser(builder, xmlFileName, xsdFileName);
+            var gems = ParseDirector.createUser(builder, xmlFileName, xsdFileName);
             return gems.stream().map(Gem::toString)
                     .collect(Collectors.joining("\n"));
         } catch (ServiceException | ArrayIndexOutOfBoundsException e) {
