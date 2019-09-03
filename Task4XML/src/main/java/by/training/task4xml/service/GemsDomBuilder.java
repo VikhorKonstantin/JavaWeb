@@ -47,7 +47,6 @@ public class GemsDomBuilder extends BaseGemsBuilder {
             for (int i = 0; i < famousGemListSize; ++i) {
                 Element gemNode = (Element) famousGemList.item(i);
                 FamousGem famousGem = new FamousGem();
-                buildGem(famousGem, gemNode);
                 buildFamousGem(famousGem, gemNode);
                 gems.add(famousGem);
             }
@@ -89,6 +88,7 @@ public class GemsDomBuilder extends BaseGemsBuilder {
     
     private void buildFamousGem(final FamousGem newFamousGem,
                                 final Element newElement) {
+        buildGem(newFamousGem, newElement);
         var nameStr = newElement.getElementsByTagName(
                 GemPropertyEnum.NAME.getValue())
                 .item(0).getTextContent();
@@ -134,6 +134,8 @@ public class GemsDomBuilder extends BaseGemsBuilder {
             String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
             SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
             Schema schema = xsdFactory.newSchema(new File(xsdFileName));
+            factory.setNamespaceAware(true);
+            factory.setValidating(false);
             factory.setSchema(schema);
             docBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException | SAXException e) {
