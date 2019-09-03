@@ -1,19 +1,6 @@
 package by.training.task4xml.view;
 
-<<<<<<< HEAD
-import by.training.task4xml.service.GemsSaxBuilder;
-import by.training.task4xml.service.exception.ServiceException;
 
-public class Runner {
-    public static void main(String[] args) {
-        GemsSaxBuilder service = new GemsSaxBuilder();
-        try {
-            var gems = service.buildGemsFromFile("input/gems.xml",
-                    "input/gems.xsd");
-            gems.forEach(System.out::println);
-        } catch (ServiceException e) {
-            
-=======
 import by.training.task4xml.controller.Controller;
 import by.training.task4xml.controller.command.StartCommand;
 import org.apache.logging.log4j.LogManager;
@@ -42,13 +29,12 @@ public class Runner {
         String response;
         StartCommand startCommand = new StartCommand();
         var startInfo = startCommand.execute("");
-        logger.info(startInfo);
+        System.out.println(startInfo);
         userInput = scanner.nextLine();
         while (!userInput.equals("EXIT")) {
             response = controller.executeTask(userInput);
-            logger.info(response);
+            System.out.println(response);
             userInput = scanner.nextLine();
->>>>>>> task4branch
         }
     }
 }

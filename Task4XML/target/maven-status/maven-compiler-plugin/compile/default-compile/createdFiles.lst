@@ -1,9 +1,11 @@
+by\training\task4xml\service\GemsStaxBuilder.class
 by\training\task4xml\service\LocaleService$ResourceManager.class
 by\training\task4xml\controller\command\ParseCommand.class
 by\training\task4xml\bean\entity\Gem$Preciousness.class
 by\training\task4xml\bean\entity\Gem$GemType.class
 by\training\task4xml\bean\exception\BeanException.class
 by\training\task4xml\service\ParseDirector.class
+by\training\task4xml\service\AbstractGemsBuilder.class
 by\training\task4xml\service\BaseGemsBuilder.class
 by\training\task4xml\service\GemsDomBuilder.class
 by\training\task4xml\bean\entity\FamousGem.class

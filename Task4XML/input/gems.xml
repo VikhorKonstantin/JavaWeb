@@ -29,7 +29,7 @@
         </visualParameters>
         <value>10</value>
     </gem>
-    
+
     <famousGem gemId="334984681">
         <preciousness>PRECIOUS</preciousness>
         <origin>Southeast Asia</origin>
@@ -54,7 +54,7 @@
         </visualParameters>
         <value>15</value>
     </gem>
-    
+
     <famousGem gemId="864874818">
         <preciousness>PRECIOUS</preciousness>
         <origin>South Africa</origin>
@@ -70,7 +70,7 @@
         <name>StuartSapphire</name>
         <foundationDate>Unknown</foundationDate>
     </famousGem>
-    
+
     <gem gemId="5498464878">
         <preciousness>SEMI_PRECIOUS</preciousness>
         <origin>South Africa</origin>
@@ -81,7 +81,7 @@
         </visualParameters>
         <value>10</value>
     </gem>
-    
+
     <gem gemId="87584654">
         <preciousness>SEMI_PRECIOUS</preciousness>
         <origin>South Africa</origin>
@@ -93,7 +93,7 @@
         </visualParameters>
         <value>12</value>
     </gem>
-    
+
     <famousGem gemId="8788468776">
         <preciousness>PRECIOUS</preciousness>
         <gemType>PEARL</gemType>
@@ -116,7 +116,7 @@
         </visualParameters>
         <value>14</value>
     </gem>
-    
+
     <famousGem gemId="6468451864">
         <preciousness>PRECIOUS</preciousness>
         <origin>USSR</origin>
@@ -140,11 +140,8 @@
         <value>30</value>
     </gem>
 
-<<<<<<< HEAD
-    <famousGem gemId="549845484" auctionDate="2019-02-06">
-=======
+
     <famousGem gemId="549845484">
->>>>>>> task4branch
         <preciousness>PRECIOUS</preciousness>
         <origin>Australia</origin>
         <gemType>DIAMOND</gemType>
@@ -159,7 +156,7 @@
         <name>ArgylePinkJubilee</name>
         <foundationDate>August 2011</foundationDate>
     </famousGem>
-    
+
     <gem gemId="5168795648">
         <preciousness>SEMI_PRECIOUS</preciousness>
         <origin>Russia</origin>
@@ -213,7 +210,6 @@
         </visualParameters>
         <value>17</value>
     </gem>
-    
-    
-    
+
+
 </Gems>

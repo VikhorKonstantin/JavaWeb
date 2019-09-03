@@ -2,10 +2,7 @@ package by.training.task4xml.controller.command;
 
 
 import by.training.task4xml.bean.entity.Gem;
-import by.training.task4xml.service.BaseGemsBuilder;
-import by.training.task4xml.service.GemsDomBuilder;
-import by.training.task4xml.service.GemsSaxBuilder;
-import by.training.task4xml.service.ParseDirector;
+import by.training.task4xml.service.*;
 import by.training.task4xml.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +38,7 @@ public class ParseCommand implements Executable {
     public ParseCommand() {
         builderMap.put(SAX, new GemsSaxBuilder());
         builderMap.put(DOM, new GemsDomBuilder());
+        builderMap.put(STAX, new GemsStaxBuilder());
     }
 
     /**

@@ -94,7 +94,7 @@ public class GemsDomBuilder extends BaseGemsBuilder {
                 .item(0).getTextContent();
         newFamousGem.setName(nameStr);
         var foundationDateStr = newElement.getElementsByTagName(
-                GemPropertyEnum.NAME.getValue())
+                GemPropertyEnum.FOUNDATION_DATE.getValue())
                 .item(0).getTextContent();
         newFamousGem.setFoundationDate(foundationDateStr);
     }
