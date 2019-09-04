@@ -27,7 +27,6 @@ public class GemsStaxBuilder extends BaseGemsBuilder {
 
     public GemsStaxBuilder() {
         inputFactory = XMLInputFactory.newDefaultFactory();
-
         gemSetters.put(GemPropertyEnum.PRECIOUSNESS.getValue(),
                 (s, g) -> g.setPreciousness(Gem.Preciousness.valueOf(s)));
         gemSetters.put(GemPropertyEnum.GEM_TYPE.getValue(),
