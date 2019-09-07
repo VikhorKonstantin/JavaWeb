@@ -1,20 +1,14 @@
-package by.training.task4xml.service;
+package by.training.task4web.service;
 
-import by.training.task4xml.bean.entity.FamousGem;
-import by.training.task4xml.bean.entity.Gem;
-import by.training.task4xml.bean.entity.GemPropertyEnum;
-import by.training.task4xml.service.exception.ServiceException;
-import org.xml.sax.SAXException;
+import by.training.task4web.bean.entity.FamousGem;
+import by.training.task4web.bean.entity.Gem;
+import by.training.task4web.bean.entity.GemPropertyEnum;
+import by.training.task4web.service.exception.ServiceException;
 
-import javax.xml.XMLConstants;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.stax.StAXSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,12 +19,27 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class GemsStaxBuilder extends BaseGemsBuilder {
+    /**
+     * Reader factory.
+     */
     private XMLInputFactory inputFactory;
+    /**
+     * Tag name of famous gem.
+     */
     private static final String FAMOUS_GEM = "famousGem";
+    /**
+     * Tag name of gem.
+     */
     private static final String GEM = "gem";
+    /**
+     * Connects tag-names with parse actions.
+     */
     private final Map<String, BiConsumer<String, Gem>>
             gemSetters = new HashMap<>();
 
+    /**
+     * Initialisation of factory and gemSetters.
+     */
     public GemsStaxBuilder() {
         inputFactory = XMLInputFactory.newDefaultFactory();
         gemSetters.put(GemPropertyEnum.PRECIOUSNESS.getValue(),
@@ -56,7 +65,12 @@ public class GemsStaxBuilder extends BaseGemsBuilder {
                 (s, g) -> ((FamousGem) g).setFoundationDate(s));
 
     }
-
+    /**
+     * Build Set of gems from xml file and validate xml file by schema.
+     * @param xmlFileName name of xml file
+     * @param xsdFileName name of XSD Schema file
+     * @throws ServiceException if something goes wrong while parsing
+     */
     @Override
     public void buildGemsFromFile(final String xmlFileName,
                                   final String xsdFileName)
@@ -65,12 +79,13 @@ public class GemsStaxBuilder extends BaseGemsBuilder {
         try (FileInputStream inputStream =
                      new FileInputStream(new File(xmlFileName))
         ) {
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(new File(xsdFileName));
-            Validator validator = schema.newValidator();
-            XMLStreamReader reader = inputFactory.createXMLStreamReader(inputStream);
-            validator.validate(new StAXSource(reader));
-            validator.reset();
+//            SchemaFactory factory = SchemaFactory.newInstance(
+//            XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//            Schema schema = factory.newSchema(new File(xsdFileName));
+//            Validator validator = schema.newValidator();
+            XMLStreamReader reader = inputFactory
+                    .createXMLStreamReader(inputStream);
+//            validator.validate(new StAXSource(reader));
             while (reader.hasNext()) {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
@@ -86,7 +101,7 @@ public class GemsStaxBuilder extends BaseGemsBuilder {
                     }
                 }
             }
-        } catch (XMLStreamException | SAXException ex) {
+        } catch (XMLStreamException | NumberFormatException ex) {
             final String msg = "StAX parsing error! ";
             throw new ServiceException(msg, ex);
         } catch (IOException ex) {

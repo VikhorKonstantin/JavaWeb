@@ -1,6 +1,6 @@
-package by.training.task4xml.service;
+package by.training.task4web.service;
 
-import by.training.task4xml.service.exception.ServiceException;
+import by.training.task4web.service.exception.ServiceException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
