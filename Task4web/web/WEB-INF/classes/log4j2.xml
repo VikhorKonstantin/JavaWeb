@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <!-- Appender section -->
+    <Appenders>
+        <!-- File appender -->
+        <File name="error" fileName="log/log.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
+            </PatternLayout>
+        </File>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+    </Appenders>
+    <!-- Logger section -->
+    <Loggers>
+        <!-- Root logger -->
+        <Root level="DEBUG">
+            <AppenderRef ref="error"/>
+        </Root>
+        <logger name="error" level="DEBUG" additivity = "false">
+            <AppenderRef ref="error"/>
+        </logger>
+        <logger name="STDOUT" level="INFO">
+            <AppenderRef ref="STDOUT"/>
+        </logger>
+    </Loggers>
+</Configuration>
