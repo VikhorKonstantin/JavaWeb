@@ -5,7 +5,6 @@ import by.training.sqltask.controller.exception.ControllerException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * Provides connection between view and services.
@@ -15,10 +14,7 @@ public class Controller {
      * Command provider.
      */
     private final CommandProvider provider = new CommandProvider();
-    /**
-     * Delimiter.
-     */
-    private static final String DELIMITER = " ";
+
     /**
      * Execute task by request.
      * @param req http request

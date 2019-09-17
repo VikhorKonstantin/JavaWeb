@@ -11,17 +11,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ViewSportsmanService {
+    /**
+     * Logger.
+     */
     private Logger logger = LogManager.getLogger("main");
     public Sportsman readById(final int civlId) throws ServiceException {
         SportsmenRepository repository = new SportsmenRepository();
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            final String jdbcDriver = "com.mysql.jdbc.Driver";
+            Class.forName(jdbcDriver);
         } catch (ClassNotFoundException e) {
             throw new ServiceException(e);
         }
         try(var connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC",
-                "root", "root");) {
+                "paragliding_app", "password");) {
             logger.debug(connection);
             repository.setConnection(connection);
             return repository.readById(civlId);

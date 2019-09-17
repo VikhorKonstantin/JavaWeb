@@ -20,10 +20,6 @@ public class ReadServlet extends HttpServlet {
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
-    /**
-     * Message separator.
-     */
-    private static final String SEP = " ";
 
     /**
      * Called by the server (via the service method)

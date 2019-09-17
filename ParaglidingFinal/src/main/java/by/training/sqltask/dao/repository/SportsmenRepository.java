@@ -15,7 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
+    /**
+     * Logger.
+     */
     private Logger logger = LogManager.getLogger("main");
+    /**
+     * Returns object by it's id.
+     *
+     * @param id unique object ID
+     * @return object by it's id
+     */
     @Override
     public Sportsman readById(final int id) throws DaoException {
         final String sql = "SELECT `civl_id`, `name`, `surname`, `gender`,"
@@ -49,7 +58,12 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
             throw new DaoException(e);
         }
     }
-
+    /**
+     * Adds object to repository.
+     *
+     * @param newSportsman plane to add
+     * @return is object was added
+     */
     @Override
     public boolean add(final Sportsman newSportsman) throws DaoException {
         String sql = "INSERT INTO `sportsmen` (`civl_id`, `name`, `surname`,"
@@ -73,12 +87,21 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
             throw new DaoException(e);
         }
     }
-
+    /**
+     * Deletes object from repository.
+     *
+     * @param sportsman object to delete
+     * @return true if object was deleted
+     */
     @Override
-    public boolean delete(final Sportsman object) {
+    public boolean delete(final Sportsman sportsman) {
         return false;
     }
-
+    /**
+     * Returns is repository empty.
+     *
+     * @return is repository empty.
+     */
     @Override
     public boolean isEmpty() throws DaoException {
         final String sql = "SELECT COUNT(`civl_id`) AS `count` FROM `sportsmen`";
@@ -95,7 +118,12 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
             throw new DaoException(newE);
         }
     }
-
+    /**
+     * Execute query.
+     *
+     * @param specification specification of a query.
+     * @return List of objects satisfied specification.
+     */
     @Override
     public List<Sportsman> query(final Specification specification) throws DaoException {
         var resultList = new ArrayList<Sportsman>();
