@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
@@ -96,7 +97,24 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
     }
 
     @Override
-    public List<Sportsman> query(final Specification specification) {
-        return null;
+    public List<Sportsman> query(final Specification specification) throws DaoException {
+        var resultList = new ArrayList<Sportsman>();
+        Sportsman sportsman;
+        try (ResultSet resultSet = specification.createStatement(connection).executeQuery()) {
+            while (resultSet.next()) {
+                sportsman = new Sportsman();
+                sportsman.setCivlId(resultSet.getInt("`civl_id`"));
+                sportsman.setName(resultSet.getString("`name`"));
+                sportsman.setSurname(resultSet.getString("`surname`"));
+                sportsman.setGender(resultSet.getString("`gender").charAt(0));
+                sportsman.setRating(resultSet.getFloat("`rating`"));
+                sportsman.setCountryCode(CountryCode.valueOf(resultSet.getString("`country`")));
+                sportsman.setImagePath(resultSet.getString("`image_path`"));
+                resultList.add(sportsman);
+            }
+            return resultList;
+        } catch (SQLException newE) {
+            throw new DaoException(newE);
+        }
     }
 }

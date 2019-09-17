@@ -49,13 +49,14 @@ CREATE TABLE `competitions` (
     `name` VARCHAR(256) NOT NULL,
     `discipline_id` INT NOT NULL,
     `status` TINYINT NOT NULL,
-    `participation_fee` INT NOT NULL,
+    `participation_fee` FLOAT NOT NULL,
     `description` TEXT,
     CONSTRAINT PK_competitions
        PRIMARY KEY (`id`),
     CONSTRAINT FK_competitions_discipline
             FOREIGN KEY (`discipline_id`) REFERENCES `disciplines`(`id`),
-    CONSTRAINT CH_competitions CHECK (`status` BETWEEN 0 AND 5)
+    CONSTRAINT CH_competitions_status CHECK (`status` BETWEEN 0 AND 5),
+    CONSTRAINT CH_competitions_participation_fee CHECK ( `participation_fee` > 0 )
 );
 
 
