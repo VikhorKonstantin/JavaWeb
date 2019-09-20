@@ -3,7 +3,6 @@ package by.training.paragliding.controller.command;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
-import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

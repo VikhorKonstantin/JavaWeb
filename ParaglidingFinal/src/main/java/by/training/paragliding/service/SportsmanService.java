@@ -48,7 +48,7 @@ public class SportsmanService {
         SPECIFICATION_PROVIDER.put("all", SportsmanService::findAll);
         SPECIFICATION_PROVIDER.put("APPLICATION",
                 SportsmanService::findByApplication);
-        SPECIFICATION_PROVIDER("RATING_RANGE",
+        SPECIFICATION_PROVIDER.put("RATING_RANGE",
                 SportsmanService::findByRatingRange);
     }
 
