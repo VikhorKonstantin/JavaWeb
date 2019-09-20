@@ -15,4 +15,4 @@ VALUES (1, "PG_AC"),
        (3, "PG_AER_SOLO"),
        (4, "PG_AER_SYNCRO"),
        (5, "HG_C1"),
-       (6, "HG_C2")
+       (6, "HG_C2");
