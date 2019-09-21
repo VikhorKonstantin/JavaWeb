@@ -23,8 +23,9 @@
         </jsp:text>
     </p>
 </form>
-<form action="request" method="post">
-    <input type="hidden" name="actionName" value="READ_ALL">
+<c:url value="sportsmen/all.html" var="sportsmenAllUrl"/>
+<form action="${sportsmenAllUrl}" method="post">
+    <input type="hidden" name="actionName" value="sportsmen/all">
     <button type="submit">
         readAll
     </button>

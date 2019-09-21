@@ -2,6 +2,7 @@ package by.training.paragliding.servlet;
 
 
 import by.training.paragliding.controller.Controller;
+import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.exception.ControllerException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ControllerServlet", urlPatterns = "*.html")
+@WebServlet(name = "request", urlPatterns = "*.html")
 public class ControllerServlet extends HttpServlet {
     /**
      * Logger.
@@ -52,8 +53,11 @@ public class ControllerServlet extends HttpServlet {
                           final HttpServletResponse resp)
             throws ServletException, IOException {
         try {
-            Controller controller = new Controller();
-            controller.executeTask(req, resp);
+//            Controller controller = new Controller();
+//            controller.executeTask(req, resp);
+            Executable action = (Executable) req.getAttribute("action");
+            logger.debug("ControllerServlet action: " + action);
+            action.execute(req, resp);
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher("/index.jsp");
             dispatcher.forward(req, resp);
