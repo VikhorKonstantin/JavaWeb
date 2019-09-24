@@ -1,4 +1,4 @@
-USE `paragliding_db`;
+USE `paragliding_test_db`;
 INSERT INTO `users` (
                      `email`,
                      `password`,

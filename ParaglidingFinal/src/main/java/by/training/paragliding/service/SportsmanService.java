@@ -4,28 +4,28 @@ import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.sql.Specification;
-import by.training.paragliding.dao.sql.sportsmen.SportsmenRepository;
+import by.training.paragliding.dao.sql.sportsmen.*;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.training.paragliding.dao.sql.sportsmen.*;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 
 public class SportsmanService {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-
-    private static final String DB_URL =
+    /*
+    todo: replace
+     */
+    private static String DB_URL =
             "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
                     + "&useSSL=false&allowPublicKeyRetrieval=true";
     private SportsmenRepository repository = new SportsmenRepository();
@@ -33,6 +33,12 @@ public class SportsmanService {
     private static final Map<String, ThrowingFunction<Object, Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
+    /*
+    todo; replace
+    */
+    public static void setDbUrl(final String newDbUrl) {
+        DB_URL = newDbUrl;
+    }
 
     static {
         /*
@@ -44,7 +50,9 @@ public class SportsmanService {
         } catch (ClassNotFoundException newE) {
             newE.printStackTrace();
         }
-        SPECIFICATION_PROVIDER.put("countryCode", SportsmanService::findByCountry);
+        ///
+        SPECIFICATION_PROVIDER.put("countryCode",
+                SportsmanService::findByCountry);
         SPECIFICATION_PROVIDER.put("all", SportsmanService::findAll);
         SPECIFICATION_PROVIDER.put("APPLICATION",
                 SportsmanService::findByApplication);
@@ -52,6 +60,13 @@ public class SportsmanService {
                 SportsmanService::findByRatingRange);
     }
 
+    /**
+     * Returns Sportsman with the following id if exist, return null if not.
+     *
+     * @param civlId Sportsman id
+     * @return Sportsman with the following id
+     * @throws ServiceException if something goes wrong.
+     */
     public Sportsman readById(final int civlId) throws ServiceException {
         try (Connection connection = DriverManager
                 .getConnection(DB_URL, "paragliding_app",

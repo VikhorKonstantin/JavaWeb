@@ -2,7 +2,44 @@ package by.training.paragliding.bean.entity;
 
 import com.neovisionaries.i18n.CountryCode;
 
+import java.util.Objects;
+
 public class Sportsman {
+
+    /**
+     * Creates new empty Sportsman object.
+     */
+    public Sportsman() {
+    }
+
+    /**
+     * Creates new Sportsman instance.
+     *
+     * @param newName new sportsman name
+     * @param newSurname new sportsman surname.
+     * @param newCivlId new sportsmen id
+     * @param newGender  new gender
+     * @param newCountryCode new sportsman country code
+     * @param newRating new sportsman Rating
+     * @param newImagePath new sportsman imagePath
+     */
+    public Sportsman(final int newCivlId, final String newName,
+                     final String newSurname, final char newGender,
+                     final CountryCode newCountryCode, final float newRating,
+                     final String newImagePath) {
+        civlId = newCivlId;
+        name = newName;
+        surname = newSurname;
+        gender = newGender;
+        countryCode = newCountryCode;
+        rating = newRating;
+        imagePath = newImagePath;
+    }
+
+    /**
+     * FAI identifier.
+     */
+    private int civlId;
     /**
      * Person name.
      */
@@ -11,10 +48,6 @@ public class Sportsman {
      * Person surname.
      */
     private String surname;
-    /**
-     * FAI identifier.
-     */
-    private int civlId;
     /**
      * Person gender.
      */
@@ -174,5 +207,25 @@ public class Sportsman {
                 ", rating=" + rating +
                 ", imagePath='" + imagePath + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) return true;
+        if (newO == null || getClass() != newO.getClass()) return false;
+        Sportsman sportsman = (Sportsman) newO;
+        return civlId == sportsman.civlId &&
+                gender == sportsman.gender &&
+                Float.compare(sportsman.rating, rating) == 0 &&
+                Objects.equals(name, sportsman.name) &&
+                Objects.equals(surname, sportsman.surname) &&
+                countryCode == sportsman.countryCode &&
+                Objects.equals(imagePath, sportsman.imagePath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(civlId);
     }
 }
