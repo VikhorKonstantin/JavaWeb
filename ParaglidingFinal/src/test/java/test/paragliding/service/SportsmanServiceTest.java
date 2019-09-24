@@ -1,5 +1,6 @@
 package test.paragliding.service;
 
+import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
@@ -7,6 +8,9 @@ import com.neovisionaries.i18n.CountryCode;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
@@ -22,11 +26,10 @@ public class SportsmanServiceTest {
 
     @DataProvider(name = "readByIdProvider")
     public Object[][] createReadByIdTestData() {
-        return new Object[][] {
+        return new Object[][]{
                 {-1}, {464}
         };
     }
-
 
 
     @Test(description = "readByIdPositive")
@@ -39,13 +42,115 @@ public class SportsmanServiceTest {
                 CountryCode.valueOf("SI"),
                 315.0F,
                 "");
-        assertEquals(expected, actual);
+        assertEquals(actual, expected);
     }
 
     @Test(description = "ReadByIdNegative", dataProvider = "readByIdProvider")
     public void readByIdNegativeTest(int id) throws ServiceException {
         var actual = service.readById(id);
         assertNull(actual);
+    }
+
+    @DataProvider(name = "findTestDataProvider")
+    public Object[][] createFindTestData() {
+        return new Object[][]{
+                {"all", List.of(new Sportsman(8321,
+                                "Gorenc",
+                                "Jaka",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.8F,
+                                ""),
+                        new Sportsman(8388,
+                                "Feraric",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.0F,
+                                ""),
+                        new Sportsman(
+                                8389,
+                                "Sluga",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                353.1F,
+                                "")), null},
+                {"countryCode", List.of(new Sportsman(8321,
+                                "Gorenc",
+                                "Jaka",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.8F,
+                                ""),
+                        new Sportsman(8388,
+                                "Feraric",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.0F,
+                                ""), new Sportsman(
+                                8389,
+                                "Sluga",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                353.1F,
+                                "")), CountryCode.SI},
+                {"application", List.of(new Sportsman(8388,
+                                "Feraric",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.0F,
+                                ""),
+                        new Sportsman(
+                                8389,
+                                "Sluga",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                353.1F,
+                                "")),
+                        new Competition(1,
+                                "6th FAI European Paragliding"
+                                        + " Accuracy Championship",
+                                LocalDate.of(2019,9,19),
+                                Competition.Discipline.values()[0],
+                                Competition.Status.values()[4],
+                                "", 20,
+                                null)},
+                {"ratingRange", List.of(new Sportsman(8388,
+                                "Feraric",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.0F,
+                                ""),
+                        new Sportsman(8321,
+                                "Gorenc",
+                                "Jaka",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                315.8F,
+                                ""),
+                        new Sportsman(
+                                8389,
+                                "Sluga",
+                                "Matjaz",
+                                'M',
+                                CountryCode.valueOf("SI"),
+                                353.1F,
+                                "")),
+                        0.0F, 500.0F}
+        };
+    }
+
+    @Test(description = "FindTest", dataProvider = "findTestDataProvider")
+    public void findTest(String property, List<Sportsman> expectedList,
+                         Object... val) throws ServiceException {
+        var actualList = service.find(property, val);
+        assertEquals(actualList, expectedList);
     }
 
 }

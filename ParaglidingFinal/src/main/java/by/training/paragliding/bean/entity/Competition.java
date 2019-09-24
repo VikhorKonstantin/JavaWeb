@@ -4,18 +4,37 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class Competition {
+
+    public Competition() {
+    }
+
+    public Competition(final int newId, final String newName,
+                       final LocalDate newDate, final Discipline newDiscipline,
+                       final Status newStatus, final String newDescription,
+                       final float newParticipationFee,
+                       final Map<Sportsman, Integer> newResults) {
+        id = newId;
+        name = newName;
+        date = newDate;
+        discipline = newDiscipline;
+        status = newStatus;
+        description = newDescription;
+        participationFee = newParticipationFee;
+        results = newResults;
+    }
+
     /**
      * Competition id.
      */
     private int id;
     /**
-     * Competition date.
-     */
-    private LocalDate date;
-    /**
      * Competition name.
      */
     private String name;
+    /**
+     * Competition date.
+     */
+    private LocalDate date;
     /**
      * Competition discipline.
      */

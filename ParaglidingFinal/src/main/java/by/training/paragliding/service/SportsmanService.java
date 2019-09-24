@@ -30,7 +30,7 @@ public class SportsmanService {
                     + "&useSSL=false&allowPublicKeyRetrieval=true";
     private SportsmenRepository repository = new SportsmenRepository();
 
-    private static final Map<String, ThrowingFunction<Object, Specification,
+    private static final Map<String, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
     /*
@@ -54,9 +54,9 @@ public class SportsmanService {
         SPECIFICATION_PROVIDER.put("countryCode",
                 SportsmanService::findByCountry);
         SPECIFICATION_PROVIDER.put("all", SportsmanService::findAll);
-        SPECIFICATION_PROVIDER.put("APPLICATION",
+        SPECIFICATION_PROVIDER.put("application",
                 SportsmanService::findByApplication);
-        SPECIFICATION_PROVIDER.put("RATING_RANGE",
+        SPECIFICATION_PROVIDER.put("ratingRange",
                 SportsmanService::findByRatingRange);
     }
 
@@ -100,11 +100,14 @@ public class SportsmanService {
      * @return FindByCountrySpecification
      * @throws ServiceException if method args wrong
      */
-    private static Specification findByCountry(final Object... newCountryCode)
+    private static Specification findByCountry(final Object[] newCountryCode)
             throws ServiceException {
         try {
-            return new FindByCountrySpecification(
-                    (CountryCode) newCountryCode[0]);
+            if (newCountryCode[0] instanceof CountryCode) {
+                return new FindByCountrySpecification(
+                        (CountryCode) newCountryCode[0]);
+            }
+            return null;
         } catch (ClassCastException e) {
             throw new ServiceException(e);
         }
@@ -115,7 +118,7 @@ public class SportsmanService {
      * @return FindAllSportsmenSpecification
      * @throws ServiceException if method args wrong
      */
-    private static Specification findAll(final Object... params)
+    private static Specification findAll(final Object[] params)
             throws ServiceException {
         try {
             return new FindAllSportsmenSpecification();
@@ -129,7 +132,7 @@ public class SportsmanService {
      * @return FindSportsmenByRatingRange
      * @throws ServiceException if method args wrong
      */
-    private static Specification findByRatingRange(final Object... range)
+    private static Specification findByRatingRange(final Object[] range)
             throws ServiceException {
         try {
             return new FindSportsmenByRatingRange((Float) range[0],
@@ -144,7 +147,7 @@ public class SportsmanService {
      * @return FindSportsmenByApplication
      * @throws ServiceException if method args wrong
      */
-    private static Specification findByApplication(final Object... application)
+    private static Specification findByApplication(final Object[] application)
             throws ServiceException {
         try {
             return new FindSportsmenByApplication((Competition) application[0]);

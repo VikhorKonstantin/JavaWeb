@@ -45,3 +45,10 @@ VALUES (1, "6th FAI European Paragliding Accuracy Championship",20180916, 1, "",
        (3, "Albania Open", 20190508 , 1 , "", 5, 20),
        (4, "Paragliding Accuracy European Cup, Paragliding Accuracy Balkanic Cup, Campionatul National al Romani",
         20190607 ,1, "", 5, 20);
+INSERT INTO `applications` (sportsman_id, competition_id)
+VALUES (8389, 1),
+       (8389, 3),
+       (8388, 2),
+       (8388, 1),
+       (8321, 2),
+       (8321, 4);

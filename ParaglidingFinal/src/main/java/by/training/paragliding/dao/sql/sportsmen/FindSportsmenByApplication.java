@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class FindSportsmenByApplication implements Specification {
 
-    private static final String SQL = "SELECT `civl_id`, `name`, `surname`, `gender`,"
+    private static final String SQL = "SELECT `civl_id`, `sportsmen`.`name`, `surname`, `gender`,"
             + " `country`, `rating`, `image_path` FROM `sportsmen`"
             + " JOIN `applications` ON `civl_id` = `sportsman_id`"
             + " JOIN `competitions` ON `id` = `competition_id`"
