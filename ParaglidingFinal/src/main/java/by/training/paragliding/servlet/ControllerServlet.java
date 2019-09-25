@@ -2,8 +2,9 @@ package by.training.paragliding.servlet;
 
 
 import by.training.paragliding.controller.Controller;
-import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.exception.ControllerException;
+import by.training.paragliding.dao.DaoFactory;
+import by.training.paragliding.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 @WebServlet(name = "request", urlPatterns = "*.html")
 public class ControllerServlet extends HttpServlet {
@@ -21,6 +25,29 @@ public class ControllerServlet extends HttpServlet {
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
+    private Controller controller;
+    private static String DB_URL =
+            "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
+                    + "&useSSL=false&allowPublicKeyRetrieval=true";
+    @Override
+    public void init() throws ServletException {
+        /*
+        todo:Replace with a connection pull
+         */
+        final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(jdbcDriver);
+            final Connection connection = DriverManager
+                    .getConnection(DB_URL, "paragliding_app",
+                            "password");
+            final DaoFactory daoFactory = new DaoFactory(connection);
+            final ServiceFactory serviceFactory
+                    = new ServiceFactory(daoFactory);
+            controller = new Controller(serviceFactory);
+        } catch (ClassNotFoundException | SQLException newE) {
+            newE.printStackTrace();
+        }
+    }
 
     /**
      * Called by the server (via the service method)
@@ -36,6 +63,14 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest req,
                          final HttpServletResponse resp)
             throws ServletException, IOException {
+        try {
+            controller.executeTask(req, resp);
+            RequestDispatcher dispatcher = getServletContext()
+                    .getRequestDispatcher("/index.jsp");
+            dispatcher.forward(req, resp);
+        } catch (ServletException | IOException | ControllerException e) {
+            logger.debug(e);
+        }
     }
 
     /**
@@ -51,22 +86,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(final HttpServletRequest req,
                           final HttpServletResponse resp)
-            throws ServletException, IOException {
-        try {
-//            Controller controller = new Controller();
-//            controller.executeTask(req, resp);
-            Executable action = (Executable) req.getAttribute("action");
-            logger.debug("ControllerServlet action: " + action);
-            action.execute(req, resp);
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/index.jsp");
-            dispatcher.forward(req, resp);
-
-        } catch (ServletException | IOException | ControllerException e) {
-            logger.debug(e);
-        }
-
-    }
+            throws ServletException, IOException {    }
 
 
 }

@@ -1,8 +1,11 @@
 package by.training.paragliding.controller;
 
 import by.training.paragliding.controller.command.Executable;
-import by.training.paragliding.controller.command.ViewAllSportsmen;
-import by.training.paragliding.controller.command.ViewSportsmanById;
+import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
+import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
+import by.training.paragliding.service.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,16 +15,21 @@ import java.util.Map;
  */
 final class CommandProvider {
     /**
+     * Logger.
+     */
+    private final Logger logger = LogManager.getLogger("main");
+    /**
      * commands map.
      */
     private final Map<String, Executable> executableMap = new HashMap<>();
-
     /**
      * init executableMap.
      */
-    CommandProvider() {
-        executableMap.put("READ_BY_ID", new ViewSportsmanById());
-        executableMap.put("READ_ALL", new ViewAllSportsmen());
+    CommandProvider(final ServiceFactory newServiceFactory) {
+        executableMap.put("/sportsmen/id", new ViewSportsmanById(
+                newServiceFactory.createSportsmanService()));
+        executableMap.put("/sportsmen/all", new ViewAllSportsmen(
+                newServiceFactory.createSportsmanService()));
     }
 
     /**
@@ -29,6 +37,6 @@ final class CommandProvider {
      * @return Command.
      */
     Executable getCommand(final String name) {
-        return executableMap.get(name.toUpperCase());
+        return executableMap.get(name);
     }
 }

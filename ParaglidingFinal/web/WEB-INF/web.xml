@@ -23,12 +23,12 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
-    <filter>
-        <filter-name>ActionFromUriFilter</filter-name>
-        <filter-class>by.training.paragliding.servlet.ActionFromUriFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>ActionFromUriFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>ActionFromUriFilter</filter-name>-->
+<!--        <filter-class>by.training.paragliding.servlet.ActionFromUriFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>ActionFromUriFilter</filter-name>-->
+<!--        <url-pattern>*.html</url-pattern>-->
+<!--    </filter-mapping>-->
 </web-app>

@@ -9,11 +9,17 @@
             border: 1px solid black;
         }
     </style>
+    <title>
+        Main
+    </title>
 </head>
 <body>
-<form action="request" method="post">
+<c:url value="sportsmen/id.html" var="sportsmenIdUrl"/>
+<form action="${sportsmenIdUrl}" method="get">
     <input type="hidden" name="actionName" value="READ_BY_ID">
-    <input type="text" name="civlId">
+    <label>
+        <input type="text" name="civlId">
+    </label>
     <button type="submit">
         read
     </button>
@@ -24,7 +30,7 @@
     </p>
 </form>
 <c:url value="sportsmen/all.html" var="sportsmenAllUrl"/>
-<form action="${sportsmenAllUrl}" method="post">
+<form action="${sportsmenAllUrl}" method="get">
     <input type="hidden" name="actionName" value="sportsmen/all">
     <button type="submit">
         readAll

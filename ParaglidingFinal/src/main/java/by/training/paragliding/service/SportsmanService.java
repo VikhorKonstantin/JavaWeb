@@ -2,55 +2,34 @@ package by.training.paragliding.service;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
+import by.training.paragliding.dao.Repository;
 import by.training.paragliding.dao.exception.DaoException;
-import by.training.paragliding.dao.sql.Specification;
-import by.training.paragliding.dao.sql.sportsmen.*;
+import by.training.paragliding.dao.mysql.Specification;
+import by.training.paragliding.dao.mysql.sportsmen.*;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 public class SportsmanService {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-    /*
-    todo: replace
+    /**
+     * Sportsman DAO.
      */
-    private static String DB_URL =
-            "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
-                    + "&useSSL=false&allowPublicKeyRetrieval=true";
-    private SportsmenRepository repository = new SportsmenRepository();
+    private Repository<Sportsman> repository;
 
     private static final Map<String, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
-    /*
-    todo; replace
-    */
-    public static void setDbUrl(final String newDbUrl) {
-        DB_URL = newDbUrl;
-    }
 
     static {
-        /*
-        todo:Replace with a connection pull
-         */
-        final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-        try {
-            Class.forName(jdbcDriver);
-        } catch (ClassNotFoundException newE) {
-            newE.printStackTrace();
-        }
-        ///
         SPECIFICATION_PROVIDER.put("countryCode",
                 SportsmanService::findByCountry);
         SPECIFICATION_PROVIDER.put("all", SportsmanService::findAll);
@@ -58,6 +37,10 @@ public class SportsmanService {
                 SportsmanService::findByApplication);
         SPECIFICATION_PROVIDER.put("ratingRange",
                 SportsmanService::findByRatingRange);
+    }
+
+    public SportsmanService(final Repository<Sportsman> newRepository) {
+        repository = newRepository;
     }
 
     /**
@@ -68,29 +51,20 @@ public class SportsmanService {
      * @throws ServiceException if something goes wrong.
      */
     public Sportsman readById(final int civlId) throws ServiceException {
-        try (Connection connection = DriverManager
-                .getConnection(DB_URL, "paragliding_app",
-                        "password");) {
-
-            logger.debug(connection);
-            repository.setConnection(connection);
+        try {
             return repository.readById(civlId);
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e ) {
             throw new ServiceException(e);
         }
     }
 
     @SafeVarargs
     public final  <T> List<Sportsman> find(String property, T... value) throws ServiceException {
-        try (Connection connection = DriverManager
-                .getConnection(DB_URL, "paragliding_app",
-                        "password");) {
-            logger.debug(connection);
-            repository.setConnection(connection);
+        try {
             var specification = SPECIFICATION_PROVIDER
                     .get(property).apply(value);
             return repository.query(specification);
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -103,11 +77,8 @@ public class SportsmanService {
     private static Specification findByCountry(final Object[] newCountryCode)
             throws ServiceException {
         try {
-            if (newCountryCode[0] instanceof CountryCode) {
-                return new FindByCountrySpecification(
-                        (CountryCode) newCountryCode[0]);
-            }
-            return null;
+            return new FindByCountrySpecification(
+                    (CountryCode) newCountryCode[0]);
         } catch (ClassCastException e) {
             throw new ServiceException(e);
         }

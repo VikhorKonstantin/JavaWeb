@@ -2,6 +2,8 @@ package test.paragliding.service;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
+import by.training.paragliding.dao.DaoFactory;
+import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
@@ -9,6 +11,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,12 +21,23 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
 public class SportsmanServiceTest {
-    private SportsmanService service = new SportsmanService();
+    private SportsmanService service;
 
     @BeforeClass
     public void init() {
-        SportsmanService.setDbUrl("jdbc:mysql://localhost:3306/paragliding_test_db?serverTimezone=UTC"
-                + "&useSSL=false&allowPublicKeyRetrieval=true");
+        final String dbUrl = "jdbc:mysql://localhost:3306/paragliding_test_db?serverTimezone=UTC"
+                + "&useSSL=false&allowPublicKeyRetrieval=true";
+        try {
+            final Connection connection = DriverManager
+                    .getConnection(dbUrl, "paragliding_app",
+                            "password");
+            final DaoFactory daoFactory = new DaoFactory(connection);
+            final ServiceFactory serviceFactory
+                    = new ServiceFactory(daoFactory);
+            service = serviceFactory.createSportsmanService();
+        } catch (SQLException newE) {
+            newE.printStackTrace();
+        }
     }
 
     @DataProvider(name = "readByIdProvider")
