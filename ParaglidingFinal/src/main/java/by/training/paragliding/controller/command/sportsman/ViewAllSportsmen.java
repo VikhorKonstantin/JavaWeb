@@ -1,6 +1,7 @@
 package by.training.paragliding.controller.command.sportsman;
 
 import by.training.paragliding.controller.command.Executable;
+import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
@@ -27,14 +28,16 @@ public class ViewAllSportsmen implements Executable {
      * @param resp http response
      * @throws ControllerException if something goes wrong
      * while command execution or request invalid
+     * @return ExecutionResult
      */
     @Override
-    public void execute(final HttpServletRequest req,
-                        final HttpServletResponse resp)
+    public ExecutionResult execute(final HttpServletRequest req,
+                                   final HttpServletResponse resp)
             throws ControllerException {
         try {
             var sportsmen = sportsmanService.find("all");
             req.setAttribute("sportsmen", sportsmen);
+            return new ExecutionResult(true, "/index.jsp");
         }
         catch (ServiceException e) {
             throw new ControllerException(e);

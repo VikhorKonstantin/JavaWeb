@@ -29,12 +29,14 @@ public class ControllerServlet extends HttpServlet {
     private static String DB_URL =
             "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
                     + "&useSSL=false&allowPublicKeyRetrieval=true";
+
     @Override
     public void init() throws ServletException {
         /*
         todo:Replace with a connection pull
          */
         final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+        logger.debug("init");
         try {
             Class.forName(jdbcDriver);
             final Connection connection = DriverManager
@@ -45,7 +47,7 @@ public class ControllerServlet extends HttpServlet {
                     = new ServiceFactory(daoFactory);
             controller = new Controller(serviceFactory);
         } catch (ClassNotFoundException | SQLException newE) {
-            newE.printStackTrace();
+            logger.error(newE);
         }
     }
 
@@ -56,7 +58,7 @@ public class ControllerServlet extends HttpServlet {
      * @param req  Http Servlet Request
      * @param resp Http Servlet Response
      * @throws ServletException if an input or output error is
-     * detected when the servlet handles the GET request
+     *                          detected when the servlet handles the GET request
      * @throws IOException      if the request for the GET could not be handled
      */
     @Override
@@ -64,12 +66,9 @@ public class ControllerServlet extends HttpServlet {
                          final HttpServletResponse resp)
             throws ServletException, IOException {
         try {
-            controller.executeTask(req, resp);
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/index.jsp");
-            dispatcher.forward(req, resp);
+            process(req, resp);
         } catch (ServletException | IOException | ControllerException e) {
-            logger.debug(e);
+            logger.error(e);
         }
     }
 
@@ -80,13 +79,34 @@ public class ControllerServlet extends HttpServlet {
      * @param req  Http Servlet Request
      * @param resp Http Servlet Response
      * @throws ServletException if an input or output error is
-     * detected when the servlet handles the POST request
+     *                          detected when the servlet handles the POST request
      * @throws IOException      if the request for the POST could not be handled
      */
     @Override
     protected void doPost(final HttpServletRequest req,
                           final HttpServletResponse resp)
-            throws ServletException, IOException {    }
+            throws ServletException, IOException {
+        try {
+            process(req, resp);
+        } catch (ServletException | IOException | ControllerException e) {
+            logger.error(e);
+        }
+    }
+
+    private void process(final HttpServletRequest req,
+                         final HttpServletResponse resp)
+            throws ServletException, ControllerException, IOException {
+        var result = controller.executeTask(req, resp);
+        logger.debug("Result url: " + result.getUrl());
+        if(result.isForward()) {
+            RequestDispatcher dispatcher = getServletContext()
+                    .getRequestDispatcher(result.getUrl());
+            dispatcher.forward(req, resp);
+        } else {
+            resp.sendRedirect(result.getUrl());
+        }
+
+    }
 
 
 }

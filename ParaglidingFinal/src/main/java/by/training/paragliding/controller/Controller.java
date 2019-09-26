@@ -1,6 +1,7 @@
 package by.training.paragliding.controller;
 
 import by.training.paragliding.controller.command.Executable;
+import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -32,9 +33,10 @@ public class Controller {
      * @param resp http response
      * @throws ControllerException if something goes wrong
      * while command execution or request invalid
+     * @return ExecutionResult
      */
-    public void executeTask(final HttpServletRequest req,
-                            final HttpServletResponse resp)
+    public ExecutionResult executeTask(final HttpServletRequest req,
+                                       final HttpServletResponse resp)
             throws ControllerException {
         try {
 
@@ -49,7 +51,7 @@ public class Controller {
 				actionName = uri.substring(beginAction);
 			}
             Executable executionCommand = provider.getCommand(actionName);
-            executionCommand.execute(req, resp);
+            return executionCommand.execute(req, resp);
         } catch (StringIndexOutOfBoundsException | NullPointerException e) {
             throw new ControllerException(e);
         }

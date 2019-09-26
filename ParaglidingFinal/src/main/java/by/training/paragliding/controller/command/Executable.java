@@ -13,6 +13,6 @@ public interface Executable {
      * @throws ControllerException if something goes wrong
      * while command execution or request invalid
      */
-    void execute(HttpServletRequest req,
+    ExecutionResult execute(HttpServletRequest req,
                  HttpServletResponse resp) throws ControllerException;
 }

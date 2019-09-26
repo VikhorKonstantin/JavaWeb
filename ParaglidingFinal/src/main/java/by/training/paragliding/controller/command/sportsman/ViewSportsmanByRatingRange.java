@@ -11,39 +11,38 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ViewSportsmanById implements Executable {
+public class ViewSportsmanByRatingRange implements Executable {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
     private SportsmanService sportsmanService;
 
-    public ViewSportsmanById(final SportsmanService newSportsmanService) {
+    public ViewSportsmanByRatingRange(
+            final SportsmanService newSportsmanService) {
         sportsmanService = newSportsmanService;
     }
-
     /**
      * Execute command.
-     * @param req http request
+     *
+     * @param req  http request
      * @param resp http response
      * @throws ControllerException if something goes wrong
-     * while command execution or request invalid
-     * @return ExecutionResult
+     *                             while command execution or request invalid
      */
     @Override
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        var id = req.getParameter("civlId");
+        var leftBoundString = req.getParameter("leftBound");
+        var rightBoundString = req.getParameter("rightBound");
         try {
-            var sportsman = sportsmanService.readById(Integer.parseInt(id));
-            final String logSpMsg = String.format("sportsman: %s",
-                    sportsman.toString());
-            logger.debug(logSpMsg);
-            req.setAttribute("sportsman", sportsman);
+            var sportsmen = sportsmanService.find("ratingRange",
+                    Float.parseFloat(leftBoundString),
+                    Float.parseFloat(rightBoundString));
+            req.setAttribute("sportsmen", sportsmen);
             return new ExecutionResult(true, "/index.jsp");
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }
