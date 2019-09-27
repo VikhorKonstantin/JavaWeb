@@ -1,0 +1,10 @@
+.bordering{
+    overflow: hidden;
+    animation: 
+    bordering 1.5s
+}
+@keyframes bordering {
+    from { width: 0 }
+    to { width: 100% }
+}
+  

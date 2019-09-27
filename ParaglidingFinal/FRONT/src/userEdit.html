@@ -1,0 +1,103 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <title>UserEdit</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
+
+        <a class="navbar-brand" href="main.jsp">
+            <img src="assets/i/logo.png" width="75" height="75">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="main.jsp">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="userList.jsp">UserList</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="userEdit.html">UserEdit <span
+                            class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-l-4">
+                <li class="nav-item"><a class="nav-link" href="logIn.html"> Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="singUp.html"> SingUp</a></li>
+            </ul>
+        </div>
+
+    </nav>
+    <main class="main">
+        <div class="container d-flex justify-content-center">
+            <div class="card rounded-form">
+                <div class="card-body col-12">
+                    <form>
+                        <div class="form-row">
+                            <div class="col-10 mb-3">
+                                <label class="required" for="validationServer01">ID</label>
+                                <input type="text" class="form-control" value="15555422645" disabled>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="required" for="validationServer01">First name</label>
+                                <input type="text" class="form-control" id="validationServer01" placeholder="First name"
+                                    pattern="^[a-zA-Z\s]+$" value="Vasya" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="required" for="validationServer02">Last name</label>
+                                <input type="text" class="form-control" id="validationServer02" placeholder="Last name"
+                                    pattern="^[a-zA-Z\s]+$" value="Pupkin" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="required" for="validationServerE-mail">E-mail</label>
+                                <input type="text" class="form-control" id="validationServerE-mail" placeholder="E-mail"
+                                    pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                    value="some.email@gmail.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="validationServer03">Country</label>
+                                <input type="text" class="form-control" id="validationServer03" placeholder="Country"
+                                    value="Belarus" required>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="validationServer04">City</label>
+                                <input type="text" class="form-control" id="validationServer04" placeholder="City"
+                                    value="Mozyr" required>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="validationServer05">Address</label>
+                                <input type="text" class="form-control" id="validationServer05" placeholder="Address"
+                                    value="улица Пролетарская 82, Мозырь" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">About yourself</label>
+                            <textarea class="form-control bordering" id="exampleFormControlTextarea1" rows="3">
+
+                            </textarea>
+                        </div>
+                        <button class="btn btn-submit" type="submit">Submit form</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="https://kit.fontawesome.com/3ee7443726.js"></script>
+    <script src="assets/js/main.min.js"></script>
+</body>
