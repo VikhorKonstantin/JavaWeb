@@ -41,7 +41,7 @@ public class ViewSportsmanById implements Executable {
                     sportsman.toString());
             logger.debug(logSpMsg);
             req.setAttribute("sportsman", sportsman);
-            return new ExecutionResult(true, "/index.jsp");
+            return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
         }
         catch (ServiceException e) {
             throw new ControllerException(e);

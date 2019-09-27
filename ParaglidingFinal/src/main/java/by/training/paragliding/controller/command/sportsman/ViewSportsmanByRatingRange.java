@@ -41,7 +41,7 @@ public class ViewSportsmanByRatingRange implements Executable {
                     Float.parseFloat(leftBoundString),
                     Float.parseFloat(rightBoundString));
             req.setAttribute("sportsmen", sportsmen);
-            return new ExecutionResult(true, "/index.jsp");
+            return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

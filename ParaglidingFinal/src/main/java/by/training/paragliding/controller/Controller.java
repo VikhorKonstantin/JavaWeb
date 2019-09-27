@@ -50,7 +50,9 @@ public class Controller {
 			} else {
 				actionName = uri.substring(beginAction);
 			}
+			logger.debug("actionName: " + actionName);
             Executable executionCommand = provider.getCommand(actionName);
+            logger.debug("command:" + executionCommand);
             return executionCommand.execute(req, resp);
         } catch (StringIndexOutOfBoundsException | NullPointerException e) {
             throw new ControllerException(e);

@@ -1,6 +1,7 @@
 package by.training.paragliding.controller;
 
 import by.training.paragliding.controller.command.Executable;
+import by.training.paragliding.controller.command.StartCommand;
 import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
 import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
 import by.training.paragliding.service.ServiceFactory;
@@ -29,6 +30,8 @@ final class CommandProvider {
         executableMap.put("/sportsmen/id", new ViewSportsmanById(
                 newServiceFactory.createSportsmanService()));
         executableMap.put("/sportsmen/all", new ViewAllSportsmen(
+                newServiceFactory.createSportsmanService()));
+        executableMap.put("/index", new StartCommand(
                 newServiceFactory.createSportsmanService()));
     }
 

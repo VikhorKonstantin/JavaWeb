@@ -19,7 +19,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@WebServlet(name = "request", urlPatterns = "*.html")
+@WebServlet(name = "ControllerServlet", urlPatterns = "*.html")
 public class ControllerServlet extends HttpServlet {
     /**
      * Logger.
@@ -96,6 +96,7 @@ public class ControllerServlet extends HttpServlet {
     private void process(final HttpServletRequest req,
                          final HttpServletResponse resp)
             throws ServletException, ControllerException, IOException {
+        logger.debug("Request: " + req.getRequestURI());
         var result = controller.executeTask(req, resp);
         logger.debug("Result url: " + result.getUrl());
         if(result.isForward()) {
