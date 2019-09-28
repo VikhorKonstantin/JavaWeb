@@ -112,9 +112,9 @@
                             <div class="card" style="width:400px">
                                 <img class="card-img-top" src="assets/i/book1.png" alt="Card image">
                                 <div class="card-body">
-                                    <h4 class="card-title">John CSS</h4>
-                                    <p class="card-text">Some example text.</p>
-                                    <a href="#" class="btn btn-primary">See Profile</a>
+                                    <h4 class="card-title">Competition 2</h4>
+                                    <p class="card-text">Here should be description</p>
+                                    <a href="#" class="btn btn-primary">More information</a>
                                 </div>
                             </div>
                         </div>
@@ -122,9 +122,9 @@
                             <div class="card" style="width:400px">
                                 <img class="card-img-top" src="assets/i/book2.png" alt="Card image">
                                 <div class="card-body">
-                                    <h4 class="card-title">John CSS</h4>
-                                    <p class="card-text">Some example text.</p>
-                                    <a href="#" class="btn btn-primary">See Profile</a>
+                                    <h4 class="card-title">Competition 2</h4>
+                                    <p class="card-text">Here should be description</p>
+                                    <a href="#" class="btn btn-primary">More information</a>
                                 </div>
                             </div>
                         </div>
@@ -132,9 +132,9 @@
                             <div class="card" style="width:400px">
                                 <img class="card-img-top" src="assets/i/book3.png" alt="Card image">
                                 <div class="card-body">
-                                    <h4 class="card-title">John CSS</h4>
-                                    <p class="card-text">Some example text.</p>
-                                    <a href="#" class="btn btn-primary">See Profile</a>
+                                    <h4 class="card-title">Competition 3</h4>
+                                    <p class="card-text">Here should be description</p>
+                                    <a href="#" class="btn btn-primary">More information</a>
                                 </div>
                             </div>
                         </div>

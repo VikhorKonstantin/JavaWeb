@@ -48,7 +48,6 @@
                     <tr>
                         <th scope="col">CIVL</th>
                         <th scope="col">NAME</th>
-                        >
                         <th scope="col">SURNAME</th>
                         <th scope="col">GENDER</th>
                         <th scope="col">COUNTRY</th>
