@@ -131,11 +131,9 @@ public class SportsmanServiceTest {
                         new Competition(1,
                                 "6th FAI European Paragliding"
                                         + " Accuracy Championship",
-                                LocalDate.of(2019,9,19),
-                                Competition.Discipline.values()[0],
+                                LocalDate.of(2019,9,19),"disc" ,
                                 Competition.Status.values()[4],
-                                "", 20,
-                                null)},
+                                "", 20)},
                 {"ratingRange", List.of(new Sportsman(8388,
                                 "Feraric",
                                 "Matjaz",

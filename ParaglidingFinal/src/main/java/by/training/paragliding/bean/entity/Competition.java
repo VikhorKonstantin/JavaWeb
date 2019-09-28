@@ -57,6 +57,7 @@ public class Competition {
 
     private String discipline;
 
+
     //    /**
 //     * Competition disciplines enum.
 //     */
