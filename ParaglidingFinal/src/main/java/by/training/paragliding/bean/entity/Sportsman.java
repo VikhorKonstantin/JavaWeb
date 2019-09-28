@@ -15,13 +15,13 @@ public class Sportsman {
     /**
      * Creates new Sportsman instance.
      *
-     * @param newName new sportsman name
-     * @param newSurname new sportsman surname.
-     * @param newCivlId new sportsmen id
-     * @param newGender  new gender
+     * @param newName        new sportsman name
+     * @param newSurname     new sportsman surname.
+     * @param newCivlId      new sportsmen id
+     * @param newGender      new gender
      * @param newCountryCode new sportsman country code
-     * @param newRating new sportsman Rating
-     * @param newImagePath new sportsman imagePath
+     * @param newRating      new sportsman Rating
+     * @param newImagePath   new sportsman imagePath
      */
     public Sportsman(final int newCivlId, final String newName,
                      final String newSurname, final char newGender,
@@ -40,6 +40,10 @@ public class Sportsman {
      * FAI identifier.
      */
     private int civlId;
+    /**
+     * User.
+     */
+    private User user;
     /**
      * Person name.
      */
@@ -189,6 +193,24 @@ public class Sportsman {
      */
     public void setRating(final float newRating) {
         rating = newRating;
+    }
+
+    /**
+     * Returns user.
+     *
+     * @return User
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets user-field into newUser.
+     *
+     * @param newUser new user
+     */
+    public void setUser(final User newUser) {
+        user = newUser;
     }
 
     /**

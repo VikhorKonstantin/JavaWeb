@@ -9,10 +9,9 @@ public class Competition {
     }
 
     public Competition(final int newId, final String newName,
-                       final LocalDate newDate, final Discipline newDiscipline,
+                       final LocalDate newDate, final String newDiscipline,
                        final Status newStatus, final String newDescription,
-                       final float newParticipationFee,
-                       final Map<Sportsman, Integer> newResults) {
+                       final float newParticipationFee) {
         id = newId;
         name = newName;
         date = newDate;
@@ -20,7 +19,6 @@ public class Competition {
         status = newStatus;
         description = newDescription;
         participationFee = newParticipationFee;
-        results = newResults;
     }
 
     /**
@@ -35,10 +33,11 @@ public class Competition {
      * Competition date.
      */
     private LocalDate date;
-    /**
-     * Competition discipline.
-     */
-    private Discipline discipline;
+    //todo: String from database dictionary or tiny int in db and enum field.
+//    /**
+//     * Competition discipline.
+//     */
+//    private Discipline discipline;
     /**
      * Competition status.
      */
@@ -56,55 +55,57 @@ public class Competition {
      */
     private Map<Sportsman, Integer> results;
 
-    /**
-     * Competition disciplines enumiration.
-     */
-    public enum Discipline {
-        /**
-         * Define "Paragliding Accuracy" discipline.
-         */
-        PG_AC("Paragliding Accuracy"),
-        /**
-         * Define "Paragliding" discipline.
-         */
-        PG("Paragliding"),
-        /**
-         * Define "Paragliding Aerobatic Solo" discipline.
-         */
-        PG_AER_SOLO("Paragliding Aerobatic Solo"),
-        /**
-         * Define "Paragliding Aerobatic Syncro" discipline.
-         */
-        PG_AER_SYNCRO("Paragliding Aerobatic Syncro"),
-        /**
-         * Define "Hang Gliding Class 1" discipline.
-         */
-        HG_C1("Hang Gliding Class 1"),
-        /**
-         * Define "Hang Gliding Class 2" discipline.
-         */
-        HG_C2("Hang Gliding Class 2");
-        /**
-         * Name of Dicipline.
-         */
-        private String name;
+    private String discipline;
 
-        /**
-         * Creates discipline by newName.
-         * @param newName name of discipline
-         */
-        Discipline(final String newName) {
-            name = newName;
-        }
-
-        /**
-         * Returns name of discipline.
-         * @return name of discipline
-         */
-        public String getName() {
-            return name;
-        }
-    }
+    //    /**
+//     * Competition disciplines enum.
+//     */
+//    public enum Discipline {
+//        /**
+//         * Define "Paragliding Accuracy" discipline.
+//         */
+//        PG_AC("Paragliding Accuracy"),
+//        /**
+//         * Define "Paragliding" discipline.
+//         */
+//        PG("Paragliding"),
+//        /**
+//         * Define "Paragliding Aerobatic Solo" discipline.
+//         */
+//        PG_AER_SOLO("Paragliding Aerobatic Solo"),
+//        /**
+//         * Define "Paragliding Aerobatic Syncro" discipline.
+//         */
+//        PG_AER_SYNCRO("Paragliding Aerobatic Syncro"),
+//        /**
+//         * Define "Hang Gliding Class 1" discipline.
+//         */
+//        HG_C1("Hang Gliding Class 1"),
+//        /**
+//         * Define "Hang Gliding Class 2" discipline.
+//         */
+//        HG_C2("Hang Gliding Class 2");
+//        /**
+//         * Name of Dicipline.
+//         */
+//        private String name;
+//
+//        /**
+//         * Creates discipline by newName.
+//         * @param newName name of discipline
+//         */
+//        Discipline(final String newName) {
+//            name = newName;
+//        }
+//
+//        /**
+//         * Returns name of discipline.
+//         * @return name of discipline
+//         */
+//        public String getName() {
+//            return name;
+//        }
+//    }
 
     /**
      * Competition statuses enumiration.
@@ -160,20 +161,20 @@ public class Competition {
     public void setName(final String newName) {
         name = newName;
     }
-    /**
-     * Returns competition discipline.
-     * @return competition discipline
-     */
-    public Discipline getDiscipline() {
-        return discipline;
-    }
-    /**
-     * Sets competition discipline into newDiscipline.
-     * @param newDiscipline new discipline
-     */
-    public void setDiscipline(final Discipline newDiscipline) {
-        discipline = newDiscipline;
-    }
+//    /**
+//     * Returns competition discipline.
+//     * @return competition discipline
+//     */
+//    public Discipline getDiscipline() {
+//        return discipline;
+//    }
+//    /**
+//     * Sets competition discipline into newDiscipline.
+//     * @param newDiscipline new discipline
+//     */
+//    public void setDiscipline(final Discipline newDiscipline) {
+//        discipline = newDiscipline;
+//    }
     /**
      * Returns competition status.
      * @return competition status
@@ -217,6 +218,13 @@ public class Competition {
         participationFee = newParticipationFee;
     }
 
+    public String getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline(final String newDiscipline) {
+        discipline = newDiscipline;
+    }
     /**
      * Returns competition results.
      * @return competition results

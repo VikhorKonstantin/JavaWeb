@@ -54,7 +54,8 @@ public class UserRepository extends BaseSqlRepository<User> {
                     user.setEmail(email);
                     var password = resultSet.getString("password");
                     user.setPassword(password);
-                    var role = ROLE_MAP.get(resultSet.getInt("role"));
+                    var roleInt = resultSet.getInt("role");
+                    var role = Role.values()[roleInt];
                     user.setRole(role);
                 }
             }

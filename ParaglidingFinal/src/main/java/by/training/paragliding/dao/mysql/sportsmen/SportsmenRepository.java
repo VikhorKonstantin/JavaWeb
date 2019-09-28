@@ -4,6 +4,7 @@ import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.BaseSqlRepository;
 import by.training.paragliding.dao.mysql.Specification;
+import by.training.paragliding.dao.mysql.user.UserRepository;
 import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public Sportsman readById(final int id) throws DaoException {
-        final String sql = "SELECT `civl_id`, `name`, `surname`, `gender`,"
+        final String sql = "SELECT `civl_id`, `user_id`, `name`, `surname`, `gender`,"
                 + " `country`, `rating`, `image_path` FROM `sportsmen` WHERE `civl_id` = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -41,19 +42,23 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
                 if (resultSet.next()) {
                     sportsman = new Sportsman();
                     sportsman.setCivlId(id);
-                    var surname = resultSet.getString("surname");
+                    final var surname = resultSet.getString("surname");
                     final String logSnMsg = String.format("Surname: %s", surname);
                     logger.debug(logSnMsg);
+                    final var userId = resultSet.getInt("user_id");
+                    final var userRepository = new UserRepository(connection);
+                    var user = userRepository.readById(userId);
+                    sportsman.setUser(user);
                     sportsman.setSurname(surname);
-                    var name = resultSet.getString("name");
+                    final var name = resultSet.getString("name");
                     sportsman.setName(name);
-                    var gender = resultSet.getString("gender").charAt(0);
+                    final var gender = resultSet.getString("gender").charAt(0);
                     sportsman.setGender(gender);
-                    var countryCode = CountryCode.valueOf(resultSet.getString("country"));
+                    final var countryCode = CountryCode.valueOf(resultSet.getString("country"));
                     sportsman.setCountryCode(countryCode);
-                    var rating = resultSet.getFloat("rating");
+                    final var rating = resultSet.getFloat("rating");
                     sportsman.setRating(rating);
-                    var imagePath = resultSet.getString("image_path");
+                    final var imagePath = resultSet.getString("image_path");
                     sportsman.setImagePath(imagePath);
                 }
             }

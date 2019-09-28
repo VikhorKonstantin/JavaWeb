@@ -10,8 +10,10 @@
 
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
-    <c:url value="/img/logo.png" var="logoImg"/>
-    <img src="${logoImg}" width="75" height="75" alt="logo">
+    <a class="navbar-brand  active" href="/index.html">
+        <c:url value="/img/logo.png" var="logoImg"/>
+        <img src="${logoImg}" width="75" height="75" alt="logo">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

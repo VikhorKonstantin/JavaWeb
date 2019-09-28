@@ -24,8 +24,8 @@ public class FindSportsmenByApplication implements Specification {
 
     @Override
     public PreparedStatement createStatement(final Connection connection) throws DaoException {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL);
+        try (PreparedStatement statement = connection.prepareStatement(SQL)){
+
             statement.setInt(1, competition.getId());
             return statement;
         } catch (SQLException newE) {

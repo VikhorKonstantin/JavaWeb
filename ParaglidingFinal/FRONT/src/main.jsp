@@ -7,11 +7,11 @@
     <link rel="stylesheet" type="text/css" href="${cssUrl}">
     <title>LibMain</title>
 </head>
-
+<c:url value="/index.html" var="HomeRef"/>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
 
-    <a class="navbar-brand  active" href="main.jsp">
+    <a class="navbar-brand  active" href="${HomeRef}">
         <c:url value="/img/logo.png" var="logoImg"/>
         <img src="${logoImg}" width="75" height="75" alt="logo">
     </a>
@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <c:url value="/index.html" var="HomeRef"/>
+
                 <a class="nav-link  active" href="${HomeRef}">
                     Home <span class="sr-only">(current)</span></a>
             </li>
@@ -110,7 +110,8 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="card" style="width:400px">
-                                <img class="card-img-top" src="assets/i/book1.png" alt="Card image">
+                                <c:url var = "competeImg" value = "/img/competition.jpg"/>
+                                <img class="card-img-top" src="${competeImg}" alt="Card image">
                                 <div class="card-body">
                                     <h4 class="card-title">Competition 2</h4>
                                     <p class="card-text">Here should be description</p>
@@ -120,7 +121,8 @@
                         </div>
                         <div class="carousel-item">
                             <div class="card" style="width:400px">
-                                <img class="card-img-top" src="assets/i/book2.png" alt="Card image">
+                                <c:url var = "competeImg" value = "/img/competition.jpg"/>
+                                <img class="card-img-top" src="${competeImg}" alt="Card image">
                                 <div class="card-body">
                                     <h4 class="card-title">Competition 2</h4>
                                     <p class="card-text">Here should be description</p>
@@ -130,7 +132,8 @@
                         </div>
                         <div class="carousel-item">
                             <div class="card" style="width:400px">
-                                <img class="card-img-top" src="assets/i/book3.png" alt="Card image">
+                                <c:url var = "competeImg" value = "/img/competition.jpg"/>
+                                <img class="card-img-top" src="${competeImg}" alt="Card image">
                                 <div class="card-body">
                                     <h4 class="card-title">Competition 3</h4>
                                     <p class="card-text">Here should be description</p>
