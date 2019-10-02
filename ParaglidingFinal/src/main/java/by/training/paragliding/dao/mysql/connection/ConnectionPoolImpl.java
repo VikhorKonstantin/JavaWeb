@@ -1,5 +1,7 @@
 package by.training.paragliding.dao.mysql.connection;
 
+import by.training.paragliding.dao.exception.DaoException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.*;
@@ -11,7 +13,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     /**
      * Singleton-class instance.
      */
-    private static ConnectionPool instance;
+    private static ConnectionPoolImpl instance;
 
     /**
      * Lock for synchronization.
@@ -33,7 +35,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     public void initialize(final int newSize,
                            final ConnectionFactory newConnectionFactory,
-                           final ConnectionValidator newConnectionValidator) {
+                           final ConnectionValidator newConnectionValidator)
+            throws DaoException {
         size = newSize;
         connections = new LinkedBlockingQueue<>(size);
         connectionFactory = newConnectionFactory;
@@ -42,7 +45,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         shutdownCalled.set(false);
     }
 
-    private void fillConnections() {
+    private void fillConnections() throws DaoException {
         for (int i = 0; i < size; i++) {
             connections.add(connectionFactory.createNewConnection());
         }
@@ -53,7 +56,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
      *
      * @return instance
      */
-    public static ConnectionPool getInstance() {
+    public static ConnectionPoolImpl getInstance() {
         lock.lock();
         try {
             if (instance == null) {

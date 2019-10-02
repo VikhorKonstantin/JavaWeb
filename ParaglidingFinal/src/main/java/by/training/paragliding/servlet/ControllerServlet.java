@@ -3,10 +3,8 @@ package by.training.paragliding.servlet;
 
 import by.training.paragliding.controller.Controller;
 import by.training.paragliding.controller.exception.ControllerException;
-import by.training.paragliding.dao.DaoFactory;
-import by.training.paragliding.dao.DaoFactoryImpl;
-import by.training.paragliding.service.ServiceFactory;
-import by.training.paragliding.service.ServiceFactoryImpl;
+import by.training.paragliding.dao.exception.DaoException;
+import by.training.paragliding.dao.mysql.connection.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,40 +15,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 @WebServlet(name = "ControllerServlet", urlPatterns = "*.html")
 public class ControllerServlet extends HttpServlet {
+    private static final int POOL_SIZE = 50;
     /**
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
-    private static Controller controller;
+    private Controller controller;
     private static String DB_URL =
             "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
                     + "&useSSL=false&allowPublicKeyRetrieval=true";
 
     @Override
     public void init() throws ServletException {
-        /*
-        todo:Replace with a connection pull
-         */
-        final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-        logger.debug("init");
-        try {
-            Class.forName(jdbcDriver);
-            final Connection connection = DriverManager
-                    .getConnection(DB_URL, "paragliding_app",
-                            "password");
-            final DaoFactory daoFactory = new DaoFactoryImpl(connection);
-            final ServiceFactory serviceFactory
-                    = new ServiceFactoryImpl(daoFactory);
-            controller = new Controller(serviceFactory);
-        } catch (ClassNotFoundException | SQLException newE) {
+        try{
+            ConnectionFactory connectionFactory =
+                    new ConnectionFactoryImpl("database.property");
+            ConnectionValidator connectionValidator =
+                    new ConnectionValidatorImpl();
+            ConnectionPoolImpl.getInstance()
+                    .initialize(POOL_SIZE ,connectionFactory, connectionValidator);
+        } catch (DaoException newE) {
             logger.error(newE);
         }
+//        final DaoFactory daoFactory = new DaoFactoryImpl(connection);
+//        final ServiceFactory serviceFactory
+//                = new ServiceFactoryImpl(daoFactory);
+//        controller = new Controller(serviceFactory);
     }
 
     /**
@@ -94,6 +87,7 @@ public class ControllerServlet extends HttpServlet {
             logger.error(e);
         }
     }
+
 
     private void process(final HttpServletRequest req,
                          final HttpServletResponse resp)

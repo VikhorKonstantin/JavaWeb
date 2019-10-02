@@ -2,7 +2,6 @@ package test.paragliding.service;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
-import by.training.paragliding.dao.DaoFactoryImpl;
 import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;

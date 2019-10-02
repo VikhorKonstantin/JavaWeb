@@ -1,7 +1,5 @@
 package by.training.paragliding.service;
 
-import by.training.paragliding.dao.DaoFactory;
-
 public class ServiceFactoryImpl implements ServiceFactory {
     private final DaoFactory daoFactory;
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="utg" %>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -221,6 +222,7 @@
             <div class="row">
                 <ctg:info-time/>
                 <ctg:hello role="${cookie}"/>
+                <utg:hello/>
                 <p>© Copyright 2019. All rights reserved</p>
             </div>
         </div>
