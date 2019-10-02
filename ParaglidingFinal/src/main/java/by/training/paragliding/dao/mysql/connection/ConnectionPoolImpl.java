@@ -70,7 +70,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     @Override
     public Connection get(final long timeOut,
-                          final TimeUnit unit) throws InterruptedException {
+                          final TimeUnit unit) throws DaoException {
         if (!shutdownCalled.get()) {
             Connection connection = null;
             try {
@@ -81,12 +81,12 @@ public class ConnectionPoolImpl implements ConnectionPool {
             }
             return connection;
         }
-        throw new IllegalStateException(
+        throw new DaoException(
                 "Object pool is already shutdown");
     }
 
     @Override
-    public Connection get() {
+    public Connection get() throws DaoException {
         if (!shutdownCalled.get()) {
             Connection connection = null;
             try {
@@ -97,7 +97,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
             }
             return connection;
         }
-        throw new IllegalStateException(
+        throw new DaoException(
                 "Object pool is already shutdown");
     }
 

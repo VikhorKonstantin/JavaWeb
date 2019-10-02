@@ -1,10 +1,12 @@
 package by.training.paragliding.service;
 
-public class ServiceFactoryImpl implements ServiceFactory {
-    private final DaoFactory daoFactory;
+import by.training.paragliding.dao.TransactionFactory;
 
-    public ServiceFactoryImpl(final DaoFactory newDaoFactory) {
-        daoFactory = newDaoFactory;
+public class ServiceFactoryImpl implements ServiceFactory {
+    private final TransactionFactory transactionFactory;
+
+    public ServiceFactoryImpl(final TransactionFactory newTransactionFactory) {
+        transactionFactory = newTransactionFactory;
     }
 
     public SportsmanService createSportsmanService() {

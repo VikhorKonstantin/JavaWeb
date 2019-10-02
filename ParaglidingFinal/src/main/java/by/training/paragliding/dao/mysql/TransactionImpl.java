@@ -8,6 +8,7 @@ import by.training.paragliding.dao.exception.DaoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -33,7 +34,9 @@ public class TransactionImpl implements Transaction {
     @SuppressWarnings("unchecked")
     @Override
     public <T>Repository<T> createDao(DaoType type) throws DaoException {
-        return typeRepositoryMap.get(type).apply(connection);
+        return Optional.ofNullable(typeRepositoryMap.get(type))
+                .orElseThrow(() ->  new DaoException("Wrong DAO type"))
+                .apply(connection);
     }
 
     @Override

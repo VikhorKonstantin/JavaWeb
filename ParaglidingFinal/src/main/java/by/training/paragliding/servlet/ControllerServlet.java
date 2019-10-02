@@ -4,7 +4,9 @@ package by.training.paragliding.servlet;
 import by.training.paragliding.controller.Controller;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.dao.exception.DaoException;
+import by.training.paragliding.dao.mysql.TransactionFactoryImpl;
 import by.training.paragliding.dao.mysql.connection.*;
+import by.training.paragliding.service.ServiceFactoryImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +25,7 @@ public class ControllerServlet extends HttpServlet {
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
-    private Controller controller;
+    
     private static String DB_URL =
             "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
                     + "&useSSL=false&allowPublicKeyRetrieval=true";
@@ -92,6 +94,7 @@ public class ControllerServlet extends HttpServlet {
     private void process(final HttpServletRequest req,
                          final HttpServletResponse resp)
             throws ServletException, ControllerException, IOException {
+        Controller controller = receiveController();
         logger.debug("Request: " + req.getRequestURI());
         var result = controller.executeTask(req, resp);
         logger.debug("Result url: " + result.getUrl());
@@ -103,6 +106,10 @@ public class ControllerServlet extends HttpServlet {
             resp.sendRedirect(result.getUrl());
         }
 
+    }
+
+    private Controller receiveController() {
+        return new Controller(new ServiceFactoryImpl(new TransactionFactoryImpl()));
     }
 
 
