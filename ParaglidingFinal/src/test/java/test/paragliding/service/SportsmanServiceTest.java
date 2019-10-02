@@ -2,7 +2,7 @@ package test.paragliding.service;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
-import by.training.paragliding.dao.DaoFactory;
+import by.training.paragliding.dao.DaoFactoryImpl;
 import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
@@ -31,7 +31,7 @@ public class SportsmanServiceTest {
             final Connection connection = DriverManager
                     .getConnection(dbUrl, "paragliding_app",
                             "password");
-            final DaoFactory daoFactory = new DaoFactory(connection);
+            final DaoFactoryImpl daoFactory = new DaoFactoryImpl(connection);
             final ServiceFactory serviceFactory
                     = new ServiceFactory(daoFactory);
             service = serviceFactory.createSportsmanService();

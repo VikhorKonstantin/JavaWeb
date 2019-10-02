@@ -4,7 +4,9 @@ package by.training.paragliding.servlet;
 import by.training.paragliding.controller.Controller;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.dao.DaoFactory;
+import by.training.paragliding.dao.DaoFactoryImpl;
 import by.training.paragliding.service.ServiceFactory;
+import by.training.paragliding.service.ServiceFactoryImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,7 +27,7 @@ public class ControllerServlet extends HttpServlet {
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
-    private Controller controller;
+    private static Controller controller;
     private static String DB_URL =
             "jdbc:mysql://localhost:3306/paragliding_db?serverTimezone=UTC"
                     + "&useSSL=false&allowPublicKeyRetrieval=true";
@@ -42,9 +44,9 @@ public class ControllerServlet extends HttpServlet {
             final Connection connection = DriverManager
                     .getConnection(DB_URL, "paragliding_app",
                             "password");
-            final DaoFactory daoFactory = new DaoFactory(connection);
+            final DaoFactory daoFactory = new DaoFactoryImpl(connection);
             final ServiceFactory serviceFactory
-                    = new ServiceFactory(daoFactory);
+                    = new ServiceFactoryImpl(daoFactory);
             controller = new Controller(serviceFactory);
         } catch (ClassNotFoundException | SQLException newE) {
             logger.error(newE);
