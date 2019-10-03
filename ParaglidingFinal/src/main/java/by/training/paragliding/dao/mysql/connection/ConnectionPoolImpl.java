@@ -31,7 +31,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     private ConnectionValidator connectionValidator;
 
-    private AtomicBoolean shutdownCalled;
+    private AtomicBoolean shutdownCalled = new AtomicBoolean();
 
     public void initialize(final int newSize,
                            final ConnectionFactory newConnectionFactory,

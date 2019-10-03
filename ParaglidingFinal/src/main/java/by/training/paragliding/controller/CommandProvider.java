@@ -4,7 +4,9 @@ import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.StartCommand;
 import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
 import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
+import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.ServiceFactory;
+import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,16 +25,22 @@ final class CommandProvider {
      * commands map.
      */
     private final Map<String, Executable> executableMap = new HashMap<>();
+
     /**
      * init executableMap.
      */
-    CommandProvider(final ServiceFactory newServiceFactory) {
-        executableMap.put("/sportsmen/id", new ViewSportsmanById(
-                newServiceFactory.createSportsmanService()));
-        executableMap.put("/sportsmen/all", new ViewAllSportsmen(
-                newServiceFactory.createSportsmanService()));
-        executableMap.put("/index", new StartCommand(
-                newServiceFactory.createSportsmanService()));
+    CommandProvider(final ServiceFactory newServiceFactory)
+            throws ControllerException {
+        try {
+            executableMap.put("/sportsmen/id", new ViewSportsmanById(
+                    newServiceFactory.createSportsmanService()));
+            executableMap.put("/sportsmen/all", new ViewAllSportsmen(
+                    newServiceFactory.createSportsmanService()));
+            executableMap.put("/index", new StartCommand(
+                    newServiceFactory.createSportsmanService()));
+        } catch (ServiceException newE) {
+            throw new ControllerException(newE);
+        }
     }
 
     /**

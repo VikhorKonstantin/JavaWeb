@@ -16,11 +16,11 @@ public class TransactionFactoryImpl implements TransactionFactory {
     private static final int TIME_OUT = 25;
 
     public TransactionFactoryImpl() throws DaoException {
-        connection = ConnectionPoolImpl.getInstance().get(TIME_OUT,
-                TimeUnit.SECONDS);
+        connection = ConnectionPoolImpl.getInstance()
+                .get(TIME_OUT, TimeUnit.SECONDS);
         try {
             connection.setAutoCommit(false);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
@@ -34,7 +34,7 @@ public class TransactionFactoryImpl implements TransactionFactory {
     public void close() {
         try {
             connection.close();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             //todo: logger
         }
     }

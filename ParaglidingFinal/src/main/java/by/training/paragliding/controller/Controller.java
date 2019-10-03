@@ -23,34 +23,36 @@ public class Controller {
      */
     private final CommandProvider provider;
 
-    public Controller(final ServiceFactory  newServiceFactory) {
+    public Controller(final ServiceFactory newServiceFactory)
+            throws ControllerException {
         provider = new CommandProvider(newServiceFactory);
     }
 
     /**
      * Execute task by request.
-     * @param req http request
+     *
+     * @param req  http request
      * @param resp http response
-     * @throws ControllerException if something goes wrong
-     * while command execution or request invalid
      * @return ExecutionResult
+     * @throws ControllerException if something goes wrong
+     *                             while command execution or request invalid
      */
     public ExecutionResult executeTask(final HttpServletRequest req,
                                        final HttpServletResponse resp)
             throws ControllerException {
         try {
 
-			String contextPath = req.getContextPath();
-			String uri = req.getRequestURI();
-			int beginAction = contextPath.length();
-			int endAction = uri.lastIndexOf('.');
-			String actionName;
-			if(endAction >= 0) {
-				actionName = uri.substring(beginAction, endAction);
-			} else {
-				actionName = uri.substring(beginAction);
-			}
-			logger.debug("actionName: " + actionName);
+            String contextPath = req.getContextPath();
+            String uri = req.getRequestURI();
+            int beginAction = contextPath.length();
+            int endAction = uri.lastIndexOf('.');
+            String actionName;
+            if (endAction >= 0) {
+                actionName = uri.substring(beginAction, endAction);
+            } else {
+                actionName = uri.substring(beginAction);
+            }
+            logger.debug("actionName: " + actionName);
             Executable executionCommand = provider.getCommand(actionName);
             logger.debug("command:" + executionCommand);
             return executionCommand.execute(req, resp);

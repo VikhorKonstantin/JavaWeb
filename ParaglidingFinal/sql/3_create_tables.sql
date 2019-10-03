@@ -45,7 +45,7 @@ CREATE TABLE `disciplines` (
  */
 CREATE TABLE `competitions` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `date` INT NOT NULL,
+    `date` DATE NOT NULL,
     `name` VARCHAR(256) NOT NULL,
     `discipline_id` INT NOT NULL,
     `status` TINYINT NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `applications` (
                 FOREIGN KEY (`sportsman_id`) REFERENCES sportsmen(civl_id) ON DELETE CASCADE,
      CONSTRAINT FK_applications_competitions
                 FOREIGN KEY (`competition_id`) REFERENCES competitions(id) ON DELETE CASCADE
-)
+);
 
 
 

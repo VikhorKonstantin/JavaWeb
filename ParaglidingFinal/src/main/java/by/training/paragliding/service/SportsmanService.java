@@ -2,7 +2,9 @@ package by.training.paragliding.service;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
+import by.training.paragliding.dao.DaoType;
 import by.training.paragliding.dao.Repository;
+import by.training.paragliding.dao.Transaction;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
 import by.training.paragliding.dao.mysql.sportsmen.*;
@@ -21,9 +23,9 @@ public class SportsmanService {
      */
     private Logger logger = LogManager.getLogger("main");
     /**
-     * Sportsman DAO.
+     * Transaction.
      */
-    private Repository<Sportsman> repository;
+    private Transaction transaction;
 
     private static final Map<String, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
@@ -39,8 +41,8 @@ public class SportsmanService {
                 SportsmanService::findByRatingRange);
     }
 
-    public SportsmanService(final Repository<Sportsman> newRepository) {
-        repository = newRepository;
+    public SportsmanService(final Transaction newTransaction) {
+        transaction = newTransaction;
     }
 
     /**
@@ -52,7 +54,9 @@ public class SportsmanService {
      */
     public Sportsman readById(final int civlId) throws ServiceException {
         try {
-            return repository.readById(civlId);
+            Repository<Sportsman> sportsmanDao =
+                    transaction.createDao(DaoType.SPORTSMAN);
+            return sportsmanDao.readById(civlId);
         } catch (DaoException e ) {
             throw new ServiceException(e);
         }
@@ -63,7 +67,9 @@ public class SportsmanService {
         try {
             var specification = SPECIFICATION_PROVIDER
                     .get(property).apply(value);
-            return repository.query(specification);
+            Repository<Sportsman> sportsmanDao =
+                    transaction.createDao(DaoType.SPORTSMAN);
+            return sportsmanDao.query(specification);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

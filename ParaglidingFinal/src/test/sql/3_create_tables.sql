@@ -89,7 +89,7 @@ CREATE TABLE `applications` (
                 FOREIGN KEY (`sportsman_id`) REFERENCES sportsmen(civl_id) ON DELETE CASCADE,
      CONSTRAINT FK_applications_competitions
                 FOREIGN KEY (`competition_id`) REFERENCES competitions(id) ON DELETE CASCADE
-)
+);
 
 
 

@@ -1,8 +1,10 @@
 package by.training.paragliding.service;
 
+import by.training.paragliding.service.exception.ServiceException;
+
 public interface ServiceFactory {
 
-    UserService createUserService();
+    UserService createUserService() throws ServiceException;
 
-    SportsmanService createSportsmanService();
+    SportsmanService createSportsmanService() throws ServiceException;
 }

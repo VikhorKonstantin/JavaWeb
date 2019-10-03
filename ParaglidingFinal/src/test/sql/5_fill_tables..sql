@@ -37,11 +37,11 @@ VALUES (2,
         315.0,
         "");
 INSERT INTO `competitions`(`id`, `name`, date, discipline_id, status, description, participation_fee)
-VALUES (1, "6th FAI European Paragliding Accuracy Championship", 20180916, 1, 5, "", 20),
-       (2, "PGA Czech Open 2019 IPGA European CUP", 20190816, 1, 5, "", 15),
-       (3, "Albania Open", 20190508, 1, 5, "", 20),
+VALUES (1, "6th FAI European Paragliding Accuracy Championship", "2018.09.16", 1, 5, "Descripion template..", 20),
+       (2, "PGA Czech Open 2019 IPGA European CUP", "2019.08.16", 1, 5, "Descripion template..", 15),
+       (3, "Albania Open", "2019.05.08", 1, 5, "Descripion template..", 20),
        (4, "Paragliding Accuracy European Cup, Paragliding Accuracy Balkanic Cup, Campionatul National al Romani",
-        20190607, 1, 5, "", 20);
+        "2019.06.07", 1, 5, "Descripion template..", 20);
 INSERT INTO `applications` (sportsman_id, competition_id)
 VALUES (8389, 1),
        (8389, 3),

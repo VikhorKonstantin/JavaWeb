@@ -2,7 +2,11 @@ package test.paragliding.service;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
+import by.training.paragliding.dao.exception.DaoException;
+import by.training.paragliding.dao.mysql.TransactionFactoryImpl;
+import by.training.paragliding.dao.mysql.connection.*;
 import by.training.paragliding.service.ServiceFactory;
+import by.training.paragliding.service.ServiceFactoryImpl;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
@@ -10,9 +14,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,20 +22,20 @@ import static org.testng.Assert.assertNull;
 
 public class SportsmanServiceTest {
     private SportsmanService service;
-
     @BeforeClass
-    public void init() {
-        final String dbUrl = "jdbc:mysql://localhost:3306/paragliding_test_db?serverTimezone=UTC"
-                + "&useSSL=false&allowPublicKeyRetrieval=true";
+    public void init() throws DaoException {
+        ConnectionFactory connectionFactory =
+                new ConnectionFactoryImpl("database_test.properties");
+        ConnectionValidator connectionValidator =
+                new ConnectionValidatorImpl();
+        ConnectionPoolImpl.getInstance()
+                .initialize(5, connectionFactory,
+                        connectionValidator);
         try {
-            final Connection connection = DriverManager
-                    .getConnection(dbUrl, "paragliding_app",
-                            "password");
-            final DaoFactoryImpl daoFactory = new DaoFactoryImpl(connection);
-            final ServiceFactory serviceFactory
-                    = new ServiceFactory(daoFactory);
+            ServiceFactory serviceFactory
+                    = new ServiceFactoryImpl(new TransactionFactoryImpl());
             service = serviceFactory.createSportsmanService();
-        } catch (SQLException newE) {
+        } catch (DaoException | ServiceException newE) {
             newE.printStackTrace();
         }
     }
