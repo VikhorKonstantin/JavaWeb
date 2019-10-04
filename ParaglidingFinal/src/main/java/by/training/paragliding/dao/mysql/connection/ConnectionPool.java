@@ -11,7 +11,7 @@ public interface ConnectionPool {
 
     Connection get() throws DaoException;
 
-    void releaseConnection(Connection connection);
+    void release(Connection connection);
 
     void shutdown();
 }

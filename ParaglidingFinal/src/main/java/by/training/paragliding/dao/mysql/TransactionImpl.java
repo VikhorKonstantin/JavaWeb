@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class TransactionImpl implements Transaction {
+public final class TransactionImpl implements Transaction {
 
     private static Map<DaoType, Function<Connection, Repository>>
             typeRepositoryMap = new ConcurrentHashMap<>();
@@ -27,7 +27,7 @@ public class TransactionImpl implements Transaction {
 
     private Connection connection;
 
-    public TransactionImpl(Connection connection) {
+    TransactionImpl(Connection connection) {
         this.connection = connection;
     }
 

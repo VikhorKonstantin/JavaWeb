@@ -56,21 +56,36 @@ public class SportsmanService {
         try {
             Repository<Sportsman> sportsmanDao =
                     transaction.createDao(DaoType.SPORTSMAN);
-            return sportsmanDao.readById(civlId);
-        } catch (DaoException e ) {
+            //todo: ask
+            var result = sportsmanDao.readById(civlId);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error("Rollback failed", rbExc);
+            }
             throw new ServiceException(e);
         }
     }
 
     @SafeVarargs
-    public final  <T> List<Sportsman> find(String property, T... value) throws ServiceException {
+    public final <T> List<Sportsman> find(String property, T... value) throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER
                     .get(property).apply(value);
             Repository<Sportsman> sportsmanDao =
                     transaction.createDao(DaoType.SPORTSMAN);
-            return sportsmanDao.query(specification);
+            var result = sportsmanDao.query(specification);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error("Rollback failed", rbExc);
+            }
             throw new ServiceException(e);
         }
     }
@@ -132,7 +147,6 @@ public class SportsmanService {
             throw new ServiceException(e);
         }
     }
-
 
 
     /**

@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionFactoryImpl implements ConnectionFactory {
+public final class ConnectionFactoryImpl implements ConnectionFactory {
     private String connectionURL;
     private String userName;
     private String userPassword;
@@ -31,8 +31,6 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
-            //todo remove
-            LogManager.getLogger("main").debug(driver, e);
             throw new DaoException(
                     "Unable to find driver in classpath", e);
         }

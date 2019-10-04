@@ -111,5 +111,8 @@ public class ControllerServlet extends HttpServlet {
                 new TransactionFactoryImpl()));
     }
 
-
+    @Override
+    public void destroy() {
+        super.destroy();
+    }
 }

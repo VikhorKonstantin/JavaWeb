@@ -4,7 +4,7 @@ import by.training.paragliding.dao.TransactionFactory;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.service.exception.ServiceException;
 
-public class ServiceFactoryImpl implements ServiceFactory {
+public final class ServiceFactoryImpl implements ServiceFactory {
     private final TransactionFactory transactionFactory;
 
     public ServiceFactoryImpl(final TransactionFactory newTransactionFactory) {
@@ -25,5 +25,10 @@ public class ServiceFactoryImpl implements ServiceFactory {
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        transactionFactory.close();
     }
 }

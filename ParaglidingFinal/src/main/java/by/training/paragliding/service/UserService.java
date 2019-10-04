@@ -30,8 +30,15 @@ public class UserService {
         try {
             Repository<User> userRepository =
                     transaction.createDao(DaoType.USER);
-            return userRepository.readById(id);
+            var result = userRepository.readById(id);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error("Rollback failed", rbExc);
+            }
             throw new ServiceException(e);
         }
     }
@@ -40,8 +47,15 @@ public class UserService {
         try {
             Repository<User> userRepository =
                     transaction.createDao(DaoType.USER);
-            return userRepository.query(new FindAllUsersSpecification());
+            var result = userRepository.query(new FindAllUsersSpecification());
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error("Rollback failed", rbExc);
+            }
             throw new ServiceException(e);
         }
     }

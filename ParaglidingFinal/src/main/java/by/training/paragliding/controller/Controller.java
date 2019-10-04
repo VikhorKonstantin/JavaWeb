@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Provides connection between view and services.
  */
-public class Controller {
+public class Controller implements AutoCloseable {
     /**
      * Logger.
      */
@@ -60,5 +60,10 @@ public class Controller {
             throw new ControllerException(e);
         }
 
+    }
+
+    @Override
+    public void close() throws Exception {
+        provider.close();
     }
 }

@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
-public class TransactionFactoryImpl implements TransactionFactory {
+public final class TransactionFactoryImpl implements TransactionFactory {
     private Connection connection;
 
     //todo: move somewhere
@@ -32,10 +32,6 @@ public class TransactionFactoryImpl implements TransactionFactory {
 
     @Override
     public void close() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            //todo: logger
-        }
+        ConnectionPoolImpl.getInstance().release(connection);
     }
 }

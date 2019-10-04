@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Provides access to commands by CommandName.
  */
-final class CommandProvider {
+final class CommandProvider implements AutoCloseable {
     /**
      * Logger.
      */
@@ -27,20 +27,31 @@ final class CommandProvider {
     private final Map<String, Executable> executableMap = new HashMap<>();
 
     /**
+     * Service factory.
+     */
+    private ServiceFactory serviceFactory;
+
+    /**
      * init executableMap.
      */
     CommandProvider(final ServiceFactory newServiceFactory)
             throws ControllerException {
+        serviceFactory = newServiceFactory;
         try {
             executableMap.put("/sportsmen/id", new ViewSportsmanById(
-                    newServiceFactory.createSportsmanService()));
+                    serviceFactory.createSportsmanService()));
             executableMap.put("/sportsmen/all", new ViewAllSportsmen(
-                    newServiceFactory.createSportsmanService()));
+                    serviceFactory.createSportsmanService()));
             executableMap.put("/index", new StartCommand(
-                    newServiceFactory.createSportsmanService()));
+                    serviceFactory.createSportsmanService()));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        serviceFactory.close();
     }
 
     /**

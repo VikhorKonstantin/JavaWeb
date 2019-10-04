@@ -1,6 +1,8 @@
 package by.training.paragliding.dao.mysql.connection;
 
 import by.training.paragliding.dao.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,7 +10,11 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ConnectionPoolImpl implements ConnectionPool {
+public final class ConnectionPoolImpl extends AbstractConnectionPool {
+    /**
+     * Logger.
+     */
+    private final Logger logger = LogManager.getLogger("main");
 
     /**
      * Singleton-class instance.
@@ -102,13 +108,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
     }
 
     @Override
-    public void releaseConnection(final Connection connection) {
-        if (connectionValidator.isValid(connection)) {
-            executor.submit(new ConnectionReturner(connections, connection));
-        }
-    }
-
-    @Override
     public void shutdown() {
         shutdownCalled.set(true);
         executor.shutdownNow();
@@ -120,26 +119,47 @@ public class ConnectionPoolImpl implements ConnectionPool {
             try {
                 connection.close();
             } catch (SQLException newE) {
-                //todo:logger
+                logger.error(newE);
             }
         }
     }
 
+    @Override
+    protected void handleInvalidReturn(final Connection connection) {
+        logger.warn("It is impossible to return database connection into pool. Trying to create new..");
+        try {
+            returnToPool(connectionFactory.createNewConnection());
+        } catch (DaoException newE) {
+            logger.error("Can't create new connection and return it to pool!");
+        }
+    }
+
+    @Override
+    protected void returnToPool(final Connection connection) {
+        executor.submit(new ConnectionReturner(connections, connection));
+    }
+
+    @Override
+    protected boolean isValid(final Connection newConnection) {
+        return connectionValidator.isValid(newConnection);
+    }
 
     private static class ConnectionReturner
             implements Callable<Void> {
         private BlockingQueue<Connection> queue;
-        private Connection e;
+        private Connection connection;
 
-        ConnectionReturner(BlockingQueue<Connection> queue, Connection e) {
+        ConnectionReturner(BlockingQueue<Connection> queue, Connection connection) {
             this.queue = queue;
-            this.e = e;
+            this.connection = connection;
         }
 
-        public Void call() {
+        public Void call() throws SQLException {
             while (true) {
                 try {
-                    queue.put(e);
+                    connection.clearWarnings();
+                    connection.setAutoCommit(true);
+                    queue.put(connection);
                     break;
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
