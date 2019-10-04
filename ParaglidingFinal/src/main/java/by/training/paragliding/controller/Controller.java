@@ -52,9 +52,11 @@ public class Controller implements AutoCloseable {
             } else {
                 actionName = uri.substring(beginAction);
             }
-            logger.debug("actionName: " + actionName);
+
             Executable executionCommand = provider.getCommand(actionName);
-            logger.debug("command:" + executionCommand);
+            var commandDbgMsg =
+                    String.format("Execution command:%s", executionCommand);
+            logger.debug(commandDbgMsg);
             return executionCommand.execute(req, resp);
         } catch (StringIndexOutOfBoundsException | NullPointerException e) {
             throw new ControllerException(e);

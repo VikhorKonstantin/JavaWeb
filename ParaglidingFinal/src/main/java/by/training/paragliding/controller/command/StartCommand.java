@@ -1,7 +1,6 @@
 package by.training.paragliding.controller.command;
 
 import by.training.paragliding.controller.exception.ControllerException;
-import by.training.paragliding.service.SportsmanService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,11 +13,7 @@ public class StartCommand implements Executable {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-    private SportsmanService sportsmanService;
 
-    public StartCommand(final SportsmanService newSportsmanService) {
-        sportsmanService = newSportsmanService;
-    }
     /**
      * Execute command.
      *
@@ -31,7 +26,6 @@ public class StartCommand implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        logger.debug("IMHERE");
         return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
     }
 }

@@ -56,7 +56,7 @@ public class SportsmanService {
         try {
             Repository<Sportsman> sportsmanDao =
                     transaction.createDao(DaoType.SPORTSMAN);
-            //todo: ask
+            //todo: ask about commit/rollback
             var result = sportsmanDao.readById(civlId);
             transaction.commit();
             return result;

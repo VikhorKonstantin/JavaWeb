@@ -28,4 +28,6 @@ final class DaoCreator {
         return new CompetitionRepository(newConnection);
     }
 
+    private DaoCreator(){}
+
 }

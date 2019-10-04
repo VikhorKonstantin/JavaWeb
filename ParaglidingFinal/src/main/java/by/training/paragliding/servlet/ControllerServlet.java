@@ -92,9 +92,7 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException,
             ControllerException, IOException, DaoException {
         Controller controller = receiveController();
-        logger.debug("Request: " + req.getRequestURI());
         var result = controller.executeTask(req, resp);
-        logger.debug("Result url: " + result.getUrl());
         if (result.isForward()) {
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher(result.getUrl());

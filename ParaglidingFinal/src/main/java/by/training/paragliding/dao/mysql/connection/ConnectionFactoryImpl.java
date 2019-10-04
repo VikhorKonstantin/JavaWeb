@@ -50,8 +50,6 @@ public final class ConnectionFactoryImpl implements ConnectionFactory {
                             userName,
                             userPassword);
         } catch (SQLException se) {
-            //todo remove
-            LogManager.getLogger("main").debug(se);
             throw new DaoException(
                     "Unable to create new connection", se);
         }

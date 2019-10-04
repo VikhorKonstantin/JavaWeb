@@ -42,8 +42,7 @@ final class CommandProvider implements AutoCloseable {
                     serviceFactory.createSportsmanService()));
             executableMap.put("/sportsmen/all", new ViewAllSportsmen(
                     serviceFactory.createSportsmanService()));
-            executableMap.put("/index", new StartCommand(
-                    serviceFactory.createSportsmanService()));
+            executableMap.put("/index", new StartCommand());
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

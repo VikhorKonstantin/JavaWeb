@@ -10,10 +10,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class CompetitionRepository extends BaseSqlRepository<Competition> {
+
+    private static final String SELECT_COMP_BY_ID =
+            "SELECT `id`, `date`, `name`, `discipline_id`, "
+                    + "`status`, `participation_fee`, `description`"
+                    + " FROM `competitions` WHERE `id` = ?";
+    private static final String SELECT_DISCIPLINE =
+            "SELECT `name` FROM `disciplines` WHERE `id` = ?";
+
     public CompetitionRepository(final Connection newConnection) {
         super(newConnection);
     }
@@ -27,10 +36,9 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      */
     @Override
     public Competition readById(final int id) throws DaoException {
-        final String sql = "SELECT `id`, `date`, `name`, `discipline_id`, "
-                + "`status`, `participation_fee`, `description`"
-                + " FROM `competitions` WHERE `id` = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(SELECT_COMP_BY_ID)) {
             statement.setInt(1, id);
             Competition competition;
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -38,17 +46,26 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                 if (resultSet.next()) {
                     competition = new Competition();
                     competition.setId(id);
-                    final var dateString =
-                            String.valueOf(resultSet.getInt("date"));
-                    final LocalDate date = LocalDate.parse(dateString,
-                            DateTimeFormatter.ofPattern("yyyyMMdd"));
+                    Date rawDate = resultSet.getDate("date");
+                    final LocalDate date = LocalDate.ofInstant(
+                            rawDate.toInstant(), ZoneId.systemDefault());
                     competition.setDate(date);
                     final var name = resultSet.getString("name");
                     competition.setName(name);
-                    //todo: make dao for disciplines and set value to competition.
-                    // or make it tiny int and use enum
                     final var disciplineId =
                             resultSet.getInt("discipline_id");
+                    try (PreparedStatement disciplineStatement = connection
+                            .prepareStatement(SELECT_DISCIPLINE)) {
+                        disciplineStatement
+                                .setInt(1, disciplineId);
+                        try (var disciplineResultSet =
+                                     disciplineStatement.executeQuery()) {
+                            final var discipline =
+                                    disciplineResultSet
+                                            .getString("name");
+                            competition.setDiscipline(discipline);
+                        }
+                    }
                     final var statusInt =
                             resultSet.getInt("status");
                     final var status = Competition.Status.values()[statusInt];
@@ -122,7 +139,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      * @throws DaoException if something goes wrong
      */
     @Override
-    public List<Competition> query(final Specification specification) throws DaoException {
+    public List<Competition> query(final Specification specification)
+            throws DaoException {
         return null;
     }
 }

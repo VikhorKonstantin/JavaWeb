@@ -118,21 +118,6 @@ public class Competition {
     public void setName(final String newName) {
         name = newName;
     }
-//    /**
-//     * Returns competition discipline.
-//     * @return competition discipline
-//     */
-//    public Discipline getDiscipline() {
-//        return discipline;
-//    }
-//    /**
-//     * Sets competition discipline into newDiscipline.
-//     * @param newDiscipline new discipline
-//     */
-//    public void setDiscipline(final Discipline newDiscipline) {
-//        discipline = newDiscipline;
-//    }
-
     /**
      * Returns competition status.
      *
@@ -187,10 +172,20 @@ public class Competition {
         participationFee = newParticipationFee;
     }
 
+    /**
+     * Returns competition discipline.
+     *
+     * @return competition discipline
+     */
     public String getDiscipline() {
         return discipline;
     }
 
+    /**
+     * Sets competition discipline into newDiscipline.
+     *
+     * @param newDiscipline new discipline
+     */
     public void setDiscipline(final String newDiscipline) {
         discipline = newDiscipline;
     }
