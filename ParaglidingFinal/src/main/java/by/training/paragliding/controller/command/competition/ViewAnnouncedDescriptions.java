@@ -1,26 +1,28 @@
-package by.training.paragliding.controller.command.sportsman;
+package by.training.paragliding.controller.command.competition;
 
+import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
-import by.training.paragliding.service.SportsmanService;
+import by.training.paragliding.service.CompetitionService;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.stream.Collectors;
 
-public class ViewSportsmenByCountryCode implements Executable {
+public class ViewAnnouncedDescriptions implements Executable {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
 
-    private SportsmanService sportsmanService;
+    private CompetitionService competitionService;
 
-    public ViewSportsmenByCountryCode(final SportsmanService newService) {
-        sportsmanService = newService;
+    public ViewAnnouncedDescriptions(final CompetitionService newService) {
+        competitionService = newService;
     }
 
     /**
@@ -35,11 +37,14 @@ public class ViewSportsmenByCountryCode implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        var countryCode = req.getParameter("countryCode");
         try {
-            var sportsmen = sportsmanService.find("countryCode",
-                    countryCode);
-            req.setAttribute("sportsman", sportsmen);
+            var competitions = competitionService.find("status",
+                    Competition.Status.ANNOUNCED);
+            var descriptions = competitions.stream()
+                    .map(Competition::getDescription)
+                    .collect(Collectors.toList());
+            logger.debug("Descriptions: "+descriptions);
+            req.setAttribute("descriptions", descriptions);
             return new ExecutionResult(true,
                     "/WEB-INF/jsp/main.jsp");
         }

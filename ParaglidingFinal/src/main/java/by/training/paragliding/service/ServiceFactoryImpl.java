@@ -27,6 +27,14 @@ public final class ServiceFactoryImpl implements ServiceFactory {
         }
     }
 
+    public CompetitionService createCompetitionService() throws ServiceException {
+        try {
+            return new CompetitionService(transactionFactory.createTransaction());
+        } catch (DaoException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
     @Override
     public void close() throws Exception {
         transactionFactory.close();

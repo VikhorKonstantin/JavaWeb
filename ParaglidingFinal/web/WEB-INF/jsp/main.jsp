@@ -110,36 +110,15 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="card" style="width:400px">
-                                <c:url var = "competeImg" value = "/img/competition.jpg"/>
-                                <img class="card-img-top" src="${competeImg}" alt="Card image">
-                                <div class="card-body">
-                                    <h4 class="card-title">Competition 2</h4>
-                                    <p class="card-text">Here should be description</p>
-                                    <a href="#" class="btn btn-primary">More information</a>
-                                </div>
-                            </div>
-                        </div>
+                        <c:forEach items="${descriptions}" var = "description"/>
                         <div class="carousel-item">
                             <div class="card" style="width:400px">
                                 <c:url var = "competeImg" value = "/img/competition.jpg"/>
                                 <img class="card-img-top" src="${competeImg}" alt="Card image">
                                 <div class="card-body">
-                                    <h4 class="card-title">Competition 2</h4>
-                                    <p class="card-text">Here should be description</p>
-                                    <a href="#" class="btn btn-primary">More information</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="card" style="width:400px">
-                                <c:url var = "competeImg" value = "/img/competition.jpg"/>
-                                <img class="card-img-top" src="${competeImg}" alt="Card image">
-                                <div class="card-body">
-                                    <h4 class="card-title">Competition 3</h4>
-                                    <p class="card-text">Here should be description</p>
-                                    <a href="#" class="btn btn-primary">More information</a>
+                                    <h4 class="card-title">Competition</h4>
+                                    <p class="card-text">${description}</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
                                 </div>
                             </div>
                         </div>

@@ -7,4 +7,5 @@ public interface ServiceFactory extends AutoCloseable {
     UserService createUserService() throws ServiceException;
 
     SportsmanService createSportsmanService() throws ServiceException;
+    CompetitionService createCompetitionService() throws ServiceException;
 }

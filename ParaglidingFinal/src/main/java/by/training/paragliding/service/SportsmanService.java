@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SportsmanService {
+public class SportsmanService implements Service<Sportsman> {
     /**
      * Logger.
      */
@@ -41,7 +41,7 @@ public class SportsmanService {
                 SportsmanService::findByRatingRange);
     }
 
-    public SportsmanService(final Transaction newTransaction) {
+    SportsmanService(final Transaction newTransaction) {
         transaction = newTransaction;
     }
 
@@ -70,8 +70,9 @@ public class SportsmanService {
         }
     }
 
-    @SafeVarargs
-    public final <T> List<Sportsman> find(String property, T... value) throws ServiceException {
+    @Override
+    public final List<Sportsman> find(String property, Object... value)
+            throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER
                     .get(property).apply(value);
@@ -149,15 +150,7 @@ public class SportsmanService {
     }
 
 
-    /**
-     * @param <T> param type.
-     * @param <R> return type.
-     * @param <E> exception type.
-     */
-    @FunctionalInterface
-    private interface ThrowingFunction<T, R, E extends Exception> {
-        R apply(T t) throws E;
-    }
+
 
 
 }

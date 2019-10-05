@@ -22,7 +22,7 @@ public class UserService {
      */
     private Transaction transaction;
 
-    public UserService(final Transaction newTransaction) {
+    UserService(final Transaction newTransaction) {
         transaction = newTransaction;
     }
 

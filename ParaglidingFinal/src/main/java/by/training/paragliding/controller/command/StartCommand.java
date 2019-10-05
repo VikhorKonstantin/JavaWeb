@@ -1,6 +1,8 @@
 package by.training.paragliding.controller.command;
 
+import by.training.paragliding.controller.command.competition.ViewAnnouncedDescriptions;
 import by.training.paragliding.controller.exception.ControllerException;
+import by.training.paragliding.service.CompetitionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +16,12 @@ public class StartCommand implements Executable {
      */
     private Logger logger = LogManager.getLogger("main");
 
+    private CompetitionService competitionService;
+
+    public StartCommand(final CompetitionService newCompetitionService) {
+        competitionService = newCompetitionService;
+    }
+
     /**
      * Execute command.
      *
@@ -26,6 +34,8 @@ public class StartCommand implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
+        var competitionCommand =
+                new ViewAnnouncedDescriptions(competitionService);
+        return competitionCommand.execute(req, resp);
     }
 }
