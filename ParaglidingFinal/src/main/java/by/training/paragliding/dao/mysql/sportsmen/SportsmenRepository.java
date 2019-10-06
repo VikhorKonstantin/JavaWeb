@@ -1,11 +1,12 @@
 package by.training.paragliding.dao.mysql.sportsmen;
 
+import by.training.paragliding.bean.builder.Builder;
+import by.training.paragliding.bean.builder.SportsmanBuilder;
 import by.training.paragliding.bean.entity.Sportsman;
+import by.training.paragliding.bean.exception.BeanException;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.BaseSqlRepository;
 import by.training.paragliding.dao.mysql.Specification;
-import by.training.paragliding.dao.mysql.user.UserRepository;
-import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +18,9 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("main");
+
+    private final Builder<Sportsman> sportsmanBuilder = new SportsmanBuilder();
 
     public SportsmenRepository(final Connection newConnection) {
         super(newConnection);
@@ -40,30 +43,11 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 sportsman = null;
                 if (resultSet.next()) {
-                    sportsman = new Sportsman();
-                    sportsman.setCivlId(id);
-                    final var surname = resultSet.getString("surname");
-                    final String logSnMsg = String.format("Surname: %s", surname);
-                    logger.debug(logSnMsg);
-                    final var userId = resultSet.getInt("user_id");
-                    final var userRepository = new UserRepository(connection);
-                    var user = userRepository.readById(userId);
-                    sportsman.setUser(user);
-                    sportsman.setSurname(surname);
-                    final var name = resultSet.getString("name");
-                    sportsman.setName(name);
-                    final var gender = resultSet.getString("gender").charAt(0);
-                    sportsman.setGender(gender);
-                    final var countryCode = CountryCode.valueOf(resultSet.getString("country"));
-                    sportsman.setCountryCode(countryCode);
-                    final var rating = resultSet.getFloat("rating");
-                    sportsman.setRating(rating);
-                    final var imagePath = resultSet.getString("image_path");
-                    sportsman.setImagePath(imagePath);
+                    sportsman = sportsmanBuilder.build(resultSet);
                 }
             }
             return sportsman;
-        } catch (SQLException e) {
+        } catch (SQLException | BeanException e) {
             throw new DaoException(e);
         }
     }
@@ -123,14 +107,11 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-        final String sql = "SELECT COUNT(`civl_id`) AS `count` FROM `sportsmen`";
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        final String sql = "SELECT NULL FROM `sportsmen` LIMIT 1";
+        try (PreparedStatement statement = connection.prepareStatement(sql,
+                Statement.RETURN_GENERATED_KEYS)) {
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt("`count`") > 0;
-                } else {
-                    throw new DaoException("ResultSet has no next");
-                }
+                return resultSet.next();
             }
         } catch (SQLException newE) {
             throw new DaoException(newE);
@@ -152,18 +133,11 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
                      specification.createStatement(connection);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                sportsman = new Sportsman();
-                sportsman.setCivlId(resultSet.getInt("civl_id"));
-                sportsman.setName(resultSet.getString("name"));
-                sportsman.setSurname(resultSet.getString("surname"));
-                sportsman.setGender(resultSet.getString("gender").charAt(0));
-                sportsman.setRating(resultSet.getFloat("rating"));
-                sportsman.setCountryCode(CountryCode.valueOf(resultSet.getString("country")));
-                sportsman.setImagePath(resultSet.getString("image_path"));
+                sportsman = sportsmanBuilder.build(resultSet);
                 resultList.add(sportsman);
             }
             return resultList;
-        } catch (SQLException newE) {
+        } catch (SQLException | BeanException newE) {
             throw new DaoException(newE);
         }
     }

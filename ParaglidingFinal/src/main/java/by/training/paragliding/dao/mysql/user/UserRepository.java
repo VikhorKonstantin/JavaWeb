@@ -1,7 +1,10 @@
 package by.training.paragliding.dao.mysql.user;
 
+import by.training.paragliding.bean.builder.Builder;
+import by.training.paragliding.bean.builder.UserBuilder;
 import by.training.paragliding.bean.entity.Role;
 import by.training.paragliding.bean.entity.User;
+import by.training.paragliding.bean.exception.BeanException;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.BaseSqlRepository;
 import by.training.paragliding.dao.mysql.Specification;
@@ -9,18 +12,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserRepository extends BaseSqlRepository<User> {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+
+    private final Builder<User> userBuilder = new UserBuilder();
+
     /**
      * Map which stores pairs Role instance + number
      * from database that represents this role
      */
     private static final Map<Integer, Role> ROLE_MAP = new HashMap<>();
+
     static {
         ROLE_MAP.put(0, Role.ADMIN);
         ROLE_MAP.put(1, Role.REGISTERED_USER);
@@ -46,21 +56,11 @@ public class UserRepository extends BaseSqlRepository<User> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 user = null;
                 if (resultSet.next()) {
-                    user = new User();
-                    user.setId(id);
-                    var email = resultSet.getString("email");
-                    final String logEmailMsg = String.format("Email: %s", email);
-                    logger.debug(logEmailMsg);
-                    user.setEmail(email);
-                    var password = resultSet.getString("password");
-                    user.setPassword(password);
-                    var roleInt = resultSet.getInt("role");
-                    var role = Role.values()[roleInt];
-                    user.setRole(role);
+                    user = userBuilder.build(resultSet);
                 }
             }
             return user;
-        } catch (SQLException e) {
+        } catch (SQLException | BeanException e) {
             throw new DaoException(e);
         }
     }
@@ -115,15 +115,11 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-        final String sql = "SELECT COUNT(`id`) AS `count` FROM `users`";
+        final String sql = "SELECT NULL FROM `users` LIMIT 1";
         try (PreparedStatement statement = connection.prepareStatement(sql,
                 Statement.RETURN_GENERATED_KEYS)) {
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt("`count`") > 0;
-                } else {
-                    throw new DaoException("ResultSet has no next");
-                }
+                return resultSet.next();
             }
         } catch (SQLException newE) {
             throw new DaoException(newE);
@@ -145,16 +141,11 @@ public class UserRepository extends BaseSqlRepository<User> {
                      specification.createStatement(connection);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setPassword(resultSet.getString("password"));
-                user.setEmail(resultSet.getString("email"));
-                user.setRole(
-                        Role.valueOf(resultSet.getString("role")));
+                user = userBuilder.build(resultSet);
                 resultList.add(user);
             }
             return resultList;
-        } catch (SQLException newE) {
+        } catch (SQLException | BeanException newE) {
             throw new DaoException(newE);
         }
     }

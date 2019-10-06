@@ -1,12 +1,14 @@
 package by.training.paragliding.dao.mysql.competition;
 
+import by.training.paragliding.bean.builder.Builder;
+import by.training.paragliding.bean.builder.CompetitionBuilder;
 import by.training.paragliding.bean.entity.Competition;
+import by.training.paragliding.bean.exception.BeanException;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.BaseSqlRepository;
 import by.training.paragliding.dao.mysql.Specification;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,9 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
             "SELECT `id`, `date`, `name`, `discipline_id`, "
                     + "`status`, `participation_fee`, `description`"
                     + " FROM `competitions` WHERE `id` = ?";
-    private static final String SELECT_DISCIPLINE =
-            "SELECT `name` FROM `disciplines` WHERE `id` = ?";
+
+
+    private final Builder<Competition> competitionBuilder = new CompetitionBuilder();
 
     public CompetitionRepository(final Connection newConnection) {
         super(newConnection);
@@ -32,7 +35,6 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      */
     @Override
     public Competition readById(final int id) throws DaoException {
-
         try (PreparedStatement statement =
                      connection.prepareStatement(SELECT_COMP_BY_ID)) {
             statement.setInt(1, id);
@@ -40,29 +42,11 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 competition = null;
                 if (resultSet.next()) {
-                    competition = new Competition();
-                    competition.setId(id);
-                    Date rawDate = resultSet.getDate("date");
-                    final LocalDate date = rawDate.toLocalDate();
-                    competition.setDate(date);
-                    final var name = resultSet.getString("name");
-                    competition.setName(name);
-                    final var discipline = resultSet.getString("discipline_name");
-                    competition.setDiscipline(discipline);
-                    final var statusInt =
-                            resultSet.getInt("status");
-                    final var status = Competition.Status.values()[statusInt];
-                    competition.setStatus(status);
-                    final var fee =
-                            resultSet.getFloat("participation_fee");
-                    competition.setParticipationFee(fee);
-                    final var description =
-                            resultSet.getString("description");
-                    competition.setDescription(description);
+                    competition = competitionBuilder.build(resultSet);
                 }
             }
             return competition;
-        } catch (SQLException e) {
+        } catch (SQLException | BeanException e) {
             throw new DaoException(e);
         }
     }
@@ -99,7 +83,14 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-        return false;
+        final String sql = "SELECT NULL FROM `competitions` LIMIT 1";
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
+                return resultSet.next();
+            }
+        } catch (SQLException newE) {
+            throw new DaoException(newE);
+        }
     }
 
     /**
@@ -130,30 +121,11 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                      specification.createStatement(connection);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                competition = new Competition();
-                competition.setId(resultSet.getInt("id"));
-                Date rawDate = resultSet.getDate("date");
-                final LocalDate date = rawDate.toLocalDate();
-                competition.setDate(date);
-                final var name = resultSet.getString("name");
-                competition.setName(name);
-                final var disciplineName =
-                        resultSet.getString("discipline_name");
-                competition.setDiscipline(disciplineName);
-                final var statusInt =
-                        resultSet.getInt("status");
-                final var status = Competition.Status.values()[statusInt];
-                competition.setStatus(status);
-                final var fee =
-                        resultSet.getFloat("participation_fee");
-                competition.setParticipationFee(fee);
-                final var description =
-                        resultSet.getString("description");
-                competition.setDescription(description);
+                competition = competitionBuilder.build(resultSet);
                 resultList.add(competition);
             }
             return resultList;
-        } catch (SQLException newE) {
+        } catch (SQLException | BeanException newE) {
             throw new DaoException(newE);
         }
     }
