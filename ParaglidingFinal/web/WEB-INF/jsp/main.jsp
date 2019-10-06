@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <c:url value="/css/style.css" var="cssUrl"/>
     <link rel="stylesheet" type="text/css" href="${cssUrl}">
-    <title>LibMain</title>
+    <title>Paragliding</title>
 </head>
 <c:url value="/index.html" var="HomeRef"/>
 <body>
@@ -103,33 +103,44 @@
         <div class="col-10 col-md-6 col-sm-6 col-lg-6 col-xl-6">
 
             <div class=" d-flex justify-content-center">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <c:forEach items="${descriptions}" var = "description"/>
-                        <div class="carousel-item">
-                            <div class="card" style="width:400px">
-                                <c:url var = "competeImg" value = "/img/competition.jpg"/>
-                                <img class="card-img-top" src="${competeImg}" alt="Card image">
-                                <div class="card-body">
-                                    <h4 class="card-title">Competition</h4>
-                                    <p class="card-text">${description}</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                        <c:forEach items="${descriptions}" var="description" varStatus="counter">
+                            <c:choose>
+                                <c:when test="${counter.first}">
+                                    <div class="carousel-item active">
+                                        <div class="card rounded-form" style="width:400px">
+                                            <c:url var="competeImg" value="/img/competition.jpg"/>
+                                            <img class="card-img-top" src="${competeImg}" alt="Card image">
+                                            <div class="card-body">
+                                                <h4 class="card-title">${description.key}</h4>
+                                                <p class="card-text">${description.value}</p>
+                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="carousel-item">
+                                        <div class="card rounded-form" style="width:400px">
+                                            <c:url var="competeImg" value="/img/competition.jpg"/>
+                                            <img class="card-img-top" src="${competeImg}" alt="Card image">
+                                            <div class="card-body">
+                                                <h4 class="card-title">${description.key}</h4>
+                                                <p class="card-text">${description.value}</p>
+                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                       data-slide="prev">
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                       data-slide="next">
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>

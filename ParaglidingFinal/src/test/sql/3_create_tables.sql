@@ -60,7 +60,7 @@ CREATE TABLE `competitions`
     CONSTRAINT FK_competitions_discipline
         FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`),
     CONSTRAINT CH_competitions_status CHECK (`status` BETWEEN 0 AND 4),
-    CONSTRAINT CH_competitions_participation_fee CHECK ( `participation_fee` > 0 )
+    CONSTRAINT CH_competitions_participation_fee CHECK ( `participation_fee` >= 0 )
 );
 
 
@@ -71,7 +71,7 @@ CREATE TABLE `results`
     `competition_id` INT NOT NULL,
     CONSTRAINT PK_results
         PRIMARY KEY (`competition_id`, `sportsman_id`),
-    CONSTRAINT FK_results_spotsmen
+    CONSTRAINT FK_results_sportsmen
         FOREIGN KEY (`sportsman_id`) REFERENCES sportsmen (civl_id) ON DELETE CASCADE,
     CONSTRAINT FK_results_competitions
         FOREIGN KEY (`competition_id`) REFERENCES competitions (id) ON DELETE CASCADE,
