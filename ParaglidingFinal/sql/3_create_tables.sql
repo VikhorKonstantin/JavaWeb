@@ -55,7 +55,7 @@ CREATE TABLE `competitions` (
        PRIMARY KEY (`id`),
     CONSTRAINT FK_competitions_discipline
             FOREIGN KEY (`discipline_id`) REFERENCES `disciplines`(`id`),
-    CONSTRAINT CH_competitions_status CHECK (`status` BETWEEN 0 AND 5),
+    CONSTRAINT CH_competitions_status CHECK (`status` BETWEEN 0 AND 4),
     CONSTRAINT CH_competitions_participation_fee CHECK ( `participation_fee` > 0 )
 );
 

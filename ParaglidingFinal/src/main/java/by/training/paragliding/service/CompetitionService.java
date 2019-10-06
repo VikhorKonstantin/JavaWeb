@@ -30,7 +30,7 @@ public class CompetitionService implements Service<Competition> {
         transaction = newTransaction;
     }
 
-    private static final Map<String, SportsmanService.ThrowingFunction<Object[], Specification,
+    private static final Map<String, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 

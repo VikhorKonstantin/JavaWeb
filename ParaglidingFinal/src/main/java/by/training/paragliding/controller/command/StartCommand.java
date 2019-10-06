@@ -36,6 +36,7 @@ public class StartCommand implements Executable {
             throws ControllerException {
         var competitionCommand =
                 new ViewAnnouncedDescriptions(competitionService);
+        logger.debug("CompetitionCommand: " + competitionCommand);
         return competitionCommand.execute(req, resp);
     }
 }

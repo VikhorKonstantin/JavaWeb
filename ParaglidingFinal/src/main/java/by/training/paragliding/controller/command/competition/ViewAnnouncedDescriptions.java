@@ -40,6 +40,7 @@ public class ViewAnnouncedDescriptions implements Executable {
         try {
             var competitions = competitionService.find("status",
                     Competition.Status.ANNOUNCED);
+            logger.debug("Competitions: " + competitions);
             var descriptions = competitions.stream()
                     .map(Competition::getDescription)
                     .collect(Collectors.toList());

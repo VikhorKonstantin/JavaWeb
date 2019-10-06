@@ -10,12 +10,12 @@ public interface Service<T> {
             throws ServiceException;
 
     /**
-     * @param <T> param type.
+     * @param <P> param type.
      * @param <R> return type.
      * @param <E> exception type.
      */
     @FunctionalInterface
-    interface ThrowingFunction<T, R, E extends Exception> {
-        R apply(T t) throws E;
+    interface ThrowingFunction<P, R, E extends Exception> {
+        R apply(P t) throws E;
     }
 }

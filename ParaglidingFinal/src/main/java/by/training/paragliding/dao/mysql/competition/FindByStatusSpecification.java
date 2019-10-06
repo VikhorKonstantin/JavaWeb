@@ -9,9 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class FindByStatusSpecification implements Specification {
-    private static final String SQL = "SELECT `id`, `date` ,`name`,"
-            + " `discipline_id`, `status`, `participation_fee`, `description`"
-            + "FROM `competitions` WHERE `status` = ?";
+    private static final String SQL = "SELECT `competitions`.`id` AS `id`, "
+            + "`date` , `competitions`.`name` AS `name`,"
+            + " `status`, `participation_fee`, `description`, "
+            + "`disciplines`.`name` AS `discipline_name` "
+            + "FROM `competitions`"
+            + "JOIN `disciplines` ON `discipline_id` = `disciplines`.`id`"
+            + "WHERE `status` = ?";
 
     private Competition.Status status;
 

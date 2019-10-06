@@ -5,13 +5,9 @@ import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.BaseSqlRepository;
 import by.training.paragliding.dao.mysql.Specification;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompetitionRepository extends BaseSqlRepository<Competition> {
@@ -47,25 +43,12 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                     competition = new Competition();
                     competition.setId(id);
                     Date rawDate = resultSet.getDate("date");
-                    final LocalDate date = LocalDate.ofInstant(
-                            rawDate.toInstant(), ZoneId.systemDefault());
+                    final LocalDate date = rawDate.toLocalDate();
                     competition.setDate(date);
                     final var name = resultSet.getString("name");
                     competition.setName(name);
-                    final var disciplineId =
-                            resultSet.getInt("discipline_id");
-                    try (PreparedStatement disciplineStatement = connection
-                            .prepareStatement(SELECT_DISCIPLINE)) {
-                        disciplineStatement
-                                .setInt(1, disciplineId);
-                        try (var disciplineResultSet =
-                                     disciplineStatement.executeQuery()) {
-                            final var discipline =
-                                    disciplineResultSet
-                                            .getString("name");
-                            competition.setDiscipline(discipline);
-                        }
-                    }
+                    final var discipline = resultSet.getString("discipline_name");
+                    competition.setDiscipline(discipline);
                     final var statusInt =
                             resultSet.getInt("status");
                     final var status = Competition.Status.values()[statusInt];
@@ -141,6 +124,37 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
     @Override
     public List<Competition> query(final Specification specification)
             throws DaoException {
-        return null;
+        var resultList = new ArrayList<Competition>();
+        Competition competition;
+        try (PreparedStatement statement =
+                     specification.createStatement(connection);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                competition = new Competition();
+                competition.setId(resultSet.getInt("id"));
+                Date rawDate = resultSet.getDate("date");
+                final LocalDate date = rawDate.toLocalDate();
+                competition.setDate(date);
+                final var name = resultSet.getString("name");
+                competition.setName(name);
+                final var disciplineName =
+                        resultSet.getString("discipline_name");
+                competition.setDiscipline(disciplineName);
+                final var statusInt =
+                        resultSet.getInt("status");
+                final var status = Competition.Status.values()[statusInt];
+                competition.setStatus(status);
+                final var fee =
+                        resultSet.getFloat("participation_fee");
+                competition.setParticipationFee(fee);
+                final var description =
+                        resultSet.getString("description");
+                competition.setDescription(description);
+                resultList.add(competition);
+            }
+            return resultList;
+        } catch (SQLException newE) {
+            throw new DaoException(newE);
+        }
     }
 }
