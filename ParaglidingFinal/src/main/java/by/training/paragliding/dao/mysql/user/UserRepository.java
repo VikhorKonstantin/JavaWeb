@@ -23,6 +23,18 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     private Logger logger = LogManager.getLogger("main");
 
+    private static final String IS_EMPTY = "SELECT NULL FROM `users` LIMIT 1";
+
+    private static final String DELETE_USER =
+            "DELETE FROM `users` WHERE `id` = ?";
+
+    private static final String INSERT_USER =
+            "INSERT INTO `users` (`email`, `password`, `role`)"
+                    + " VALUES (?, ?, ?)";
+
+    private static final  String SELECT_BY_ID =
+            "SELECT `id`, `email`, `password`, `role`"
+                    + " FROM `users` WHERE `id` = ?";
     private final Builder<User> userBuilder = new UserBuilder();
 
     /**
@@ -49,8 +61,9 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     @Override
     public User readById(final int id) throws DaoException {
-        final String sql = "SELECT `id`, `email`, `password`, `role` FROM `users` WHERE `id` = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(SELECT_BY_ID)) {
             statement.setInt(1, id);
             User user;
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -73,8 +86,10 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     @Override
     public boolean add(final User newUser) throws DaoException {
-        String sql = "INSERT INTO `users` (`email`, `password`, `role`) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(INSERT_USER,
+                             Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, newUser.getEmail());
             statement.setString(2, newUser.getPassword());
             statement.setInt(3, newUser.getRole().ordinal());
@@ -98,8 +113,9 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     @Override
     public boolean delete(final User user) throws DaoException {
-        String sql = "DELETE FROM `users` WHERE `id` = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(DELETE_USER)) {
             statement.setInt(1, user.getId());
             statement.executeUpdate();
             return true;
@@ -115,10 +131,9 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-        final String sql = "SELECT NULL FROM `users` LIMIT 1";
-        try (PreparedStatement statement = connection.prepareStatement(sql,
-                Statement.RETURN_GENERATED_KEYS)) {
-            try (ResultSet resultSet = statement.executeQuery()) {
+
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(IS_EMPTY)) {
                 return resultSet.next();
             }
         } catch (SQLException newE) {

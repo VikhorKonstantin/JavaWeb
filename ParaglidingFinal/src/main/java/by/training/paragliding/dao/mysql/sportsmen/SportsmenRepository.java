@@ -20,6 +20,27 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     private final Logger logger = LogManager.getLogger("main");
 
+    private static final String SELECT_SPORTSMAN_BY_ID =
+            "SELECT `civl_id`, `user_id`, `name`, `surname`, `gender`,"
+            + " `country`, `rating`, `image_path` "
+            + "FROM `sportsmen` WHERE `civl_id` = ?";
+
+    private static final String IS_EMPTY =
+            "SELECT NULL FROM `sportsmen` LIMIT 1";
+
+    private static final String DELETE_BY_ID =
+            "DELETE FROM `sportsmen` WHERE `civl_id` = ?";
+
+    private static final String INSERT_SPORTSMEN =
+            "INSERT INTO `sportsmen` (`civl_id`, `name`, `surname`,"
+            + " `gender`, `country`, `rating`, `image_path`)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String UPDATE_SPORTSMAN = "UPDATE `sportsmen` "
+            + "SET `name`=?, `surname`=?,"
+            + " `gender`=?, `country`=?, `rating`=?, `image_path`=?"
+            + " WHERE `civl_id` = ?";
+
     private final Builder<Sportsman> sportsmanBuilder = new SportsmanBuilder();
 
     public SportsmenRepository(final Connection newConnection) {
@@ -35,9 +56,9 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public Sportsman readById(final int id) throws DaoException {
-        final String sql = "SELECT `civl_id`, `user_id`, `name`, `surname`, `gender`,"
-                + " `country`, `rating`, `image_path` FROM `sportsmen` WHERE `civl_id` = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(SELECT_SPORTSMAN_BY_ID)) {
             statement.setInt(1, id);
             Sportsman sportsman;
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -60,14 +81,17 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean add(final Sportsman newSportsman) throws DaoException {
-        String sql = "INSERT INTO `sportsmen` (`civl_id`, `name`, `surname`,"
-                + " `gender`, `country`, `rating`, `image_path`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(INSERT_SPORTSMEN,
+                             Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, newSportsman.getCivlId());
             statement.setString(2, newSportsman.getName());
             statement.setString(3, newSportsman.getSurname());
-            statement.setString(4, String.valueOf(newSportsman.getGender()));
-            statement.setString(5, String.valueOf(newSportsman.getCountryCode().getAlpha2()));
+            statement.setString(4,
+                    String.valueOf(newSportsman.getGender()));
+            statement.setString(5,
+                    String.valueOf(newSportsman.getCountryCode().getAlpha2()));
             statement.setFloat(6, newSportsman.getRating());
             statement.setString(7, newSportsman.getImagePath());
             statement.executeUpdate();
@@ -90,8 +114,8 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean delete(final Sportsman sportsman) throws DaoException {
-        String sql = "DELETE FROM `sportsmen` WHERE `civl_id` = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement =
+                     connection.prepareStatement(DELETE_BY_ID)) {
             statement.setInt(1, sportsman.getCivlId());
             statement.executeUpdate();
             return true;
@@ -107,10 +131,9 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-        final String sql = "SELECT NULL FROM `sportsmen` LIMIT 1";
-        try (PreparedStatement statement = connection.prepareStatement(sql,
-                Statement.RETURN_GENERATED_KEYS)) {
-            try (ResultSet resultSet = statement.executeQuery()) {
+
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(IS_EMPTY)) {
                 return resultSet.next();
             }
         } catch (SQLException newE) {
@@ -150,11 +173,9 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean update(final Sportsman newSportsman) throws DaoException {
-        String sql = "UPDATE `sportsmen` "
-                + "SET `name`=?, `surname`=?,"
-                + " `gender`=?, `country`=?, `rating`=?, `image_path`=?"
-                + " WHERE `civl_id` = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(UPDATE_SPORTSMAN)) {
             statement.setString(1, newSportsman.getName());
             statement.setString(2, newSportsman.getSurname());
             statement.setString(3,

@@ -19,6 +19,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                     + "`status`, `participation_fee`, `description`"
                     + " FROM `competitions` WHERE `id` = ?";
 
+    private static final String IS_EMPTY = "SELECT NULL FROM `competitions` LIMIT 1";
+
 
     private final Builder<Competition> competitionBuilder = new CompetitionBuilder();
 
@@ -83,9 +85,9 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-        final String sql = "SELECT NULL FROM `competitions` LIMIT 1";
+
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(sql)) {
+            try (ResultSet resultSet = statement.executeQuery(IS_EMPTY)) {
                 return resultSet.next();
             }
         } catch (SQLException newE) {
