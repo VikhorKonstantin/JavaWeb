@@ -46,7 +46,7 @@ public class SportsmanService implements Service<Sportsman> {
     }
 
     /**
-     * Returns Sportsman with the following id if exist, return null if not.
+     * Returns Sportsman with the following id if exist, throws ServiceException if not.
      *
      * @param civlId Sportsman id
      * @return Sportsman with the following id

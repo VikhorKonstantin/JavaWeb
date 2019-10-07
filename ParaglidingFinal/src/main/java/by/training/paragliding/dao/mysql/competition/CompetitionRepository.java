@@ -80,7 +80,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      * @throws DaoException if something goes wrong
      */
     @Override
-    public boolean delete(final Competition newCompetition) throws DaoException {
+    public boolean delete(final Competition newCompetition)
+            throws DaoException {
         return executeUpdate(DELETE_COMPETITION, newCompetition.getId());
     }
 

@@ -30,7 +30,11 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             fillStatement(statement, args);
             try (ResultSet resultSet = statement.executeQuery()) {
-                return tBuilder.build(resultSet);
+                if (resultSet.next()) {
+                    return tBuilder.build(resultSet);
+                } else {
+                    throw new DaoException("ResultSet illegal state.");
+                }
             }
         } catch (SQLException | BeanException newE) {
             throw new DaoException(newE);
