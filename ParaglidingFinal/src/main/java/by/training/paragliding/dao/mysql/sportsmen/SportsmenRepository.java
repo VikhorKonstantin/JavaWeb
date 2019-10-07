@@ -1,32 +1,31 @@
 package by.training.paragliding.dao.mysql.sportsmen;
 
-import by.training.paragliding.bean.builder.Builder;
 import by.training.paragliding.bean.builder.SportsmanBuilder;
 import by.training.paragliding.bean.entity.Sportsman;
-import by.training.paragliding.bean.exception.BeanException;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.BaseSqlRepository;
 import by.training.paragliding.dao.mysql.Specification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
 import java.util.List;
 
 public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
+
     /**
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
+
+    private static final String TABLE_NAME = "sportsmen";
 
     private static final String SELECT_SPORTSMAN_BY_ID =
             "SELECT `civl_id`, `user_id`, `name`, `surname`, `gender`,"
             + " `country`, `rating`, `image_path` "
             + "FROM `sportsmen` WHERE `civl_id` = ?";
 
-    private static final String IS_EMPTY =
-            "SELECT NULL FROM `sportsmen` LIMIT 1";
+
 
     private static final String DELETE_BY_ID =
             "DELETE FROM `sportsmen` WHERE `civl_id` = ?";
@@ -41,10 +40,10 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
             + " `gender`=?, `country`=?, `rating`=?, `image_path`=?"
             + " WHERE `civl_id` = ?";
 
-    private final Builder<Sportsman> sportsmanBuilder = new SportsmanBuilder();
+
 
     public SportsmenRepository(final Connection newConnection) {
-        super(newConnection);
+        super(newConnection, new SportsmanBuilder());
     }
 
 
@@ -56,21 +55,7 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public Sportsman readById(final int id) throws DaoException {
-
-        try (PreparedStatement statement =
-                     connection.prepareStatement(SELECT_SPORTSMAN_BY_ID)) {
-            statement.setInt(1, id);
-            Sportsman sportsman;
-            try (ResultSet resultSet = statement.executeQuery()) {
-                sportsman = null;
-                if (resultSet.next()) {
-                    sportsman = sportsmanBuilder.build(resultSet);
-                }
-            }
-            return sportsman;
-        } catch (SQLException | BeanException e) {
-            throw new DaoException(e);
-        }
+        return readByProperties(SELECT_SPORTSMAN_BY_ID, id);
     }
 
     /**
@@ -81,29 +66,12 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean add(final Sportsman newSportsman) throws DaoException {
-
-        try (PreparedStatement statement =
-                     connection.prepareStatement(INSERT_SPORTSMEN,
-                             Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, newSportsman.getCivlId());
-            statement.setString(2, newSportsman.getName());
-            statement.setString(3, newSportsman.getSurname());
-            statement.setString(4,
-                    String.valueOf(newSportsman.getGender()));
-            statement.setString(5,
-                    String.valueOf(newSportsman.getCountryCode().getAlpha2()));
-            statement.setFloat(6, newSportsman.getRating());
-            statement.setString(7, newSportsman.getImagePath());
-            statement.executeUpdate();
-            try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1) > 0;
-                }
-            }
-            return false;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+        return executeUpdate(INSERT_SPORTSMEN, newSportsman.getCivlId(),
+                newSportsman.getName(), newSportsman.getSurname(),
+                String.valueOf(newSportsman.getGender()),
+                newSportsman.getCountryCode().getAlpha2(),
+                newSportsman.getRating(),
+                newSportsman.getImagePath());
     }
 
     /**
@@ -114,14 +82,7 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean delete(final Sportsman sportsman) throws DaoException {
-        try (PreparedStatement statement =
-                     connection.prepareStatement(DELETE_BY_ID)) {
-            statement.setInt(1, sportsman.getCivlId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+        return executeUpdate(DELETE_BY_ID, sportsman.getCivlId());
     }
 
     /**
@@ -131,14 +92,7 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean isEmpty() throws DaoException {
-
-        try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(IS_EMPTY)) {
-                return resultSet.next();
-            }
-        } catch (SQLException newE) {
-            throw new DaoException(newE);
-        }
+        return isEmpty(TABLE_NAME);
     }
 
     /**
@@ -150,19 +104,8 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
     @Override
     public List<Sportsman> query(final Specification specification)
             throws DaoException {
-        var resultList = new ArrayList<Sportsman>();
-        Sportsman sportsman;
-        try (PreparedStatement statement =
-                     specification.createStatement(connection);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                sportsman = sportsmanBuilder.build(resultSet);
-                resultList.add(sportsman);
-            }
-            return resultList;
-        } catch (SQLException | BeanException newE) {
-            throw new DaoException(newE);
-        }
+        return executeQuery(specification);
+
     }
 
     /**
@@ -173,21 +116,13 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
      */
     @Override
     public boolean update(final Sportsman newSportsman) throws DaoException {
+        return executeUpdate(UPDATE_SPORTSMAN, newSportsman.getName(),
+                newSportsman.getSurname(),
+                String.valueOf(newSportsman.getGender()),
+                String.valueOf(newSportsman.getCountryCode().getAlpha2()),
+                newSportsman.getRating(),
+                newSportsman.getImagePath(),
+                newSportsman.getCivlId());
 
-        try (PreparedStatement statement =
-                     connection.prepareStatement(UPDATE_SPORTSMAN)) {
-            statement.setString(1, newSportsman.getName());
-            statement.setString(2, newSportsman.getSurname());
-            statement.setString(3,
-                    String.valueOf(newSportsman.getGender()));
-            statement.setString(4,
-                    String.valueOf(newSportsman.getCountryCode().getAlpha2()));
-            statement.setFloat(5, newSportsman.getRating());
-            statement.setString(6, newSportsman.getImagePath());
-            int updated = statement.executeUpdate();
-            return updated > 0;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
     }
 }
