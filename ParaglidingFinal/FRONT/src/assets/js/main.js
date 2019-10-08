@@ -5,3 +5,4 @@
 //=require ../../../node_modules/bootstrap/js/dist/popover.js
 //=require ../../../node_modules/bootstrap/js/dist/collapse.js
 //=require ../../../node_modules/bootstrap/js/dist/carousel.js
+//=require singUp.js

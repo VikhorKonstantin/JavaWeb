@@ -52,7 +52,6 @@ public class Controller implements AutoCloseable {
             } else {
                 actionName = uri.substring(beginAction);
             }
-
             Executable executionCommand = provider.getCommand(actionName);
             var commandDbgMsg =
                     String.format("Execution command:%s", executionCommand);

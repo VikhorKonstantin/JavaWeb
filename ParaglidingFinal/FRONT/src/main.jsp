@@ -40,8 +40,10 @@
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <li class="nav-item"><a class="nav-link" href="logIn.html"> Login </a></li>
-            <li class="nav-item"><a class="nav-link" href="singUp.html"> SingUp</a></li>
+            <c:url var="logIn" value="/logIn.html"/>
+            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
+            <c:url var="singUp" value="/singUp.html"/>
+            <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
         </ul>
     </div>
 </nav>
@@ -122,7 +124,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <div class="carousel-item">
-                                        <div class="card" style="width:400px">
+                                        <div class="card rounded-form" style="width:400px">
                                             <c:url var="competeImg" value="/img/competition.jpg"/>
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">

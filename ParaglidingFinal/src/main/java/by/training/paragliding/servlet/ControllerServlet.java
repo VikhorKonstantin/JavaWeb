@@ -98,7 +98,7 @@ public class ControllerServlet extends HttpServlet {
                     .getRequestDispatcher(result.getUrl());
             dispatcher.forward(req, resp);
         } else {
-            resp.sendRedirect(result.getUrl());
+            resp.sendRedirect(req.getContextPath() + result.getUrl());
         }
 
     }

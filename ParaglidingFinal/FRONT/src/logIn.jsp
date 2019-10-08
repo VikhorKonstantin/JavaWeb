@@ -1,18 +1,24 @@
-<!doctype html>
-<html lang="en">
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="utg" %>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <c:url value="/css/style.css" var="cssUrl"/>
+    <link rel="stylesheet" type="text/css" href="${cssUrl}">
     <title>LogIn</title>
+    <c:url var="jsUrl" value="/js/main.js"/>
+    <script src="${jsUrl}"></script>
 </head>
+<c:url value="/index.html" var="HomeRef"/>
 
 <body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
 
-        <a class="navbar-brand" href="main.jsp">
-            <img src="assets/i/logo.png" width="75" height="75">
+        <a class="navbar-brand  active" href="${HomeRef}">
+            <c:url value="/img/logo.png" var="logoImg"/>
+            <img src="${logoImg}" width="75" height="75" alt="logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,9 +37,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav mr-l-4">
-                <li class="nav-item  active"><a class="nav-link" href="logIn.html"> Login <span
+                <li class="nav-item  active"><a class="nav-link" href="logIn.jsp"> Login <span
                             class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="singUp.html"> SingUp</a></li>
+                <li class="nav-item"><a class="nav-link" href="singUp.jsp"> SingUp</a></li>
             </ul>
         </div>
 
@@ -43,7 +49,8 @@
             <div class="card rounded-form">
                 <div class="card-body col-12">
                     <div class="login-form">
-                        <form>
+                        <c:url var = "logInAction" value="/user/logIn.html"/>
+                        <form action="${logInAction}" method="post">
                             <div class="form-group">
                                 <label>User Name</label>
                                 <input type="text" class="form-control" placeholder="User Name" required>
@@ -54,7 +61,7 @@
                             </div>
                             <button type="submit" class="btn btn-submit glo">Login</button>
                             <a class="btn btn-secondary glo"
-                                    href="singUp.html">Register</a>
+                                    href="singUp.jsp">Register</a>
                         </form>
                     </div>
                 </div>

@@ -40,8 +40,10 @@
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <li class="nav-item"><a class="nav-link" href="logIn.html"> Login </a></li>
-            <li class="nav-item"><a class="nav-link" href="singUp.html"> SingUp</a></li>
+            <c:url var="logIn" value="/logIn.html"/>
+            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
+            <c:url var="singUp" value="/singUp.html"/>
+            <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
         </ul>
     </div>
 </nav>
@@ -113,8 +115,8 @@
                                             <c:url var="competeImg" value="/img/competition.jpg"/>
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">
-                                                <h4 class="card-title">${description.key}</h4>
-                                                <p class="card-text">${description.value}</p>
+                                                <h4 class="card-title">Competition</h4>
+                                                <p class="card-text">${description}</p>
                                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                                             </div>
                                         </div>
@@ -126,8 +128,8 @@
                                             <c:url var="competeImg" value="/img/competition.jpg"/>
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">
-                                                <h4 class="card-title">${description.key}</h4>
-                                                <p class="card-text">${description.value}</p>
+                                                <h4 class="card-title">Competition</h4>
+                                                <p class="card-text">${description}</p>
                                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                                             </div>
                                         </div>

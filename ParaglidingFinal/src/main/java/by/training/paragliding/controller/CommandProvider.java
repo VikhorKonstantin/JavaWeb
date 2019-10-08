@@ -2,8 +2,12 @@ package by.training.paragliding.controller;
 
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.StartCommand;
+import by.training.paragliding.controller.command.ViewLogInPage;
+import by.training.paragliding.controller.command.ViewSingUpPage;
 import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
 import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
+import by.training.paragliding.controller.command.user.LogIn;
+import by.training.paragliding.controller.command.user.SingUp;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.exception.ServiceException;
@@ -44,6 +48,13 @@ final class CommandProvider implements AutoCloseable {
                     serviceFactory.createSportsmanService()));
             executableMap.put("/index", new StartCommand(serviceFactory
                     .createCompetitionService()));
+            executableMap.put("/singUp", new ViewSingUpPage());
+            executableMap.put("/logIn", new ViewLogInPage());
+            executableMap.put("/user/singUp",
+                    new SingUp(serviceFactory.createSportsmanService(),
+                            serviceFactory.createUserService()));
+            executableMap.put("/user/logIn",
+                    new LogIn(serviceFactory.createUserService()));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }
