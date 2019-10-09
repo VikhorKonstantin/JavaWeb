@@ -1,5 +1,6 @@
 package by.training.paragliding.controller.command.user;
 
+import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
@@ -37,12 +38,11 @@ public class LogIn implements Executable {
         var email = req.getParameter("email");
         var password = req.getParameter("password");
         try {
-
-            var user = userService.readByEmailAndPassword(email, password);
+            User user = userService.readByEmailAndPassword(email, password);
             logger.debug("Login: {}, Password: {}, user: {}",
                     email, password, user);
             if (user != null) {
-                req.getSession().setAttribute("userRole", user.getRole());
+                req.getSession().setAttribute("User", user);
                 return new ExecutionResult(
                         true, "/index.html");
             } else {

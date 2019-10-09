@@ -7,7 +7,10 @@ import by.training.paragliding.dao.Repository;
 import by.training.paragliding.dao.Transaction;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
-import by.training.paragliding.dao.mysql.sportsmen.*;
+import by.training.paragliding.dao.mysql.sportsmen.FindAllSportsmenSpecification;
+import by.training.paragliding.dao.mysql.sportsmen.FindByCountrySpecification;
+import by.training.paragliding.dao.mysql.sportsmen.FindSportsmenByApplication;
+import by.training.paragliding.dao.mysql.sportsmen.FindSportsmenByRatingRange;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +25,8 @@ public class SportsmanService implements Service<Sportsman> {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+
+    private static final String ROLL_BACK_EXC_MSG = "Rollback failed";
     /**
      * Transaction.
      */
@@ -64,7 +69,24 @@ public class SportsmanService implements Service<Sportsman> {
             try {
                 transaction.rollback();
             } catch (DaoException rbExc) {
-                logger.error("Rollback failed", rbExc);
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
+
+    public boolean addSportsman(final Sportsman newSportsman) throws ServiceException {
+        try {
+            Repository<Sportsman> sportsmanRepository =
+                    transaction.createDao(DaoType.SPORTSMAN);
+            var result = sportsmanRepository.add(newSportsman);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
             }
             throw new ServiceException(e);
         }
@@ -85,7 +107,7 @@ public class SportsmanService implements Service<Sportsman> {
             try {
                 transaction.rollback();
             } catch (DaoException rbExc) {
-                logger.error("Rollback failed", rbExc);
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
             }
             throw new ServiceException(e);
         }

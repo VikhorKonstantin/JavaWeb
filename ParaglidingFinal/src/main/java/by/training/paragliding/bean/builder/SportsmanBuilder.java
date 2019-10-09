@@ -14,7 +14,7 @@ public class SportsmanBuilder implements Builder<Sportsman> {
      * @throws BeanException if some exceptions where thrown while object building.
      */
     @Override
-    public Sportsman build(final ResultSet newResultSet) throws BeanException {
+    public Sportsman buildFromResultSet(final ResultSet newResultSet) throws BeanException {
         final var sportsman = new Sportsman();
         try {
             sportsman.setCivlId(newResultSet.getInt("civl_id"));

@@ -53,14 +53,14 @@
                 <c:url var="singUpAction" value="/user/singUp.html"/>
                 <form action="${singUpAction}" method="post">
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-5 mb-4">
                             <label class="required" for="validationServerE-mail">E-mail</label>
                             <input name="email" type="text" class="form-control" id="validationServerE-mail"
                                    placeholder="some.email@smth.com"
                                    pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
                                    title="some.email@smth.com" required>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-5 mb-4">
                             <label class="required" for="validationServerE-mail">Password</label>
                             <input name="password" type="text" class="form-control" id="validationServerPassword"
                                    placeholder="Latin letters, numbers. Min=8, Max=32"
@@ -79,30 +79,49 @@
                     <div id="sportsmenForm" class="form-row">
                         <div class="col-md-4 mb-3">
                             <label class="required" for="validationServer01">First name</label>
-                            <input type="text" class="form-control" id="validationServer01" placeholder="First name"
+                            <input type="text"
+                                   name="name"
+                                   class="form-control" id="validationServer01" placeholder="First name"
                                    pattern="^[a-zA-Z\s]+$" title="Should only contain letters" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="required" for="validationServer02">Last name</label>
-                            <input type="text" class="form-control" id="validationServer02" placeholder="Last name"
+                            <input type="text"
+                                   name="surname"
+                                   class="form-control" id="validationServer02" placeholder="Last name"
                                    pattern="^[a-zA-Z\s]+$" title="Should only contain letters" required>
                         </div>
                         <div class="col-md-4 mb-4">
                             <label class="required" for="validationServer03">Country</label>
-                            <input type="text" class="form-control" id="validationServer03" placeholder="Country"
+                            <input type="text"
+                                   name="country"
+                                   class="form-control" id="validationServer03" placeholder="Country"
                                    pattern="^[a-zA-Z\s]+$" title="Should only contain letters" required>
                         </div>
                         <div class="col-md-4 mb-4">
                             <label class="required" for="validationServer04">FAI Rating</label>
-                            <input type="text" class="form-control" id="validationServer04" placeholder="Rating"
-                                   pattern="^.{2,6}[0-9.]+$" title="Should only contain letters" required>
+                            <input type="text"
+                                   name="rating"
+                                   class="form-control" id="validationServer04" placeholder="Rating"
+                                   pattern="^[0-9]{0,4}\.[0-9]$"
+                                   title="Should have from 0 to 4 numbers before . and 1 after" required>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="required" for="validationServer04">CIVL_ID</label>
+                            <input type="text"
+                                   name="id"
+                                   class="form-control" id="validationServer05" placeholder="CIVL_ID"
+                                   pattern="^[0-9]{2,6}$" title="Should only contain letters" required>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input"
+                                   type="radio" name="gender" id="inlineRadio1"
+                                   value="M">
                             <label class="form-check-label" for="inlineRadio1">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2"
+                                   value="F">
                             <label class="form-check-label" for="inlineRadio2">Female</label>
                         </div>
                     </div>

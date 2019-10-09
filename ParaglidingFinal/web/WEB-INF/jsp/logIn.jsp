@@ -60,15 +60,17 @@
                     <c:url var="logInAction" value="/user/logIn.html"/>
                     <form action="${logInAction}" method="post">
                         <div class="form-group">
-
                             <label>
                                 E-mail
-                                <input type="text" name="email" class="form-control" placeholder="E-mail" required>
+                                <input type="text"
+                                       name="email" class="form-control"
+                                       placeholder="E-mail" required>
                             </label>
                         </div>
                         <div class="form-group">
                             <label>Password
-                                <input type="password" name="password" class="form-control" placeholder="Password"
+                                <input type="password" name="password"
+                                       class="form-control" placeholder="Password"
                                        required>
                             </label>
                         </div>

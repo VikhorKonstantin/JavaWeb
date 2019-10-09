@@ -16,7 +16,7 @@ public class CompetitionBuilder implements Builder<Competition> {
      * @throws BeanException if some exceptions where thrown while object building.
      */
     @Override
-    public Competition build(final ResultSet newResultSet) throws BeanException {
+    public Competition buildFromResultSet(final ResultSet newResultSet) throws BeanException {
         try {
             var competition = new Competition();
             competition.setId(newResultSet.getInt("id"));

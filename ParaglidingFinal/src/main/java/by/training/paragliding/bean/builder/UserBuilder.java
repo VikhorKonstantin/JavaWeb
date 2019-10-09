@@ -14,7 +14,7 @@ public class UserBuilder implements Builder<User> {
      * @throws BeanException if some exceptions where thrown while object building.
      */
     @Override
-    public User build(final ResultSet newResultSet) throws BeanException {
+    public User buildFromResultSet(final ResultSet newResultSet) throws BeanException {
         try {
             final var user = new User();
             user.setId(newResultSet.getInt("id"));

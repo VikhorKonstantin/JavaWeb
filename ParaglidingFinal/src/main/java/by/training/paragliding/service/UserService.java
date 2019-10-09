@@ -55,7 +55,7 @@ public class UserService {
                     transaction.createDao(DaoType.USER);
             var result = userRepository.query(new FindByLoginAndPassword(email, password));
             transaction.commit();
-            if (result.size() != 0) {
+            if (!result.isEmpty()) {
                 return result.get(0);
             } else {
                 return null;

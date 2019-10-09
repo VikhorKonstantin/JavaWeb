@@ -1,6 +1,8 @@
 package by.training.paragliding.bean.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     /**
      * User id.
      */
@@ -49,4 +51,6 @@ public class User {
     public void setRole(final Role newRole) {
         role = newRole;
     }
+
+
 }

@@ -12,5 +12,5 @@ public interface Builder<T> {
      * @return new T object.
      * @throws BeanException if some exceptions where thrown while object building.
      */
-    T build(ResultSet newResultSet) throws BeanException;
+    T buildFromResultSet(ResultSet newResultSet) throws BeanException;
 }

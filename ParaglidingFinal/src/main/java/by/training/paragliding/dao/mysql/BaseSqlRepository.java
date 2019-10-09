@@ -31,9 +31,9 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
             fillStatement(statement, args);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return tBuilder.build(resultSet);
+                    return tBuilder.buildFromResultSet(resultSet);
                 } else {
-                    throw new DaoException("ResultSet illegal state.");
+                    return null;
                 }
             }
         } catch (SQLException | BeanException newE) {
@@ -58,7 +58,7 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
                      newSpecification.createStatement(connection);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                var object = tBuilder.build(resultSet);
+                var object = tBuilder.buildFromResultSet(resultSet);
                 resultList.add(object);
             }
             return resultList;
