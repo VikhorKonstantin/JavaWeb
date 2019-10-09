@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <c:url value="/css/style.css" var="cssUrl"/>
     <link rel="stylesheet" type="text/css" href="${cssUrl}">
+    <script src="https://kit.fontawesome.com/3ee7443726.js"></script>
+    <c:url var="jsUrl" value="/js/main.js"/>
+    <script src="${jsUrl}"></script>
     <title>Paragliding</title>
 </head>
 <c:url value="/index.html" var="HomeRef"/>
@@ -27,7 +30,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-
                 <a class="nav-link  active" href="${HomeRef}">
                     Home <span class="sr-only">(current)</span></a>
             </li>
@@ -115,8 +117,8 @@
                                             <c:url var="competeImg" value="/img/competition.jpg"/>
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">
-                                                <h4 class="card-title">Competition</h4>
-                                                <p class="card-text">${description}</p>
+                                                <h4 class="card-title">${description.key}</h4>
+                                                <p class="card-text">${description.value}</p>
                                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                                             </div>
                                         </div>
@@ -128,8 +130,8 @@
                                             <c:url var="competeImg" value="/img/competition.jpg"/>
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">
-                                                <h4 class="card-title">Competition</h4>
-                                                <p class="card-text">${description}</p>
+                                                <h4 class="card-title">${description.key}</h4>
+                                                <p class="card-text">${description.value}</p>
                                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                                             </div>
                                         </div>
@@ -221,8 +223,4 @@
     </div>
 </footer>
 
-
-<script src="https://kit.fontawesome.com/3ee7443726.js"></script>
-<c:url var="jsUrl" value="/js/main.min.js"/>
-<script src="${jsUrl}"></script>
 </body>

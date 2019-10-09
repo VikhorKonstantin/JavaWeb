@@ -38,7 +38,8 @@
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <li class="nav-item"><a class="nav-link" href="logIn.jsp"> Login</a></li>
+            <c:url var="logIn" value="/logIn.html"/>
+            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
             <li class="nav-item  active"><a class="nav-link" href="#"> SingUp <span
                     class="sr-only">(current)</span></a></li>
         </ul>
@@ -111,6 +112,4 @@
         </div>
     </div>
 </main>
-
-<script src="https://kit.fontawesome.com/3ee7443726.js"></script>
 </body>

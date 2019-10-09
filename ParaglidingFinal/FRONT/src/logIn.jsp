@@ -11,8 +11,8 @@
     <c:url var="jsUrl" value="/js/main.js"/>
     <script src="${jsUrl}"></script>
 </head>
-<c:url value="/index.html" var="HomeRef"/>
-
+<c:url value="/index.html" var="HomeRef" scope="page"/>
+<c:url var="singUp" value="/singUp.html"/>
 <body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
 
@@ -27,19 +27,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="main.jsp">Home </a>
+                    <a class="nav-link" href="${HomeRef}">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="userList.jsp">UserList</a>
+                    <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
+                    <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="userEdit.html">UserEdit</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-l-4">
-                <li class="nav-item  active"><a class="nav-link" href="logIn.jsp"> Login <span
+                <li class="nav-item disabled active"><a class="nav-link" href="logIn.jsp"> Login <span
                             class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="singUp.jsp"> SingUp</a></li>
+                <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
             </ul>
         </div>
 
@@ -61,7 +62,7 @@
                             </div>
                             <button type="submit" class="btn btn-submit glo">Login</button>
                             <a class="btn btn-secondary glo"
-                                    href="singUp.jsp">Register</a>
+                                    href="${singUp}">Register</a>
                         </form>
                     </div>
                 </div>
@@ -69,8 +70,4 @@
         </div>
     </main>
 
-
-
-    <script src="https://kit.fontawesome.com/3ee7443726.js"></script>
-    <script src="assets/js/main.min.js"></script>
 </body>
