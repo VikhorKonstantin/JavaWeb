@@ -14,60 +14,72 @@
 <c:url value="/index.html" var="HomeRef" scope="page"/>
 <c:url var="singUp" value="/singUp.html"/>
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
 
-        <a class="navbar-brand  active" href="${HomeRef}">
-            <c:url value="/img/logo.png" var="logoImg"/>
-            <img src="${logoImg}" width="75" height="75" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    <a class="navbar-brand  active" href="${HomeRef}">
+        <c:url value="/img/logo.png" var="logoImg"/>
+        <img src="${logoImg}" width="75" height="75" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="${HomeRef}">Home </a>
-                </li>
-                <li class="nav-item">
-                    <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
-                    <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="userEdit.html">UserEdit</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav mr-l-4">
-                <li class="nav-item disabled active"><a class="nav-link" href="logIn.jsp"> Login <span
-                            class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
-            </ul>
-        </div>
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="${HomeRef}">Home </a>
+            </li>
+            <li class="nav-item">
+                <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
+                <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="userEdit.html">UserEdit</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-l-4">
+            <li class="nav-item disabled active"><a class="nav-link" href="logIn.jsp"> Login <span
+                    class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
+        </ul>
+    </div>
 
-    </nav>
-    <main class="main">
-        <div class="container d-flex justify-content-center">
-            <div class="card rounded-form">
-                <div class="card-body col-12">
-                    <div class="login-form">
-                        <c:url var = "logInAction" value="/user/logIn.html"/>
-                        <form action="${logInAction}" method="post">
-                            <div class="form-group">
-                                <label>User Name</label>
-                                <input type="text" class="form-control" placeholder="User Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password" required>
-                            </div>
-                            <button type="submit" class="btn btn-submit glo">Login</button>
-                            <a class="btn btn-secondary glo"
-                                    href="${singUp}">Register</a>
-                        </form>
+</nav>
+<main class="main">
+    <div class="container d-flex justify-content-center">
+        <div class="card rounded-form">
+            <div class="card-body col-12">
+                <div class="login-form">
+
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>${message}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <c:url var="logInAction" value="/user/logIn.html"/>
+                    <form action="${logInAction}" method="post">
+                        <div class="form-group">
+
+                            <label>
+                                E-mail
+                                <input type="text" name="email" class="form-control" placeholder="E-mail" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Password
+                                <input type="password" name="password" class="form-control" placeholder="Password"
+                                       required>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-submit glo">Login</button>
+                        <a class="btn btn-secondary glo"
+                           href="${singUp}">Register</a>
+                    </form>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
 </body>

@@ -96,8 +96,10 @@ public class ControllerServlet extends HttpServlet {
         if (result.isForward()) {
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher(result.getUrl());
+            logger.debug("FORWARD: " + req.getAttribute("message"));
             dispatcher.forward(req, resp);
         } else {
+            logger.debug("REDIRECT");
             resp.sendRedirect(req.getContextPath() + result.getUrl());
         }
 
