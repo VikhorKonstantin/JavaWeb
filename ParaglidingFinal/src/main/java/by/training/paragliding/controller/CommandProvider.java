@@ -14,8 +14,8 @@ import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Provides access to commands by CommandName.
@@ -28,7 +28,8 @@ final class CommandProvider implements AutoCloseable {
     /**
      * commands map.
      */
-    private final Map<String, Executable> executableMap = new HashMap<>();
+    private final Map<String, Executable> executableMap =
+            new HashMap<>();
 
     /**
      * Service factory.
