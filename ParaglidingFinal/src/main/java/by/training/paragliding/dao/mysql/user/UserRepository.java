@@ -29,8 +29,12 @@ public class UserRepository extends BaseSqlRepository<User> {
                     + " VALUES (?, ?, ?)";
 
     private static final  String SELECT_BY_ID =
-            "SELECT `id`, `email`, `password`, `role`"
-                    + " FROM `users` WHERE `id` = ?";
+            "SELECT `id`, `email`, `password`, `role`, `civl_id`, `name`,"
+                    + " `surname`, `gender`, `country`,"
+                    + " `rating`, `image_path` "
+                    + "FROM `users` "
+                    + "LEFT JOIN sportsmen s on users.id = s.user_id "
+                    + "WHERE `id` = ?";
 
     public UserRepository(final Connection newConnection) {
         super(newConnection, new UserBuilder());

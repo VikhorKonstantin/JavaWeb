@@ -18,6 +18,9 @@ public class SportsmanBuilder implements Builder<Sportsman> {
         final var sportsman = new Sportsman();
         try {
             sportsman.setCivlId(newResultSet.getInt("civl_id"));
+            if (newResultSet.wasNull()) {
+                return null;
+            }
             sportsman.setName(newResultSet.getString("name"));
             sportsman.setSurname(newResultSet.getString("surname"));
             sportsman.setGender(newResultSet.getString("gender").charAt(0));

@@ -38,21 +38,29 @@
                 <a class="nav-link" href="${sportsmenAllUrl}">Sportsmen</a>
             </li>
             <li class="nav-item">
-                <c:url value="/competitions/all.html" var="competitionsAllUrl"/>
+                <c:url value="/competition/all.html" var="competitionsAllUrl"/>
                 <a class="nav-link" href="${competitionsAllUrl}">Competitions</a>
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <c:url var="logIn" value="/logIn.html"/>
-            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
-            <c:url var="singUp" value="/singUp.html"/>
-            <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
+            <c:choose>
+                <c:when test="${User != null}">
+                    <c:url var="logIn" value="/user/logOut.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> LogOut </a></li>
+                </c:when>
+                <c:otherwise>
+                    <c:url var="logIn" value="/logIn.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
+                    <c:url var="singUp" value="/singUp.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </nav>
 
 <main class="main">
-    <div class="container">
+    <div class="row justify-content-center">
         <div class="card rounded-form" style="width:400px">
             <c:url var="competeImg" value="/img/competition.jpg"/>
             <img class="card-img-top" src="${competeImg}" alt="Card image">
@@ -62,13 +70,24 @@
                 <p class="card-text">Date: ${competition.date}</p>
                 <p class="card-text">Status: ${competition.status}</p>
                 <p class="card-text">Discipline: ${competition.discipline}</p>
+
                 <c:if test="${User != null}">
+                    <c:url var="editUrl" value="/competition/edit.html"/>
                     <c:choose>
-                        <c:when test="${User.role == REGISTERED_USER}">
-                            <a class="btn-submit" href="">Edit</a>
+                        <c:when test="${User.role == 'REGISTERED_USER'}">
+                            <form action="${editUrl}" method="post">
+                                <input type="hidden" name="editedCompetition" value="5"/>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </form>
+                        </c:when>
+                        <c:when test="${User.role = 'REGISTERED_SPORTSMAN'}">
+                            <a href="" class="btn btn-primary">Join</a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn-submit" href="">Join</a>
+                            <form action="${editUrl}" method="post">
+                                <input type="hidden" name="editedCompetition" value="5"/>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </form>
                         </c:otherwise>
                     </c:choose>
                 </c:if>

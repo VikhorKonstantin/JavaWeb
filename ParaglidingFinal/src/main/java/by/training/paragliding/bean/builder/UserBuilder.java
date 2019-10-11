@@ -24,6 +24,9 @@ public class UserBuilder implements Builder<User> {
             user.setPassword(password);
             var roleInt = newResultSet.getInt("role");
             var role = Role.values()[roleInt];
+            var sBuilder = new SportsmanBuilder();
+            var sportsman = sBuilder.buildFromResultSet(newResultSet);
+            user.setSportsman(sportsman);
             user.setRole(role);
             return user;
         } catch (SQLException newE) {

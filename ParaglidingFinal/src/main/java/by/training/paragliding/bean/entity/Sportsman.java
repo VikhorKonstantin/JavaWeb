@@ -232,7 +232,7 @@ public class Sportsman implements Serializable {
                 '}';
     }
 
-
+//todo: can compare only id
     @Override
     public boolean equals(final Object newO) {
         if (this == newO) return true;
@@ -246,7 +246,7 @@ public class Sportsman implements Serializable {
                 countryCode == sportsman.countryCode &&
                 Objects.equals(imagePath, sportsman.imagePath);
     }
-
+//todo: ask about hashCode
     @Override
     public int hashCode() {
         return Objects.hash(civlId);

@@ -9,7 +9,11 @@ import java.sql.SQLException;
 
 public class FindAllUsersSpecification implements Specification {
     private static final String SQL =
-            "SELECT `id`, `email`, `password`, `role` FROM `users`";
+            "SELECT `id`, `email`, `password`, `role`, `civl_id`, `name`,"
+                    + " `surname`, `gender`, `country`," 
+                    + " `rating`, `image_path` "
+                    + "FROM `users` "
+                    + "         LEFT JOIN sportsmen s on users.id = s.user_id";
 
     @Override
     public PreparedStatement createStatement(final Connection connection) throws DaoException {

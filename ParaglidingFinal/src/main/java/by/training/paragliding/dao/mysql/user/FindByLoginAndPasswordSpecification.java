@@ -9,8 +9,12 @@ import java.sql.SQLException;
 
 public class FindByLoginAndPasswordSpecification implements Specification {
     private static final String SQL =
-            "SELECT `id`, `email`, `password`,"
-                    + " `role` FROM `users` WHERE `password`=? AND `email`=?";
+            "SELECT `id`, `email`, `password`, `role`, `civl_id`, `name`,"
+                    + " `surname`, `gender`, `country`,"
+                    + " `rating`, `image_path` "
+                    + "FROM `users` "
+                    + "         LEFT JOIN sportsmen s on users.id = s.user_id"
+                    + " WHERE `password`=? AND `email`=?";
 
     private final String email;
 

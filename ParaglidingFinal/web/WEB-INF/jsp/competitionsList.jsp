@@ -33,16 +33,24 @@
                 <a class="nav-link" href="${sportsmenAllUrl}">Sportsmen</a>
             </li>
             <li class="nav-item active">
-                <c:url value="competitions/all.html" var="competitionsAllUrl"/>
+                <c:url value="competition/all.html" var="competitionsAllUrl"/>
                 <a class="nav-link" href="${competitionsAllUrl}">Competitions<span
                         class="sr-only">(current)</span></a>
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <c:url var="logIn" value="/logIn.html"/>
-            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
-            <c:url var="singUp" value="/singUp.html"/>
-            <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
+            <c:choose>
+                <c:when test="${User != null}">
+                    <c:url var="logIn" value="/user/logOut.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> LogOut </a></li>
+                </c:when>
+                <c:otherwise>
+                    <c:url var="logIn" value="/logIn.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
+                    <c:url var="singUp" value="/singUp.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 
@@ -82,7 +90,7 @@
                                     <td>${competition.discipline}</td>
                                     <td>${competition.status}</td>
                                     <td>${competition.participationFee}</td>
-                                    <td><a class="btn-submit"
+                                    <td><a class="btn btn-primary"
                                            href="${competitionUrl}?id=${competition.id}">More info</a>
                                     </td>
                                 </tr>
@@ -112,7 +120,7 @@
                                     <td>${competition.discipline}</td>
                                     <td>${competition.status}</td>
                                     <td>${competition.participationFee}</td>
-                                    <td><a class="btn-submit"
+                                    <td><a class="btn btn-primary"
                                            href="${competitionUrl}?id=${competition.id}">More info</a>
                                     </td>
                                 </tr>

@@ -2,6 +2,7 @@ package by.training.paragliding.bean.entity;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Objects;
 
 public class Competition {
 
@@ -227,5 +228,26 @@ public class Competition {
      */
     public void setOrganizer(final User newOrganizer) {
         organizer = newOrganizer;
+    }
+
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) return true;
+        if (newO == null || getClass() != newO.getClass()) return false;
+        Competition that = (Competition) newO;
+        return id == that.id &&
+                Float.compare(that.participationFee, participationFee) == 0 &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(date, that.date) &&
+                status == that.status &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(results, that.results) &&
+                Objects.equals(discipline, that.discipline) &&
+                Objects.equals(organizer, that.organizer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

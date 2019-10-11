@@ -1,6 +1,7 @@
 package by.training.paragliding.bean.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
     /**
@@ -60,5 +61,22 @@ public class User implements Serializable {
 
     public void setSportsman(final Sportsman newSportsman) {
         sportsman = newSportsman;
+    }
+
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) return true;
+        if (newO == null || getClass() != newO.getClass()) return false;
+        User user = (User) newO;
+        return id == user.id &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                role == user.role &&
+                Objects.equals(sportsman, user.sportsman);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
