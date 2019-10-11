@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <c:url value="/css/style.css" var="cssUrl"/>
     <link rel="stylesheet" type="text/css" href="${cssUrl}">
-    <title>LibMain</title>
+    <script src="https://kit.fontawesome.com/3ee7443726.js"></script>
+    <c:url var="jsUrl" value="/js/main.js"/>
+    <script src="${jsUrl}"></script>
+    <title>Users</title>
 </head>
 
 <body>
@@ -26,17 +29,20 @@
                 <a class="nav-link" href="${HomeRef}">Home </a>
             </li>
             <li class="nav-item">
-                <c:url value="sportsmen/all.html" var="sportsmenAllUrl"/>
+                <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
                 <a class="nav-link  active" href="${sportsmenAllUrl}">UserList <span
                         class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="userEdit.html">UserEdit</a>
+                <c:url value="/competitions/all.html" var="competitionsAllUrl"/>
+                <a class="nav-link" href="${competitionsAllUrl}">Competitions</a>
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <li class="nav-item"><a class="nav-link" href="logIn.jsp"> Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="singUp.jsp"> SingUp</a></li>
+            <c:url var="logIn" value="/logIn.html"/>
+            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
+            <c:url var="singUp" value="/singUp.html"/>
+            <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
         </ul>
     </div>
 
@@ -77,7 +83,5 @@
         </div>
     </div>
 </main>
-<script src="https://kit.fontawesome.com/3ee7443726.js"></script>
-<c:url var="jsUrl" value="/js/main.min.js"/>
-<script src="${jsUrl}"></script>
+
 </body>

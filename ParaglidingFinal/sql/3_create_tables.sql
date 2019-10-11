@@ -22,7 +22,7 @@ CREATE TABLE `sportsmen` (
         `image_path` VARCHAR(4096),
          CONSTRAINT PK_sportsmen
                 PRIMARY KEY (`civl_id`),
-         CONSTRAINT FK_spotrsmen_users
+         CONSTRAINT FK_sportsmen_users
                          FOREIGN KEY (`user_id`) REFERENCES users(`id`),
          CONSTRAINT CH_sportsmen CHECK ( `rating` >= 0  )
 );
@@ -40,11 +40,10 @@ CREATE TABLE `disciplines` (
                PRIMARY KEY (`id`)
 );
 
-/**
-  Предстоящие соревнования на которые можно кнуть/уже кинуты заявки
- */
+
 CREATE TABLE `competitions` (
     `id` INT NOT NULL AUTO_INCREMENT,
+    `organizer_id` INT NOT NULL,
     `date` DATE NOT NULL,
     `name` VARCHAR(256) NOT NULL,
     `discipline_id` INT NOT NULL,
@@ -53,8 +52,10 @@ CREATE TABLE `competitions` (
     `description` TEXT,
     CONSTRAINT PK_competitions
        PRIMARY KEY (`id`),
-    CONSTRAINT FK_competitions_discipline
+    CONSTRAINT FK_competitions_disciplines
             FOREIGN KEY (`discipline_id`) REFERENCES `disciplines`(`id`),
+    CONSTRAINT FK_competitions_users
+            FOREIGN KEY (`organizer_id`) REFERENCES `users`(`id`),
     CONSTRAINT CH_competitions_status CHECK (`status` BETWEEN 0 AND 4),
     CONSTRAINT CH_competitions_participation_fee CHECK ( `participation_fee` >= 0 )
 );

@@ -5,7 +5,7 @@
         <!-- File appender -->
         <File name="main" fileName="log/main.log">
             <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n %throwable{4}</Pattern>
+                <Pattern>%d %highlight{%p} %style{%C{1.} [%t] %m}{bold,green}%n</Pattern>
             </PatternLayout>
         </File>
         <Console name="STDOUT" target="SYSTEM_OUT">

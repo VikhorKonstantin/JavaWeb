@@ -1,5 +1,6 @@
 package by.training.paragliding.controller.command.user;
 
+import by.training.paragliding.bean.entity.Role;
 import by.training.paragliding.bean.validator.SportsmanValidator;
 import by.training.paragliding.bean.validator.UserValidator;
 import by.training.paragliding.bean.entity.Sportsman;
@@ -18,10 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SingUp implements Executable {
+
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+    private static final String LOGIN_ERROR = "Log in error. Check input data";
     private final SportsmanService sportsmanService;
 
     private final UserService userService;
@@ -47,10 +50,16 @@ public class SingUp implements Executable {
         try {
             UserValidator userBuilder = new UserValidator();
             User user = userBuilder.validate(req);
-            var sportsmanBuilder = new SportsmanValidator();
-            Sportsman sportsman = sportsmanBuilder.validate(req);
-            sportsmanService.addSportsman(sportsman);
-            userService.addUser(user);
+            if(user.getRole().equals(Role.REGISTERED_SPORTSMAN)) {
+                var sportsmanBuilder = new SportsmanValidator();
+                Sportsman sportsman = sportsmanBuilder.validate(req);
+                if (!sportsmanService.addSportsman(sportsman)){
+                    throw new ControllerException(LOGIN_ERROR);
+                }
+            }
+            if (!userService.addUser(user)){
+                throw new ControllerException(LOGIN_ERROR);
+            }
             //todo: ask about REDIRECTION!!!!
             return new ExecutionResult(true, "/index.html");
         } catch (ServiceException | BeanException newE) {

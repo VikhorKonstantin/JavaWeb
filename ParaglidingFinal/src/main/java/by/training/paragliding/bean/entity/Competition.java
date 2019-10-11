@@ -66,6 +66,11 @@ public class Competition {
     }
 
     /**
+     * Competition organizer.
+     */
+    private User organizer;
+
+    /**
      * Returns competition id.
      *
      * @return competition id
@@ -206,5 +211,21 @@ public class Competition {
      */
     public void setResults(final Map<Sportsman, Integer> newResults) {
         results = newResults;
+    }
+    /**
+     * Returns competition organizer.
+     *
+     * @return competition organizer
+     */
+    public User getOrganizer() {
+        return organizer;
+    }
+    /**
+     * Sets competition organizer into newOrganizer.
+     *
+     * @param newOrganizer new organizer
+     */
+    public void setOrganizer(final User newOrganizer) {
+        organizer = newOrganizer;
     }
 }

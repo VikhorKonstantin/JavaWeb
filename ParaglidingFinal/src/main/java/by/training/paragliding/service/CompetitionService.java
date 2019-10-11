@@ -26,6 +26,8 @@ public class CompetitionService implements Service<Competition> {
      */
     private Transaction transaction;
 
+    private static final String ROLL_BACK_EXC_MSG = "Rollback failed";
+
     CompetitionService(final Transaction newTransaction) {
         transaction = newTransaction;
     }
@@ -40,27 +42,13 @@ public class CompetitionService implements Service<Competition> {
         SPECIFICATION_PROVIDER.put("all", CompetitionService::findAll);
     }
 
-    private static Specification findAll(final Object[] newObjects)
-            throws ServiceException {
-        try {
-            return new FindAllCompetitionsSpecification();
-        } catch (ClassCastException e) {
-            throw new ServiceException(e);
-        }
-    }
 
-    private static Specification findByStatus(final Object[] status)
-    throws  ServiceException{
-        try {
-            return new FindByStatusSpecification(
-                    (Competition.Status) status[0]);
-        } catch (ClassCastException e) {
-            throw new ServiceException(e);
-        }
-    }
+
+
 
     @Override
-    public final List<Competition> find(String property, Object... value) throws ServiceException {
+    public final List<Competition> find(String property, Object... value)
+            throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER
                     .get(property).apply(value);
@@ -73,8 +61,22 @@ public class CompetitionService implements Service<Competition> {
             try {
                 transaction.rollback();
             } catch (DaoException rbExc) {
-                logger.error("Rollback failed", rbExc);
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
             }
+            throw new ServiceException(e);
+        }
+    }
+
+    private static Specification findAll(final Object[] newObjects) {
+        return new FindAllCompetitionsSpecification();
+    }
+
+    private static Specification findByStatus(final Object[] status)
+            throws  ServiceException{
+        try {
+            return new FindByStatusSpecification(
+                    (Competition.Status) status[0]);
+        } catch (ClassCastException e) {
             throw new ServiceException(e);
         }
     }

@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class FindByLoginAndPassword implements Specification {
+public class FindByLoginAndPasswordSpecification implements Specification {
     private static final String SQL =
             "SELECT `id`, `email`, `password`,"
                     + " `role` FROM `users` WHERE `password`=? AND `email`=?";
@@ -16,7 +16,7 @@ public class FindByLoginAndPassword implements Specification {
 
     private final String password;
 
-    public FindByLoginAndPassword(final String newEmail, final String newPassword) {
+    public FindByLoginAndPasswordSpecification(final String newEmail, final String newPassword) {
         email = newEmail;
         password = newPassword;
     }

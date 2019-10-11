@@ -13,15 +13,23 @@ import java.util.List;
 public class CompetitionRepository extends BaseSqlRepository<Competition> {
 
     private static final String SELECT_COMP_BY_ID =
-            "SELECT `id`, `date`, `name`, `discipline_id` , "
-                    + "`status`, `participation_fee`, `description`"
-                    + " FROM `competitions` WHERE `discipline_id`  = ?";
+            "SELECT `competitions`.`id` AS `id`, `organizer_id`,"
+                    + " `email`, `password`, `role`, `date`,"
+                    + " `competitions`.`name` AS `name`,"
+                    + " `disciplines`.`name` AS `discipline_name`, "
+                    + " `status`, `participation_fee`, `description`"
+                    + "FROM `competitions`"
+                    + "JOIN `disciplines` "
+                    + "ON `discipline_id` = `disciplines`.`id`"
+                    + "JOIN `users` ON `organizer_id` = `users`.`id`"
+                    + "WHERE `competitions`.`id`  = ?";
 
     private static final String UPDATE_COMPETITION =
             "UPDATE `competitions`"
                     + "    JOIN `disciplines` ON `disciplines`.`name` = ? "
                     + "SET `date`                = ? "
                     + "    `competitions`.`name` = ? "
+                    + "    `organizer_id`        = ? "
                     + "    `discipline_id`       = `disciplines`.`id`, "
                     + "    `status`              = ? "
                     + "    `participation_fee`   = ? "
@@ -30,9 +38,9 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
 
     private static final String INSERT_COMPETITION =
             "INSERT INTO `competitions` "
-                    + "(`date`, `competitions`.`name`, `discipline_id`,"
+                    + "(`date`, `organizer_id`, `competitions`.`name`, `discipline_id`,"
                     + " `status`, `participation_fee`, `description`) "
-                    + "VALUES (?, ?, `disciplines`.`id`, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, `disciplines`.`id`, ?, ?, ?)";
     private static final String TABLE_NAME = "competitions";
 
     private static final String DELETE_COMPETITION =
@@ -66,6 +74,7 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
     public boolean add(final Competition newCompetition) throws DaoException {
         return executeUpdate(INSERT_COMPETITION,
                 Date.valueOf(newCompetition.getDate()),
+                newCompetition.getOrganizer().getId(),
                 newCompetition.getName(), newCompetition.getDiscipline(),
                 newCompetition.getStatus().ordinal(),
                 newCompetition.getParticipationFee(),
@@ -108,7 +117,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
         return executeUpdate(UPDATE_COMPETITION,
                 newCompetition.getDiscipline(),
                 Date.valueOf(newCompetition.getDate()),
-                newCompetition.getName(), newCompetition.getStatus().ordinal(),
+                newCompetition.getName(), newCompetition.getOrganizer().getId(),
+                newCompetition.getStatus().ordinal(),
                 newCompetition.getParticipationFee(),
                 newCompetition.getDescription(), newCompetition.getId());
     }

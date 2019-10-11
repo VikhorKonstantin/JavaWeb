@@ -17,8 +17,7 @@ import org.testng.annotations.Test;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertThrows;
+import static org.testng.Assert.*;
 
 public class SportsmanServiceTest {
     private SportsmanService service;
@@ -62,8 +61,8 @@ public class SportsmanServiceTest {
     }
 
     @Test(description = "ReadByIdNegative", dataProvider = "readByIdProvider")
-    public void readByIdNegativeTest(int id) {
-        assertThrows(ServiceException.class, () -> service.readById(id));
+    public void readByIdNegativeTest(int id) throws ServiceException{
+        assertNull(service.readById(id));
     }
 
     @DataProvider(name = "findTestDataProvider")

@@ -38,7 +38,8 @@
                 <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="userEdit.html">UserEdit</a>
+                <c:url value="/competitions/all.html" var="competitionsAllUrl"/>
+                <a class="nav-link" href="${competitionsAllUrl}">Competitions</a>
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">

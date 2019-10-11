@@ -34,12 +34,13 @@
                 <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="userEdit.html">UserEdit</a>
+                <c:url value="/competitions/all.html" var="competitionsAllUrl"/>
+                <a class="nav-link" href="${competitionsAllUrl}">Competitions</a>
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
-            <li class="nav-item disabled active"><a class="nav-link" href="logIn.jsp"> Login <span
-                    class="sr-only">(current)</span></a></li>
+            <c:url var="logIn" value="/logIn.html"/>
+            <li class="nav-item"><a class="nav-link" href="${logIn}"> Login </a></li>
             <li class="nav-item"><a class="nav-link" href="${singUp}"> SingUp</a></li>
         </ul>
     </div>

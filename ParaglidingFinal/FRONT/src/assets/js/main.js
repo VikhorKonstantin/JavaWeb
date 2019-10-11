@@ -6,4 +6,5 @@
 //=require ../../../node_modules/bootstrap/js/dist/collapse.js
 //=require ../../../node_modules/bootstrap/js/dist/carousel.js
 //=require ../../../node_modules/bootstrap/js/dist/alert.js
+//=require ../../../node_modules/bootstrap/js/dist/tab.js
 //=require singUp.js
