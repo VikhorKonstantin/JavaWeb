@@ -1,5 +1,6 @@
 package by.training.paragliding.service;
 
+import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.dao.DaoType;
 import by.training.paragliding.dao.Repository;
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserService implements Service<User> {
 
@@ -107,7 +109,13 @@ public class UserService implements Service<User> {
         try {
             Repository<User> userRepository =
                     transaction.createDao(DaoType.USER);
+            Repository<Sportsman> sportsmanRepository =
+                    transaction.createDao(DaoType.SPORTSMAN);
             var result = userRepository.add(newUser);
+            var oSportsman = Optional.ofNullable(newUser.getSportsman());
+            if (oSportsman.isPresent()) {
+                result &= sportsmanRepository.add(oSportsman.get());
+            }
             transaction.commit();
             return result;
         } catch (DaoException e) {

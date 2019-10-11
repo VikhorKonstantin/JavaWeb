@@ -3,7 +3,7 @@ USE `paragliding_db`;
 CREATE TABLE `users` (
          `id` INT NOT NULL AUTO_INCREMENT,
          `email` VARCHAR(255) NOT NULL UNIQUE,
-         `password` varchar(32) NOT NULL,
+         `password` VARCHAR(32) NOT NULL,
          `role` TINYINT NOT NULL,
          CONSTRAINT PK_users  PRIMARY KEY (`id`),
          CONSTRAINT CH_users CHECK (`role` IN (0, 1, 2))
@@ -11,8 +11,8 @@ CREATE TABLE `users` (
 
 CREATE TABLE `sportsmen` (
          -- FAI id
-        `user_id` INT NOT NULL UNIQUE,
         `civl_id` INT NOT NULL UNIQUE,
+        `user_id` INT NOT NULL UNIQUE,
         `surname` VARCHAR(255) NOT NULL,
         `name` VARCHAR(255) NOT NULL,
          --  M F

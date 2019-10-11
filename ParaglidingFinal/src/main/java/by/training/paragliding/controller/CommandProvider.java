@@ -4,6 +4,7 @@ import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.StartCommand;
 import by.training.paragliding.controller.command.ViewLogInPage;
 import by.training.paragliding.controller.command.ViewSingUpPage;
+import by.training.paragliding.controller.command.competition.ViewCompetitionById;
 import by.training.paragliding.controller.command.competition.ViewCompetitionList;
 import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
 import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
@@ -60,6 +61,9 @@ final class CommandProvider implements AutoCloseable {
             executableMap.put("/competitions/all",
                     new ViewCompetitionList(
                             serviceFactory.createCompetitionService()));
+            executableMap.put("/competition", new ViewCompetitionById(
+                    serviceFactory.createCompetitionService()
+            ));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

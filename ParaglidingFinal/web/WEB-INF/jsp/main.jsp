@@ -35,7 +35,7 @@
             </li>
             <li class="nav-item">
                 <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
-                <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
+                <a class="nav-link" href="${sportsmenAllUrl}">Sportsmen</a>
             </li>
             <li class="nav-item">
                 <c:url value="/competitions/all.html" var="competitionsAllUrl"/>

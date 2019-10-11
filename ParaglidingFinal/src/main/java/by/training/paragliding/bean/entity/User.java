@@ -20,6 +20,8 @@ public class User implements Serializable {
      */
     private Role role;
 
+    private Sportsman sportsman;
+
     public int getId() {
         return id;
     }
@@ -52,5 +54,11 @@ public class User implements Serializable {
         role = newRole;
     }
 
+    public Sportsman getSportsman() {
+        return sportsman;
+    }
 
+    public void setSportsman(final Sportsman newSportsman) {
+        sportsman = newSportsman;
+    }
 }

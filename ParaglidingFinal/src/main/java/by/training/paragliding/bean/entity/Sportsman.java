@@ -2,9 +2,10 @@ package by.training.paragliding.bean.entity;
 
 import com.neovisionaries.i18n.CountryCode;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Sportsman {
+public class Sportsman implements Serializable {
 
     /**
      * Creates new empty Sportsman object.

@@ -53,14 +53,11 @@ public class SingUp implements Executable {
             if(user.getRole().equals(Role.REGISTERED_SPORTSMAN)) {
                 var sportsmanBuilder = new SportsmanValidator();
                 Sportsman sportsman = sportsmanBuilder.validate(req);
-                if (!sportsmanService.addSportsman(sportsman)){
-                    throw new ControllerException(LOGIN_ERROR);
-                }
+                user.setSportsman(sportsman);
             }
             if (!userService.addUser(user)){
                 throw new ControllerException(LOGIN_ERROR);
             }
-            //todo: ask about REDIRECTION!!!!
             return new ExecutionResult(true, "/index.html");
         } catch (ServiceException | BeanException newE) {
             throw new ControllerException(newE);

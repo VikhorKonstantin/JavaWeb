@@ -42,8 +42,22 @@ public class CompetitionService implements Service<Competition> {
         SPECIFICATION_PROVIDER.put("all", CompetitionService::findAll);
     }
 
-
-
+    public Competition readById(final int id) throws ServiceException {
+        try {
+            Repository<Competition> competitionRepository =
+                    transaction.createDao(DaoType.COMPETITION);
+            var result = competitionRepository.readById(id);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
 
 
     @Override

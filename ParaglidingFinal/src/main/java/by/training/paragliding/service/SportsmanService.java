@@ -75,23 +75,6 @@ public class SportsmanService implements Service<Sportsman> {
         }
     }
 
-    public boolean addSportsman(final Sportsman newSportsman) throws ServiceException {
-        try {
-            Repository<Sportsman> sportsmanRepository =
-                    transaction.createDao(DaoType.SPORTSMAN);
-            var result = sportsmanRepository.add(newSportsman);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            try {
-                transaction.rollback();
-            } catch (DaoException rbExc) {
-                logger.error(ROLL_BACK_EXC_MSG, rbExc);
-            }
-            throw new ServiceException(e);
-        }
-    }
-
     @Override
     public final List<Sportsman> find(String property, Object... value)
             throws ServiceException {

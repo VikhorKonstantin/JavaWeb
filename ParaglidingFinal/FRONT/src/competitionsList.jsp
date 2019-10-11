@@ -30,7 +30,7 @@
             </li>
             <li class="nav-item">
                 <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
-                <a class="nav-link" href="${sportsmenAllUrl}">UserList</a>
+                <a class="nav-link" href="${sportsmenAllUrl}">Sportsmen</a>
             </li>
             <li class="nav-item active">
                 <c:url value="competitions/all.html" var="competitionsAllUrl"/>
@@ -58,6 +58,7 @@
                     <a class="list-group-item list-group-item-action list-inline-item" data-toggle="list" href="#future"
                        role="tab">Future</a>
                 </div>
+                <c:url value="/competition.html" var="competitionUrl"/>
                 <div class="tab-content">
                     <div class="tab-pane active" id="finished" role="tabpanel">
                         <table class="table table-hover">
@@ -69,10 +70,10 @@
                                 <th scope="col">DISCIPLINE</th>
                                 <th scope="col">STATUS</th>
                                 <th scope="col">PARTICIPATION FEE</th>
+                                <th scope="col">LINK</th>
                             </tr>
                             </thead>
                             <tbody>
-
                             <c:forEach items="${finishedComps}" var="competition">
                                 <tr>
                                     <td>${competition.id}</td>
@@ -81,6 +82,9 @@
                                     <td>${competition.discipline}</td>
                                     <td>${competition.status}</td>
                                     <td>${competition.participationFee}</td>
+                                    <td><a class="btn-submit"
+                                           href="${competitionUrl}?id=${competition.id}">More info</a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -96,10 +100,10 @@
                                 <th scope="col">DISCIPLINE</th>
                                 <th scope="col">STATUS</th>
                                 <th scope="col">PARTICIPATION FEE</th>
+                                <th scope="col">LINK</th>
                             </tr>
                             </thead>
                             <tbody>
-
                             <c:forEach items="${futureComps}" var="competition">
                                 <tr>
                                     <td>${competition.id}</td>
@@ -108,6 +112,9 @@
                                     <td>${competition.discipline}</td>
                                     <td>${competition.status}</td>
                                     <td>${competition.participationFee}</td>
+                                    <td><a class="btn-submit"
+                                           href="${competitionUrl}?id=${competition.id}">More info</a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                             </tbody>

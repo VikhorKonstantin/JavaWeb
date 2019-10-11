@@ -30,7 +30,7 @@
             </li>
             <li class="nav-item">
                 <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
-                <a class="nav-link  active" href="${sportsmenAllUrl}">UserList <span
+                <a class="nav-link  active" href="${sportsmenAllUrl}">Sportsmen<span
                         class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
