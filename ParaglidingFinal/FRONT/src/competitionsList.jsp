@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="utg" %>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -59,74 +60,19 @@
     <div class="container d-flex justify-content-center">
         <div class="card rounded-form">
             <div class="card-body col-12">
-                <div class="list-group" id="myList" role="tablist">
-                    <a class="list-group-item list-group-item-action list-inline-item active" data-toggle="list"
+                <div class="list-group list-group-horizontal-sm" id="myList" role="tablist">
+                    <a class="list-group-item list-group-item-action active" data-toggle="list"
                        href="#finished"
                        role="tab">Finished</a>
-                    <a class="list-group-item list-group-item-action list-inline-item" data-toggle="list" href="#future"
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#future"
                        role="tab">Future</a>
                 </div>
-                <c:url value="/competition.html" var="competitionUrl"/>
                 <div class="tab-content">
                     <div class="tab-pane active" id="finished" role="tabpanel">
-                        <table class="table table-hover">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">NAME</th>
-                                <th scope="col">DATE</th>
-                                <th scope="col">DISCIPLINE</th>
-                                <th scope="col">STATUS</th>
-                                <th scope="col">PARTICIPATION FEE</th>
-                                <th scope="col">LINK</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${finishedComps}" var="competition">
-                                <tr>
-                                    <td>${competition.id}</td>
-                                    <td>${competition.name}</td>
-                                    <td>${competition.date}</td>
-                                    <td>${competition.discipline}</td>
-                                    <td>${competition.status}</td>
-                                    <td>${competition.participationFee}</td>
-                                    <td><a class="btn btn-primary"
-                                           href="${competitionUrl}?id=${competition.id}">More info</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <utg:competitionTable tableCompetitions="${finishedComps}"/>
                     </div>
                     <div class="tab-pane" id="future" role="tabpanel">
-                        <table class="table table-hover">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">NAME</th>
-                                <th scope="col">DATE</th>
-                                <th scope="col">DISCIPLINE</th>
-                                <th scope="col">STATUS</th>
-                                <th scope="col">PARTICIPATION FEE</th>
-                                <th scope="col">LINK</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${futureComps}" var="competition">
-                                <tr>
-                                    <td>${competition.id}</td>
-                                    <td>${competition.name}</td>
-                                    <td>${competition.date}</td>
-                                    <td>${competition.discipline}</td>
-                                    <td>${competition.status}</td>
-                                    <td>${competition.participationFee}</td>
-                                    <td><a class="btn btn-primary"
-                                           href="${competitionUrl}?id=${competition.id}">More info</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <utg:competitionTable tableCompetitions="${futureComps}"/>
                     </div>
                 </div>
             </div>

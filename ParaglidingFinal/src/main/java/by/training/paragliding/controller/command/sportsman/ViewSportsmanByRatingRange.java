@@ -37,11 +37,12 @@ public class ViewSportsmanByRatingRange implements Executable {
         var leftBoundString = req.getParameter("leftBound");
         var rightBoundString = req.getParameter("rightBound");
         try {
-            var sportsmen = sportsmanService.find("ratingRange",
+            var sportsmen = sportsmanService.find(SportsmanService.RATING_RANGE,
                     Float.parseFloat(leftBoundString),
                     Float.parseFloat(rightBoundString));
             req.setAttribute("sportsmen", sportsmen);
-            return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
+            return new ExecutionResult(true,
+                    "/WEB-INF/jsp/main.jsp");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

@@ -23,6 +23,7 @@ var gulp = require("gulp"),
 
 var path = {
     build: {
+        tag: "../web/WEB-INF/tags/",
         html: "../web/WEB-INF/jsp/",
         js: "../web/js/",
         css: "../web/css/",
@@ -30,6 +31,7 @@ var path = {
         fonts: "../web/fonts/"
     },
     src: {
+        tag: "src/tags/*.tag",
         html: "src/*.{htm,html,jsp}",
         js: "src/assets/js/*.js",
         css: "src/assets/sass/style.scss",
@@ -37,6 +39,7 @@ var path = {
         fonts: "src/assets/fonts/**/*.*"
     },
     watch: {
+        tag: "src/tags/*.tag",
         html: "src/**/*.{htm,html,jsp}",
         js: "src/assets/js/**/*.js",
         css: "src/assets/sass/**/*.scss",
@@ -57,6 +60,13 @@ gulp.task("html:build", function () {
         .pipe(gulp.dest(path.build.html));
 });
 
+gulp.task("tag:build", function () {
+    return gulp.src(path.src.tag)
+        .pipe(plumber())
+        .pipe(include())
+        .on('error', console.log)
+        .pipe(gulp.dest(path.build.tag));
+});
 
 gulp.task("css:build", function () {
     return gulp.src(path.src.css, { base: './src/assets/sass/' })
@@ -124,6 +134,7 @@ gulp.task('build', function (cb) {
         "clean",
         "css:build",
         "html:build",
+        "tag:build",
         "js:build",
         "fonts:build",
         "image:build"
@@ -134,6 +145,9 @@ gulp.task('build', function (cb) {
 gulp.task("watch", function () {
     watch([path.watch.html], function (event, cb) {
         gulp.start("html:build");
+    });
+    watch([path.watch.tag], function (event, cb) {
+        gulp.start("tag:build");
     });
     watch([path.watch.css], function (event, cb) {
         gulp.start("css:build");

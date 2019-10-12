@@ -9,6 +9,7 @@ import by.training.paragliding.controller.command.competition.ViewCompetitionByI
 import by.training.paragliding.controller.command.competition.ViewCompetitionList;
 import by.training.paragliding.controller.command.competition.ViewCompetitionsEditPage;
 import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
+import by.training.paragliding.controller.command.sportsman.ViewParticipants;
 import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
 import by.training.paragliding.controller.command.user.LogIn;
 import by.training.paragliding.controller.command.user.LogOut;
@@ -78,6 +79,9 @@ final class CommandProvider implements AutoCloseable {
             postMap.put("/competition/edit", new EditCompetition(
                     serviceFactory.createCompetitionService()
             ));
+            getMap.put("/sportsmen/participants", new ViewParticipants(
+                    serviceFactory.createCompetitionService(),
+                    serviceFactory.createSportsmanService()));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

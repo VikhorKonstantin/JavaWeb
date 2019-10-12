@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface Service<T> {
 
-    List<T> find(String property, Object... values)
+    List<T> find(Integer property, Object... values)
             throws ServiceException;
 
     /**

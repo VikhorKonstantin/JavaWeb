@@ -37,10 +37,12 @@ public class ViewCompetitionList implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         try {
-            var futureComps = competitionService.find("status",
+            var futureComps = competitionService.find(CompetitionService.STATUS,
                     Competition.Status.ANNOUNCED);
-            var finishedComps = competitionService.find("status", Competition.Status.FINISHED);
-            logger.debug("Id {} Name {}", futureComps.get(0).getId(), futureComps.get(0).getName());
+            var finishedComps = competitionService.find(
+                    CompetitionService.STATUS, Competition.Status.FINISHED);
+            logger.debug("Id {} Name {}", futureComps.get(0).getId(),
+                    futureComps.get(0).getName());
             req.setAttribute("futureComps", futureComps);
             req.setAttribute("finishedComps", finishedComps);
             return new ExecutionResult(true,

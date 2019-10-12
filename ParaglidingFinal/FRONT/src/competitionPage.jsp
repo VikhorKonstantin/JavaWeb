@@ -69,23 +69,36 @@
                 <p class="card-text">Date: ${competition.date}</p>
                 <p class="card-text">Status: ${competition.status}</p>
                 <p class="card-text">Discipline: ${competition.discipline}</p>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <c:if test="${User != null}">
+                                <c:url var="editUrl" value="/competition/edit.html">
+                                    <c:param name="competitionId" value="${competition.id}"/>
+                                </c:url>
+                                <c:choose>
+                                    <c:when test="${User.role == 'REGISTERED_USER'}">
+                                        <a href="${editUrl}" class="btn btn-primary">Edit</a>
+                                    </c:when>
+                                    <c:when test="${User.role = 'REGISTERED_SPORTSMAN'}">
+                                        <a href="" class="btn btn-primary">Join</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${editUrl}" class="btn btn-primary">Edit</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+                        </div>
+                        <div class="col-4">
+                            <c:url var="participants" value="/sportsmen/participants.html">
+                                <c:param name="competitionId" value="${competition.id}"/>
+                            </c:url>
+                            <a class="btn btn-primary" href="${participants}">Participants</a>
+                        </div>
+                    </div>
+                </div>
 
-                <c:if test="${User != null}">
-                    <c:url var="editUrl" value="/competition/edit.html">
-                        <c:param name="competitionId" value="${competition.id}"/>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${User.role == 'REGISTERED_USER'}">
-                            <a href="${editUrl}" class="btn btn-primary">Edit</a>
-                        </c:when>
-                        <c:when test="${User.role = 'REGISTERED_SPORTSMAN'}">
-                            <a href="" class="btn btn-primary">Join</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${editUrl}" class="btn btn-primary">Edit</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
+
             </div>
         </div>
     </div>

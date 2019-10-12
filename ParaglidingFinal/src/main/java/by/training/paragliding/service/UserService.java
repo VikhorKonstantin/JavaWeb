@@ -35,15 +35,19 @@ public class UserService implements Service<User> {
         transaction = newTransaction;
     }
 
-    private static final Map<String, ThrowingFunction<Object[], Specification,
+    private static final Map<Integer, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 
+    public static final Integer LOGIN_AND_PASSWORD = 1;
+    public static final Integer ALL = 0;
+
     static {
-        SPECIFICATION_PROVIDER.put("loginAndPassword",
+        SPECIFICATION_PROVIDER.put(LOGIN_AND_PASSWORD,
                 UserService::findByLoginAndPassword);
-        SPECIFICATION_PROVIDER.put("all", UserService::findAll);
+        SPECIFICATION_PROVIDER.put(ALL, UserService::findAll);
     }
+
 
 
     public User readById(final int id) throws ServiceException {
@@ -67,7 +71,7 @@ public class UserService implements Service<User> {
                                        final String password)
             throws ServiceException {
         try {
-            var userList = find("loginAndPassword", email, password);
+            var userList = find(LOGIN_AND_PASSWORD, email, password);
             transaction.commit();
             if (!userList.isEmpty()) {
                 return userList.get(0);
@@ -85,7 +89,7 @@ public class UserService implements Service<User> {
     }
 
     @Override
-    public List<User> find(final String property, final Object... value)
+    public List<User> find(final Integer property, final Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER

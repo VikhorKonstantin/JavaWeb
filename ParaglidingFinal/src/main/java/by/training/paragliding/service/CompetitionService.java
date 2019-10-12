@@ -32,15 +32,18 @@ public class CompetitionService implements Service<Competition> {
         transaction = newTransaction;
     }
 
-    private static final Map<String, ThrowingFunction<Object[], Specification,
+    private static final Map<Integer, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 
+    public static final Integer ALL = 0;
+    public static final Integer STATUS = 1;
     static {
-        SPECIFICATION_PROVIDER.put("status",
+        SPECIFICATION_PROVIDER.put(STATUS,
                 CompetitionService::findByStatus);
-        SPECIFICATION_PROVIDER.put("all", CompetitionService::findAll);
+        SPECIFICATION_PROVIDER.put(ALL, CompetitionService::findAll);
     }
+
 
     public Competition readById(final int id) throws ServiceException {
         try {
@@ -79,7 +82,7 @@ public class CompetitionService implements Service<Competition> {
 
 
     @Override
-    public final List<Competition> find(String property, Object... value)
+    public final List<Competition> find(final Integer property, Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER

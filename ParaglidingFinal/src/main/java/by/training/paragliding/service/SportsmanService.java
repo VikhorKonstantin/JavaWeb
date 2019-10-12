@@ -32,17 +32,22 @@ public class SportsmanService implements Service<Sportsman> {
      */
     private Transaction transaction;
 
-    private static final Map<String, ThrowingFunction<Object[], Specification,
+    private static final Map<Integer, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 
+    public static final Integer ALL = 0;
+    public static final Integer COUNTRY_CODE = 1;
+    public static final Integer APPLICATION =2;
+    public static final Integer RATING_RANGE =3;
+
     static {
-        SPECIFICATION_PROVIDER.put("countryCode",
+        SPECIFICATION_PROVIDER.put(COUNTRY_CODE,
                 SportsmanService::findByCountry);
-        SPECIFICATION_PROVIDER.put("all", SportsmanService::findAll);
-        SPECIFICATION_PROVIDER.put("application",
+        SPECIFICATION_PROVIDER.put(ALL, SportsmanService::findAll);
+        SPECIFICATION_PROVIDER.put(APPLICATION,
                 SportsmanService::findByApplication);
-        SPECIFICATION_PROVIDER.put("ratingRange",
+        SPECIFICATION_PROVIDER.put(RATING_RANGE,
                 SportsmanService::findByRatingRange);
     }
 
@@ -75,8 +80,9 @@ public class SportsmanService implements Service<Sportsman> {
         }
     }
 
+
     @Override
-    public final List<Sportsman> find(String property, Object... value)
+    public final List<Sportsman> find(final Integer property, Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER
@@ -153,9 +159,4 @@ public class SportsmanService implements Service<Sportsman> {
             throw new ServiceException(e);
         }
     }
-
-
-
-
-
 }

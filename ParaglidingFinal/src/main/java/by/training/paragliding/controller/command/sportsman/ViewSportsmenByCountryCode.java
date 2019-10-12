@@ -37,7 +37,7 @@ public class ViewSportsmenByCountryCode implements Executable {
             throws ControllerException {
         var countryCode = req.getParameter("countryCode");
         try {
-            var sportsmen = sportsmanService.find("countryCode",
+            var sportsmen = sportsmanService.find(SportsmanService.COUNTRY_CODE,
                     countryCode);
             req.setAttribute("sportsman", sportsmen);
             return new ExecutionResult(true,

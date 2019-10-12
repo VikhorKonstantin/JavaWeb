@@ -39,8 +39,8 @@ public class ViewAnnouncedDescriptions implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         try {
-            var competitions = competitionService.find("status",
-                    Competition.Status.ANNOUNCED);
+            var competitions = competitionService.find(
+                    CompetitionService.STATUS, Competition.Status.ANNOUNCED);
             final Map<String, String> descriptions = new HashMap<>();
             competitions.forEach(c -> descriptions.put(c.getName(), c.getDescription()));
             req.setAttribute("descriptions", descriptions);
