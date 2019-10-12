@@ -251,4 +251,6 @@ public class Sportsman implements Serializable {
     public int hashCode() {
         return Objects.hash(civlId);
     }
+
+
 }

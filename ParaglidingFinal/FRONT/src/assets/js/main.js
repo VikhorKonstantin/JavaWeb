@@ -8,3 +8,4 @@
 //=require ../../../node_modules/bootstrap/js/dist/alert.js
 //=require ../../../node_modules/bootstrap/js/dist/tab.js
 //=require singUp.js
+//=require competitionEdit.js

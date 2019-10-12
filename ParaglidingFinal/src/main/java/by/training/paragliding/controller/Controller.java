@@ -52,7 +52,19 @@ public class Controller implements AutoCloseable {
             } else {
                 actionName = uri.substring(beginAction);
             }
-            Executable executionCommand = provider.getCommand(actionName);
+            Executable executionCommand;
+            switch (req.getMethod()){
+                case "POST" :
+                    executionCommand = provider.getPostCommand(actionName);
+                    break;
+                case  "GET" :
+                    executionCommand = provider.getGetCommand(actionName);
+                    break;
+                default:
+                    throw new ControllerException("Unsupported Method");
+            }
+
+
             var commandDbgMsg =
                     String.format("Execution command:%s", executionCommand);
             logger.debug(commandDbgMsg);

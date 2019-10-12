@@ -44,9 +44,8 @@ public class LogIn implements Executable {
             if (user != null) {
                 req.getSession().setAttribute("User", user);
                 return new ExecutionResult(
-                        true, "/index.html");
+                        false, "/index.html");
             } else {
-                //todo: fix
                 req.setAttribute("message" ,
                         "Wrong  login/password");
                 return new ExecutionResult(true,

@@ -1,15 +1,14 @@
 package by.training.paragliding.controller.command.user;
 
 import by.training.paragliding.bean.entity.Role;
-import by.training.paragliding.bean.validator.SportsmanValidator;
-import by.training.paragliding.bean.validator.UserValidator;
 import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.bean.exception.BeanException;
+import by.training.paragliding.bean.validator.SportsmanValidator;
+import by.training.paragliding.bean.validator.UserValidator;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
-import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.UserService;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -19,19 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SingUp implements Executable {
-
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
     private static final String LOGIN_ERROR = "Log in error. Check input data";
-    private final SportsmanService sportsmanService;
+
 
     private final UserService userService;
 
-    public SingUp(final SportsmanService newSportsmanService,
-                  final UserService newUserService) {
-        sportsmanService = newSportsmanService;
+    public SingUp(final UserService newUserService) {
         userService = newUserService;
     }
 

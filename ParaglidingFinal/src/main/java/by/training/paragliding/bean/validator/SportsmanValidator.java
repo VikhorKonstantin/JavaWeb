@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class SportsmanValidator implements Validator<Sportsman> {
-    private static final String NAME_PATTERN = "^[a-zA-Z\\s]+";
-    private static final String GENDER_PATTERN = "^M | F";
-    private static final String RATING_PATTERN = "^[0-9]{0,4}\\.[0-9]}";
-    private static final String CIVL_PATTERN = "^[0-9]{2,6}$";
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-
+    private static final String NAME_PATTERN = "^[a-zA-Z\\s]+";
+    private static final String GENDER_PATTERN = "^M | F";
+    private static final String RATING_PATTERN = "^[0-9]{0,4}\\.[0-9]}";
+    private static final String CIVL_PATTERN = "^[0-9]{2,6}$";
     @Override
     public Sportsman validate(final HttpServletRequest newRequest) throws BeanException {
         Sportsman sportsman = new Sportsman();
@@ -39,8 +38,6 @@ public class SportsmanValidator implements Validator<Sportsman> {
                 && ratingString.matches(RATING_PATTERN)
                 && civlIdString.matches(CIVL_PATTERN);
         if (isValid) {
-            //todo: User ID!!!!!!!!
-            //sportsman.setUser(user);
             sportsman.setCivlId(Integer.parseInt(civlIdString));
             sportsman.setGender(genderString.charAt(0));
             sportsman.setName(name);
@@ -56,7 +53,7 @@ public class SportsmanValidator implements Validator<Sportsman> {
                     Integer.parseInt(civlIdString));
             return sportsman;
         } else {
-            throw new BeanException(ECX_MSG);
+            throw new BeanException(EXC_MSG);
         }
 
     }

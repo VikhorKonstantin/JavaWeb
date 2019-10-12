@@ -250,4 +250,19 @@ public class Competition {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Competition{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", status=" + status +
+                ", description='" + description + '\'' +
+                ", participationFee=" + participationFee +
+                ", results=" + results +
+                ", discipline='" + discipline + '\'' +
+                ", organizer=" + organizer +
+                '}';
+    }
 }

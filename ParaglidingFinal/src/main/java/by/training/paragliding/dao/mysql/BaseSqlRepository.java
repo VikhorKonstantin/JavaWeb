@@ -4,6 +4,8 @@ import by.training.paragliding.bean.builder.Builder;
 import by.training.paragliding.bean.exception.BeanException;
 import by.training.paragliding.dao.Repository;
 import by.training.paragliding.dao.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,10 +13,13 @@ import java.util.List;
 
 public abstract class BaseSqlRepository<T> implements Repository<T> {
     /**
+     * Logger.
+     */
+    private Logger logger = LogManager.getLogger("main");
+    /**
      * SQL connection.
      */
     private Connection connection;
-
     private Builder<T> tBuilder;
 
     private static final String IS_EMPTY =

@@ -4,6 +4,7 @@ import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.StartCommand;
 import by.training.paragliding.controller.command.ViewLogInPage;
 import by.training.paragliding.controller.command.ViewSingUpPage;
+import by.training.paragliding.controller.command.competition.EditCompetition;
 import by.training.paragliding.controller.command.competition.ViewCompetitionById;
 import by.training.paragliding.controller.command.competition.ViewCompetitionList;
 import by.training.paragliding.controller.command.competition.ViewCompetitionsEditPage;
@@ -30,9 +31,14 @@ final class CommandProvider implements AutoCloseable {
      */
     private final Logger logger = LogManager.getLogger("main");
     /**
-     * commands map.
+     * Post commands map.
      */
-    private final Map<String, Executable> executableMap =
+    private final Map<String, Executable> postMap =
+            new HashMap<>();
+    /**
+     * Get commands map.
+     */
+    private final Map<String, Executable> getMap =
             new HashMap<>();
 
     /**
@@ -47,27 +53,31 @@ final class CommandProvider implements AutoCloseable {
             throws ControllerException {
         serviceFactory = newServiceFactory;
         try {
-            executableMap.put("/sportsmen/id", new ViewSportsmanById(
+            getMap.put("/sportsmen/id", new ViewSportsmanById(
                     serviceFactory.createSportsmanService()));
-            executableMap.put("/sportsmen/all", new ViewAllSportsmen(
+            getMap.put("/sportsmen/all", new ViewAllSportsmen(
                     serviceFactory.createSportsmanService()));
-            executableMap.put("/index", new StartCommand(serviceFactory
+            getMap.put("/index", new StartCommand(serviceFactory
                     .createCompetitionService()));
-            executableMap.put("/singUp", new ViewSingUpPage());
-            executableMap.put("/logIn", new ViewLogInPage());
-            executableMap.put("/user/singUp",
-                    new SingUp(serviceFactory.createSportsmanService(),
-                            serviceFactory.createUserService()));
-            executableMap.put("/user/logIn",
+            getMap.put("/singUp", new ViewSingUpPage());
+            getMap.put("/logIn", new ViewLogInPage());
+            postMap.put("/user/singUp",
+                    new SingUp(serviceFactory.createUserService()));
+            postMap.put("/user/logIn",
                     new LogIn(serviceFactory.createUserService()));
-            executableMap.put("/user/logOut", new LogOut());
-            executableMap.put("/competition/all",
+            getMap.put("/user/logOut", new LogOut());
+            getMap.put("/competition/all",
                     new ViewCompetitionList(
                             serviceFactory.createCompetitionService()));
-            executableMap.put("/competition", new ViewCompetitionById(
+            getMap.put("/competition", new ViewCompetitionById(
                     serviceFactory.createCompetitionService()
             ));
-            executableMap.put("/competition/edit", new ViewCompetitionsEditPage());
+            getMap.put("/competition/edit", new ViewCompetitionsEditPage(
+                    serviceFactory.createCompetitionService()
+            ));
+            postMap.put("/competition/edit", new EditCompetition(
+                    serviceFactory.createCompetitionService()
+            ));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }
@@ -82,8 +92,18 @@ final class CommandProvider implements AutoCloseable {
      * @param name name of command.
      * @return Command.
      */
-    Executable getCommand(final String name) {
+    Executable getPostCommand(final String name) {
         logger.debug("Command name: {}", name);
-        return executableMap.get(name);
+        return postMap.get(name);
+    }
+    /**
+     * @param name name of command.
+     * @return Command.
+     */
+    Executable getGetCommand(final String name) {
+        logger.debug("Command name: {}", name);
+        return getMap.get(name);
     }
 }
+
+

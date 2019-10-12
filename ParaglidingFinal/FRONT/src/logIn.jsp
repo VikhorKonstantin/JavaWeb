@@ -61,19 +61,18 @@
                     <c:url var="logInAction" value="/user/logIn.html"/>
                     <form action="${logInAction}" method="post">
                         <div class="form-group">
-                            <label>
-                                E-mail
-                                <input type="text"
+                            <label for="emailInput">E-mail</label>
+                                <input id="emailInput" type="email" aria-describedby="emailHelp"
                                        name="email" class="form-control"
                                        placeholder="E-mail" required>
-                            </label>
+
                         </div>
                         <div class="form-group">
-                            <label>Password
-                                <input type="password" name="password"
+                            <label for="passwordInput">Password</label>
+                                <input type="password" name="password" id="passwordInput"
                                        class="form-control" placeholder="Password"
                                        required>
-                            </label>
+
                         </div>
                         <button type="submit" class="btn btn-submit glo">Login</button>
                         <a class="btn btn-secondary glo"

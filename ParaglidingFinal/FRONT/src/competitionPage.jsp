@@ -30,8 +30,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link  active" href="${HomeRef}">
-                    Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="${HomeRef}">Home</a>
             </li>
             <li class="nav-item">
                 <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
@@ -66,28 +65,24 @@
             <img class="card-img-top" src="${competeImg}" alt="Card image">
             <div class="card-body">
                 <h4 class="card-title">${competition.name}</h4>
-                <p class="card-text">${competition.description}</p>
+                <h5 class="card-text">${competition.description}</h5>
                 <p class="card-text">Date: ${competition.date}</p>
                 <p class="card-text">Status: ${competition.status}</p>
                 <p class="card-text">Discipline: ${competition.discipline}</p>
 
                 <c:if test="${User != null}">
-                    <c:url var="editUrl" value="/competition/edit.html"/>
+                    <c:url var="editUrl" value="/competition/edit.html">
+                        <c:param name="competitionId" value="${competition.id}"/>
+                    </c:url>
                     <c:choose>
                         <c:when test="${User.role == 'REGISTERED_USER'}">
-                            <form action="${editUrl}" method="post">
-                                <input type="hidden" name="editedCompetition" value="5"/>
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
+                            <a href="${editUrl}" class="btn btn-primary">Edit</a>
                         </c:when>
                         <c:when test="${User.role = 'REGISTERED_SPORTSMAN'}">
                             <a href="" class="btn btn-primary">Join</a>
                         </c:when>
                         <c:otherwise>
-                            <form action="${editUrl}" method="post">
-                                <input type="hidden" name="editedCompetition" value="5"/>
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
+                            <a href="${editUrl}" class="btn btn-primary">Edit</a>
                         </c:otherwise>
                     </c:choose>
                 </c:if>

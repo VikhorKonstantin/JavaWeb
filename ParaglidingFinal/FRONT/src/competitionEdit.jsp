@@ -62,17 +62,19 @@
     <div class="container d-flex justify-content-center">
         <div class="card rounded-form">
             <div class="card-body col-12">
-                <form action="/competition.html" method="post">
+                <c:url var="competitionEdit" value="/competition/edit.html"/>
+                <form action="${competitionEdit}" id="editForm" method="post">
+                    <input type="hidden" name="id" value="${competition.id}"/>
                     <div class="form-row">
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-4">
                             <label class="required" for="nameId">Name</label>
                             <input id="nameId" type="text" name="name" class="form-control"
                                    placeholder="Name"
-                                   title="Latin letters"
-                                   pattern="^[a-zA-Z\s]+$" value="${competition.name}" required>
+                                   title="Latin letters(250 max)"
+                                   pattern="^[0-9.?!a-zA-Z\s]{0,250}$" value="${competition.name}" required>
 
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-4">
                             <label class="required" for="dateId">Date</label>
                             <input id="dateId" type="text" name="date" class="form-control"
                                    placeholder="Last name"
@@ -80,7 +82,17 @@
                                    pattern="^\d{4}-\d{1,2}-\d{1,2}$" value="${competition.date}" required>
 
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
+                            <label class="required" for="feeId">Fee</label>
+                            <input id="feeId" type="text" class="form-control"
+                                   placeholder="Fee" name="fee"
+                                   title="52.212"
+                                   pattern="^[0-9]{0,4}.?[0-9]*$"
+                                   value="${competition.participationFee}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-4">
                             <label class="required" for="inputStatus">Status</label>
                             <select name="status" id="inputStatus" class="form-control">
                                 <option selected>ANNOUNCED</option>
@@ -90,19 +102,24 @@
                                 <option>FINISHED</option>
                             </select>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="required" for="feeId">Fee</label>
-                            <input id="feeId" type="text" class="form-control"  placeholder="Fee"
-                                   title="52.212"
-                                   pattern="^[0-9]{0,4}.?[0-9]*$"
-                                   value="${competition.participation_fee}" required>
+                        <div class="col-md-4 mb-4">
+                            <label class="required" for="inputDiscipline">Discipline</label>
+                            <select name="discipline" id="inputDiscipline" class="form-control">
+                                <option selected>PG_AC</option>
+                                <option>PG</option>
+                                <option>PG_AER_SOLO</option>
+                                <option>PG_AER_SYNCRO</option>
+                                <option>HG_C1</option>
+                                <option>HG_C2</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Description">Description</label>
-                        <textarea name="description" class="form-control bordering" id="Description" rows="3">
-                        </textarea>
+                        <textarea name="description"
+                                  class="form-control bordering" id="Description"
+                                  rows="3">${competition.description}</textarea>
                     </div>
                     <button class="btn btn-submit" type="submit">Submit form</button>
                 </form>

@@ -37,7 +37,7 @@ public class ViewAllSportsmen implements Executable {
         try {
             var sportsmen = sportsmanService.find("all");
             req.setAttribute("sportsmen", sportsmen);
-            return new ExecutionResult(true, "/WEB-INF/jsp/userList.jsp");
+            return new ExecutionResult(true, "/WEB-INF/jsp/sportsmenList.jsp");
         }
         catch (ServiceException e) {
             throw new ControllerException(e);

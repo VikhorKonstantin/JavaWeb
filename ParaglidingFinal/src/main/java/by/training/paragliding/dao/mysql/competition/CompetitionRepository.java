@@ -25,16 +25,15 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                     + "WHERE `competitions`.`id`  = ?";
 
     private static final String UPDATE_COMPETITION =
-            "UPDATE `competitions`"
-                    + "    JOIN `disciplines` ON `disciplines`.`name` = ? "
-                    + "SET `date`                = ? "
-                    + "    `competitions`.`name` = ? "
-                    + "    `organizer_id`        = ? "
-                    + "    `discipline_id`       = `disciplines`.`id`, "
-                    + "    `status`              = ? "
-                    + "    `participation_fee`   = ? "
-                    + "    `description`         = ? "
-                    + "WHERE `competitions`.`id` = ? ";
+            "UPDATE `competitions`\n"
+                    + "    JOIN `disciplines` ON `disciplines`.`name` = ?\n"
+                    + "SET `date`                = ?,\n"
+                    + "    `competitions`.`name` = ?,\n"
+                    + "    `discipline_id`       = `disciplines`.`id`,\n"
+                    + "    `status`              = ?,\n"
+                    + "    `participation_fee`   = ?,\n"
+                    + "    `description`         = ?\n"
+                    + "WHERE `competitions`.`id` = ?;";
 
     private static final String INSERT_COMPETITION =
             "INSERT INTO `competitions` "
@@ -78,7 +77,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                 newCompetition.getName(), newCompetition.getDiscipline(),
                 newCompetition.getStatus().ordinal(),
                 newCompetition.getParticipationFee(),
-                newCompetition.getDescription());
+                newCompetition.getDescription(),
+                newCompetition.getId());
     }
 
     /**
@@ -117,7 +117,7 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
         return executeUpdate(UPDATE_COMPETITION,
                 newCompetition.getDiscipline(),
                 Date.valueOf(newCompetition.getDate()),
-                newCompetition.getName(), newCompetition.getOrganizer().getId(),
+                newCompetition.getName(),
                 newCompetition.getStatus().ordinal(),
                 newCompetition.getParticipationFee(),
                 newCompetition.getDescription(), newCompetition.getId());

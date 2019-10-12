@@ -59,6 +59,24 @@ public class CompetitionService implements Service<Competition> {
         }
     }
 
+    public boolean update(final Competition newCompetition)
+            throws ServiceException {
+        try {
+            Repository<Competition> competitionRepository =
+                    transaction.createDao(DaoType.COMPETITION);
+            var result = competitionRepository.update(newCompetition);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
+
 
     @Override
     public final List<Competition> find(String property, Object... value)

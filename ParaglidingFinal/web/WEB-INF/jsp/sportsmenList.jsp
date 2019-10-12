@@ -10,10 +10,10 @@
     <script src="${jsUrl}"></script>
     <title>Users</title>
 </head>
-
+<c:url value="/index.html" var="HomeRef"/>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
-    <a class="navbar-brand  active" href="/index.html">
+    <a class="navbar-brand  active" href="${HomeRef}">
         <c:url value="/img/logo.png" var="logoImg"/>
         <img src="${logoImg}" width="75" height="75" alt="logo">
     </a>
@@ -25,7 +25,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <c:url value="/index.html" var="HomeRef"/>
                 <a class="nav-link" href="${HomeRef}">Home </a>
             </li>
             <li class="nav-item">

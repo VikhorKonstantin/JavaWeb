@@ -1,5 +1,7 @@
 package by.training.paragliding.controller.command.competition;
 
+import by.training.paragliding.bean.exception.BeanException;
+import by.training.paragliding.bean.validator.CompetitionValidator;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
@@ -11,14 +13,15 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ViewCompetitionsEditPage implements Executable {
+public class EditCompetition implements Executable {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+    private static final String UPDATE_FAILED = "Update failed";
     private CompetitionService competitionService;
 
-    public ViewCompetitionsEditPage(final CompetitionService newCompetitionService) {
+    public EditCompetition(final CompetitionService newCompetitionService) {
         competitionService = newCompetitionService;
     }
 
@@ -34,17 +37,18 @@ public class ViewCompetitionsEditPage implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        String competitionIdString =  req.getParameter("competitionId");
-        int competitionId = Integer.parseInt(competitionIdString);
         try {
-            var competition = competitionService.readById(competitionId);
-            req.setAttribute("competition", competition);
-            logger.debug("editedCompetition {} method {}",
-                    competitionId, req.getMethod());
-        } catch (ServiceException newE) {
-            throw new ControllerException(newE);
+            var competitionValidator = new CompetitionValidator();
+            var competition = competitionValidator.validate(req);
+            if (competitionService.update(competition)) {
+                req.setAttribute("competition", competition);
+                return new ExecutionResult(true,
+                        "/WEB-INF/jsp/competitionPage.jsp");
+            } else {
+                throw new ControllerException(UPDATE_FAILED);
+            }
+        } catch (BeanException | ServiceException newE) {
+            throw new ControllerException(UPDATE_FAILED, newE);
         }
-        return new ExecutionResult(true,
-                "/WEB-INF/jsp/competitionEdit.jsp");
     }
 }

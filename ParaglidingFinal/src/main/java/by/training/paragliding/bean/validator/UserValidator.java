@@ -39,7 +39,7 @@ public class UserValidator implements Validator<User> {
             user.setPassword(password);
             return user;
         } else {
-            throw new BeanException(ECX_MSG);
+            throw new BeanException(EXC_MSG);
         }
 
     }
