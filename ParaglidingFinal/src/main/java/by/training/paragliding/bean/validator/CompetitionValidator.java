@@ -33,7 +33,6 @@ public class CompetitionValidator implements Validator<Competition> {
                 && name.matches(NAME_PATTERN)
                 && fee.matches(FEE_PATTERN)
                 && idString.matches(ID_PATTERN);
-        logger.debug("Is Competition valid {}", isValid);
         if (isValid) {
             Competition competition = new Competition();
             competition.setDate(LocalDate.parse(dateString));
@@ -43,7 +42,6 @@ public class CompetitionValidator implements Validator<Competition> {
             competition.setParticipationFee(Float.parseFloat(fee));
             competition.setStatus(Competition.Status.valueOf(statusString));
             competition.setDiscipline(discipline);
-            logger.debug("Competition {}", competition);
             return competition;
         } else {
             throw new BeanException(EXC_MSG);

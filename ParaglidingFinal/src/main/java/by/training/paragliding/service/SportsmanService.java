@@ -20,17 +20,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SportsmanService implements Service<Sportsman> {
+public class SportsmanService
+        extends AbstractTransactionBasedService<Sportsman> {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
 
-    private static final String ROLL_BACK_EXC_MSG = "Rollback failed";
-    /**
-     * Transaction.
-     */
-    private Transaction transaction;
+
 
     private static final Map<Integer, ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
@@ -52,7 +49,7 @@ public class SportsmanService implements Service<Sportsman> {
     }
 
     SportsmanService(final Transaction newTransaction) {
-        transaction = newTransaction;
+        super(newTransaction);
     }
 
     /**

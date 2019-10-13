@@ -45,12 +45,6 @@ public class SportsmanValidator implements Validator<Sportsman> {
             sportsman.setRating(Float.parseFloat(ratingString));
             sportsman.setCountryCode(
                     CountryCode.findByName(countryString).get(0));
-            logger.debug("country{}, gender{},"
-                            + " rating{}, id{}",
-                    CountryCode.findByName(countryString).get(0),
-                    genderString.charAt(0),
-                    Float.parseFloat(ratingString),
-                    Integer.parseInt(civlIdString));
             return sportsman;
         } else {
             throw new BeanException(EXC_MSG);

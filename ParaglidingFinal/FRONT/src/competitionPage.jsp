@@ -63,6 +63,9 @@
         <div class="card rounded-form" style="width:400px">
             <c:url var="competeImg" value="/img/competition.jpg"/>
             <img class="card-img-top" src="${competeImg}" alt="Card image">
+            <c:if test="${param.message != null}">
+                <utg:messageAlertt message="${param.message}"/>
+            </c:if>
             <div class="card-body">
                 <h4 class="card-title">${competition.name}</h4>
                 <h5 class="card-text">${competition.description}</h5>
@@ -80,8 +83,16 @@
                                     <c:when test="${User.role == 'REGISTERED_USER'}">
                                         <a href="${editUrl}" class="btn btn-primary">Edit</a>
                                     </c:when>
-                                    <c:when test="${User.role = 'REGISTERED_SPORTSMAN'}">
-                                        <a href="" class="btn btn-primary">Join</a>
+                                    <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
+                                        <c:url value="/application.html" var="applyUrl"/>
+                                        <form action="${applyUrl}" method="post">
+                                            <input type="hidden"
+                                                   name="competitionId" value="${competition.id}"/>
+                                            <input type="hidden"
+                                                   name="sportsmanId"
+                                                   value="${User.sportsman.civlId}"/>
+                                            <button id="applyButton" type="submit" class="btn btn-primary">Apply</button>
+                                        </form>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="${editUrl}" class="btn btn-primary">Edit</a>

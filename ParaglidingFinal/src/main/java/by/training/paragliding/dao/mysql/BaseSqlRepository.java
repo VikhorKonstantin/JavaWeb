@@ -84,7 +84,8 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
     }
 
     private void fillStatement(
-            final PreparedStatement newStatement, final Object[] newArgs) throws SQLException {
+            final PreparedStatement newStatement, final Object[] newArgs)
+            throws SQLException {
         for (int i = 0; i < newArgs.length; i++) {
             newStatement.setObject(i + 1, newArgs[i]);
         }

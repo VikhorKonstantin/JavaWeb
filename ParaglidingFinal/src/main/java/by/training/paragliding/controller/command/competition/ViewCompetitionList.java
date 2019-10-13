@@ -41,8 +41,6 @@ public class ViewCompetitionList implements Executable {
                     Competition.Status.ANNOUNCED);
             var finishedComps = competitionService.find(
                     CompetitionService.STATUS, Competition.Status.FINISHED);
-            logger.debug("Id {} Name {}", futureComps.get(0).getId(),
-                    futureComps.get(0).getName());
             req.setAttribute("futureComps", futureComps);
             req.setAttribute("finishedComps", finishedComps);
             return new ExecutionResult(true,

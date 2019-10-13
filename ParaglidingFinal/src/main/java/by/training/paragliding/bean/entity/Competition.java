@@ -1,7 +1,7 @@
 package by.training.paragliding.bean.entity;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 
 public class Competition {
@@ -49,7 +49,7 @@ public class Competition {
     /**
      * Results of competition.
      */
-    private Map<Sportsman, Integer> results;
+    private List<CompetitionResult> results;
     /**
      * Competition discipline.
      */
@@ -201,7 +201,7 @@ public class Competition {
      *
      * @return competition results
      */
-    public Map<Sportsman, Integer> getResults() {
+    public List<CompetitionResult> getResults() {
         return results;
     }
 
@@ -210,7 +210,7 @@ public class Competition {
      *
      * @param newResults new results
      */
-    public void setResults(final Map<Sportsman, Integer> newResults) {
+    public void setResults(final List<CompetitionResult> newResults) {
         results = newResults;
     }
     /**

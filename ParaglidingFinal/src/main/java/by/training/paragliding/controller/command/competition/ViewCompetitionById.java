@@ -37,7 +37,6 @@ public class ViewCompetitionById implements Executable {
             throws ControllerException {
         try {
             String idString = req.getParameter("id");
-            logger.debug("Competition id {}", idString);
             int id = Integer.parseInt(idString);
             var competition = competitionService.readById(id);
             req.setAttribute("competition", competition);

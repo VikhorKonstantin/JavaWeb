@@ -18,21 +18,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class UserService implements Service<User> {
+public class UserService extends AbstractTransactionBasedService<User> {
 
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-    /**
-     * Transaction.
-     */
-    private Transaction transaction;
 
-    private static final String ROLL_BACK_EXC_MSG = "Rollback failed";
 
     UserService(final Transaction newTransaction) {
-        transaction = newTransaction;
+        super(newTransaction);
     }
 
     private static final Map<Integer, ThrowingFunction<Object[], Specification,
@@ -57,27 +52,6 @@ public class UserService implements Service<User> {
             var result = userRepository.readById(id);
             transaction.commit();
             return result;
-        } catch (DaoException e) {
-            try {
-                transaction.rollback();
-            } catch (DaoException rbExc) {
-                logger.error(ROLL_BACK_EXC_MSG, rbExc);
-            }
-            throw new ServiceException(e);
-        }
-    }
-
-    public User readByEmailAndPassword(final String email,
-                                       final String password)
-            throws ServiceException {
-        try {
-            var userList = find(LOGIN_AND_PASSWORD, email, password);
-            transaction.commit();
-            if (!userList.isEmpty()) {
-                return userList.get(0);
-            } else {
-                return null;
-            }
         } catch (DaoException e) {
             try {
                 transaction.rollback();

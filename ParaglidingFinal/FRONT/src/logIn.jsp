@@ -52,12 +52,7 @@
             <div class="card-body col-12">
                 <div class="login-form">
 
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>${message}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    <utg:messageAlertt message="${message}"/>
                     <c:url var="logInAction" value="/user/logIn.html"/>
                     <form action="${logInAction}" method="post">
                         <div class="form-group">

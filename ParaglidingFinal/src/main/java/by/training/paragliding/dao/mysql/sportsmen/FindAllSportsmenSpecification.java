@@ -8,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class FindAllSportsmenSpecification implements Specification {
-    private static final String SQL = "SELECT `civl_id`, `name`, `surname`, `gender`,"
+    private static final String SQL =
+            "SELECT `civl_id`, `name` AS sportsmanName, `surname`, `gender`,"
             + " `country`, `rating`, `image_path` FROM `sportsmen`";
 
     @Override

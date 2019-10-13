@@ -41,6 +41,7 @@ public class ViewAnnouncedDescriptions implements Executable {
         try {
             var competitions = competitionService.find(
                     CompetitionService.STATUS, Competition.Status.ANNOUNCED);
+            logger.debug("Competitions {}", competitions);
             final Map<String, String> descriptions = new HashMap<>();
             competitions.forEach(c -> descriptions.put(c.getName(), c.getDescription()));
             req.setAttribute("descriptions", descriptions);

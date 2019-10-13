@@ -6,7 +6,7 @@ import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.TransactionFactoryImpl;
 import by.training.paragliding.dao.mysql.connection.*;
-import by.training.paragliding.service.ServiceFactoryImpl;
+import by.training.paragliding.service.TransactionBasedServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -108,7 +108,7 @@ public class ControllerServlet extends HttpServlet {
 
     private Controller receiveController() throws DaoException,
             ControllerException {
-        return new Controller(new ServiceFactoryImpl(
+        return new Controller(new TransactionBasedServiceFactory(
                 new TransactionFactoryImpl()));
     }
 

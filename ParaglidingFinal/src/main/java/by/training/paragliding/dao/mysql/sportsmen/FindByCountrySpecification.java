@@ -9,7 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class FindByCountrySpecification implements Specification {
-    private static final String SQL = "SELECT `civl_id`, `name`,"
+    private static final String SQL =
+            "SELECT `civl_id`, `name` AS sportsmanName,"
             + " `surname`, `gender`,"
             + " `country`, `rating`, `image_path`"
             + " FROM `sportsmen` WHERE `country` = ?";

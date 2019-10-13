@@ -22,6 +22,8 @@ public final class TransactionImpl implements Transaction {
         typeRepositoryMap.put(DaoType.USER, DaoCreator::createUserRepository);
         typeRepositoryMap.put(DaoType.COMPETITION,
                 DaoCreator::createCompetitionRepository);
+        typeRepositoryMap.put(DaoType.APPLICATION,
+                DaoCreator::createApplicationRepository);
 
     }
 

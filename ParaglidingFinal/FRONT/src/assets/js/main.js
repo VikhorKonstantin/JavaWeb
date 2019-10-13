@@ -9,3 +9,4 @@
 //=require ../../../node_modules/bootstrap/js/dist/tab.js
 //=require singUp.js
 //=require competitionEdit.js
+//=require competitionPage.js

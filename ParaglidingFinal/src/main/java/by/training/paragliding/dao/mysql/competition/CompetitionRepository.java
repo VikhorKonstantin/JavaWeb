@@ -13,15 +13,29 @@ import java.util.List;
 public class CompetitionRepository extends BaseSqlRepository<Competition> {
 
     private static final String SELECT_COMP_BY_ID =
-            "SELECT `competitions`.`id` AS `id`, `organizer_id`,"
-                    + " `email`, `password`, `role`, `date`,"
-                    + " `competitions`.`name` AS `name`,"
-                    + " `disciplines`.`name` AS `discipline_name`, "
-                    + " `status`, `participation_fee`, `description`"
-                    + "FROM `competitions`"
-                    + "JOIN `disciplines` "
-                    + "ON `discipline_id` = `disciplines`.`id`"
-                    + "JOIN `users` ON `organizer_id` = `users`.`id`"
+            "SELECT `competitions`.`id`   AS competitionId,\n"
+                    + "       `organizer_id`        AS userId,\n"
+                    + "       `email`,\n"
+                    + "       `password`,\n"
+                    + "       `role`,\n"
+                    + "       `date`,\n"
+                    + "       `competitions`.`name` AS competitionName,\n"
+                    + "       `disciplines`.`name`  AS `discipline_name`,\n"
+                    + "       `status`,\n"
+                    + "       `participation_fee`,\n"
+                    + "       `description`,\n"
+                    + "       `civl_id`,\n"
+                    + "       `user_id`             AS userId,\n"
+                    + "       s.`name`                AS sportsmanName,\n"
+                    + "       `surname`,\n"
+                    + "       `gender`,\n"
+                    + "       `country`,\n"
+                    + "       `rating`,\n"
+                    + "       `image_path`\n"
+                    + "FROM `competitions`\n"
+                    + "         JOIN `disciplines` ON `discipline_id` = `disciplines`.`id`\n"
+                    + "         LEFT JOIN (`users` LEFT JOIN sportsmen s on users.id = s.user_id)\n"
+                    + "                   ON `organizer_id` = `users`.`id`\n"
                     + "WHERE `competitions`.`id`  = ?";
 
     private static final String UPDATE_COMPETITION =

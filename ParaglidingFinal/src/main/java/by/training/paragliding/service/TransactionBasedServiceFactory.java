@@ -4,10 +4,10 @@ import by.training.paragliding.dao.TransactionFactory;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.service.exception.ServiceException;
 
-public final class ServiceFactoryImpl implements ServiceFactory {
+public final class TransactionBasedServiceFactory implements ServiceFactory {
     private final TransactionFactory transactionFactory;
 
-    public ServiceFactoryImpl(final TransactionFactory newTransactionFactory) {
+    public TransactionBasedServiceFactory(final TransactionFactory newTransactionFactory) {
         transactionFactory = newTransactionFactory;
     }
 
@@ -27,9 +27,18 @@ public final class ServiceFactoryImpl implements ServiceFactory {
         }
     }
 
-    public CompetitionService createCompetitionService() throws ServiceException {
+    public CompetitionService createCompetitionService()
+            throws ServiceException {
         try {
             return new CompetitionService(transactionFactory.createTransaction());
+        } catch (DaoException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+    public ApplicationService createApplicationService()
+            throws ServiceException {
+        try {
+            return new ApplicationService(transactionFactory.createTransaction());
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }

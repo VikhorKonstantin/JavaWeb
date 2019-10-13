@@ -4,6 +4,7 @@ import by.training.paragliding.controller.exception.ControllerException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 public class ViewLogInPage implements Executable {
     /**
@@ -18,10 +19,10 @@ public class ViewLogInPage implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        var msg = req.getAttribute("message");
-        if (msg == null) {
-            req.setAttribute("message", "Enter login/password");
-        }
+        var msg = req.getParameter("message");
+        req.setAttribute("message",
+                Objects.requireNonNullElse(msg,
+                        "Enter login/password"));
         return new ExecutionResult(true,
                 "/WEB-INF/jsp/logIn.jsp");
     }

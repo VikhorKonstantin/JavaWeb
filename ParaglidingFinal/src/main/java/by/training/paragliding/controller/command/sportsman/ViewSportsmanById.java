@@ -37,9 +37,6 @@ public class ViewSportsmanById implements Executable {
         var id = req.getParameter("civlId");
         try {
             var sportsman = sportsmanService.readById(Integer.parseInt(id));
-            final String logSpMsg = String.format("sportsman: %s",
-                    sportsman.toString());
-            logger.debug(logSpMsg);
             req.setAttribute("sportsman", sportsman);
             return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
         }

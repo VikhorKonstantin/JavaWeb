@@ -39,8 +39,6 @@ public class ViewCompetitionsEditPage implements Executable {
         try {
             var competition = competitionService.readById(competitionId);
             req.setAttribute("competition", competition);
-            logger.debug("editedCompetition {} method {}",
-                    competitionId, req.getMethod());
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

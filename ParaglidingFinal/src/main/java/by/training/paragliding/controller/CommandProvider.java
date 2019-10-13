@@ -4,6 +4,7 @@ import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.StartCommand;
 import by.training.paragliding.controller.command.ViewLogInPage;
 import by.training.paragliding.controller.command.ViewSingUpPage;
+import by.training.paragliding.controller.command.application.ApplyCompetition;
 import by.training.paragliding.controller.command.competition.EditCompetition;
 import by.training.paragliding.controller.command.competition.ViewCompetitionById;
 import by.training.paragliding.controller.command.competition.ViewCompetitionList;
@@ -53,6 +54,7 @@ final class CommandProvider implements AutoCloseable {
     CommandProvider(final ServiceFactory newServiceFactory)
             throws ControllerException {
         serviceFactory = newServiceFactory;
+
         try {
             getMap.put("/sportsmen/id", new ViewSportsmanById(
                     serviceFactory.createSportsmanService()));
@@ -82,6 +84,11 @@ final class CommandProvider implements AutoCloseable {
             getMap.put("/sportsmen/participants", new ViewParticipants(
                     serviceFactory.createCompetitionService(),
                     serviceFactory.createSportsmanService()));
+            postMap.put("/application",
+                    new ApplyCompetition(
+                            serviceFactory.createApplicationService(),
+                            serviceFactory.createCompetitionService(),
+                            serviceFactory.createSportsmanService()));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

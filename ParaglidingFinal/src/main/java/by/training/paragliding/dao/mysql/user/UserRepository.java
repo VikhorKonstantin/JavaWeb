@@ -29,11 +29,19 @@ public class UserRepository extends BaseSqlRepository<User> {
                     + " VALUES (?, ?, ?)";
 
     private static final  String SELECT_BY_ID =
-            "SELECT `id`, `email`, `password`, `role`, `civl_id`, `name`,"
-                    + " `surname`, `gender`, `country`,"
-                    + " `rating`, `image_path` "
-                    + "FROM `users` "
-                    + "LEFT JOIN sportsmen s on users.id = s.user_id "
+           "SELECT `id` as userId,\n"
+                   + "       `email`,\n"
+                   + "       `password`,\n"
+                   + "       `role`,\n"
+                   + "       `civl_id`,\n"
+                   + "       `name` AS sportsmanName,\n"
+                   + "       `surname`,\n"
+                   + "       `gender`,\n"
+                   + "       `country`,\n"
+                   + "       `rating`,\n"
+                   + "       `image_path`\n"
+                   + "FROM `users`\n"
+                   + "         LEFT JOIN sportsmen s on users.id = s.user_id "
                     + "WHERE `id` = ?";
 
     public UserRepository(final Connection newConnection) {

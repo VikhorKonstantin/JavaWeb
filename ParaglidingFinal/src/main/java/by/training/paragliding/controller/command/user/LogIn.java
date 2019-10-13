@@ -38,22 +38,31 @@ public class LogIn implements Executable {
         var email = req.getParameter("email");
         var password = req.getParameter("password");
         try {
-            User user = userService.readByEmailAndPassword(email, password);
-            logger.debug("Login: {}, Password: {}, user: {}",
-                    email, password, user);
+            User user = readByEmailAndPassword(email, password);
             if (user != null) {
                 req.getSession().setAttribute("User", user);
+                logger.debug("Session user: {}", user);
                 return new ExecutionResult(
                         false, "/index.html");
             } else {
-                req.setAttribute("message" ,
-                        "Wrong  login/password");
-                return new ExecutionResult(true,
-                        "/logIn.html");
+                return new ExecutionResult(false,
+                        "/logIn.html?message=Wrong  login/password");
             }
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }
 
+    }
+
+    private User readByEmailAndPassword(final String newEmail,
+                                        final String newPassword)
+            throws ServiceException {
+        var userList = userService.find(UserService.LOGIN_AND_PASSWORD,
+                newEmail, newPassword);
+        if (!userList.isEmpty()) {
+            return userList.get(0);
+        } else {
+            return null;
+        }
     }
 }

@@ -16,20 +16,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CompetitionService implements Service<Competition> {
+public class CompetitionService
+        extends AbstractTransactionBasedService<Competition> {
     /**
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-    /**
-     * Transaction.
-     */
-    private Transaction transaction;
 
-    private static final String ROLL_BACK_EXC_MSG = "Rollback failed";
 
     CompetitionService(final Transaction newTransaction) {
-        transaction = newTransaction;
+        super(newTransaction);
     }
 
     private static final Map<Integer, ThrowingFunction<Object[], Specification,

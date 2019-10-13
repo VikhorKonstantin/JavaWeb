@@ -5,7 +5,7 @@
         <!-- File appender -->
         <File name="main" fileName="log/main.log">
             <PatternLayout>
-                <Pattern>%d %highlight{%p} %style{%C{1.} [%t] %m}{bold,green}%n</Pattern>
+                <Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}.%M - %msg%n</Pattern>
             </PatternLayout>
         </File>
         <Console name="STDOUT" target="SYSTEM_OUT">
