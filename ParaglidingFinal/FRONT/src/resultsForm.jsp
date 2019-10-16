@@ -61,54 +61,45 @@
 <main class="main">
     <div class="row justify-content-center">
         <div class="card rounded-form" style="width:400px">
-            <c:url var="competeImg" value="/img/competition.jpg"/>
-            <img class="card-img-top" src="${competeImg}" alt="Card image">
-            <c:if test="${param.message != null}">
-                <utg:messageAlertt message="${param.message}"/>
-            </c:if>
-            <div class="card-body">
-                <h4 class="card-title">${competition.name}</h4>
-                <h5 class="card-text">${competition.description}</h5>
-                <p class="card-text">Date: ${competition.date}</p>
-                <p class="card-text">Status: ${competition.status}</p>
-                <p class="card-text">Discipline: ${competition.discipline}</p>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <c:if test="${User != null}">
-                                <c:url var="editUrl" value="/competition/edit.html">
-                                    <c:param name="competitionId" value="${competition.id}"/>
-                                </c:url>
-                                <c:choose>
-                                    <c:when test="${User.role == 'REGISTERED_USER'}">
-                                        <a href="${editUrl}" class="btn btn-primary">Edit</a>
-                                    </c:when>
-                                    <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
-                                        <c:url value="/application.html" var="applyUrl"/>
-                                        <form action="${applyUrl}" method="post">
-                                            <input type="hidden"
-                                                   name="competitionId" value="${competition.id}"/>
-                                            <input type="hidden"
-                                                   name="sportsmanId"
-                                                   value="${User.sportsman.civlId}"/>
-                                            <button id="applyButton" type="submit" class="btn btn-primary">Apply</button>
-                                        </form>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="${editUrl}" class="btn btn-primary">Edit</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:if>
-                        </div>
-                        <div class="col-4">
-                            <c:url var="participants" value="/sportsmen/participants.html">
-                                <c:param name="competitionId" value="${competition.id}"/>
-                            </c:url>
-                            <a class="btn btn-primary" href="${participants}">Participants</a>
-                        </div>
-                    </div>
-                </div>
 
+            <div class="card-body">
+                <h4 class="card-title">${competition.name} results</h4>
+                <c:url var="resultAction" value="/results.html"/>
+                <form action="${resultAction}" method="post">
+                    <input type="hidden" name="competitionId" value="${competition.id}"/>
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">INDEX</th>
+                            <th scope="col">CIVL_ID</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">SCORE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${participants}" var="sportsman" varStatus="loop">
+                            <tr>
+                                <td>${loop.index}</td>
+                                <td>${sportsman.civlId}</td>
+                                <td>${sportsman.name}</td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="score">Score</label>
+                                        <input type="number" name="score${loop.index}" id="score"
+                                               class="form-control" placeholder="Score"
+                                               required>
+                                        <input type="hidden" name="sportsmanId${loop.index}"
+                                               value="${sportsman.civlId}"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <div class="form-row">
+                        <button class="btn btn-submit" type="submit">Set results</button>
+                    </div>
+                </form>
 
             </div>
         </div>
