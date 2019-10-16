@@ -87,7 +87,7 @@
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">
                                                 <h4 class="card-title">${competition.name}</h4>
-                                                <p class="card-text">${competition.description}</p>
+                                                <p class="card-text"><c:out value="${competition.description}"/></p>
                                                 <c:url var="moreInfoUrl" value="/competition.html">
                                                     <c:param name="id" value="${competition.id}"/>
                                                 </c:url>
@@ -103,7 +103,7 @@
                                             <img class="card-img-top" src="${competeImg}" alt="Card image">
                                             <div class="card-body">
                                                 <h4 class="card-title">${competition.name}</h4>
-                                                <p class="card-text">${competition.description}</p>
+                                                <p class="card-text"><c:out value="${competition.description}"/></p>
                                                 <c:url var="moreInfoUrl" value="/competition.html">
                                                     <c:param name="id" value="${competition.id}"/>
                                                 </c:url>
@@ -130,33 +130,6 @@
 
     </div>
 </main>
-<footer>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm-3">
-                <h3 class="footer_h3">Useful Links</h3>
-                    <ul class="footer_ul">
-                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="${HomeRef}"><fmt:message key="home.title"/></a></li>
-                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="#"><fmt:message key="about"/></a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3 col-sm-offset-3">
-                <h3 class="footer_h3 fb">FAI</h3>
-                <ul class="footer_ul">
-                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="#">FAI Rating</a></li>
-                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="#">FAI Main</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <p>© Copyright <ctg:info-time/>.<fmt:message key="copyright"/> </p>
-            </div>
-        </div>
-    </div>
-</footer>
+<jsp:include page="footer.jsp"/>
 
 </body>

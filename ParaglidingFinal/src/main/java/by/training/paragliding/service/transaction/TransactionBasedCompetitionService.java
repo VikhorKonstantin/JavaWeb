@@ -30,15 +30,15 @@ class TransactionBasedCompetitionService
         super(newTransaction);
     }
 
-    private static final Map<Integer, Service.ThrowingFunction<Object[], Specification,
+    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
                 ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 
 
     static {
-        SPECIFICATION_PROVIDER.put(STATUS,
+        SPECIFICATION_PROVIDER.put(FindByProps.STATUS,
                 TransactionBasedCompetitionService::findByStatus);
-        SPECIFICATION_PROVIDER.put(ALL, TransactionBasedCompetitionService::findAll);
+        SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedCompetitionService::findAll);
     }
 
     @Override
@@ -79,7 +79,7 @@ class TransactionBasedCompetitionService
 
 
     @Override
-    public final List<Competition> find(final Integer property, Object... value)
+    public final List<Competition> find(final FindByProps property, Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER

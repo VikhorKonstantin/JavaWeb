@@ -4,9 +4,9 @@ import by.training.paragliding.service.exception.ServiceException;
 
 import java.util.List;
 
-public interface Service<T> {
+public interface Service<T, P extends Enum<P>> {
 
-    List<T> find(Integer property, Object... values)
+    List<T> find(P property, Object... values)
             throws ServiceException;
 
     /**

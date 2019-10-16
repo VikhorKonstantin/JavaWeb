@@ -38,13 +38,15 @@
             <c:choose>
                 <c:when test="${User != null}">
                     <c:url var="logIn" value="/user/logOut.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
+                    </li>
                 </c:when>
                 <c:otherwise>
                     <c:url var="logIn" value="/logIn.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="login.title"/> </a></li>
                     <c:url var="singUp" value="/singUp.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a>
+                    </li>
                 </c:otherwise>
             </c:choose>
             <c:url var="localeChangeUrl" value="/localeChange.html"/>
@@ -58,7 +60,7 @@
 
 <main class="main">
     <div class="row justify-content-center">
-        <div class="card rounded-form" style="width:400px">
+        <div class="card rounded-form" style="width:40rem">
             <c:url var="competeImg" value="/img/competition.jpg"/>
             <img class="card-img-top" src="${competeImg}" alt="Card image">
             <c:if test="${param.message != null}">
@@ -70,56 +72,57 @@
                 <p class="card-text"><fmt:message key="competition.date"/>: ${competition.date}</p>
                 <p class="card-text"><fmt:message key="competition.status"/>: ${competition.status}</p>
                 <p class="card-text"><fmt:message key="competition.discipline"/>: ${competition.discipline}</p>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <c:if test="${User != null}">
-                                <c:url var="editUrl" value="/competition/edit.html">
-                                    <c:param name="competitionId" value="${competition.id}"/>
-                                </c:url>
-                                <c:choose>
-                                    <c:when test="${User.role == 'REGISTERED_USER'}">
-                                        <a href="${editUrl}" class="btn btn-primary"><fmt:message key="competition.edit"/></a>
-                                    </c:when>
-                                    <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
-                                        <c:url value="/application.html" var="applyUrl"/>
-                                        <form action="${applyUrl}" method="post">
-                                            <input type="hidden"
-                                                   name="competitionId" value="${competition.id}"/>
-                                            <input type="hidden"
-                                                   name="sportsmanId"
-                                                   value="${User.sportsman.civlId}"/>
-                                            <button id="applyButton" type="submit" class="btn btn-primary">
-                                                <fmt:message key="competition.apply"/>
-                                            </button>
-                                        </form>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="${editUrl}" class="btn btn-primary">
-                                            <fmt:message key="competition.edit"/></a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:if>
-                        </div>
-                        <div class="col-4">
-                            <c:url var="participants" value="/sportsmen/participants.html">
+
+                <div class="row justify-content-around">
+                    <div class="col-4">
+                        <c:if test="${User != null}">
+                            <c:url var="editUrl" value="/competition/edit.html">
                                 <c:param name="competitionId" value="${competition.id}"/>
                             </c:url>
-                            <a class="btn btn-primary" href="${participants}">
-                                <fmt:message key="competition.participants"/></a>
-                        </div>
-                        <c:if test="${competition.status == 'FINISHED'}">
-                            <div class="col-4">
-                                <c:url var="results" value="/results.html">
-                                    <c:param name="competitionId" value="${competition.id}"/>
-                                </c:url>
-                                <a class="btn btn-primary" href="${results}">
-                                    <fmt:message key="competition.results"/>
-                                </a>
-                            </div>
+                            <c:choose>
+                                <c:when test="${User.role == 'REGISTERED_USER'}">
+                                    <a href="${editUrl}" class="btn btn-primary btn-block"><fmt:message
+                                            key="competition.edit"/></a>
+                                </c:when>
+                                <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
+                                    <c:url value="/application.html" var="applyUrl"/>
+                                    <form action="${applyUrl}" method="post">
+                                        <input type="hidden"
+                                               name="competitionId" value="${competition.id}"/>
+                                        <input type="hidden"
+                                               name="sportsmanId"
+                                               value="${User.sportsman.civlId}"/>
+                                        <button id="applyButton" type="submit" class="btn btn-primary btn-block">
+                                            <fmt:message key="competition.apply"/>
+                                        </button>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${editUrl}" class="btn btn-primary btn-block">
+                                        <fmt:message key="competition.edit"/></a>
+                                </c:otherwise>
+                            </c:choose>
                         </c:if>
                     </div>
+                    <div class="col-4">
+                        <c:url var="participants" value="/sportsmen/participants.html">
+                            <c:param name="competitionId" value="${competition.id}"/>
+                        </c:url>
+                        <a class="btn btn-primary btn-block" href="${participants}">
+                            <fmt:message key="competition.participants"/></a>
+                    </div>
+                    <c:if test="${competition.status == 'FINISHED'}">
+                        <div class="col-4">
+                            <c:url var="results" value="/results.html">
+                                <c:param name="competitionId" value="${competition.id}"/>
+                            </c:url>
+                            <a class="btn btn-primary btn-block" href="${results}">
+                                <fmt:message key="competition.results"/>
+                            </a>
+                        </div>
+                    </c:if>
                 </div>
+
             </div>
         </div>
     </div>

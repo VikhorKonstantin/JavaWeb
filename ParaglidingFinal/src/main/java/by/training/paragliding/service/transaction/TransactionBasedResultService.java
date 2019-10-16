@@ -28,12 +28,12 @@ class TransactionBasedResultService
         super(newTransaction);
     }
 
-    private static final Map<Integer, Service.ThrowingFunction<Object[], Specification,
+    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 
     static {
-        SPECIFICATION_PROVIDER.put(IDENTIFIERS,
+        SPECIFICATION_PROVIDER.put(FindByProps.IDENTIFIERS,
                 TransactionBasedResultService::findByIdentifiers);
     }
     @Override
@@ -42,7 +42,7 @@ class TransactionBasedResultService
         try {
             Repository<Result> resultRepository =
                     transaction.createDao(DaoType.RESULT);
-            var resList = find(IDENTIFIERS, newResult.getCompetitionId(),
+            var resList = find(FindByProps.IDENTIFIERS, newResult.getCompetitionId(),
                     newResult.getSportsmanId());
             if (resList.isEmpty()) {
                 var result = resultRepository.add(newResult);
@@ -64,7 +64,7 @@ class TransactionBasedResultService
     }
 
     @Override
-    public List<Result> find(final Integer property,
+    public List<Result> find(final FindByProps property,
                              final Object... values)
             throws ServiceException {
         try {

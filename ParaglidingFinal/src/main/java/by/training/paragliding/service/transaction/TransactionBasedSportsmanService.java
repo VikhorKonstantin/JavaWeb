@@ -30,17 +30,17 @@ class TransactionBasedSportsmanService
     private Logger logger = LogManager.getLogger("main");
 
 
-    private static final Map<Integer, Service.ThrowingFunction<Object[], Specification,
+    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
             ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
 
     static {
-        SPECIFICATION_PROVIDER.put(COUNTRY_CODE,
+        SPECIFICATION_PROVIDER.put(FindByProps.COUNTRY_CODE,
                 TransactionBasedSportsmanService::findByCountry);
-        SPECIFICATION_PROVIDER.put(ALL, TransactionBasedSportsmanService::findAll);
-        SPECIFICATION_PROVIDER.put(APPLICATION,
+        SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedSportsmanService::findAll);
+        SPECIFICATION_PROVIDER.put(FindByProps.APPLICATION,
                 TransactionBasedSportsmanService::findByApplication);
-        SPECIFICATION_PROVIDER.put(RATING_RANGE,
+        SPECIFICATION_PROVIDER.put(FindByProps.RATING_RANGE,
                 TransactionBasedSportsmanService::findByRatingRange);
     }
 
@@ -74,7 +74,7 @@ class TransactionBasedSportsmanService
 
 
     @Override
-    public final List<Sportsman> find(final Integer property, Object... value)
+    public final List<Sportsman> find(final FindByProps property, Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER

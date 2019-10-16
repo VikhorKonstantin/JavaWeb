@@ -33,17 +33,13 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
         super(newTransaction);
     }
 
-    private static final Map<Integer, Service.ThrowingFunction<Object[], Specification,
+    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
                 ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
-
-    public static final Integer LOGIN_AND_PASSWORD = 1;
-    public static final Integer ALL = 0;
-
     static {
-        SPECIFICATION_PROVIDER.put(LOGIN_AND_PASSWORD,
+        SPECIFICATION_PROVIDER.put(FindByProps.LOGIN_AND_PASSWORD,
                 TransactionBasedUserService::findByLoginAndPassword);
-        SPECIFICATION_PROVIDER.put(ALL, TransactionBasedUserService::findAll);
+        SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedUserService::findAll);
     }
 
 
@@ -66,7 +62,7 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
     }
 
     @Override
-    public List<User> find(final Integer property, final Object... value)
+    public List<User> find(final FindByProps property, final Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER
