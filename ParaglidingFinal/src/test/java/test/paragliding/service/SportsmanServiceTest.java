@@ -6,9 +6,9 @@ import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.TransactionFactoryImpl;
 import by.training.paragliding.dao.mysql.connection.*;
 import by.training.paragliding.service.ServiceFactory;
-import by.training.paragliding.service.transaction.TransactionBasedServiceFactory;
-import by.training.paragliding.service.transaction.TransactionBasedSportsmanService;
+import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
+import by.training.paragliding.service.transaction.TransactionBasedServiceFactory;
 import com.neovisionaries.i18n.CountryCode;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -17,10 +17,11 @@ import org.testng.annotations.Test;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 public class SportsmanServiceTest {
-    private TransactionBasedSportsmanService service;
+    private SportsmanService service;
     @BeforeClass
     public void init() throws DaoException {
         ConnectionFactory connectionFactory =
@@ -68,7 +69,7 @@ public class SportsmanServiceTest {
     @DataProvider(name = "findTestDataProvider")
     public Object[][] createFindTestData() {
         return new Object[][]{
-                {TransactionBasedSportsmanService.ALL, List.of(new Sportsman(8321,
+                {SportsmanService.FindByProps.ALL, List.of(new Sportsman(8321,
                                 "Gorenc",
                                 "Jaka",
                                 'M',
@@ -90,7 +91,7 @@ public class SportsmanServiceTest {
                                 CountryCode.valueOf("SI"),
                                 353.1F,
                                 "")), null},
-                {TransactionBasedSportsmanService.COUNTRY_CODE, List.of(new Sportsman(8321,
+                {SportsmanService.FindByProps.COUNTRY_CODE, List.of(new Sportsman(8321,
                                 "Gorenc",
                                 "Jaka",
                                 'M',
@@ -111,7 +112,7 @@ public class SportsmanServiceTest {
                                 CountryCode.valueOf("SI"),
                                 353.1F,
                                 "")), CountryCode.SI},
-                {TransactionBasedSportsmanService.APPLICATION, List.of(new Sportsman(8388,
+                {SportsmanService.FindByProps.APPLICATION, List.of(new Sportsman(8388,
                                 "Feraric",
                                 "Matjaz",
                                 'M',
@@ -132,7 +133,7 @@ public class SportsmanServiceTest {
                                 LocalDate.of(2019,9,19),"disc" ,
                                 Competition.Status.values()[4],
                                 "", 20)},
-                {TransactionBasedSportsmanService.RATING_RANGE, List.of(new Sportsman(8388,
+                {SportsmanService.FindByProps.RATING_RANGE, List.of(new Sportsman(8388,
                                 "Feraric",
                                 "Matjaz",
                                 'M',
@@ -159,7 +160,8 @@ public class SportsmanServiceTest {
     }
 
     @Test(description = "FindTest", dataProvider = "findTestDataProvider")
-    public void findTest(Integer property, List<Sportsman> expectedList,
+    public void findTest(SportsmanService.FindByProps property,
+                         List<Sportsman> expectedList,
                          Object... val) throws ServiceException {
         var actualList = service.find(property, val);
         assertEquals(actualList, expectedList);

@@ -7,7 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class FindByLoginAndPasswordSpecification implements Specification {
+public class FindByLogin implements Specification {
+    private final String email;
+
+    public FindByLogin(final String newEmail) {
+        email = newEmail;
+    }
+
     private static final String SQL =
             "SELECT `id` as userId,\n"
                     + "       `email`,\n"
@@ -22,23 +28,13 @@ public class FindByLoginAndPasswordSpecification implements Specification {
                     + "       `image_path`\n"
                     + "FROM `users`\n"
                     + "         LEFT JOIN sportsmen s on users.id = s.user_id "
-                    + " WHERE `password`=? AND `email`=?";
-
-    private final String email;
-
-    private final String password;
-
-    public FindByLoginAndPasswordSpecification(final String newEmail, final String newPassword) {
-        email = newEmail;
-        password = newPassword;
-    }
+                    + "WHERE `email`=?";
 
     @Override
     public PreparedStatement createStatement(final Connection connection) throws DaoException {
         try {
             var statement = connection.prepareStatement(SQL);
-            statement.setString(1, password);
-            statement.setString(2, email);
+            statement.setString(1, email);
             return statement;
         } catch (SQLException newE) {
             throw new DaoException(newE);

@@ -54,7 +54,7 @@ public class SaveResults implements Executable {
         try {
             var competition = competitionService.readById(competitionId);
             var participants = sportsmanService.find(
-                    SportsmanService.APPLICATION, competition);
+                    SportsmanService.FindByProps.APPLICATION, competition);
             int numberOfParticipants = participants.size();
             String sportsmanIdString;
             String scoreString;

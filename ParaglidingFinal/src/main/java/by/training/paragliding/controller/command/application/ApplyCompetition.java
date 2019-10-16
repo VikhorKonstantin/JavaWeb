@@ -46,7 +46,8 @@ public class ApplyCompetition implements Executable {
             application.setSportsmanId(sportsmanId);
             application.setCompetitionId(competitionId);
             logger.debug("Application {}", application);
-            var appList =applicationService.find(ApplicationService.IDENTIFIERS,
+            var appList =applicationService.find(
+                    ApplicationService.FindByProps.IDENTIFIERS,
                     sportsmanId, competitionId);
             logger.debug("ApplicationList {}", appList);
             if (appList.isEmpty()) {

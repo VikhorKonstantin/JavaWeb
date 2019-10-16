@@ -44,7 +44,7 @@ public class ViewResultsForm implements Executable {
         try {
             var competition = competitionService.readById(competitionId);
             var participants = sportsmanService.find(
-                    SportsmanService.APPLICATION, competition);
+                    SportsmanService.FindByProps.APPLICATION, competition);
             req.setAttribute("participants", participants);
             req.setAttribute("competition", competition);
         } catch (ServiceException newE) {

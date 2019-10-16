@@ -6,7 +6,7 @@ INSERT INTO `users` (`id`,
                      `role`)
 VALUES (1,
         "admin@fai.com",
-        "21232F297A57A5A743894A0E4A801FC3",
+        "admin",
         0);
 
 INSERT INTO `disciplines` (`id`, `name`)

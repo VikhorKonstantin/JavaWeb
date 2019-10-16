@@ -42,7 +42,8 @@ public class ViewParticipants implements Executable {
             var competitionIdSting = req.getParameter("competitionId");
             var competitionId = Integer.parseInt(competitionIdSting);
             var competition = competitionService.readById(competitionId);
-            var sportsmen = sportsmanService.find(SportsmanService.APPLICATION,
+            var sportsmen = sportsmanService.find(
+                    SportsmanService.FindByProps.APPLICATION,
                     competition);
             req.setAttribute("sportsmen", sportsmen);
             return new ExecutionResult(true,

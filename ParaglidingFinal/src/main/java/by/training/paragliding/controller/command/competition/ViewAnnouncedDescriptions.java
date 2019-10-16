@@ -38,7 +38,8 @@ public class ViewAnnouncedDescriptions implements Executable {
             throws ControllerException {
         try {
             var competitions = competitionService.find(
-                    CompetitionService.STATUS, Competition.Status.ANNOUNCED);
+                    CompetitionService.FindByProps.STATUS,
+                    Competition.Status.ANNOUNCED);
             logger.debug(competitions);
             req.setAttribute("competitions", competitions);
             return new ExecutionResult(true,

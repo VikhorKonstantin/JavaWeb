@@ -45,8 +45,11 @@ public class SingUp implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         try {
-            UserValidator userBuilder = new UserValidator();
-            User user = userBuilder.validate(req);
+            logger.debug("1:");
+            UserValidator userValidator = new UserValidator();
+            logger.debug("2:");
+            User user = userValidator.validate(req);
+            logger.debug("User {}", user);
             if(user.getRole().equals(Role.REGISTERED_SPORTSMAN)) {
                 var sportsmanBuilder = new SportsmanValidator();
                 Sportsman sportsman = sportsmanBuilder.validate(req);

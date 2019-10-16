@@ -49,12 +49,12 @@ public class ViewCompetitionResults implements Executable {
         try {
             var competition = competitionService.readById(competitionId);
             var participants = sportsmanService.find(
-                    SportsmanService.APPLICATION, competition);
+                    SportsmanService.FindByProps.APPLICATION, competition);
             var resultData = new HashMap<Sportsman, Integer>(
                     participants.size());
             for (var p : participants) {
                 var resultList = resultService.find(
-                        ResultService.IDENTIFIERS, p.getCivlId(),
+                        ResultService.FindByProps.IDENTIFIERS, p.getCivlId(),
                         competitionId);
                 if (!resultList.isEmpty()) {
                     resultData.put(p, resultList.get(0).getScore());

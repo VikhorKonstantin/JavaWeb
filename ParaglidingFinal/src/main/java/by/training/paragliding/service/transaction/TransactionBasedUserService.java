@@ -8,7 +8,7 @@ import by.training.paragliding.dao.Transaction;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
 import by.training.paragliding.dao.mysql.user.FindAllUsersSpecification;
-import by.training.paragliding.dao.mysql.user.FindByLoginAndPasswordSpecification;
+import by.training.paragliding.dao.mysql.user.FindByLogin;
 import by.training.paragliding.service.Service;
 import by.training.paragliding.service.UserService;
 import by.training.paragliding.service.exception.ServiceException;
@@ -37,8 +37,8 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
                 ServiceException>> SPECIFICATION_PROVIDER =
             new HashMap<>();
     static {
-        SPECIFICATION_PROVIDER.put(FindByProps.LOGIN_AND_PASSWORD,
-                TransactionBasedUserService::findByLoginAndPassword);
+        SPECIFICATION_PROVIDER.put(FindByProps.LOGIN,
+                TransactionBasedUserService::findByLogin);
         SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedUserService::findAll);
     }
 
@@ -51,6 +51,32 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
             var result = userRepository.readById(id);
             transaction.commit();
             return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public User readByLoginAndPassword(final String login, final String password)
+            throws ServiceException {
+        try {
+            var userList = find(FindByProps.LOGIN, login);
+            if(!userList.isEmpty()) {
+                var user = userList.get(0);
+                var encoded = user.getPassword();
+                logger.debug("Encoded {}", encoded);
+                var hasher = Argon2Hasher.getInstance();
+                if (hasher.verifyPassword(encoded, password)) {
+                    transaction.commit();
+                    return user;
+                }
+            }
+            return null;
         } catch (DaoException e) {
             try {
                 transaction.rollback();
@@ -88,6 +114,8 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
                     transaction.createDao(DaoType.USER);
             Repository<Sportsman> sportsmanRepository =
                     transaction.createDao(DaoType.SPORTSMAN);
+            var hasher = Argon2Hasher.getInstance();
+            newUser.setPassword(hasher.hashPassword(newUser.getPassword()));
             var result = userRepository.add(newUser);
             var oSportsman = Optional.ofNullable(newUser.getSportsman());
             if (oSportsman.isPresent()) {
@@ -105,16 +133,14 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
         }
     }
 
-
     private static Specification findAll(final Object[] newObjects) {
         return new FindAllUsersSpecification();
     }
 
-    private static Specification findByLoginAndPassword(
+    private static Specification findByLogin(
             final Object[] newObjects) throws ServiceException {
        try{
-           return new FindByLoginAndPasswordSpecification((String) newObjects[0],
-                   (String) newObjects[1]);
+           return new FindByLogin((String) newObjects[0]);
        } catch (ClassCastException | IndexOutOfBoundsException newE) {
            throw new ServiceException(newE);
        }

@@ -38,7 +38,7 @@ public class LogIn implements Executable {
         var email = req.getParameter("email");
         var password = req.getParameter("password");
         try {
-            User user = readByEmailAndPassword(email, password);
+            User user = userService.readByLoginAndPassword(email, password);
             if (user != null) {
                 req.getSession().setAttribute("User", user);
                 logger.debug("Session user: {}", user);
@@ -52,17 +52,5 @@ public class LogIn implements Executable {
             throw new ControllerException(newE);
         }
 
-    }
-
-    private User readByEmailAndPassword(final String newEmail,
-                                        final String newPassword)
-            throws ServiceException {
-        var userList = userService.find(UserService.LOGIN_AND_PASSWORD,
-                newEmail, newPassword);
-        if (!userList.isEmpty()) {
-            return userList.get(0);
-        } else {
-            return null;
-        }
     }
 }

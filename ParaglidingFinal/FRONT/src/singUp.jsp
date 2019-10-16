@@ -97,7 +97,8 @@
                                 <fmt:message key="sportsman.name"/> </label>
                             <input type="text"
                                    name="name"
-                                   class="form-control" id="validationServer01" placeholder="First name"
+                                   class="form-control" id="validationServer01"
+                                   placeholder="First name"
                                    pattern="^[a-zA-Z\s]+$" title="Should only contain letters" required>
                         </div>
                         <div class="col-md-4 mb-3">

@@ -37,7 +37,8 @@ public class ViewSportsmanByRatingRange implements Executable {
         var leftBoundString = req.getParameter("leftBound");
         var rightBoundString = req.getParameter("rightBound");
         try {
-            var sportsmen = sportsmanService.find(SportsmanService.RATING_RANGE,
+            var sportsmen = sportsmanService.find(
+                    SportsmanService.FindByProps.RATING_RANGE,
                     Float.parseFloat(leftBoundString),
                     Float.parseFloat(rightBoundString));
             req.setAttribute("sportsmen", sportsmen);

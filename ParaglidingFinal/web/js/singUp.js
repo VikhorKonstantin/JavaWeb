@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    $("#sportsmenCheck").click(function () { // задаем функцию при нажатиии на элемент с классом toggle
-        $("#sportsmenForm").toggle(); //  скрываем, или отображаем все элементы <div>
+    $("#sportsmenCheck").click(function () {
+        $("#sportsmenForm").toggle();
+        if ($('#sportsmenCheck').is(':checked')) {
+            $('#sportsmenForm :input').removeAttr('disabled');
+        } else {
+            $('#sportsmenForm :input').attr('disabled','disabled');
+        }
     });
-    if ($('#sportsmenCheck').is(!':checked')) {
-        $('#sportsmenForm :input').attr('disabled', true);
-    } else {
-        $('#sportsmenForm :input').removeAttr('disabled');
-    }
 });
