@@ -22,7 +22,8 @@ public class SingUp implements Executable {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-    private static final String LOGIN_ERROR = "Log in error. Check input data";
+    private static final String SIN_GUP_ERROR =
+            "SingUp error. User was not added.";
 
 
     private final UserService userService;
@@ -52,7 +53,7 @@ public class SingUp implements Executable {
                 user.setSportsman(sportsman);
             }
             if (!userService.addUser(user)){
-                throw new ControllerException(LOGIN_ERROR);
+                throw new ControllerException(SIN_GUP_ERROR);
             }
             return new ExecutionResult(true, "/index.html");
         } catch (ServiceException | BeanException newE) {

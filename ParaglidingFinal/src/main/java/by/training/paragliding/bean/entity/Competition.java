@@ -1,7 +1,6 @@
 package by.training.paragliding.bean.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 public class Competition {
@@ -46,10 +45,7 @@ public class Competition {
      * Participation fee(in USA Dollars).
      */
     private float participationFee;
-    /**
-     * Results of competition.
-     */
-    private List<CompetitionResult> results;
+
     /**
      * Competition discipline.
      */
@@ -197,23 +193,6 @@ public class Competition {
     }
 
     /**
-     * Returns competition results.
-     *
-     * @return competition results
-     */
-    public List<CompetitionResult> getResults() {
-        return results;
-    }
-
-    /**
-     * Sets competition results into newResults.
-     *
-     * @param newResults new results
-     */
-    public void setResults(final List<CompetitionResult> newResults) {
-        results = newResults;
-    }
-    /**
      * Returns competition organizer.
      *
      * @return competition organizer
@@ -241,7 +220,6 @@ public class Competition {
                 Objects.equals(date, that.date) &&
                 status == that.status &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(results, that.results) &&
                 Objects.equals(discipline, that.discipline) &&
                 Objects.equals(organizer, that.organizer);
     }
@@ -260,7 +238,6 @@ public class Competition {
                 ", status=" + status +
                 ", description='" + description + '\'' +
                 ", participationFee=" + participationFee +
-                ", results=" + results +
                 ", discipline='" + discipline + '\'' +
                 ", organizer=" + organizer +
                 '}';

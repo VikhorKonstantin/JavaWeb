@@ -11,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ViewAnnouncedDescriptions implements Executable {
     /**
@@ -41,10 +39,8 @@ public class ViewAnnouncedDescriptions implements Executable {
         try {
             var competitions = competitionService.find(
                     CompetitionService.STATUS, Competition.Status.ANNOUNCED);
-            logger.debug("Competitions {}", competitions);
-            final Map<String, String> descriptions = new HashMap<>();
-            competitions.forEach(c -> descriptions.put(c.getName(), c.getDescription()));
-            req.setAttribute("descriptions", descriptions);
+            logger.debug(competitions);
+            req.setAttribute("competitions", competitions);
             return new ExecutionResult(true,
                     "/WEB-INF/jsp/main.jsp");
         }

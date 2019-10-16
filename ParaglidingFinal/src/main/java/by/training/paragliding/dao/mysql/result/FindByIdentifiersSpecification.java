@@ -1,4 +1,4 @@
-package by.training.paragliding.dao.mysql.application;
+package by.training.paragliding.dao.mysql.result;
 
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
@@ -9,9 +9,11 @@ import java.sql.SQLException;
 
 public class FindByIdentifiersSpecification implements Specification {
     private static final String SQL =
-            "SELECT competition_id as competitionId, sportsman_id as civl_id"
-                    + " FROM applications"
-                    + " WHERE competition_id =? AND sportsman_id =?";
+            "SELECT competition_id as competitionId,"
+                    + " sportsman_id as civl_id, score"
+                    + " FROM results"
+                    + " WHERE competition_id =? AND sportsman_id =?"
+                    + " ORDER BY score DESC";
 
     private int competitionId;
     private int civlId;

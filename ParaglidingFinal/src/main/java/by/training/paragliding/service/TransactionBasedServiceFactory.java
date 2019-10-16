@@ -44,6 +44,15 @@ public final class TransactionBasedServiceFactory implements ServiceFactory {
         }
     }
 
+    public ResultService createResultService()
+            throws ServiceException {
+        try {
+            return new ResultService(transactionFactory.createTransaction());
+        } catch (DaoException newE) {
+            throw new ServiceException(newE);
+        }
+    }
+
     @Override
     public void close() throws Exception {
         transactionFactory.close();

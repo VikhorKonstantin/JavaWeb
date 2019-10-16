@@ -5,8 +5,6 @@ import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.ApplicationService;
-import by.training.paragliding.service.CompetitionService;
-import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,16 +17,12 @@ public class ApplyCompetition implements Executable {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+    private static final String APPLY_ERROR =
+            "Apply error. Application was not added";
     private ApplicationService applicationService;
-    private CompetitionService competitionService;
-    private SportsmanService sportsmanService;
 
-    public ApplyCompetition(final ApplicationService newApplicationService,
-                            final  CompetitionService newCompetitionService,
-                            final SportsmanService newSportsmanService) {
+    public ApplyCompetition(final ApplicationService newApplicationService) {
         applicationService = newApplicationService;
-        competitionService = newCompetitionService;
-        sportsmanService = newSportsmanService;
     }
 
     /**
@@ -56,7 +50,9 @@ public class ApplyCompetition implements Executable {
                     sportsmanId, competitionId);
             logger.debug("ApplicationList {}", appList);
             if (appList.isEmpty()) {
-                applicationService.addApplication(application);
+                if (!applicationService.addApplication(application)) {
+                    throw new ControllerException(APPLY_ERROR);
+                }
                 return new ExecutionResult(false,
                         "/competition.html?id="
                         + competitionId

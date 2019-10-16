@@ -114,6 +114,6 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        super.destroy();
+        ConnectionPoolImpl.getInstance().shutdown();
     }
 }

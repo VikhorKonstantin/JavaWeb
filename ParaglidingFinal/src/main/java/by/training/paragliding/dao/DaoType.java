@@ -4,5 +4,6 @@ public enum DaoType {
     SPORTSMAN,
     USER,
     COMPETITION,
-    APPLICATION
+    APPLICATION,
+    RESULT
 }

@@ -1,14 +1,14 @@
 package by.training.paragliding.controller;
 
-import by.training.paragliding.controller.command.Executable;
-import by.training.paragliding.controller.command.StartCommand;
-import by.training.paragliding.controller.command.ViewLogInPage;
-import by.training.paragliding.controller.command.ViewSingUpPage;
+import by.training.paragliding.controller.command.*;
 import by.training.paragliding.controller.command.application.ApplyCompetition;
 import by.training.paragliding.controller.command.competition.EditCompetition;
 import by.training.paragliding.controller.command.competition.ViewCompetitionById;
 import by.training.paragliding.controller.command.competition.ViewCompetitionList;
 import by.training.paragliding.controller.command.competition.ViewCompetitionsEditPage;
+import by.training.paragliding.controller.command.result.SaveResults;
+import by.training.paragliding.controller.command.result.ViewCompetitionResults;
+import by.training.paragliding.controller.command.result.ViewResultsForm;
 import by.training.paragliding.controller.command.sportsman.ViewAllSportsmen;
 import by.training.paragliding.controller.command.sportsman.ViewParticipants;
 import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
@@ -86,9 +86,21 @@ final class CommandProvider implements AutoCloseable {
                     serviceFactory.createSportsmanService()));
             postMap.put("/application",
                     new ApplyCompetition(
-                            serviceFactory.createApplicationService(),
-                            serviceFactory.createCompetitionService(),
-                            serviceFactory.createSportsmanService()));
+                            serviceFactory.createApplicationService()));
+            getMap.put("/resultsPage", new ViewResultsForm(
+                    serviceFactory.createCompetitionService(),
+                    serviceFactory.createSportsmanService()));
+            postMap.put("/results", new SaveResults(
+                    serviceFactory.createResultService(),
+                    serviceFactory.createCompetitionService(),
+                    serviceFactory.createSportsmanService()
+            ));
+            getMap.put("/results", new ViewCompetitionResults(
+                    serviceFactory.createResultService(),
+                    serviceFactory.createCompetitionService(),
+                    serviceFactory.createSportsmanService()
+            ));
+            postMap.put("/localeChange", new ChangeLocale());
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

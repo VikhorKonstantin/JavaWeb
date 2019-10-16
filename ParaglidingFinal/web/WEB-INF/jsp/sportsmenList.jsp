@@ -27,7 +27,7 @@
             </li>
             <li class="nav-item">
                 <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
-                <a class="nav-link" href="${sportsmenAllUrl}"><fmt:message key="sportsmen.title"/></a>
+                <a class="nav-link active" href="${sportsmenAllUrl}"><fmt:message key="sportsmen.title"/></a>
             </li>
             <li class="nav-item">
                 <c:url value="/competition/all.html" var="competitionsAllUrl"/>
@@ -55,32 +55,41 @@
         </ul>
     </div>
 </nav>
-
 <main class="main">
-    <div class="row justify-content-center">
-        <div class="card rounded-form" style="width:400px">
-            <div class="card-body">
+    <div class="container d-flex justify-content-center">
+        <div class="card rounded-form">
+            <div class="card-body col-12">
                 <table class="table table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">INDEX</th>
-                        <th scope="col">CIVL_ID</th>
-                        <th scope="col">NAME</th>
-                        <th scope="col">SCORE</th>
+                        <th scope="col">CIVL</th>
+                        <th scope="col"><fmt:message key="sportsman.name"/></th>
+                        <th scope="col"><fmt:message key="sportsman.surname"/></th>
+                        <th scope="col"><fmt:message key="sportsman.gender"/></th>
+                        <th scope="col"><fmt:message key="sportsman.country"/></th>
+                        <th scope="col"><fmt:message key="sportsman.rating"/></th>
+                        <th scope="col">IMAGE_PATH</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${resultsData}" var="result" varStatus="loop">
+                    <c:forEach items="${sportsmen}" var="sportsman">
                         <tr>
-                            <td>${loop.index+1}</td>
-                            <td>${result.key.civlId}</td>
-                            <td>${result.key.name}</td>
-                            <td>${result.value}</td>
+                            <td>${sportsman.civlId}</td>
+                            <td>${sportsman.name}</td>
+                            <td>${sportsman.surname}</td>
+                            <td>${sportsman.gender}</td>
+                            <td><em class="fas fa-map-marked-alt"></em>
+                                    ${sportsman.countryCode.name}</td>
+                            <td>${sportsman.rating}</td>
+                            <td>${sportsman.imagePath}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
 </main>
+
+</body>

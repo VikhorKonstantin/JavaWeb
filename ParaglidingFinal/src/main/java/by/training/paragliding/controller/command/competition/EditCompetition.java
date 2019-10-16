@@ -18,7 +18,7 @@ public class EditCompetition implements Executable {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
-    private static final String UPDATE_FAILED = "Update failed";
+    private static final String UPDATE_FAILED = "Updating failed";
     private CompetitionService competitionService;
 
     public EditCompetition(final CompetitionService newCompetitionService) {
