@@ -17,6 +17,8 @@ public class CompetitionValidator implements Validator<Competition> {
     private static final String NAME_PATTERN = "^[0-9.?!a-zA-Z\\s]{0,250}$";
     private static final String FEE_PATTERN = "^[0-9]{0,4}.?[0-9]*";
     private static final String ID_PATTERN = "\\d{1,10}";
+    private static final String XSS_PATTERN =
+            "<(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\\s>]*)*>";
     @Override
     public Competition validate(final HttpServletRequest newRequest)
             throws BeanException {
@@ -25,7 +27,8 @@ public class CompetitionValidator implements Validator<Competition> {
         var fee = newRequest.getParameter("fee");
         var statusString = newRequest.getParameter("status");
         var description = newRequest.getParameter("description");
-
+        description = description.replace(XSS_PATTERN, "");
+        logger.debug("Description {}", description);
         var idString = newRequest.getParameter("id");
         var discipline   = newRequest.getParameter("discipline");
         boolean isValid;

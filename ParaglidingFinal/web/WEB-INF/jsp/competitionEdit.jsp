@@ -119,7 +119,7 @@
                         <label for="Description"><fmt:message key="competition.description"/></label>
                         <textarea name="description"
                                   class="form-control bordering" id="Description"
-                                  rows="3">${competition.description}</textarea>
+                                  rows="3"><c:out value="${competition.description}"/></textarea>
                     </div>
                     <button class="btn btn-submit" type="submit"><fmt:message key="submit"/></button>
                     <c:if test="${competition.status != 'FINISHED'}">

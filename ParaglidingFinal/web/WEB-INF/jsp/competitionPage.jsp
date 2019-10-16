@@ -66,7 +66,7 @@
             </c:if>
             <div class="card-body">
                 <h4 class="card-title">${competition.name}</h4>
-                <h5 class="card-text">${competition.description}</h5>
+                <h5 class="card-text"><c:out value="${competition.description}"/></h5>
                 <p class="card-text"><fmt:message key="competition.date"/>: ${competition.date}</p>
                 <p class="card-text"><fmt:message key="competition.status"/>: ${competition.status}</p>
                 <p class="card-text"><fmt:message key="competition.discipline"/>: ${competition.discipline}</p>
