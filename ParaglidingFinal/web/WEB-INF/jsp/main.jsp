@@ -104,7 +104,10 @@
                                             <div class="card-body">
                                                 <h4 class="card-title">${competition.name}</h4>
                                                 <p class="card-text">${competition.description}</p>
-                                                <a href="#" class="btn btn-primary"><fmt:message key="competitions.more"/></a>
+                                                <c:url var="moreInfoUrl" value="/competition.html">
+                                                    <c:param name="id" value="${competition.id}"/>
+                                                </c:url>
+                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message key="competitions.more"/></a>
                                             </div>
                                         </div>
                                     </div>
