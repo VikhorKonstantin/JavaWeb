@@ -1,7 +1,8 @@
-package by.training.paragliding.service;
+package by.training.paragliding.service.transaction;
 
 import by.training.paragliding.dao.TransactionFactory;
 import by.training.paragliding.dao.exception.DaoException;
+import by.training.paragliding.service.*;
 import by.training.paragliding.service.exception.ServiceException;
 
 public final class TransactionBasedServiceFactory implements ServiceFactory {
@@ -13,7 +14,8 @@ public final class TransactionBasedServiceFactory implements ServiceFactory {
 
     public SportsmanService createSportsmanService() throws ServiceException {
         try {
-            return new SportsmanService(transactionFactory.createTransaction());
+            return new TransactionBasedSportsmanService(
+                    transactionFactory.createTransaction());
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }
@@ -21,7 +23,8 @@ public final class TransactionBasedServiceFactory implements ServiceFactory {
 
     public UserService createUserService() throws ServiceException {
         try {
-            return new UserService(transactionFactory.createTransaction());
+            return new TransactionBasedUserService(
+                    transactionFactory.createTransaction());
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }
@@ -30,7 +33,8 @@ public final class TransactionBasedServiceFactory implements ServiceFactory {
     public CompetitionService createCompetitionService()
             throws ServiceException {
         try {
-            return new CompetitionService(transactionFactory.createTransaction());
+            return new TransactionBasedCompetitionService(
+                    transactionFactory.createTransaction());
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }
@@ -38,7 +42,8 @@ public final class TransactionBasedServiceFactory implements ServiceFactory {
     public ApplicationService createApplicationService()
             throws ServiceException {
         try {
-            return new ApplicationService(transactionFactory.createTransaction());
+            return new TransactionBasedApplicationService(
+                    transactionFactory.createTransaction());
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }
@@ -47,7 +52,8 @@ public final class TransactionBasedServiceFactory implements ServiceFactory {
     public ResultService createResultService()
             throws ServiceException {
         try {
-            return new ResultService(transactionFactory.createTransaction());
+            return new TransactionBasedResultService(
+                    transactionFactory.createTransaction());
         } catch (DaoException newE) {
             throw new ServiceException(newE);
         }

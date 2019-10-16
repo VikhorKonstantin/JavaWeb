@@ -54,7 +54,6 @@ final class CommandProvider implements AutoCloseable {
     CommandProvider(final ServiceFactory newServiceFactory)
             throws ControllerException {
         serviceFactory = newServiceFactory;
-
         try {
             getMap.put("/sportsmen/id", new ViewSportsmanById(
                     serviceFactory.createSportsmanService()));
