@@ -53,7 +53,7 @@ public class Controller implements AutoCloseable {
                 actionName = uri.substring(beginAction);
             }
             Executable executionCommand;
-            switch (req.getMethod()){
+            switch (req.getMethod()) {
                 case "POST" :
                     executionCommand = provider.getPostCommand(actionName);
                     break;

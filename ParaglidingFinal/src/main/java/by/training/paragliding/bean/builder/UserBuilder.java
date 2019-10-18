@@ -14,10 +14,12 @@ public class UserBuilder implements Builder<User> {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+
     /**
      * @param newResultSet resultSet (result of executing sql statements)
      * @return new User object.
-     * @throws BeanException if some exceptions where thrown while object building.
+     * @throws BeanException if some exceptions where
+     *                       thrown while object building.
      */
     @Override
     public User buildFromResultSet(final ResultSet newResultSet)

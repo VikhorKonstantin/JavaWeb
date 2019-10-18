@@ -16,7 +16,8 @@ public class ApplicationBuilder implements Builder<Application> {
     /**
      * @param newResultSet resultSet (result of executing sql statements)
      * @return new T object.
-     * @throws BeanException if some exceptions where thrown while object building.
+     * @throws BeanException if some exceptions where
+     * thrown while object building.
      */
     @Override
     public Application buildFromResultSet(final ResultSet newResultSet)

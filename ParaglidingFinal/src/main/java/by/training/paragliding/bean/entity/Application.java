@@ -26,11 +26,15 @@ public class Application implements Serializable {
 
     @Override
     public boolean equals(final Object newO) {
-        if (this == newO) return true;
-        if (newO == null || getClass() != newO.getClass()) return false;
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
         Application that = (Application) newO;
-        return sportsmanId == that.sportsmanId &&
-                competitionId == that.competitionId;
+        return sportsmanId == that.sportsmanId
+                && competitionId == that.competitionId;
     }
 
     @Override
@@ -40,9 +44,8 @@ public class Application implements Serializable {
 
     @Override
     public String toString() {
-        return "Application{" +
-                "sportsmanId=" + sportsmanId +
-                ", competitionId=" + competitionId +
-                '}';
+        return "Application{"
+                + "sportsmanId=" + sportsmanId
+                + ", competitionId=" + competitionId + '}';
     }
 }

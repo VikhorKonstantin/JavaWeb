@@ -17,7 +17,7 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     private Logger logger = LogManager.getLogger("main");
 
-    private static final String TABLE_NAME =  "users";
+    private static final String TABLE_NAME = "users";
     private static final String UPDATE_USER = "UPDATE `users` SET `email` = ?,"
             + " `password` = ?, `role` = ? WHERE `id` = ?";
 
@@ -28,20 +28,20 @@ public class UserRepository extends BaseSqlRepository<User> {
             "INSERT INTO `users` (`email`, `password`, `role`)"
                     + " VALUES (?, ?, ?)";
 
-    private static final  String SELECT_BY_ID =
-           "SELECT `id` as userId,\n"
-                   + "       `email`,\n"
-                   + "       `password`,\n"
-                   + "       `role`,\n"
-                   + "       `civl_id`,\n"
-                   + "       `name` AS sportsmanName,\n"
-                   + "       `surname`,\n"
-                   + "       `gender`,\n"
-                   + "       `country`,\n"
-                   + "       `rating`,\n"
-                   + "       `image_path`\n"
-                   + "FROM `users`\n"
-                   + "         LEFT JOIN sportsmen s on users.id = s.user_id "
+    private static final String SELECT_BY_ID =
+            "SELECT `id` as userId,\n"
+                    + "       `email`,\n"
+                    + "       `password`,\n"
+                    + "       `role`,\n"
+                    + "       `civl_id`,\n"
+                    + "       `name` AS sportsmanName,\n"
+                    + "       `surname`,\n"
+                    + "       `gender`,\n"
+                    + "       `country`,\n"
+                    + "       `rating`,\n"
+                    + "       `image_path`\n"
+                    + "FROM `users`\n"
+                    + "         LEFT JOIN sportsmen s on users.id = s.user_id "
                     + "WHERE `id` = ?";
 
     public UserRepository(final Connection newConnection) {
@@ -67,7 +67,8 @@ public class UserRepository extends BaseSqlRepository<User> {
      */
     @Override
     public boolean add(final User newUser) throws DaoException {
-        return executeUpdate(INSERT_USER, newUser.getEmail(), newUser.getPassword(),
+        return executeUpdate(INSERT_USER, newUser.getEmail(),
+                newUser.getPassword(),
                 newUser.getRole().ordinal());
     }
 

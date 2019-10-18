@@ -46,7 +46,7 @@ public class ApplyCompetition implements Executable {
             application.setSportsmanId(sportsmanId);
             application.setCompetitionId(competitionId);
             logger.debug("Application {}", application);
-            var appList =applicationService.find(
+            var appList = applicationService.find(
                     ApplicationService.FindByProps.IDENTIFIERS,
                     sportsmanId, competitionId);
             logger.debug("ApplicationList {}", appList);
@@ -57,12 +57,12 @@ public class ApplyCompetition implements Executable {
                 return new ExecutionResult(false,
                         "/competition.html?id="
                         + competitionId
-                        +"&message=You have applied the competition!");
+                        + "&message=You have applied the competition!");
             } else {
                 return new ExecutionResult(false,
                         "/competition.html?id="
                         + competitionId
-                        +"&message=You had already been"
+                        + "&message=You had already been"
                         + " applied this competition!");
             }
 

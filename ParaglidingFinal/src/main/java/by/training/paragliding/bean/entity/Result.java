@@ -11,7 +11,8 @@ public class Result implements Serializable {
     public Result() {
     }
 
-    public Result(final int newSportsmanId, final int newCompetitionId, final int newScore) {
+    public Result(final int newSportsmanId,
+                  final int newCompetitionId, final int newScore) {
         sportsmanId = newSportsmanId;
         competitionId = newCompetitionId;
         score = newScore;
@@ -43,12 +44,16 @@ public class Result implements Serializable {
 
     @Override
     public boolean equals(final Object newO) {
-        if (this == newO) return true;
-        if (newO == null || getClass() != newO.getClass()) return false;
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
         Result result = (Result) newO;
-        return sportsmanId == result.sportsmanId &&
-                competitionId == result.competitionId &&
-                score == result.score;
+        return sportsmanId == result.sportsmanId
+                && competitionId == result.competitionId
+                && score == result.score;
     }
 
     @Override
@@ -58,10 +63,10 @@ public class Result implements Serializable {
 
     @Override
     public String toString() {
-        return "Result{" +
-                "sportsmanId=" + sportsmanId +
-                ", competitionId=" + competitionId +
-                ", score=" + score +
-                '}';
+        return "Result{"
+                + "sportsmanId=" + sportsmanId
+                + ", competitionId=" + competitionId
+                + ", score=" + score
+                + '}';
     }
 }

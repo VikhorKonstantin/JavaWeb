@@ -30,8 +30,8 @@ public class SaveResults implements Executable {
     private SportsmanService sportsmanService;
 
     public SaveResults(final ResultService newResultService,
-                           final CompetitionService newCompetitionService,
-                           final SportsmanService newSportsmanService) {
+                       final CompetitionService newCompetitionService,
+                       final SportsmanService newSportsmanService) {
         competitionService = newCompetitionService;
         sportsmanService = newSportsmanService;
         resultService = newResultService;
@@ -49,7 +49,7 @@ public class SaveResults implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
-        String competitionIdString =  req.getParameter("competitionId");
+        String competitionIdString = req.getParameter("competitionId");
         int competitionId = Integer.parseInt(competitionIdString);
         try {
             var competition = competitionService.readById(competitionId);
@@ -62,8 +62,8 @@ public class SaveResults implements Executable {
             int score;
             var results = new ArrayList<Result>(numberOfParticipants);
             for (int i = 0; i < numberOfParticipants; i++) {
-                sportsmanIdString = req.getParameter("sportsmanId"+i);
-                scoreString = req.getParameter("score"+i);
+                sportsmanIdString = req.getParameter("sportsmanId" + i);
+                scoreString = req.getParameter("score" + i);
                 sportsmanId = Integer.parseInt(sportsmanIdString);
                 score = Integer.parseInt(scoreString);
                 results.add(new Result(sportsmanId, competitionId, score));

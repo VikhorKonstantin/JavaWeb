@@ -10,7 +10,8 @@ public class ResultBuilder implements Builder<Result> {
     /**
      * @param newResultSet resultSet (result of executing sql statements)
      * @return new T object.
-     * @throws BeanException if some exceptions where thrown while object building.
+     * @throws BeanException if some exceptions where
+     *                       thrown while object building.
      */
     @Override
     public Result buildFromResultSet(final ResultSet newResultSet)

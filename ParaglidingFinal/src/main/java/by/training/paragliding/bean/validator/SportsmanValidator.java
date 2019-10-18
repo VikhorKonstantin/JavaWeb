@@ -18,15 +18,17 @@ public class SportsmanValidator implements Validator<Sportsman> {
     private static final String GENDER_PATTERN = "^M | F";
     private static final String RATING_PATTERN = "^[0-9]{0,4}\\.[0-9]}";
     private static final String CIVL_PATTERN = "^[0-9]{2,6}$";
+
     @Override
-    public Sportsman validate(final HttpServletRequest newRequest) throws BeanException {
+    public Sportsman validate(final HttpServletRequest newRequest)
+            throws BeanException {
         Sportsman sportsman = new Sportsman();
         var name = newRequest.getParameter("name");
-        var surname =newRequest.getParameter("surname");
+        var surname = newRequest.getParameter("surname");
         var countryString = newRequest.getParameter("country");
         var genderString = newRequest.getParameter("gender");
         var ratingString = newRequest.getParameter("rating");
-        var civlIdString =  newRequest.getParameter("id");
+        var civlIdString = newRequest.getParameter("id");
 
 
         final List<CountryCode> countryCodes =

@@ -45,20 +45,19 @@ public class SingUp implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         try {
-            logger.debug("1:");
             UserValidator userValidator = new UserValidator();
-            logger.debug("2:");
             User user = userValidator.validate(req);
-            logger.debug("User {}", user);
-            if(user.getRole().equals(Role.REGISTERED_SPORTSMAN)) {
+            logger.debug("Register user {}", user);
+            if (user.getRole().equals(Role.REGISTERED_SPORTSMAN)) {
                 var sportsmanBuilder = new SportsmanValidator();
                 Sportsman sportsman = sportsmanBuilder.validate(req);
                 user.setSportsman(sportsman);
             }
-            if (!userService.addUser(user)){
+            if (!userService.addUser(user)) {
                 throw new ControllerException(SIN_GUP_ERROR);
             }
-            return new ExecutionResult(true, "/index.html");
+            return new ExecutionResult(false,
+                    "/index.html");
         } catch (ServiceException | BeanException newE) {
             throw new ControllerException(newE);
         }

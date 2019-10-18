@@ -214,43 +214,49 @@ public class Sportsman implements Serializable {
         user = newUser;
     }
 
+    @Override
+    public String toString() {
+        return "Sportsman{"
+                + "civlId=" + civlId
+                + ", user=" + user
+                + ", name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", gender=" + gender
+                + ", countryCode=" + countryCode
+                + ", rating=" + rating
+                + ", imagePath='" + imagePath + '\''
+                + '}';
+    }
+
     /**
      * Returns a String representation of the Sportsmen.
      *
      * @return a String representation of the Sportsmen
      */
-    @Override
-    public String toString() {
-        return "Sportsman{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", civlId=" + civlId +
-                ", gender=" + gender +
-                ", countryCode=" + countryCode +
-                ", rating=" + rating +
-                ", imagePath='" + imagePath + '\'' +
-                '}';
-    }
 
-//todo: can compare only id
+
     @Override
     public boolean equals(final Object newO) {
-        if (this == newO) return true;
-        if (newO == null || getClass() != newO.getClass()) return false;
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
         Sportsman sportsman = (Sportsman) newO;
-        return civlId == sportsman.civlId &&
-                gender == sportsman.gender &&
-                Float.compare(sportsman.rating, rating) == 0 &&
-                Objects.equals(name, sportsman.name) &&
-                Objects.equals(surname, sportsman.surname) &&
-                countryCode == sportsman.countryCode &&
-                Objects.equals(imagePath, sportsman.imagePath);
+        return civlId == sportsman.civlId
+                && gender == sportsman.gender
+                && Float.compare(sportsman.rating, rating) == 0
+                && Objects.equals(user, sportsman.user)
+                && Objects.equals(name, sportsman.name)
+                && Objects.equals(surname, sportsman.surname)
+                && countryCode == sportsman.countryCode
+                && Objects.equals(imagePath, sportsman.imagePath);
     }
-//todo: ask about hashCode
+
     @Override
     public int hashCode() {
-        return Objects.hash(civlId);
+        return Objects.hash(civlId, user, name, surname,
+                gender, countryCode, rating, imagePath);
     }
-
-
 }

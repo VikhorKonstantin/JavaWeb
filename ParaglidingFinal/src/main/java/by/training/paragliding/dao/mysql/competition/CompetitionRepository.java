@@ -33,8 +33,10 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                     + "       `rating`,\n"
                     + "       `image_path`\n"
                     + "FROM `competitions`\n"
-                    + "         JOIN `disciplines` ON `discipline_id` = `disciplines`.`id`\n"
-                    + "         LEFT JOIN (`users` LEFT JOIN sportsmen s on users.id = s.user_id)\n"
+                    + "         JOIN `disciplines`"
+                    + " ON `discipline_id` = `disciplines`.`id`\n"
+                    + "         LEFT JOIN (`users` "
+                    + " LEFT JOIN sportsmen s on users.id = s.user_id)\n"
                     + "                   ON `organizer_id` = `users`.`id`\n"
                     + "WHERE `competitions`.`id`  = ?";
 
@@ -51,7 +53,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
 
     private static final String INSERT_COMPETITION =
             "INSERT INTO `competitions` "
-                    + "(`date`, `organizer_id`, `competitions`.`name`, `discipline_id`,"
+                    + "(`date`, `organizer_id`,"
+                    + " `competitions`.`name`, `discipline_id`,"
                     + " `status`, `participation_fee`, `description`) "
                     + "VALUES (?, ?, ?, `disciplines`.`id`, ?, ?, ?)";
     private static final String TABLE_NAME = "competitions";
@@ -127,7 +130,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      * @throws DaoException if something goes wrong
      */
     @Override
-    public boolean update(final Competition newCompetition) throws DaoException {
+    public boolean update(final Competition newCompetition)
+            throws DaoException {
         return executeUpdate(UPDATE_COMPETITION,
                 newCompetition.getDiscipline(),
                 Date.valueOf(newCompetition.getDate()),
@@ -147,6 +151,6 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
     @Override
     public List<Competition> query(final Specification specification)
             throws DaoException {
-       return executeQuery(specification);
+        return executeQuery(specification);
     }
 }

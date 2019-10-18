@@ -18,12 +18,13 @@ public class FindSportsmenByRatingRange implements Specification {
     private float rightRatingBound;
 
     /**
-     * Creates FindSpecification
+     * Creates FindSpecification.
      *
      * @param newLeftBound  left bound of range to find in
      * @param newRightBound right bound of range to find in
      */
-    public FindSportsmenByRatingRange(final float newLeftBound, final float newRightBound) {
+    public FindSportsmenByRatingRange(final float newLeftBound,
+                                      final float newRightBound) {
         leftRatingBound = newLeftBound;
         rightRatingBound = newRightBound;
     }

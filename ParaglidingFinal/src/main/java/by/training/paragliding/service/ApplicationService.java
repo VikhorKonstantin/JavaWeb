@@ -5,7 +5,7 @@ import by.training.paragliding.service.exception.ServiceException;
 
 public interface ApplicationService
         extends Service<Application, ApplicationService.FindByProps> {
-    boolean addApplication(final Application newApplication)
+    boolean addApplication(Application newApplication)
             throws ServiceException;
     enum FindByProps {
         IDENTIFIERS

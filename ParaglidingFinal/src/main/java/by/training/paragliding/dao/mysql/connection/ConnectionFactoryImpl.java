@@ -15,7 +15,15 @@ public final class ConnectionFactoryImpl implements ConnectionFactory {
     private String userName;
     private String userPassword;
 
-    public ConnectionFactoryImpl(String configFile) throws DaoException {
+    /**
+     * Creates new instance of connection pool using
+     * configurations from configFile.
+     *
+     * @param configFile config file
+     * @throws DaoException if it's impossible to create ConnectionFactoryImpl
+     *                      instance  using configurations from configFile.
+     */
+    public ConnectionFactoryImpl(final String configFile) throws DaoException {
         super();
         Properties properties = new Properties();
         final String rootPath = Thread.currentThread()
@@ -42,6 +50,12 @@ public final class ConnectionFactoryImpl implements ConnectionFactory {
         this.userPassword = password;
     }
 
+    /**
+     * Creates new connection.
+     *
+     * @return new connection
+     * @throws DaoException if it's impossible to get new connection.
+     */
     public Connection createNewConnection() throws DaoException {
         try {
             return

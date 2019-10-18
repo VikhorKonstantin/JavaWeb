@@ -31,7 +31,8 @@ public class FindByLogin implements Specification {
                     + "WHERE `email`=?";
 
     @Override
-    public PreparedStatement createStatement(final Connection connection) throws DaoException {
+    public PreparedStatement createStatement(final Connection connection)
+            throws DaoException {
         try {
             var statement = connection.prepareStatement(SQL);
             statement.setString(1, email);

@@ -3,13 +3,13 @@ INSERT INTO `users` (`email`,
                      `password`,
                      `role`)
 VALUES ("sluga@fai.com",
-        "4s8d8s86dg6s8dgs6ddsd",
+        "$argon2i$v=19$m=65536,t=5,p=1$a2oXAg1a8G4T7EzDMMcxMQ$igYq22CEPy8cJMfGg3IN5g",
         2),
        ("Jaka@fai.com",
-        "sdss7d875ds7d7ds7dsd7",
+        "$argon2i$v=19$m=65536,t=5,p=1$FrEqAJBf/R1x9FiAVl3IEQ$65flTRAt5ZhjS8GKOpOKUA",
         2),
        ("Feraric@fai.com",
-        "84c8d7da87sa7a7xa87ad",
+        "$argon2i$v=19$m=65536,t=5,p=1$c0uBUZsR8qDpDTf5i95kdg$QPct/VvmF57W2mkUA2kV1A",
         2);
 INSERT INTO `sportsmen` (user_id, civl_id, name, surname, gender, country, rating, image_path)
 VALUES (2,

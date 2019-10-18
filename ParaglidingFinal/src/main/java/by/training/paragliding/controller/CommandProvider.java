@@ -1,6 +1,10 @@
 package by.training.paragliding.controller;
 
-import by.training.paragliding.controller.command.*;
+import by.training.paragliding.controller.command.ChangeLocale;
+import by.training.paragliding.controller.command.Executable;
+import by.training.paragliding.controller.command.StartCommand;
+import by.training.paragliding.controller.command.ViewLogInPage;
+import by.training.paragliding.controller.command.ViewSingUpPage;
 import by.training.paragliding.controller.command.application.ApplyCompetition;
 import by.training.paragliding.controller.command.competition.EditCompetition;
 import by.training.paragliding.controller.command.competition.ViewCompetitionById;
@@ -49,7 +53,12 @@ final class CommandProvider implements AutoCloseable {
     private ServiceFactory serviceFactory;
 
     /**
-     * init executableMap.
+     * Init executableMap with services created by serviceFactory.
+     *
+     * @param newServiceFactory serviceFactory used
+     *                          to create new service instances
+     * @throws ControllerException if ServiceException was thrown
+     *                             while creating new service instances
      */
     CommandProvider(final ServiceFactory newServiceFactory)
             throws ControllerException {
@@ -118,6 +127,7 @@ final class CommandProvider implements AutoCloseable {
         logger.debug("Command name: {}", name);
         return postMap.get(name);
     }
+
     /**
      * @param name name of command.
      * @return Command.

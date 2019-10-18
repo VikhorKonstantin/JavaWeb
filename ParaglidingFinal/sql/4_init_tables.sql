@@ -6,7 +6,7 @@ INSERT INTO `users` (`id`,
                      `role`)
 VALUES (1,
         "admin@fai.com",
-        "admin",
+        "$argon2i$v=19$m=65536,t=5,p=1$KObIGfKNbvxIa0KlWotAqQ$0QExN1Z4anl+q81Eqx0EVw",
         0);
 
 INSERT INTO `disciplines` (`id`, `name`)

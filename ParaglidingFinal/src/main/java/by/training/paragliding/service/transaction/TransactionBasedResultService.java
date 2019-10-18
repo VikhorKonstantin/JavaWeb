@@ -8,14 +8,12 @@ import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
 import by.training.paragliding.dao.mysql.result.FindByIdentifiersSpecification;
 import by.training.paragliding.service.ResultService;
-import by.training.paragliding.service.Service;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 class TransactionBasedResultService
         extends AbstractTransactionBasedService implements ResultService {
@@ -28,10 +26,10 @@ class TransactionBasedResultService
         super(newTransaction);
     }
 
-    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
-            ServiceException>> SPECIFICATION_PROVIDER =
-            new HashMap<>();
-
+    private static final EnumMap<FindByProps,
+                ThrowingFunction<Object[], Specification, ServiceException>>
+            SPECIFICATION_PROVIDER =
+            new EnumMap<>(FindByProps.class);
     static {
         SPECIFICATION_PROVIDER.put(FindByProps.IDENTIFIERS,
                 TransactionBasedResultService::findByIdentifiers);
@@ -42,7 +40,8 @@ class TransactionBasedResultService
         try {
             Repository<Result> resultRepository =
                     transaction.createDao(DaoType.RESULT);
-            var resList = find(FindByProps.IDENTIFIERS, newResult.getCompetitionId(),
+            var resList = find(FindByProps.IDENTIFIERS,
+                    newResult.getCompetitionId(),
                     newResult.getSportsmanId());
             if (resList.isEmpty()) {
                 var result = resultRepository.add(newResult);

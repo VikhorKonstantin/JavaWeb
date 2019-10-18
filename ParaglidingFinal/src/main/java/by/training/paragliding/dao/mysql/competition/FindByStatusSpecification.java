@@ -9,7 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class FindByStatusSpecification implements Specification {
-    private static final String SQL = "SELECT `competitions`.`id`   AS competitionId,\n"
+    private static final String SQL = "SELECT `competitions`.`id`"
+            + "   AS competitionId,\n"
             + "       `organizer_id`        AS userId,\n"
             + "       `email`,\n"
             + "       `password`,\n"
@@ -29,8 +30,10 @@ public class FindByStatusSpecification implements Specification {
             + "       `rating`,\n"
             + "       `image_path`\n"
             + "FROM `competitions`\n"
-            + "         JOIN `disciplines` ON `discipline_id` = `disciplines`.`id`\n"
-            + "         LEFT JOIN (`users` LEFT JOIN sportsmen s on users.id = s.user_id)\n"
+            + "         JOIN `disciplines` "
+            + "ON `discipline_id` = `disciplines`.`id`\n"
+            + "         LEFT JOIN (`users` "
+            + "LEFT JOIN sportsmen s on users.id = s.user_id)\n"
             + "                   ON `organizer_id` = `users`.`id`\n"
             + "WHERE `status` = ?";
 
@@ -41,7 +44,8 @@ public class FindByStatusSpecification implements Specification {
     }
 
     @Override
-    public PreparedStatement createStatement(final Connection connection) throws DaoException {
+    public PreparedStatement createStatement(final Connection connection)
+            throws DaoException {
         try {
             PreparedStatement statement = connection.prepareStatement(SQL);
             statement.setInt(1, status.ordinal());

@@ -9,14 +9,12 @@ import by.training.paragliding.dao.mysql.Specification;
 import by.training.paragliding.dao.mysql.competition.FindAllCompetitionsSpecification;
 import by.training.paragliding.dao.mysql.competition.FindByStatusSpecification;
 import by.training.paragliding.service.CompetitionService;
-import by.training.paragliding.service.Service;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 class TransactionBasedCompetitionService
         extends AbstractTransactionBasedService implements CompetitionService {
@@ -30,15 +28,17 @@ class TransactionBasedCompetitionService
         super(newTransaction);
     }
 
-    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
-                ServiceException>> SPECIFICATION_PROVIDER =
-            new HashMap<>();
+    private static final EnumMap<FindByProps,
+            ThrowingFunction<Object[], Specification, ServiceException>>
+            SPECIFICATION_PROVIDER =
+            new EnumMap<>(FindByProps.class);
 
 
     static {
         SPECIFICATION_PROVIDER.put(FindByProps.STATUS,
                 TransactionBasedCompetitionService::findByStatus);
-        SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedCompetitionService::findAll);
+        SPECIFICATION_PROVIDER.put(FindByProps.ALL,
+                TransactionBasedCompetitionService::findAll);
     }
 
     @Override
@@ -58,6 +58,7 @@ class TransactionBasedCompetitionService
             throw new ServiceException(e);
         }
     }
+
     @Override
     public boolean update(final Competition newCompetition)
             throws ServiceException {
@@ -79,7 +80,8 @@ class TransactionBasedCompetitionService
 
 
     @Override
-    public final List<Competition> find(final FindByProps property, Object... value)
+    public final List<Competition> find(final FindByProps property,
+                                        final Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER
@@ -104,7 +106,7 @@ class TransactionBasedCompetitionService
     }
 
     private static Specification findByStatus(final Object[] status)
-            throws  ServiceException{
+            throws ServiceException {
         try {
             return new FindByStatusSpecification(
                     (Competition.Status) status[0]);

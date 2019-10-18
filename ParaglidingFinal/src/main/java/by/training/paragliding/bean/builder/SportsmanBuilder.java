@@ -14,13 +14,16 @@ public class SportsmanBuilder implements Builder<Sportsman> {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("main");
+
     /**
      * @param newResultSet resultSet (result of executing sql statements)
      * @return new Sportsman object.
-     * @throws BeanException if some exceptions where thrown while object building.
+     * @throws BeanException if some exceptions where
+     *                       thrown while object building.
      */
     @Override
-    public Sportsman buildFromResultSet(final ResultSet newResultSet) throws BeanException {
+    public Sportsman buildFromResultSet(final ResultSet newResultSet)
+            throws BeanException {
         final var sportsman = new Sportsman();
         try {
             sportsman.setCivlId(newResultSet.getInt("civl_id"));

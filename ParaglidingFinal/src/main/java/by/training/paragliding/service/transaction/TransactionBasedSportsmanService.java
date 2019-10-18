@@ -11,16 +11,14 @@ import by.training.paragliding.dao.mysql.sportsmen.FindAllSportsmenSpecification
 import by.training.paragliding.dao.mysql.sportsmen.FindByCountrySpecification;
 import by.training.paragliding.dao.mysql.sportsmen.FindSportsmenByApplication;
 import by.training.paragliding.dao.mysql.sportsmen.FindSportsmenByRatingRange;
-import by.training.paragliding.service.Service;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 class TransactionBasedSportsmanService
         extends AbstractTransactionBasedService implements SportsmanService {
@@ -29,15 +27,16 @@ class TransactionBasedSportsmanService
      */
     private Logger logger = LogManager.getLogger("main");
 
-
-    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
-            ServiceException>> SPECIFICATION_PROVIDER =
-            new HashMap<>();
+    private static final EnumMap<FindByProps,
+            ThrowingFunction<Object[], Specification, ServiceException>>
+            SPECIFICATION_PROVIDER =
+            new EnumMap<>(FindByProps.class);
 
     static {
         SPECIFICATION_PROVIDER.put(FindByProps.COUNTRY_CODE,
                 TransactionBasedSportsmanService::findByCountry);
-        SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedSportsmanService::findAll);
+        SPECIFICATION_PROVIDER.put(FindByProps.ALL,
+                TransactionBasedSportsmanService::findAll);
         SPECIFICATION_PROVIDER.put(FindByProps.APPLICATION,
                 TransactionBasedSportsmanService::findByApplication);
         SPECIFICATION_PROVIDER.put(FindByProps.RATING_RANGE,
@@ -49,7 +48,8 @@ class TransactionBasedSportsmanService
     }
 
     /**
-     * Returns Sportsman with the following id if exist, throws ServiceException if not.
+     * Returns Sportsman with the following id if exist,
+     * throws ServiceException if not.
      *
      * @param civlId Sportsman id
      * @return Sportsman with the following id
@@ -74,7 +74,8 @@ class TransactionBasedSportsmanService
 
 
     @Override
-    public final List<Sportsman> find(final FindByProps property, Object... value)
+    public final List<Sportsman> find(final FindByProps property,
+                                      final Object... value)
             throws ServiceException {
         try {
             var specification = SPECIFICATION_PROVIDER

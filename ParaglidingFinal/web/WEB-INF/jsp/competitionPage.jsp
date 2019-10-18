@@ -74,18 +74,23 @@
                 <p class="card-text"><fmt:message key="competition.discipline"/>: ${competition.discipline}</p>
 
                 <div class="row justify-content-around">
-                    <div class="col-4">
-                        <c:if test="${User != null}">
-                            <c:url var="editUrl" value="/competition/edit.html">
-                                <c:param name="competitionId" value="${competition.id}"/>
-                            </c:url>
-                            <c:choose>
-                                <c:when test="${User.role == 'REGISTERED_USER'}">
-                                    <a href="${editUrl}" class="btn btn-primary btn-block"><fmt:message
-                                            key="competition.edit"/></a>
-                                </c:when>
-                                <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
-                                    <c:url value="/application.html" var="applyUrl"/>
+
+                    <c:if test="${User != null}">
+                        <c:url var="editUrl" value="/competition/edit.html">
+                            <c:param name="competitionId" value="${competition.id}"/>
+                        </c:url>
+                        <c:choose>
+                            <c:when test="${User.role == 'REGISTERED_USER'}">
+                                <c:if test="${User.id == competition.organizer.id}">
+                                    <div class="col-4">
+                                        <a href="${editUrl}" class="btn btn-primary btn-block"><fmt:message
+                                                key="competition.edit"/></a>
+                                    </div>
+                                </c:if>
+                            </c:when>
+                            <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
+                                <c:url value="/application.html" var="applyUrl"/>
+                                <div class="col-4">
                                     <form action="${applyUrl}" method="post">
                                         <input type="hidden"
                                                name="competitionId" value="${competition.id}"/>
@@ -96,14 +101,17 @@
                                             <fmt:message key="competition.apply"/>
                                         </button>
                                     </form>
-                                </c:when>
-                                <c:otherwise>
+                                </div>
+                            </c:when>
+                            <c:when test="${User.role == 'ADMIN'}">
+                                <div class="col-4">
                                     <a href="${editUrl}" class="btn btn-primary btn-block">
                                         <fmt:message key="competition.edit"/></a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:if>
-                    </div>
+                                </div>
+
+                            </c:when>
+                        </c:choose>
+                    </c:if>
                     <div class="col-4">
                         <c:url var="participants" value="/sportsmen/participants.html">
                             <c:param name="competitionId" value="${competition.id}"/>

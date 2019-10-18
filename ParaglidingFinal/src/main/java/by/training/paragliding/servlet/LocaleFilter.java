@@ -1,6 +1,11 @@
 package by.training.paragliding.servlet;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -11,16 +16,16 @@ public class LocaleFilter implements Filter {
     private static final String LOCALE_ATTR = "locale";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(final FilterConfig filterConfig) throws ServletException {
         defaultLang = filterConfig.getInitParameter(DEFAULT_LOCALE);
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp,
-                         FilterChain filterChain)
+    public void doFilter(final ServletRequest req, final ServletResponse resp,
+                         final FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
         String locale = (String) session.getAttribute(LOCALE_ATTR);
 
         if (locale == null) {

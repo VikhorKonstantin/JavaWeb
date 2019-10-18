@@ -96,7 +96,8 @@ public class ResultRepository extends BaseSqlRepository<Result> {
      * @throws DaoException if something goes wrong
      */
     @Override
-    public List<Result> query(final Specification specification) throws DaoException {
+    public List<Result> query(final Specification specification)
+            throws DaoException {
         return executeQuery(specification);
     }
 }

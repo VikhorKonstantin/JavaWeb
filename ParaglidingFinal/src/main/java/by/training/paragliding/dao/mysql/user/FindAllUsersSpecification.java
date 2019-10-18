@@ -24,7 +24,8 @@ public class FindAllUsersSpecification implements Specification {
                     + "         LEFT JOIN sportsmen s on users.id = s.user_id";
 
     @Override
-    public PreparedStatement createStatement(final Connection connection) throws DaoException {
+    public PreparedStatement createStatement(final Connection connection)
+            throws DaoException {
         try {
             return connection.prepareStatement(SQL);
         } catch (SQLException newE) {

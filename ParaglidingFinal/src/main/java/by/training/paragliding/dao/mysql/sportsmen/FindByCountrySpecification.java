@@ -20,7 +20,7 @@ public class FindByCountrySpecification implements Specification {
     private CountryCode countryCode;
 
     /**
-     * Creates new FindSpecification
+     * Creates new FindSpecification.
      * @param newCountryCode count
      */
     public FindByCountrySpecification(final CountryCode newCountryCode) {
@@ -28,7 +28,8 @@ public class FindByCountrySpecification implements Specification {
     }
 
     @Override
-    public PreparedStatement createStatement(final Connection connection) throws DaoException {
+    public PreparedStatement createStatement(final Connection connection)
+            throws DaoException {
         try {
             PreparedStatement statement = connection.prepareStatement(SQL);
             statement.setString(1, countryCode.getAlpha2());

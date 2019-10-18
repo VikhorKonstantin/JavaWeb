@@ -65,29 +65,33 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(final Object newO) {
-        if (this == newO) return true;
-        if (newO == null || getClass() != newO.getClass()) return false;
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
         User user = (User) newO;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                role == user.role &&
-                Objects.equals(sportsman, user.sportsman);
+        return id == user.id
+                && Objects.equals(email, user.email)
+                && Objects.equals(password, user.password)
+                && role == user.role
+                && Objects.equals(sportsman, user.sportsman);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, email, password, role, sportsman);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-//                ", sportsman=" + sportsman +
-                '}';
+        return "User{"
+                + "id=" + id
+                + ", email='" + email + '\''
+                + ", password='" + password + '\''
+                + ", role=" + role
+                + ", sportsman=" + sportsman
+                + '}';
     }
 }

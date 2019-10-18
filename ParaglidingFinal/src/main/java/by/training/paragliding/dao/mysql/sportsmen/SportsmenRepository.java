@@ -21,10 +21,10 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
     private static final String TABLE_NAME = "sportsmen";
 
     private static final String SELECT_SPORTSMAN_BY_ID =
-            "SELECT `civl_id`, `user_id` AS userId, `name` AS sportsmanName, `surname`, `gender`,"
-            + " `country`, `rating`, `image_path` "
-            + "FROM `sportsmen` WHERE `civl_id` = ?";
-
+            "SELECT `civl_id`, `user_id` AS userId, `name` AS sportsmanName,"
+                    + " `surname`, `gender`,"
+                    + " `country`, `rating`, `image_path` "
+                    + "FROM `sportsmen` WHERE `civl_id` = ?";
 
 
     private static final String DELETE_BY_ID =
@@ -32,14 +32,13 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
 
     private static final String INSERT_SPORTSMEN =
             "INSERT INTO `sportsmen` (`civl_id`, `name`, `surname`,"
-            + " `gender`, `country`, `rating`, `image_path`)"
+                    + " `gender`, `country`, `rating`, `image_path`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     private static final String UPDATE_SPORTSMAN = "UPDATE `sportsmen` "
             + "SET `name`=?, `surname`=?,"
             + " `gender`=?, `country`=?, `rating`=?, `image_path`=?"
             + " WHERE `civl_id` = ?";
-
 
 
     public SportsmenRepository(final Connection newConnection) {

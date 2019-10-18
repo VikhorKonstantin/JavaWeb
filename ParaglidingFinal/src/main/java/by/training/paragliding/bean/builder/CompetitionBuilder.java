@@ -20,7 +20,8 @@ public class CompetitionBuilder implements Builder<Competition> {
     /**
      * @param newResultSet resultSet (result of executing sql statements)
      * @return new Competition object.
-     * @throws BeanException if some exceptions where thrown while object building.
+     * @throws BeanException if some exceptions where thrown
+     *                       while object building.
      */
     @Override
     public Competition buildFromResultSet(final ResultSet newResultSet)

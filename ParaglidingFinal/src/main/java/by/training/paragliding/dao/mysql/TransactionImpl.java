@@ -16,6 +16,7 @@ public final class TransactionImpl implements Transaction {
 
     private static Map<DaoType, Function<Connection, Repository>>
             typeRepositoryMap = new ConcurrentHashMap<>();
+
     static {
         typeRepositoryMap.put(
                 DaoType.SPORTSMAN, DaoCreator::createSportsmanRepository);
@@ -31,15 +32,15 @@ public final class TransactionImpl implements Transaction {
 
     private Connection connection;
 
-    TransactionImpl(Connection connection) {
-        this.connection = connection;
+    TransactionImpl(final Connection newConnection) {
+        this.connection = newConnection;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T>Repository<T> createDao(DaoType type) throws DaoException {
+    public <T> Repository<T> createDao(final DaoType type) throws DaoException {
         return Optional.ofNullable(typeRepositoryMap.get(type))
-                .orElseThrow(() ->  new DaoException("Wrong DAO type"))
+                .orElseThrow(() -> new DaoException("Wrong DAO type"))
                 .apply(connection);
     }
 
@@ -47,7 +48,7 @@ public final class TransactionImpl implements Transaction {
     public void commit() throws DaoException {
         try {
             connection.commit();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
@@ -56,7 +57,7 @@ public final class TransactionImpl implements Transaction {
     public void rollback() throws DaoException {
         try {
             connection.rollback();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }

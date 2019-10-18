@@ -5,7 +5,7 @@ import by.training.paragliding.service.exception.ServiceException;
 
 public interface ResultService
         extends Service<Result, ResultService.FindByProps> {
-    boolean addResult(final Result newResult) throws ServiceException;
+    boolean addResult(Result newResult) throws ServiceException;
     enum FindByProps {
         IDENTIFIERS
     }

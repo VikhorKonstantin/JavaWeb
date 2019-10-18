@@ -9,15 +9,18 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public interface UserService extends Service<User, UserService.FindByProps> {
     User readById(int id) throws ServiceException;
+
     User readByLoginAndPassword(String login, String password)
             throws ServiceException;
-    boolean addUser(final User newUser) throws ServiceException;
+
+    boolean addUser(User newUser) throws ServiceException;
+
     enum FindByProps {
         ALL,
         LOGIN
     }
 
-    class Argon2Hasher{
+    class Argon2Hasher {
         private static final int SALT_LENGTH = 16;
         private static final int HASH_LENGTH = 16;
         private static final int ITERATIONS = 5;
@@ -30,9 +33,10 @@ public interface UserService extends Service<User, UserService.FindByProps> {
          */
         private static ReentrantLock lock = new ReentrantLock();
         /**
-         * INSTANCE
+         * INSTANCE.
          */
         private static Argon2Hasher instance;
+
         /**
          * Returns instance of controller.
          *
@@ -49,7 +53,7 @@ public interface UserService extends Service<User, UserService.FindByProps> {
             }
             return instance;
         }
-        
+
         private Argon2Hasher() {
             argon2 = Argon2Factory.createAdvanced(
                     Argon2Factory.Argon2Types.ARGON2i,

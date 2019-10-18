@@ -47,8 +47,7 @@ public class ViewCompetitionList implements Executable {
             req.setAttribute("finishedComps", finishedComps);
             return new ExecutionResult(true,
                     "/WEB-INF/jsp/competitionsList.jsp");
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }

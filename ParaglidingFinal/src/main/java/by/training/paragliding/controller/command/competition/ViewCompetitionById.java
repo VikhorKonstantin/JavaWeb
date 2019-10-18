@@ -42,8 +42,7 @@ public class ViewCompetitionById implements Executable {
             req.setAttribute("competition", competition);
             return new ExecutionResult(true,
                     "/WEB-INF/jsp/competitionPage.jsp");
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }

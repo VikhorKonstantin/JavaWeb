@@ -6,5 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public interface Specification {
-    PreparedStatement createStatement(Connection connection) throws DaoException;
+    PreparedStatement createStatement(Connection connection)
+            throws DaoException;
 }

@@ -15,9 +15,8 @@ import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 class TransactionBasedUserService extends AbstractTransactionBasedService
@@ -33,13 +32,16 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
         super(newTransaction);
     }
 
-    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
-                ServiceException>> SPECIFICATION_PROVIDER =
-            new HashMap<>();
+    private static final EnumMap<FindByProps,
+            Service.ThrowingFunction<Object[], Specification, ServiceException>>
+            SPECIFICATION_PROVIDER =
+            new EnumMap<>(FindByProps.class);
+
     static {
         SPECIFICATION_PROVIDER.put(FindByProps.LOGIN,
                 TransactionBasedUserService::findByLogin);
-        SPECIFICATION_PROVIDER.put(FindByProps.ALL, TransactionBasedUserService::findAll);
+        SPECIFICATION_PROVIDER.put(FindByProps.ALL,
+                TransactionBasedUserService::findAll);
     }
 
 
@@ -62,14 +64,16 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
     }
 
     @Override
-    public User readByLoginAndPassword(final String login, final String password)
+    public User readByLoginAndPassword(final String login,
+                                       final String password)
             throws ServiceException {
         try {
             var userList = find(FindByProps.LOGIN, login);
-            if(!userList.isEmpty()) {
+            if (!userList.isEmpty()) {
                 var user = userList.get(0);
                 var encoded = user.getPassword();
                 logger.debug("Encoded {}", encoded);
+                logger.debug("Raw {}", password);
                 var hasher = Argon2Hasher.getInstance();
                 if (hasher.verifyPassword(encoded, password)) {
                     transaction.commit();
@@ -107,6 +111,7 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
             throw new ServiceException(e);
         }
     }
+
     @Override
     public boolean addUser(final User newUser) throws ServiceException {
         try {
@@ -115,7 +120,8 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
             Repository<Sportsman> sportsmanRepository =
                     transaction.createDao(DaoType.SPORTSMAN);
             var hasher = Argon2Hasher.getInstance();
-            newUser.setPassword(hasher.hashPassword(newUser.getPassword()));
+            var hashedPassword = hasher.hashPassword(newUser.getPassword());
+            newUser.setPassword(hashedPassword);
             var result = userRepository.add(newUser);
             var oSportsman = Optional.ofNullable(newUser.getSportsman());
             if (oSportsman.isPresent()) {
@@ -139,10 +145,10 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
 
     private static Specification findByLogin(
             final Object[] newObjects) throws ServiceException {
-       try{
-           return new FindByLogin((String) newObjects[0]);
-       } catch (ClassCastException | IndexOutOfBoundsException newE) {
-           throw new ServiceException(newE);
-       }
+        try {
+            return new FindByLogin((String) newObjects[0]);
+        } catch (ClassCastException | IndexOutOfBoundsException newE) {
+            throw new ServiceException(newE);
+        }
     }
 }

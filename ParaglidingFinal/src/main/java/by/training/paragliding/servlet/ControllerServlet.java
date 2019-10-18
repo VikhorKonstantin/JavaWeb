@@ -5,7 +5,11 @@ import by.training.paragliding.controller.Controller;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.TransactionFactoryImpl;
-import by.training.paragliding.dao.mysql.connection.*;
+import by.training.paragliding.dao.mysql.connection.ConnectionFactory;
+import by.training.paragliding.dao.mysql.connection.ConnectionFactoryImpl;
+import by.training.paragliding.dao.mysql.connection.ConnectionPoolImpl;
+import by.training.paragliding.dao.mysql.connection.ConnectionValidator;
+import by.training.paragliding.dao.mysql.connection.ConnectionValidatorImpl;
 import by.training.paragliding.service.transaction.TransactionBasedServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,12 +24,14 @@ import java.io.IOException;
 
 @WebServlet(name = "ControllerServlet", urlPatterns = "*.html")
 public class ControllerServlet extends HttpServlet {
-    private static final int POOL_SIZE = 50;
     /**
      * Logger.
      */
     private final Logger logger = LogManager.getLogger("main");
-
+    /**
+     * Supported ize of a connection pool.
+     */
+    private static final int POOL_SIZE = 100;
 
     @Override
     public void init() throws ServletException {
@@ -49,7 +55,7 @@ public class ControllerServlet extends HttpServlet {
      * @param req  Http Servlet Request
      * @param resp Http Servlet Response
      * @throws ServletException if an input or output error is
-     *                          detected when the servlet handles the GET request
+     *                         detected when the servlet handles the GET request
      * @throws IOException      if the request for the GET could not be handled
      */
     @Override
@@ -71,7 +77,7 @@ public class ControllerServlet extends HttpServlet {
      * @param req  Http Servlet Request
      * @param resp Http Servlet Response
      * @throws ServletException if an input or output error is
-     *                          detected when the servlet handles the POST request
+     *                        detected when the servlet handles the POST request
      * @throws IOException      if the request for the POST could not be handled
      */
     @Override

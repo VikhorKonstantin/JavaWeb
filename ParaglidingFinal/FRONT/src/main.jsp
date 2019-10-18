@@ -130,6 +130,5 @@
 
     </div>
 </main>
-<jsp:include page="footer.jsp"/>
-
+<c:import url="footer.jsp"/>
 </body>

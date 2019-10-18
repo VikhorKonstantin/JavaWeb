@@ -8,14 +8,12 @@ import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
 import by.training.paragliding.dao.mysql.application.FindByIdentifiersSpecification;
 import by.training.paragliding.service.ApplicationService;
-import by.training.paragliding.service.Service;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 class TransactionBasedApplicationService extends
         AbstractTransactionBasedService implements ApplicationService {
@@ -28,9 +26,10 @@ class TransactionBasedApplicationService extends
         super(newTransaction);
     }
 
-    private static final Map<FindByProps, Service.ThrowingFunction<Object[], Specification,
-                ServiceException>> SPECIFICATION_PROVIDER =
-            new HashMap<>();
+    private static final EnumMap<FindByProps,
+            ThrowingFunction<Object[], Specification, ServiceException>>
+            SPECIFICATION_PROVIDER =
+            new EnumMap<>(FindByProps.class);
 
 
     static {

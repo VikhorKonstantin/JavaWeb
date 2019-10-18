@@ -5,8 +5,8 @@ import by.training.paragliding.service.exception.ServiceException;
 
 public interface CompetitionService
         extends Service<Competition, CompetitionService.FindByProps> {
-    Competition readById(final int id) throws ServiceException;
-    boolean update(final Competition newCompetition) throws ServiceException;
+    Competition readById(int id) throws ServiceException;
+    boolean update(Competition newCompetition) throws ServiceException;
     enum FindByProps {
         ALL,
         STATUS

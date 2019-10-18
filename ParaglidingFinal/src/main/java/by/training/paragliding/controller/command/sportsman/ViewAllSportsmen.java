@@ -24,11 +24,12 @@ public class ViewAllSportsmen implements Executable {
 
     /**
      * Execute command.
-     * @param req http request
+     *
+     * @param req  http request
      * @param resp http response
-     * @throws ControllerException if something goes wrong
-     * while command execution or request invalid
      * @return ExecutionResult
+     * @throws ControllerException if something goes wrong
+     *                             while command execution or request invalid
      */
     @Override
     public ExecutionResult execute(final HttpServletRequest req,
@@ -40,8 +41,7 @@ public class ViewAllSportsmen implements Executable {
             req.setAttribute("sportsmen", sportsmen);
             return new ExecutionResult(true,
                     "/WEB-INF/jsp/sportsmenList.jsp");
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }

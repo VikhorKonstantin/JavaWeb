@@ -1,9 +1,10 @@
 package by.training.paragliding.bean.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Competition {
+public class Competition implements Serializable {
 
     public Competition() {
     }
@@ -120,6 +121,7 @@ public class Competition {
     public void setName(final String newName) {
         name = newName;
     }
+
     /**
      * Returns competition status.
      *
@@ -200,6 +202,7 @@ public class Competition {
     public User getOrganizer() {
         return organizer;
     }
+
     /**
      * Sets competition organizer into newOrganizer.
      *
@@ -211,35 +214,40 @@ public class Competition {
 
     @Override
     public boolean equals(final Object newO) {
-        if (this == newO) return true;
-        if (newO == null || getClass() != newO.getClass()) return false;
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
         Competition that = (Competition) newO;
-        return id == that.id &&
-                Float.compare(that.participationFee, participationFee) == 0 &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(date, that.date) &&
-                status == that.status &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(discipline, that.discipline) &&
-                Objects.equals(organizer, that.organizer);
+        return id == that.id
+                && Float.compare(that.participationFee, participationFee) == 0
+                && Objects.equals(name, that.name)
+                && Objects.equals(date, that.date)
+                && status == that.status
+                && Objects.equals(description, that.description)
+                && Objects.equals(discipline, that.discipline)
+                && Objects.equals(organizer, that.organizer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, date, status,
+                description, participationFee, discipline, organizer);
     }
 
     @Override
     public String toString() {
-        return "Competition{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                ", status=" + status +
-                ", description='" + description + '\'' +
-                ", participationFee=" + participationFee +
-                ", discipline='" + discipline + '\'' +
-                ", organizer=" + organizer +
-                '}';
+        return "Competition{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", date=" + date
+                + ", status=" + status
+                + ", description='" + description + '\''
+                + ", participationFee=" + participationFee
+                + ", discipline='" + discipline + '\''
+                + ", organizer=" + organizer
+                + '}';
     }
 }

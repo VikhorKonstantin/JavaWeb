@@ -28,15 +28,14 @@ public class UserValidator implements Validator<User> {
         String password = newRequest.getParameter("password");
         String isSportsmanString = Optional.ofNullable(
                 newRequest.getParameter("isSportsman"))
-                .orElse("false");
-
+                .orElse(Boolean.FALSE.toString());
         logger.debug("email {}, password {}, isSportsman {}",
                 email, password, isSportsmanString);
         isValid = email.matches(EMAIL_PATTERN)
                 && password.matches(PASSWORD_PATTERN)
                 && (isSportsmanString.equals(Boolean.FALSE.toString())
                 || isSportsmanString.equals(Boolean.TRUE.toString()));
-        if(isValid) {
+        if (isValid) {
             Role role;
             boolean isSportsman = Boolean.parseBoolean(isSportsmanString);
             if (isSportsman) {

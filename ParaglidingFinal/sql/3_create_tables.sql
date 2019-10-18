@@ -3,7 +3,7 @@ USE `paragliding_db`;
 CREATE TABLE `users` (
          `id` INT NOT NULL AUTO_INCREMENT,
          `email` VARCHAR(255) NOT NULL UNIQUE,
-         `password` VARCHAR(32) NOT NULL,
+         `password` CHAR(75) NOT NULL,
          `role` TINYINT NOT NULL,
          CONSTRAINT PK_users  PRIMARY KEY (`id`),
          CONSTRAINT CH_users CHECK (`role` IN (0, 1, 2))

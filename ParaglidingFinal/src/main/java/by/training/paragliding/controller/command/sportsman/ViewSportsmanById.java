@@ -24,11 +24,12 @@ public class ViewSportsmanById implements Executable {
 
     /**
      * Execute command.
-     * @param req http request
+     *
+     * @param req  http request
      * @param resp http response
-     * @throws ControllerException if something goes wrong
-     * while command execution or request invalid
      * @return ExecutionResult
+     * @throws ControllerException if something goes wrong
+     *                             while command execution or request invalid
      */
     @Override
     public ExecutionResult execute(final HttpServletRequest req,
@@ -39,8 +40,7 @@ public class ViewSportsmanById implements Executable {
             var sportsman = sportsmanService.readById(Integer.parseInt(id));
             req.setAttribute("sportsman", sportsman);
             return new ExecutionResult(true, "/WEB-INF/jsp/main.jsp");
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }

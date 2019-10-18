@@ -32,7 +32,6 @@ public class ApplicationRepository extends BaseSqlRepository<Application> {
      * @return object by it's id
      * @throws DaoException if something goes wrong
      */
-    //todo: ask ABOUT IT
     @Override
     public Application readById(final int id) throws DaoException {
         throw new DaoException("Unsupported operation. Application has no id");
@@ -60,7 +59,8 @@ public class ApplicationRepository extends BaseSqlRepository<Application> {
      * @throws DaoException if something goes wrong
      */
     @Override
-    public boolean delete(final Application newApplication) throws DaoException {
+    public boolean delete(final Application newApplication)
+            throws DaoException {
         return executeUpdate(DELETE_APPLICATION,
                 newApplication.getSportsmanId(),
                 newApplication.getCompetitionId());

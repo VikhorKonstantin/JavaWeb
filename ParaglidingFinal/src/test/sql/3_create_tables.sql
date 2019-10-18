@@ -4,7 +4,7 @@ CREATE TABLE `users`
 (
     `id`       INT          NOT NULL AUTO_INCREMENT,
     `email`    VARCHAR(255) NOT NULL UNIQUE,
-    `password` varchar(32)  NOT NULL,
+    `password` CHAR(75)     NOT NULL,
     `role`     TINYINT      NOT NULL,
     CONSTRAINT PK_users PRIMARY KEY (`id`),
     CONSTRAINT CH_users CHECK (`role` IN (0, 1, 2))
@@ -13,20 +13,20 @@ CREATE TABLE `users`
 CREATE TABLE `sportsmen`
 (
     -- FAI id
-    `civl_id` INT NOT NULL UNIQUE,
-    `user_id` INT NOT NULL UNIQUE,
-    `surname` VARCHAR(255) NOT NULL,
-    `name` VARCHAR(255) NOT NULL,
+    `civl_id`    INT          NOT NULL UNIQUE,
+    `user_id`    INT          NOT NULL UNIQUE,
+    `surname`    VARCHAR(255) NOT NULL,
+    `name`       VARCHAR(255) NOT NULL,
     --  M F
-    `gender` char(1) NOT NULL ,
-    `country` VARCHAR(5) NOT NULL,
-    `rating` FLOAT(4,1),
+    `gender`     char(1)      NOT NULL,
+    `country`    VARCHAR(5)   NOT NULL,
+    `rating`     FLOAT(4, 1),
     `image_path` VARCHAR(4096),
     CONSTRAINT PK_sportsmen
         PRIMARY KEY (`civl_id`),
     CONSTRAINT FK_sportsmen_users
-        FOREIGN KEY (`user_id`) REFERENCES users(`id`),
-    CONSTRAINT CH_sportsmen CHECK ( `rating` >= 0  )
+        FOREIGN KEY (`user_id`) REFERENCES users (`id`),
+    CONSTRAINT CH_sportsmen CHECK ( `rating` >= 0 )
 );
 
 CREATE INDEX IDX_sportsmen_country

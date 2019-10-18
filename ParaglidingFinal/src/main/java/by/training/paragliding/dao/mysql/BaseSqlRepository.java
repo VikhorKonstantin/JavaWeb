@@ -7,7 +7,11 @@ import by.training.paragliding.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +29,13 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
     private static final String IS_EMPTY =
             "SELECT NULL FROM %s LIMIT 1";
 
-    public BaseSqlRepository(final Connection newConnection, final Builder<T> newTBuilder) {
+    public BaseSqlRepository(final Connection newConnection,
+                             final Builder<T> newTBuilder) {
         connection = newConnection;
         tBuilder = newTBuilder;
     }
 
-    protected T readByProperties(final String query, Object... args)
+    protected T readByProperties(final String query, final Object... args)
             throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             fillStatement(statement, args);
@@ -46,7 +51,7 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
         }
     }
 
-    protected boolean executeUpdate(final String query, Object... args)
+    protected boolean executeUpdate(final String query, final Object... args)
             throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             fillStatement(statement, args);

@@ -12,6 +12,7 @@ public interface Executable {
      * @param resp http response
      * @throws ControllerException if something goes wrong
      * while command execution or request invalid
+     * @return execution result
      */
     ExecutionResult execute(HttpServletRequest req,
                  HttpServletResponse resp) throws ControllerException;
