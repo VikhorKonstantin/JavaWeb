@@ -64,11 +64,15 @@ public class Controller implements AutoCloseable {
                     throw new ControllerException("Unsupported Method");
             }
 
-
-            var commandDbgMsg =
-                    String.format("Execution command:%s", executionCommand);
-            logger.debug(commandDbgMsg);
-            return executionCommand.execute(req, resp);
+            if (executionCommand.isAllowed(req)) {
+                var commandDbgMsg =
+                        String.format("Execution command:%s", executionCommand);
+                logger.debug(commandDbgMsg);
+                return executionCommand.execute(req, resp);
+            } else {
+                throw new ControllerException(
+                        "You have no access to this action!!");
+            }
         } catch (StringIndexOutOfBoundsException | NullPointerException e) {
             throw new ControllerException(e);
         }

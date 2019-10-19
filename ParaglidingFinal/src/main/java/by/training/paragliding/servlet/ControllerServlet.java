@@ -67,6 +67,9 @@ public class ControllerServlet extends HttpServlet {
         } catch (ServletException | IOException
                 | ControllerException | DaoException e) {
             logger.error(e);
+            req.setAttribute("errorMessage", e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    e.getMessage());
         }
     }
 
@@ -89,6 +92,9 @@ public class ControllerServlet extends HttpServlet {
         } catch (ServletException | IOException
                 | ControllerException | DaoException e) {
             logger.error(e);
+            req.setAttribute("errorMessage", e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    e.getMessage());
         }
     }
 
@@ -105,8 +111,8 @@ public class ControllerServlet extends HttpServlet {
             logger.debug("FORWARD TO: {}", result.getUrl());
             dispatcher.forward(req, resp);
         } else {
-            logger.debug("REDIRECT TO: {}",
-                    req.getContextPath() + result.getUrl());
+            logger.debug("REDIRECT TO: {}{}",
+                    req.getContextPath(), result.getUrl());
             resp.sendRedirect(req.getContextPath() + result.getUrl());
         }
 

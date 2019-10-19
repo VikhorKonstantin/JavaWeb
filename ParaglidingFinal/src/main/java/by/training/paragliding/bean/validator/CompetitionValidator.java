@@ -12,13 +12,11 @@ public class CompetitionValidator implements Validator<Competition> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("CompetitionValidator");
     private static final String DATE_PATTERN = "^\\d{4}-\\d{1,2}-\\d{1,2}$";
     private static final String NAME_PATTERN = "^[0-9.?!a-zA-Z\\s]{0,250}$";
     private static final String FEE_PATTERN = "^[0-9]{0,4}.?[0-9]*";
     private static final String ID_PATTERN = "\\d{1,10}";
-    private static final String XSS_PATTERN =
-            "<(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\\s>]*)*>";
     @Override
     public Competition validate(final HttpServletRequest newRequest)
             throws BeanException {
@@ -27,8 +25,6 @@ public class CompetitionValidator implements Validator<Competition> {
         var fee = newRequest.getParameter("fee");
         var statusString = newRequest.getParameter("status");
         var description = newRequest.getParameter("description");
-        description = description.replace(XSS_PATTERN, "");
-        logger.debug("Description {}", description);
         var idString = newRequest.getParameter("id");
         var discipline   = newRequest.getParameter("discipline");
         boolean isValid;
@@ -45,6 +41,7 @@ public class CompetitionValidator implements Validator<Competition> {
             competition.setParticipationFee(Float.parseFloat(fee));
             competition.setStatus(Competition.Status.valueOf(statusString));
             competition.setDiscipline(discipline);
+            logger.debug("Competition {}", competition);
             return competition;
         } else {
             throw new BeanException(EXC_MSG);

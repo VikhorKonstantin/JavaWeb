@@ -1,5 +1,7 @@
 package by.training.paragliding.controller.command.competition;
 
+import by.training.paragliding.bean.entity.Role;
+import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.bean.exception.BeanException;
 import by.training.paragliding.bean.validator.CompetitionValidator;
 import by.training.paragliding.controller.command.Executable;
@@ -17,7 +19,7 @@ public class EditCompetition implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("EditCompetition");
     private static final String UPDATE_FAILED = "Updating failed";
     private CompetitionService competitionService;
 
@@ -49,6 +51,37 @@ public class EditCompetition implements Executable {
             }
         } catch (BeanException | ServiceException newE) {
             throw new ControllerException(UPDATE_FAILED, newE);
+        }
+    }
+
+    /**
+     * Returns true(false) if command execution
+     * allowed(not allowed) for current user.
+     *
+     * @param req <tt>HttpServletRequest</tt>
+     *            using for getting session and request attributes.
+     * @return true(false) if command execution allowed(not allowed) for current user.
+     */
+    @Override
+    public boolean isAllowed(final HttpServletRequest req) {
+        var sessionUser = (User) req.getSession().getAttribute("User");
+        var competitionValidator = new CompetitionValidator();
+        var role = sessionUser.getRole();
+        if (role.equals(Role.ADMIN)) {
+            return true;
+        } else {
+            if (role.equals(Role.REGISTERED_USER)) {
+                try {
+                    var competition = competitionValidator.validate(req);
+                    competition.setOrganizer(competitionService
+                            .readById(competition.getId()).getOrganizer());
+                    return competition.getOrganizer().getId() ==
+                            sessionUser.getId();
+                } catch (BeanException | ServiceException newE) {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

@@ -2,6 +2,10 @@ package by.training.paragliding.controller.command.result;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Result;
+import by.training.paragliding.bean.entity.Role;
+import by.training.paragliding.bean.entity.User;
+import by.training.paragliding.bean.exception.BeanException;
+import by.training.paragliding.bean.validator.CompetitionValidator;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
@@ -83,6 +87,36 @@ public class SaveResults implements Executable {
             }
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
+        }
+    }
+
+    /**
+     * Returns true(false) if command execution
+     * allowed(not allowed) for current user.
+     *
+     * @param req <tt>HttpServletRequest</tt>
+     *            using for getting session and request attributes.
+     * @return true(false) if command execution allowed(not allowed) for current user.
+     */
+    @Override
+    public boolean isAllowed(final HttpServletRequest req) {
+        var sessionUser = (User) req.getSession().getAttribute("User");
+        var role = sessionUser.getRole();
+        if (role.equals(Role.ADMIN)) {
+            return true;
+        } else {
+            if (role.equals(Role.REGISTERED_USER)) {
+                var competitionValidator = new CompetitionValidator();
+                Competition competition;
+                try {
+                    competition = competitionValidator.validate(req);
+                } catch (BeanException newE) {
+                    return false;
+                }
+                return competition.getOrganizer().getId() ==
+                        sessionUser.getId();
+            }
+            return false;
         }
     }
 }

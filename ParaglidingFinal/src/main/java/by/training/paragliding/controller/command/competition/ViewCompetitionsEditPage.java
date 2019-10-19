@@ -46,4 +46,5 @@ public class ViewCompetitionsEditPage implements Executable {
         return new ExecutionResult(true,
                 "/WEB-INF/jsp/competitionEdit.jsp");
     }
+
 }

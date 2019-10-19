@@ -1,6 +1,8 @@
 package by.training.paragliding.controller.command.application;
 
 import by.training.paragliding.bean.entity.Application;
+import by.training.paragliding.bean.entity.Role;
+import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
@@ -69,6 +71,16 @@ public class ApplyCompetition implements Executable {
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }
+    }
 
+    /**
+     * Returns true(false) if command execution allowed(not allowed) for current user.
+     *
+     * @return true(false) if command execution allowed(not allowed) for current user.
+     */
+    @Override
+    public boolean isAllowed(final HttpServletRequest req) {
+        var sessionUser = (User) req.getSession().getAttribute("User");
+        return sessionUser.getRole().equals(Role.REGISTERED_SPORTSMAN);
     }
 }

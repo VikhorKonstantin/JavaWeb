@@ -57,7 +57,7 @@ public class SingUp implements Executable {
                 throw new ControllerException(SIN_GUP_ERROR);
             }
             return new ExecutionResult(false,
-                    "/index.html");
+                    "/logIn.html");
         } catch (ServiceException | BeanException newE) {
             throw new ControllerException(newE);
         }
