@@ -10327,17 +10327,6 @@ a.close.disabled {
     pointer-events: none;
 }
 
-#body {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: 100%;
-}
-
 .navbar-expand-lg {
     font-size: 35px;
 }
@@ -10358,55 +10347,6 @@ nav.bg-light {
 label.required:after {
     color: red;
     content: " *";
-}
-
-footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    background-color: #0772a1 !important;
-    min-height: 100px;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-}
-
-.footer_h3 {
-    padding: 20px 0px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-ul.footer_ul {
-    padding: 0px;
-    list-style-position: inside;
-}
-
-.footer_ul > li {
-    padding-bottom: 10px;
-    font-size: 15px;
-}
-
-.footer_ul > li > a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.footer_ul > li > a:hover {
-    color: #ffffff;
-}
-
-.copyright {
-    color: white;
-    font-size: 12px;
-    margin-bottom: 12px;
-    margin-top: 15px;
-}
-
-.copyright p {
-    font-size: 15px;
-    padding-left: 10px;
 }
 
 .bordering {
@@ -10509,6 +10449,48 @@ td:hover {
     -o-transition: transform 300ms linear 0ms,  box-shadow 300ms linear 0ms, z-index 300ms linear 0ms;
     transition: transform 300ms linear 0ms,  box-shadow 300ms linear 0ms, z-index 300ms linear 0ms;
     transition: transform 300ms linear 0ms,  box-shadow 300ms linear 0ms, z-index 300ms linear 0ms,  -webkit-transform 300ms linear 0ms,  -webkit-box-shadow 300ms linear 0ms;
+}
+
+footer {
+    background-color: #0772a1 !important;
+}
+
+.footer_h3 {
+    padding: 20px 0px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+ul.footer_ul {
+    padding: 0px;
+    list-style-position: inside;
+}
+
+.footer_ul > li {
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
+.footer_ul > li > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer_ul > li > a:hover {
+    color: #ffffff;
+}
+
+.copyright {
+    color: white;
+    font-size: 12px;
+    margin-bottom: 12px;
+    margin-top: 15px;
+}
+
+.copyright p {
+    font-size: 15px;
+    padding-left: 10px;
 }
 
 /*==========  Mobile First  ==========*/

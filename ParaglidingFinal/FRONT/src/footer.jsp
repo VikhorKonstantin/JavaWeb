@@ -5,8 +5,8 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 
-<footer class="footer fixed-bottom">
-    <div class="container">
+<footer>
+    <nav role="navigation" class="navbar navbar-fixed-bottom">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
 
             <div class="col-xs-12 col-sm-4 col-md-4">
@@ -24,14 +24,13 @@
                     <li><em class="fas fa-long-arrow-alt-right"></em><a href="#">FAI Main</a></li>
                 </ul>
             </div>
-        </div>
-
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <p>© Copyright <ctg:info-time/>.<fmt:message key="copyright"/></p>
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <p>© Copyright <ctg:info-time/>.<fmt:message key="copyright"/></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 </footer>

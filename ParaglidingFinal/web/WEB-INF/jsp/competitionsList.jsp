@@ -36,6 +36,9 @@
         <ul class="navbar-nav mr-l-4">
             <c:choose>
                 <c:when test="${User != null}">
+                    <c:url var="userPage" value="/user/page.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${userPage}"> <fmt:message key="account.title"/> </a>
+                    </li>
                     <c:url var="logIn" value="/user/logOut.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
                 </c:when>
@@ -56,25 +59,7 @@
 </nav>
 <main class="main">
     <div class="container d-flex justify-content-center">
-        <div class="card rounded-form">
-            <div class="card-body col-12">
-                <div class="list-group list-group-horizontal-sm" id="myList" role="tablist">
-                    <a class="list-group-item list-group-item-action active" data-toggle="list"
-                       href="#finished"
-                       role="tab"><fmt:message key="competitions.finished"/> </a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#future"
-                       role="tab"><fmt:message key="competitions.future"/></a>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="finished" role="tabpanel">
-                        <utg:competitionTable tableCompetitions="${finishedComps}"/>
-                    </div>
-                    <div class="tab-pane" id="future" role="tabpanel">
-                        <utg:competitionTable tableCompetitions="${futureComps}"/>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <utg:compList finishedCompetitions="${finishedComps}" futureCompetitions="${futureComps}"/>
     </div>
 </main>
 <c:import url="footer.jsp"/>

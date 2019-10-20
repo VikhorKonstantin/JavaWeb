@@ -71,66 +71,67 @@
 </header>
 
 <main class="main">
-    <div class="row justify-content-center">
-
-
-        <div class="col-10 col-md-6 col-sm-6 col-lg-6 col-xl-6">
-
-            <div class=" d-flex justify-content-center">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <c:forEach items="${competitions}" var="competition" varStatus="counter">
-                            <c:choose>
-                                <c:when test="${counter.first}">
-                                    <div class="carousel-item active">
-                                        <div class="card rounded-form" style="width:400px">
-                                            <c:url var="competeImg" value="/img/competition.jpg"/>
-                                            <img class="card-img-top" src="${competeImg}" alt="Card image">
-                                            <div class="card-body">
-                                                <h4 class="card-title">${competition.name}</h4>
-                                                <p class="card-text"><c:out value="${competition.description}"/></p>
-                                                <c:url var="moreInfoUrl" value="/competition.html">
-                                                    <c:param name="id" value="${competition.id}"/>
-                                                </c:url>
-                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message
-                                                        key="competitions.more"/></a>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10 col-md-6 col-sm-6 col-lg-6 col-xl-6">
+                <div class=" d-flex justify-content-center">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <c:forEach items="${competitions}" var="competition" varStatus="counter">
+                                <c:choose>
+                                    <c:when test="${counter.first}">
+                                        <div class="carousel-item active">
+                                            <div class="card rounded-form" style="width:400px">
+                                                <c:url var="competeImg" value="/img/competition.jpg"/>
+                                                <img class="card-img-top" src="${competeImg}" alt="Card image">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">${competition.name}</h4>
+                                                    <p class="card-text"><c:out value="${competition.description}"/></p>
+                                                    <c:url var="moreInfoUrl" value="/competition.html">
+                                                        <c:param name="id" value="${competition.id}"/>
+                                                    </c:url>
+                                                    <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message
+                                                            key="competitions.more"/></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="carousel-item">
-                                        <div class="card rounded-form" style="width:400px">
-                                            <c:url var="competeImg" value="/img/competition.jpg"/>
-                                            <img class="card-img-top" src="${competeImg}" alt="Card image">
-                                            <div class="card-body">
-                                                <h4 class="card-title">${competition.name}</h4>
-                                                <p class="card-text"><c:out value="${competition.description}"/></p>
-                                                <c:url var="moreInfoUrl" value="/competition.html">
-                                                    <c:param name="id" value="${competition.id}"/>
-                                                </c:url>
-                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message
-                                                        key="competitions.more"/></a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="carousel-item">
+                                            <div class="card rounded-form" style="width:400px">
+                                                <c:url var="competeImg" value="/img/competition.jpg"/>
+                                                <img class="card-img-top" src="${competeImg}" alt="Card image">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">${competition.name}</h4>
+                                                    <p class="card-text"><c:out value="${competition.description}"/></p>
+                                                    <c:url var="moreInfoUrl" value="/competition.html">
+                                                        <c:param name="id" value="${competition.id}"/>
+                                                    </c:url>
+                                                    <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message
+                                                            key="competitions.more"/></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                           data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                           data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
+
             </div>
 
         </div>
-
     </div>
 </main>
 <c:import url="footer.jsp"/>
