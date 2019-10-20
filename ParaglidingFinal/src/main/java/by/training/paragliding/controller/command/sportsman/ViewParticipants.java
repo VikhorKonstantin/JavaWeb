@@ -16,7 +16,7 @@ public class ViewParticipants implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewParticipants");
     private CompetitionService competitionService;
     private SportsmanService sportsmanService;
 

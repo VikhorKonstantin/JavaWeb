@@ -13,7 +13,7 @@ public class UserBuilder implements Builder<User> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("UserBuilder");
 
     /**
      * @param newResultSet resultSet (result of executing sql statements)

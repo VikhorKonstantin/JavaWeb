@@ -25,7 +25,7 @@ class TransactionBasedSportsmanService
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("TransactionBasedSportsmanService");
 
     private static final EnumMap<FindByProps,
             ThrowingFunction<Object[], Specification, ServiceException>>

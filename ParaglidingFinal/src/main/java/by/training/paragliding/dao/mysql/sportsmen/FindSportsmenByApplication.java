@@ -13,7 +13,7 @@ public class FindSportsmenByApplication implements Specification {
     private static final String SQL =
             "SELECT `civl_id`, `sportsmen`.`name` AS sportsmanName,"
             + " `surname`, `gender`,"
-            + " `country`, `rating`, `image_path` FROM `sportsmen`"
+            + " `country`, `rating` FROM `sportsmen`"
             + " JOIN `applications` ON `civl_id` = `sportsman_id`"
             + " JOIN `competitions` ON `id` = `competition_id`"
             + " WHERE `competitions`.`id` = ?";

@@ -15,7 +15,7 @@ public class ViewCompetitionById implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewCompetitionById");
 
     private CompetitionService competitionService;
 

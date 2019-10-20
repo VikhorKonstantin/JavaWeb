@@ -16,7 +16,7 @@ public class LogIn implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("LogIn");
     private final UserService userService;
 
     public LogIn(final UserService newUserService) {

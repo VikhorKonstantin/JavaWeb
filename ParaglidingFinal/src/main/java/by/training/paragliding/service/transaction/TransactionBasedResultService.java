@@ -20,7 +20,7 @@ class TransactionBasedResultService
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("TransactionBasedResultService");
 
     TransactionBasedResultService(final Transaction newTransaction) {
         super(newTransaction);

@@ -35,7 +35,7 @@ final class CommandProvider implements AutoCloseable {
     /**
      * Logger.
      */
-    private final Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("CommandProvider");
     /**
      * Post commands map.
      */

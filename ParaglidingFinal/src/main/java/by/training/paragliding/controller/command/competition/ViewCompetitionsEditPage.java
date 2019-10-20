@@ -15,7 +15,7 @@ public class ViewCompetitionsEditPage implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewCompetitionsEditPage");
     private CompetitionService competitionService;
 
     public ViewCompetitionsEditPage(

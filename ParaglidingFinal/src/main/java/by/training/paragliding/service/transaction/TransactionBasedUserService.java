@@ -25,7 +25,7 @@ class TransactionBasedUserService extends AbstractTransactionBasedService
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("TransactionBasedUserService");
 
 
     TransactionBasedUserService(final Transaction newTransaction) {

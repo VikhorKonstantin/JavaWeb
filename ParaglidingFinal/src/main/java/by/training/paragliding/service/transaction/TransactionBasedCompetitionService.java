@@ -21,7 +21,7 @@ class TransactionBasedCompetitionService
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("TransactionBasedCompetitionService");
 
 
     TransactionBasedCompetitionService(final Transaction newTransaction) {

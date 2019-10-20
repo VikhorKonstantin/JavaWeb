@@ -24,7 +24,7 @@ public class SaveResults implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("SaveResults");
     private static final String ADD_ERROR =
             "Adding error. result was not added";
 

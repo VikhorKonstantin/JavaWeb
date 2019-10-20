@@ -14,7 +14,7 @@ public class StartCommand implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("StartCommand");
 
     private CompetitionService competitionService;
 

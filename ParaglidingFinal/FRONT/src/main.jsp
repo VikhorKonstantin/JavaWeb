@@ -41,13 +41,15 @@
             <c:choose>
                 <c:when test="${User != null}">
                     <c:url var="logIn" value="/user/logOut.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
+                    </li>
                 </c:when>
                 <c:otherwise>
                     <c:url var="logIn" value="/logIn.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="login.title"/> </a></li>
                     <c:url var="singUp" value="/singUp.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a>
+                    </li>
                 </c:otherwise>
             </c:choose>
             <c:url var="localeChangeUrl" value="/localeChange.html"/>
@@ -72,7 +74,6 @@
     <div class="row justify-content-center">
 
 
-
         <div class="col-10 col-md-6 col-sm-6 col-lg-6 col-xl-6">
 
             <div class=" d-flex justify-content-center">
@@ -91,7 +92,8 @@
                                                 <c:url var="moreInfoUrl" value="/competition.html">
                                                     <c:param name="id" value="${competition.id}"/>
                                                 </c:url>
-                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message key="competitions.more"/></a>
+                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message
+                                                        key="competitions.more"/></a>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +109,8 @@
                                                 <c:url var="moreInfoUrl" value="/competition.html">
                                                     <c:param name="id" value="${competition.id}"/>
                                                 </c:url>
-                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message key="competitions.more"/></a>
+                                                <a href="${moreInfoUrl}" class="btn btn-primary"><fmt:message
+                                                        key="competitions.more"/></a>
                                             </div>
                                         </div>
                                     </div>

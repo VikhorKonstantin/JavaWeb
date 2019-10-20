@@ -15,7 +15,7 @@ public class ViewSportsmanById implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewSportsmanById");
     private SportsmanService sportsmanService;
 
     public ViewSportsmanById(final SportsmanService newSportsmanService) {

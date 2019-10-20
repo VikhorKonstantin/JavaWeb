@@ -17,7 +17,7 @@ public class Controller implements AutoCloseable {
     /**
      * Logger.
      */
-    private final Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("Controller");
     /**
      * Command provider.
      */

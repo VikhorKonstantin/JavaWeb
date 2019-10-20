@@ -13,7 +13,7 @@ public class SportsmanBuilder implements Builder<Sportsman> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("SportsmanBuilder");
 
     /**
      * @param newResultSet resultSet (result of executing sql statements)
@@ -36,7 +36,6 @@ public class SportsmanBuilder implements Builder<Sportsman> {
             sportsman.setRating(newResultSet.getFloat("rating"));
             sportsman.setCountryCode(CountryCode.valueOf(
                     newResultSet.getString("country")));
-            sportsman.setImagePath(newResultSet.getString("image_path"));
             return sportsman;
         } catch (SQLException newE) {
             throw new BeanException(EXC_MSG, newE);

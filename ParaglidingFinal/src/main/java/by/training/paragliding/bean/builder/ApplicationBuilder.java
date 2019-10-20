@@ -12,7 +12,7 @@ public class ApplicationBuilder implements Builder<Application> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ApplicationBuilder");
     /**
      * @param newResultSet resultSet (result of executing sql statements)
      * @return new T object.

@@ -13,7 +13,7 @@ public class UserValidator implements Validator<User> {
     /**
      * Logger.
      */
-    private final Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("UserValidator");
     private static final String EMAIL_PATTERN =
             "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
     private static final String PASSWORD_PATTERN = "[0-9a-zA-z]{8,32}";

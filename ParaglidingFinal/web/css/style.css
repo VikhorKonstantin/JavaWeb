@@ -10327,6 +10327,17 @@ a.close.disabled {
     pointer-events: none;
 }
 
+#body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
 .navbar-expand-lg {
     font-size: 35px;
 }
@@ -10350,10 +10361,14 @@ label.required:after {
 }
 
 footer {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     background-color: #0772a1 !important;
     min-height: 100px;
-    padding: 10px 0px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 .footer_h3 {

@@ -13,7 +13,7 @@ public class SportsmanValidator implements Validator<Sportsman> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("SportsmanValidator");
     private static final String NAME_PATTERN = "^[a-zA-Z\\s]+";
     private static final String GENDER_PATTERN = "^M | F";
     private static final String RATING_PATTERN = "^[0-9]{0,4}\\.[0-9]}";

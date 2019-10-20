@@ -12,7 +12,7 @@ public class ChangeLocale implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ChangeLocale");
 
     private static final String REFERER_HEADER = "Referer";
     private static final String LOCALE_ATTR = "locale";

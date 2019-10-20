@@ -15,7 +15,7 @@ public class ViewSportsmenByCountryCode implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewSportsmenByCountryCode");
 
     private SportsmanService sportsmanService;
 

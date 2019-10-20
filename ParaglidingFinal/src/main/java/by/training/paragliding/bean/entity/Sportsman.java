@@ -22,19 +22,16 @@ public class Sportsman implements Serializable {
      * @param newGender      new gender
      * @param newCountryCode new sportsman country code
      * @param newRating      new sportsman Rating
-     * @param newImagePath   new sportsman imagePath
      */
     public Sportsman(final int newCivlId, final String newName,
                      final String newSurname, final char newGender,
-                     final CountryCode newCountryCode, final float newRating,
-                     final String newImagePath) {
+                     final CountryCode newCountryCode, final float newRating) {
         civlId = newCivlId;
         name = newName;
         surname = newSurname;
         gender = newGender;
         countryCode = newCountryCode;
         rating = newRating;
-        imagePath = newImagePath;
     }
 
     /**
@@ -65,28 +62,6 @@ public class Sportsman implements Serializable {
      * FAI rating of a sportsmen.
      */
     private float rating;
-    /**
-     * Path in file system of sportsmen avatar.
-     */
-    private String imagePath;
-
-    /**
-     * Returns imagePath.
-     *
-     * @return imagePath
-     */
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    /**
-     * Sets new value for Sportsman imagePath.
-     *
-     * @param newImagePath new value for Sportsman imagePath
-     */
-    public void setImagePath(final String newImagePath) {
-        imagePath = newImagePath;
-    }
 
     /**
      * Returns Sportsman name.
@@ -224,7 +199,6 @@ public class Sportsman implements Serializable {
                 + ", gender=" + gender
                 + ", countryCode=" + countryCode
                 + ", rating=" + rating
-                + ", imagePath='" + imagePath + '\''
                 + '}';
     }
 
@@ -250,13 +224,12 @@ public class Sportsman implements Serializable {
                 && Objects.equals(user, sportsman.user)
                 && Objects.equals(name, sportsman.name)
                 && Objects.equals(surname, sportsman.surname)
-                && countryCode == sportsman.countryCode
-                && Objects.equals(imagePath, sportsman.imagePath);
+                && countryCode == sportsman.countryCode;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(civlId, user, name, surname,
-                gender, countryCode, rating, imagePath);
+                gender, countryCode, rating);
     }
 }

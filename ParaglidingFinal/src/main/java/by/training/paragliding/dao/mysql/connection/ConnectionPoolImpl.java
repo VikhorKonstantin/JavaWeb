@@ -22,7 +22,7 @@ public final class ConnectionPoolImpl extends AbstractConnectionPool {
     /**
      * Logger.
      */
-    private final Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("ConnectionPoolImpl");
 
     /**
      * Singleton-class instance.

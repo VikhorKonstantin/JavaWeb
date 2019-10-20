@@ -1,7 +1,6 @@
 package by.training.paragliding.dao.mysql.connection;
 
 import by.training.paragliding.dao.exception.DaoException;
-import org.apache.logging.log4j.LogManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +29,6 @@ public final class ConnectionFactoryImpl implements ConnectionFactory {
                 .getContextClassLoader().getResource("").getPath();
         try {
             var fileFullPath = rootPath + configFile;
-            LogManager.getLogger("main").debug(fileFullPath);
             properties.load(new FileInputStream(fileFullPath));
         } catch (IOException newE) {
             throw new DaoException("Wrong config file path");

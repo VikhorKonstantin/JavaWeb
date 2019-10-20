@@ -20,7 +20,7 @@ class TransactionBasedApplicationService extends
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("TransactionBasedApplicationService");
 
     TransactionBasedApplicationService(final Transaction newTransaction) {
         super(newTransaction);

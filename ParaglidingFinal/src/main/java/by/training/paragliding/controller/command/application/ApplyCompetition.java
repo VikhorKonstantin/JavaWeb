@@ -18,7 +18,7 @@ public class ApplyCompetition implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ApplyCompetition");
     private static final String APPLY_ERROR =
             "Apply error. Application was not added";
     private ApplicationService applicationService;

@@ -6,8 +6,11 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 <fmt:message key="competitions.title" var="title"/>
-<utg:headTag titleAttr="${title}"/>
+
 <c:url value="/index.html" var="HomeRef"/>
+<!DOCTYPE html>
+
+<utg:headTag titleAttr="${title}"/>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
     <a class="navbar-brand  active" href="${HomeRef}">
@@ -38,13 +41,15 @@
             <c:choose>
                 <c:when test="${User != null}">
                     <c:url var="logIn" value="/user/logOut.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
+                    </li>
                 </c:when>
                 <c:otherwise>
                     <c:url var="logIn" value="/logIn.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="login.title"/> </a></li>
                     <c:url var="singUp" value="/singUp.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a>
+                    </li>
                 </c:otherwise>
             </c:choose>
             <c:url var="localeChangeUrl" value="/localeChange.html"/>
@@ -68,7 +73,6 @@
                         <th scope="col"><fmt:message key="sportsman.gender"/></th>
                         <th scope="col"><fmt:message key="sportsman.country"/></th>
                         <th scope="col"><fmt:message key="sportsman.rating"/></th>
-                        <th scope="col">IMAGE_PATH</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,15 +85,13 @@
                             <td><em class="fas fa-map-marked-alt"></em>
                                     ${sportsman.countryCode.name}</td>
                             <td>${sportsman.rating}</td>
-                            <td>${sportsman.imagePath}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 </main>
-
+<c:import url="footer.jsp"/>
 </body>

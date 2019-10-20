@@ -15,7 +15,7 @@ public class CompetitionBuilder implements Builder<Competition> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("CompetitionBuilder");
 
     /**
      * @param newResultSet resultSet (result of executing sql statements)

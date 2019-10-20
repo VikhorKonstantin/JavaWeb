@@ -27,7 +27,7 @@ public class ControllerServlet extends HttpServlet {
     /**
      * Logger.
      */
-    private final Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("ControllerServlet");
     /**
      * Supported ize of a connection pool.
      */

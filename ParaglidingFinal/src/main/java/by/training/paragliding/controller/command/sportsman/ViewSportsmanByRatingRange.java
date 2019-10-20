@@ -15,7 +15,7 @@ public class ViewSportsmanByRatingRange implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewSportsmanByRatingRange");
     private SportsmanService sportsmanService;
 
     public ViewSportsmanByRatingRange(

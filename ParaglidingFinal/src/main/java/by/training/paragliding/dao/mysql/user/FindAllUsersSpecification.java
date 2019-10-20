@@ -18,8 +18,7 @@ public class FindAllUsersSpecification implements Specification {
                     + "       `surname`,\n"
                     + "       `gender`,\n"
                     + "       `country`,\n"
-                    + "       `rating`,\n"
-                    + "       `image_path`\n"
+                    + "       `rating`\n"
                     + "FROM `users`\n"
                     + "         LEFT JOIN sportsmen s on users.id = s.user_id";
 

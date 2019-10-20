@@ -21,7 +21,7 @@ public class SingUp implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("SingUp");
     private static final String SIN_GUP_ERROR =
             "SingUp error. User was not added.";
 

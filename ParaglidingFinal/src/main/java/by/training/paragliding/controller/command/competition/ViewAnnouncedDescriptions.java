@@ -16,7 +16,7 @@ public class ViewAnnouncedDescriptions implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewAnnouncedDescriptions");
 
     private CompetitionService competitionService;
 

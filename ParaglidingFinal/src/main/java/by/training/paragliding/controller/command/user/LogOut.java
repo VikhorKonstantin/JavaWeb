@@ -13,7 +13,7 @@ public class LogOut implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("LogOut");
 
     /**
      * Execute command.

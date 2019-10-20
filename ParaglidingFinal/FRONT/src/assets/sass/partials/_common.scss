@@ -1,4 +1,9 @@
-.navbar-expand-lg {   
+#body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.navbar-expand-lg {
     font-size: 35px;
 }
 nav.bg-light {
@@ -21,10 +26,10 @@ label.required:after
 }
 
 footer{
-	display: block; 
+    display: flex;
 	background-color: #0772a1!important;
 	min-height:100px;
-	padding:10px 0px; 
+    flex: 0 0 auto;
 }
 .footer_h3{
 	padding: 20px 0px;
@@ -42,7 +47,7 @@ ul.footer_ul{
 .footer_ul > li {
     padding-bottom: 10px;
     font-size: 15px;
-    
+
 }
 .footer_ul > li >a {
     color: #fff;
@@ -51,13 +56,13 @@ ul.footer_ul{
 .footer_ul > li > a:hover{
     color: #ffffff;
 }
- 
+
 .copyright{
 	color:white;
     font-size: 12px;
     margin-bottom: 12px;
 	margin-top: 15px;
-	
+
 }
 .copyright p{
 	font-size:15px;

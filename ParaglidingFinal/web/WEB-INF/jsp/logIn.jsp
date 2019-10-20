@@ -41,13 +41,16 @@
             <c:choose>
                 <c:when test="${User != null}">
                     <c:url var="logIn" value="/user/logOut.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
+                    </li>
                 </c:when>
                 <c:otherwise>
                     <c:url var="logIn" value="/logIn.html"/>
-                    <li class="nav-item"><a class="nav-link active" href="${logIn}"> <fmt:message key="login.title"/> </a></li>
+                    <li class="nav-item"><a class="nav-link active" href="${logIn}"> <fmt:message
+                            key="login.title"/> </a></li>
                     <c:url var="singUp" value="/singUp.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a>
+                    </li>
                 </c:otherwise>
             </c:choose>
             <c:url var="localeChangeUrl" value="/localeChange.html"/>
@@ -94,5 +97,5 @@
         </div>
     </div>
 </main>
-
+<c:import url="footer.jsp"/>
 </body>

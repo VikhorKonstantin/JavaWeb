@@ -19,7 +19,7 @@ public class ViewCompetitionResults implements Executable {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("ViewCompetitionResults");
     private ResultService resultService;
     private CompetitionService competitionService;
     private SportsmanService sportsmanService;

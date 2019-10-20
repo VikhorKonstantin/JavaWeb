@@ -11,7 +11,7 @@ public class FindSportsmenByRatingRange implements Specification {
 
     private static final String SQL =
             "SELECT `civl_id`, `name` AS sportsmanName, `surname`, `gender`,"
-            + " `country`, `rating`, `image_path`"
+            + " `country`, `rating`"
             + " FROM `sportsmen` WHERE `rating` BETWEEN ? AND ?";
 
     private float leftRatingBound;

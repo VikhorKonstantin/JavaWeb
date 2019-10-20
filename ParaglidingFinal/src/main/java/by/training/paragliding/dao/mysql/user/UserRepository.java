@@ -15,7 +15,7 @@ public class UserRepository extends BaseSqlRepository<User> {
     /**
      * Logger.
      */
-    private Logger logger = LogManager.getLogger("main");
+    private Logger logger = LogManager.getLogger("UserRepository");
 
     private static final String TABLE_NAME = "users";
     private static final String UPDATE_USER = "UPDATE `users` SET `email` = ?,"
@@ -38,8 +38,7 @@ public class UserRepository extends BaseSqlRepository<User> {
                     + "       `surname`,\n"
                     + "       `gender`,\n"
                     + "       `country`,\n"
-                    + "       `rating`,\n"
-                    + "       `image_path`\n"
+                    + "       `rating`\n"
                     + "FROM `users`\n"
                     + "         LEFT JOIN sportsmen s on users.id = s.user_id "
                     + "WHERE `id` = ?";

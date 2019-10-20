@@ -12,7 +12,7 @@ public class FindByCountrySpecification implements Specification {
     private static final String SQL =
             "SELECT `civl_id`, `name` AS sportsmanName,"
             + " `surname`, `gender`,"
-            + " `country`, `rating`, `image_path`"
+            + " `country`, `rating`"
             + " FROM `sportsmen` WHERE `country` = ?";
     /**
      * CountryCode of sportsmen to find.

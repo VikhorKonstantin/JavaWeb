@@ -16,14 +16,14 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
     /**
      * Logger.
      */
-    private final Logger logger = LogManager.getLogger("main");
+    private final Logger logger = LogManager.getLogger("SportsmenRepository");
 
     private static final String TABLE_NAME = "sportsmen";
 
     private static final String SELECT_SPORTSMAN_BY_ID =
             "SELECT `civl_id`, `user_id` AS userId, `name` AS sportsmanName,"
                     + " `surname`, `gender`,"
-                    + " `country`, `rating`, `image_path` "
+                    + " `country`, `rating` "
                     + "FROM `sportsmen` WHERE `civl_id` = ?";
 
 
@@ -32,12 +32,12 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
 
     private static final String INSERT_SPORTSMEN =
             "INSERT INTO `sportsmen` (`civl_id`, `name`, `surname`,"
-                    + " `gender`, `country`, `rating`, `image_path`)"
+                    + " `gender`, `country`, `rating`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     private static final String UPDATE_SPORTSMAN = "UPDATE `sportsmen` "
             + "SET `name`=?, `surname`=?,"
-            + " `gender`=?, `country`=?, `rating`=?, `image_path`=?"
+            + " `gender`=?, `country`=?, `rating`=?"
             + " WHERE `civl_id` = ?";
 
 
@@ -69,8 +69,7 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
                 newSportsman.getName(), newSportsman.getSurname(),
                 String.valueOf(newSportsman.getGender()),
                 newSportsman.getCountryCode().getAlpha2(),
-                newSportsman.getRating(),
-                newSportsman.getImagePath());
+                newSportsman.getRating());
     }
 
     /**
@@ -120,7 +119,6 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
                 String.valueOf(newSportsman.getGender()),
                 String.valueOf(newSportsman.getCountryCode().getAlpha2()),
                 newSportsman.getRating(),
-                newSportsman.getImagePath(),
                 newSportsman.getCivlId());
 
     }
