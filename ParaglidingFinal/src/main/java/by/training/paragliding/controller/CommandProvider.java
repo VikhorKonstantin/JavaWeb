@@ -1,15 +1,8 @@
 package by.training.paragliding.controller;
 
-import by.training.paragliding.controller.command.ChangeLocale;
-import by.training.paragliding.controller.command.Executable;
-import by.training.paragliding.controller.command.StartCommand;
-import by.training.paragliding.controller.command.ViewLogInPage;
-import by.training.paragliding.controller.command.ViewSingUpPage;
+import by.training.paragliding.controller.command.*;
 import by.training.paragliding.controller.command.application.ApplyCompetition;
-import by.training.paragliding.controller.command.competition.EditCompetition;
-import by.training.paragliding.controller.command.competition.ViewCompetitionById;
-import by.training.paragliding.controller.command.competition.ViewCompetitionList;
-import by.training.paragliding.controller.command.competition.ViewCompetitionsEditPage;
+import by.training.paragliding.controller.command.competition.*;
 import by.training.paragliding.controller.command.result.SaveResults;
 import by.training.paragliding.controller.command.result.ViewCompetitionResults;
 import by.training.paragliding.controller.command.result.ViewResultsForm;
@@ -19,6 +12,7 @@ import by.training.paragliding.controller.command.sportsman.ViewSportsmanById;
 import by.training.paragliding.controller.command.user.LogIn;
 import by.training.paragliding.controller.command.user.LogOut;
 import by.training.paragliding.controller.command.user.SingUp;
+import by.training.paragliding.controller.command.user.ViewAccountPage;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.exception.ServiceException;
@@ -109,6 +103,12 @@ final class CommandProvider implements AutoCloseable {
                     serviceFactory.createSportsmanService()
             ));
             postMap.put("/localeChange", new ChangeLocale());
+            getMap.put("/user/account", new ViewAccountPage(
+                    serviceFactory.createCompetitionService(),
+                    serviceFactory.createUserService()));
+            postMap.put("/competition/add", new AddCompetition(
+                    serviceFactory.createCompetitionService()
+            ));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

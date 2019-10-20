@@ -36,12 +36,14 @@ public class ViewCompetitionsEditPage implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         String competitionIdString =  req.getParameter("competitionId");
-        int competitionId = Integer.parseInt(competitionIdString);
-        try {
-            var competition = competitionService.readById(competitionId);
-            req.setAttribute("competition", competition);
-        } catch (ServiceException newE) {
-            throw new ControllerException(newE);
+        if (competitionIdString != null) {
+            int competitionId = Integer.parseInt(competitionIdString);
+            try {
+                var competition = competitionService.readById(competitionId);
+                req.setAttribute("competition", competition);
+            } catch (ServiceException newE) {
+                throw new ControllerException(newE);
+            }
         }
         return new ExecutionResult(true,
                 "/WEB-INF/jsp/competitionEdit.jsp");

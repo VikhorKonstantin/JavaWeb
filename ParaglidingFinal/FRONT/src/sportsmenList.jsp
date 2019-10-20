@@ -40,7 +40,7 @@
         <ul class="navbar-nav mr-l-4">
             <c:choose>
                 <c:when test="${User != null}">
-                    <c:url var="userPage" value="/user/page.html"/>
+                    <c:url var="userPage" value="/user/account.html"/>
                     <li class="nav-item"><a class="nav-link" href="${userPage}"> <fmt:message key="account.title"/> </a>
                     </li>
                     <c:url var="logIn" value="/user/logOut.html"/>
@@ -64,37 +64,41 @@
     </div>
 </nav>
 <main class="main">
-    <div class="container d-flex justify-content-center">
-        <div class="card rounded-form">
-            <div class="card-body col-12">
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">CIVL</th>
-                        <th scope="col"><fmt:message key="sportsman.name"/></th>
-                        <th scope="col"><fmt:message key="sportsman.surname"/></th>
-                        <th scope="col"><fmt:message key="sportsman.gender"/></th>
-                        <th scope="col"><fmt:message key="sportsman.country"/></th>
-                        <th scope="col"><fmt:message key="sportsman.rating"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${sportsmen}" var="sportsman">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+            <div class="card rounded-form">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
                         <tr>
-                            <td>${sportsman.civlId}</td>
-                            <td>${sportsman.name}</td>
-                            <td>${sportsman.surname}</td>
-                            <td>${sportsman.gender}</td>
-                            <td><em class="fas fa-map-marked-alt"></em>
-                                    ${sportsman.countryCode.name}</td>
-                            <td>${sportsman.rating}</td>
+                            <th scope="col">CIVL</th>
+                            <th scope="col"><fmt:message key="sportsman.name"/></th>
+                            <th scope="col"><fmt:message key="sportsman.surname"/></th>
+                            <th scope="col"><fmt:message key="sportsman.gender"/></th>
+                            <th scope="col"><fmt:message key="sportsman.country"/></th>
+                            <th scope="col"><fmt:message key="sportsman.rating"/></th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${sportsmen}" var="sportsman">
+                            <tr>
+                                <td>${sportsman.civlId}</td>
+                                <td>${sportsman.name}</td>
+                                <td>${sportsman.surname}</td>
+                                <td>${sportsman.gender}</td>
+                                <td><em class="fas fa-map-marked-alt"></em>
+                                        ${sportsman.countryCode.name}</td>
+                                <td>${sportsman.rating}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
+
 </main>
 <c:import url="footer.jsp"/>
 </body>

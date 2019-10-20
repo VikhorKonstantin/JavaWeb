@@ -65,28 +65,28 @@
     </div>
 </nav>
 <main class="main">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-10 col-md-6 col-sm-6 col-lg-6 col-xl-6">
-                <c:choose>
-                    <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
-                    </c:when>
-                    <c:otherwise>
-                        <div class="d-flex justify-content-center">
-                            <div class="card rounded-form" style="width:40rem">
-                                <div class="card-body">
-                                    <div class="card-title"><fmt:message key="account.competitions"/></div>
-                                    <div class="card-text">
-                                        <utg:competitionTable tableCompetitions="${competitions}"></utg:competitionTable>
-                                    </div>
-                                </div>
-                            </div>
+    <c:choose>
+        <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
+        </c:when>
+        <c:otherwise>
+            <div class="container">
+                <div class="card rounded-form">
+                    <div class="card-body col-12">
+                        <div class="card-title">
+                            <h2>
+                                <fmt:message key="account.competitions"/>:
+                                <c:url var="addUrl" value="/competition/edit.html"/>
+                                <a class="btn btn-primary text-justify-right"
+                                   href="${addUrl}">
+                                    <fmt:message key="account.addComp"/></a>
+                            </h2>
                         </div>
-                    </c:otherwise>
-                </c:choose>
-                
+                    </div>
+                </div>
             </div>
+            <utg:compList finishedCompetitions="${finishedComps}"
+                          futureCompetitions="${futureComps}"/>
+        </c:otherwise>
+    </c:choose>
 
-        </div>
-    </div>
 </main>

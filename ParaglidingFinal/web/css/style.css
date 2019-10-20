@@ -10452,6 +10452,9 @@ td:hover {
 }
 
 footer {
+    margin-bottom: -1;
+    padding: 2rem 0;
+    margin-top: 3rem;
     background-color: #0772a1 !important;
 }
 

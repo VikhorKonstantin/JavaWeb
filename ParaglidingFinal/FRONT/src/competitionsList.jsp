@@ -36,7 +36,7 @@
         <ul class="navbar-nav mr-l-4">
             <c:choose>
                 <c:when test="${User != null}">
-                    <c:url var="userPage" value="/user/page.html"/>
+                    <c:url var="userPage" value="/user/account.html"/>
                     <li class="nav-item"><a class="nav-link" href="${userPage}"> <fmt:message key="account.title"/> </a>
                     </li>
                     <c:url var="logIn" value="/user/logOut.html"/>
@@ -58,9 +58,17 @@
     </div>
 </nav>
 <main class="main">
-    <div class="container d-flex justify-content-center">
-        <utg:compList finishedCompetitions="${finishedComps}" futureCompetitions="${futureComps}"/>
+    <div class="container">
+
+            <div class="d-flex justify-content-center">
+                <div class="flex-column">
+                    <utg:compList finishedCompetitions="${finishedComps}"
+                                  futureCompetitions="${futureComps}"/>
+                </div>
+            </div>
+
     </div>
+
 </main>
 <c:import url="footer.jsp"/>
 </body>

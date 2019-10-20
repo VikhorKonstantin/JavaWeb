@@ -37,17 +37,19 @@
         <ul class="navbar-nav mr-l-4">
             <c:choose>
                 <c:when test="${User != null}">
-                    <c:url var="userPage" value="/user/page.html"/>
+                    <c:url var="userPage" value="/user/account.html"/>
                     <li class="nav-item"><a class="nav-link" href="${userPage}"> <fmt:message key="account.title"/> </a>
                     </li>
                     <c:url var="logIn" value="/user/logOut.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
+                    </li>
                 </c:when>
                 <c:otherwise>
                     <c:url var="logIn" value="/logIn.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="login.title"/> </a></li>
                     <c:url var="singUp" value="/singUp.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a>
+                    </li>
                 </c:otherwise>
             </c:choose>
             <c:url var="localeChangeUrl" value="/localeChange.html"/>
@@ -63,8 +65,19 @@
     <div class="container d-flex justify-content-center">
         <div class="card rounded-form">
             <div class="card-body col-12">
-                <c:url var="competitionEdit" value="/competition/edit.html"/>
-                <form action="${competitionEdit}" id="editForm" method="post">
+                <c:choose>
+                    <c:when test="${competition == null}">
+                        <c:url var="competitionAdd"
+                               value="/competition/add.html"/>
+                    <form action="${competitionAdd}" id="editForm" method="post">
+                    </c:when>
+                    <c:otherwise>
+                        <c:url var="competitionEdit"
+                               value="/competition/edit.html"/>
+                        <form action="${competitionAdd}" id="editForm" method="post">
+                    </c:otherwise>
+                </c:choose>
+
                     <input type="hidden" name="id" value="${competition.id}"/>
                     <div class="form-row">
                         <div class="col-md-4 mb-4">
@@ -105,7 +118,8 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <label class="required" for="inputDiscipline"><fmt:message key="competition.discipline"/></label>
+                            <label class="required" for="inputDiscipline"><fmt:message
+                                    key="competition.discipline"/></label>
                             <select name="discipline" id="inputDiscipline" class="form-control">
                                 <option selected>${competition.discipline}</option>
                                 <option>PG_AC</option>
@@ -124,12 +138,14 @@
                                   class="form-control bordering" id="Description"
                                   rows="3"><c:out value="${competition.description}"/></textarea>
                     </div>
-                    <button class="btn btn-submit" type="submit"><fmt:message key="submit"/></button>
+                    <button class="btn btn-submit" type="submit">
+                        <fmt:message key="submit"/></button>
                     <c:if test="${competition.status != 'FINISHED'}">
                         <c:url var="viewResultFormPage" value="/resultsPage.html">
                             <c:param name="competitionId" value="${competition.id}"/>
                         </c:url>
-                        <a href="${viewResultFormPage}" class="btn btn-submit"><fmt:message key="competition.setResults"/></a>
+                        <a href="${viewResultFormPage}" class="btn btn-submit">
+                            <fmt:message key="competition.setResults"/></a>
                     </c:if>
                 </form>
 

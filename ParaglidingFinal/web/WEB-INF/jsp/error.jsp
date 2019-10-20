@@ -9,7 +9,6 @@
 <fmt:message key="error.title" var="title"/>
 <utg:headTag titleAttr="${title}: ${pageContext.errorData.statusCode}"/>
 <c:url value="/index.html" var="HomeRef"/>
-
 <body>
 
 <main class="main">
@@ -28,5 +27,4 @@
         </div>
     </div>
 </main>
-<c:import url="footer.jsp"/>
 </body>

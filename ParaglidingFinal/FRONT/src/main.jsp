@@ -40,6 +40,9 @@
         <ul class="navbar-nav mr-l-4">
             <c:choose>
                 <c:when test="${User != null}">
+                    <c:url var="userPage" value="/user/account.html"/>
+                    <li class="nav-item"><a class="nav-link" href="${userPage}"> <fmt:message key="account.title"/> </a>
+                    </li>
                     <c:url var="logIn" value="/user/logOut.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
                     </li>
@@ -130,7 +133,6 @@
                 </div>
 
             </div>
-
         </div>
     </div>
 </main>

@@ -26,17 +26,20 @@ public class CompetitionValidator implements Validator<Competition> {
         var statusString = newRequest.getParameter("status");
         var description = newRequest.getParameter("description");
         var idString = newRequest.getParameter("id");
+        boolean isExist = !idString.isEmpty();
         var discipline   = newRequest.getParameter("discipline");
         boolean isValid;
         isValid = dateString.matches(DATE_PATTERN)
                 && name.matches(NAME_PATTERN)
                 && fee.matches(FEE_PATTERN)
-                && idString.matches(ID_PATTERN);
+                && (!isExist || idString.matches(ID_PATTERN));
         if (isValid) {
             Competition competition = new Competition();
             competition.setDate(LocalDate.parse(dateString));
             competition.setDescription(description);
-            competition.setId(Integer.parseInt(idString));
+            if (isExist) {
+                competition.setId(Integer.parseInt(idString));
+            }
             competition.setName(name);
             competition.setParticipationFee(Float.parseFloat(fee));
             competition.setStatus(Competition.Status.valueOf(statusString));

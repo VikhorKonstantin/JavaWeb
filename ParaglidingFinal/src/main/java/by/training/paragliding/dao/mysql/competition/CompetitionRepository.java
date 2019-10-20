@@ -11,7 +11,6 @@ import java.sql.Date;
 import java.util.List;
 
 public class CompetitionRepository extends BaseSqlRepository<Competition> {
-
     private static final String SELECT_COMP_BY_ID =
             "SELECT `competitions`.`id`   AS competitionId,\n"
                     + "       `organizer_id`        AS userId,\n"
@@ -51,11 +50,12 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                     + "WHERE `competitions`.`id` = ?;";
 
     private static final String INSERT_COMPETITION =
-            "INSERT INTO `competitions` "
-                    + "(`date`, `organizer_id`,"
-                    + " `competitions`.`name`, `discipline_id`,"
-                    + " `status`, `participation_fee`, `description`) "
-                    + "VALUES (?, ?, ?, `disciplines`.`id`, ?, ?, ?)";
+            "INSERT INTO `competitions`\n"
+                    + "    (`date`, `organizer_id`,\n"
+                    + "    `competitions`.`name`,\n"
+                    + "    `status`, `participation_fee`, `description`,"
+                    + " `discipline_id`)\n"
+                    + "VALUES (?, ?, ?, ?, ?, ?, (SELECT id from disciplines where name = ?));\n";
     private static final String TABLE_NAME = "competitions";
 
     private static final String DELETE_COMPETITION =
@@ -90,11 +90,11 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
         return executeUpdate(INSERT_COMPETITION,
                 Date.valueOf(newCompetition.getDate()),
                 newCompetition.getOrganizer().getId(),
-                newCompetition.getName(), newCompetition.getDiscipline(),
+                newCompetition.getName(),
                 newCompetition.getStatus().ordinal(),
                 newCompetition.getParticipationFee(),
                 newCompetition.getDescription(),
-                newCompetition.getId());
+                newCompetition.getDiscipline());
     }
 
     /**
