@@ -42,8 +42,8 @@ VALUES (1,  1,"6th FAI European Paragliding Accuracy Championship", "2018-09-16"
        (3,  1,"Albania Open", "2019-05-08", 1, 4, "Descripion template..3", 20),
        (4,  1,"Paragliding Accuracy European Cup, Paragliding Accuracy Balkanic Cup, Campionatul National al Romani",
         "2019-06-07", 1, 4, "Descripion template..4", 20),
-       (5,  1,"Polessky Dessant","2019-12-12",1,0,"Mozyr moved competition:)",5.5),
-       (6,  1,"Open BSU paragliding Championship ","2020-12-12",1,0,"BSU moved championship",0.0);
+       (5,  1,"Polessky Dessant","2019-12-12",1,1,"Mozyr moved competition:)",5.5),
+       (6,  1,"Open BSU paragliding Championship ","2020-12-12",1,1,"BSU moved championship",0.0);
 INSERT INTO `applications` (sportsman_id, competition_id)
 VALUES (8389, 1),
        (8389, 3),

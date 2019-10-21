@@ -47,7 +47,7 @@ public class ViewParticipants implements Executable {
                     competition);
             req.setAttribute("sportsmen", sportsmen);
             return new ExecutionResult(true,
-                    "/WEB-INF/jsp/sportsmenList.jsp");
+                    "/WEB-INF/jsp/user/sportsmenList.jsp");
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

@@ -6,11 +6,8 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 <fmt:message key="competitions.title" var="title"/>
-
-<c:url value="/index.html" var="HomeRef"/>
-<!DOCTYPE html>
-
 <utg:headTag titleAttr="${title}"/>
+<c:url value="/index.html" var="HomeRef"/>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-light">
     <a class="navbar-brand  active" href="${HomeRef}">
@@ -30,7 +27,7 @@
             </li>
             <li class="nav-item">
                 <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
-                <a class="nav-link active" href="${sportsmenAllUrl}"><fmt:message key="sportsmen.title"/></a>
+                <a class="nav-link" href="${sportsmenAllUrl}"><fmt:message key="sportsmen.title"/></a>
             </li>
             <li class="nav-item">
                 <c:url value="/competition/all.html" var="competitionsAllUrl"/>
@@ -44,15 +41,13 @@
                     <li class="nav-item"><a class="nav-link" href="${userPage}"> <fmt:message key="account.title"/> </a>
                     </li>
                     <c:url var="logIn" value="/user/logOut.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="logout.title"/> </a></li>
                 </c:when>
                 <c:otherwise>
                     <c:url var="logIn" value="/logIn.html"/>
                     <li class="nav-item"><a class="nav-link" href="${logIn}"> <fmt:message key="login.title"/> </a></li>
                     <c:url var="singUp" value="/singUp.html"/>
-                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="${singUp}"> <fmt:message key="singup.title"/></a></li>
                 </c:otherwise>
             </c:choose>
             <c:url var="localeChangeUrl" value="/localeChange.html"/>
@@ -63,42 +58,52 @@
         </ul>
     </div>
 </nav>
+
 <main class="main">
     <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
-            <div class="card rounded-form">
-                <div class="card-body">
+        <div class="card rounded-form" style="width:400px">
+
+            <div class="card-body">
+                <h4 class="card-title">${competition.name} <fmt:message key="competition.results"/></h4>
+                <c:url var="resultAction" value="/results.html"/>
+                <form action="${resultAction}" method="post">
+                    <input type="hidden" name="competitionId" value="${competition.id}"/>
                     <table class="table table-hover">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">CIVL</th>
-                            <th scope="col"><fmt:message key="sportsman.name"/></th>
-                            <th scope="col"><fmt:message key="sportsman.surname"/></th>
-                            <th scope="col"><fmt:message key="sportsman.gender"/></th>
-                            <th scope="col"><fmt:message key="sportsman.country"/></th>
-                            <th scope="col"><fmt:message key="sportsman.rating"/></th>
+                            <th scope="col">INDEX</th>
+                            <th scope="col">CIVL_ID</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">SCORE</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${sportsmen}" var="sportsman">
+                        <c:forEach items="${participants}" var="sportsman" varStatus="loop">
                             <tr>
+                                <td>${loop.index}</td>
                                 <td>${sportsman.civlId}</td>
                                 <td>${sportsman.name}</td>
-                                <td>${sportsman.surname}</td>
-                                <td>${sportsman.gender}</td>
-                                <td><em class="fas fa-map-marked-alt"></em>
-                                        ${sportsman.countryCode.name}</td>
-                                <td>${sportsman.rating}</td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="score">Score</label>
+                                        <input type="number" name="score${loop.index}" id="score"
+                                               class="form-control" placeholder="Score"
+                                               required>
+                                        <input type="hidden" name="sportsmanId${loop.index}"
+                                               value="${sportsman.civlId}"/>
+                                    </div>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
-                </div>
+                    <div class="form-row">
+                        <button class="btn btn-submit" type="submit">Set results</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-
 </main>
-<c:import url="footer.jsp"/>
+<c:import url="../footer.jsp"/>
 </body>

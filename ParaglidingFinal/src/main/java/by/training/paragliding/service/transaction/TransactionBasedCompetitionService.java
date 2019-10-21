@@ -1,6 +1,7 @@
 package by.training.paragliding.service.transaction;
 
 import by.training.paragliding.bean.entity.Competition;
+import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.dao.DaoType;
 import by.training.paragliding.dao.Repository;
@@ -9,6 +10,7 @@ import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
 import by.training.paragliding.dao.mysql.competition.FindAllCompetitionsSpecification;
 import by.training.paragliding.dao.mysql.competition.FindByOrganizerAndStatusSpecification;
+import by.training.paragliding.dao.mysql.competition.FindByParticipant;
 import by.training.paragliding.dao.mysql.competition.FindByStatusSpecification;
 import by.training.paragliding.service.CompetitionService;
 import by.training.paragliding.service.exception.ServiceException;
@@ -43,6 +45,8 @@ class TransactionBasedCompetitionService
                 TransactionBasedCompetitionService::findAll);
         SPECIFICATION_PROVIDER.put(FindByProps.ORGANIZER_AND_STATUS,
                 TransactionBasedCompetitionService::findByOrganizer);
+        SPECIFICATION_PROVIDER.put(FindByProps.PARTICIPANT,
+                TransactionBasedCompetitionService::findByParticipant);
     }
 
 
@@ -145,6 +149,15 @@ class TransactionBasedCompetitionService
             return new FindByOrganizerAndStatusSpecification(
                     (User) organizerAndStatus[0],
                     (Competition.Status) organizerAndStatus[1]);
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    private static Specification findByParticipant(final Object[] participant)
+            throws ServiceException {
+        try {
+            return new FindByParticipant((Sportsman) participant[0]);
         } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }

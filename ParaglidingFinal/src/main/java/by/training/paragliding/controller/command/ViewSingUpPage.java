@@ -19,6 +19,6 @@ public class ViewSingUpPage implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         return new ExecutionResult(true,
-                "/WEB-INF/jsp/singUp.jsp");
+                "/WEB-INF/jsp/user/singUp.jsp");
     }
 }

@@ -1,18 +1,22 @@
 package by.training.paragliding.controller.command.user;
 
 import by.training.paragliding.bean.entity.Competition;
+import by.training.paragliding.bean.entity.Role;
 import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.CompetitionService;
-import by.training.paragliding.service.UserService;
+import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ViewAccountPage implements Executable {
     /**
@@ -21,12 +25,12 @@ public class ViewAccountPage implements Executable {
     private Logger logger = LogManager.getLogger("ViewCompetitionList");
 
     private CompetitionService competitionService;
-    private UserService userService;
+    private SportsmanService sportsmanService;
 
     public ViewAccountPage(final CompetitionService newCompetitionService,
-                           final UserService newUserService) {
+                           final SportsmanService newSportsmanService) {
         competitionService = newCompetitionService;
-        userService = newUserService;
+        sportsmanService = newSportsmanService;
     }
 
     /**
@@ -44,19 +48,43 @@ public class ViewAccountPage implements Executable {
         try {
             var sessionUser =
                     (User) req.getSession().getAttribute("User");
-
-            var futureComps = competitionService.find(
-                    CompetitionService.FindByProps.ORGANIZER_AND_STATUS,
-                    sessionUser,
-                    Competition.Status.ANNOUNCED);
-            var finishedComps = competitionService.find(
-                    CompetitionService.FindByProps.ORGANIZER_AND_STATUS,
-                    sessionUser,
-                    Competition.Status.FINISHED);
-            req.setAttribute("futureComps", futureComps);
-            req.setAttribute("finishedComps", finishedComps);
+            if (sessionUser.getRole().equals(Role.REGISTERED_USER)
+                    || sessionUser.getRole().equals(Role.ADMIN)) {
+                var futureRange = EnumSet.range(Competition.Status.ANNOUNCED,
+                        Competition.Status.UNDERWAY);
+                List<Competition> futureComps = new LinkedList<>();
+                for (var status : futureRange) {
+                    futureComps.addAll(competitionService.find(
+                            CompetitionService.FindByProps.ORGANIZER_AND_STATUS,
+                            sessionUser, status));
+                }
+                var finishedComps = competitionService.find(
+                        CompetitionService.FindByProps.ORGANIZER_AND_STATUS,
+                        sessionUser, Competition.Status.FINISHED);
+                req.setAttribute("futureComps", futureComps);
+                req.setAttribute("finishedComps", finishedComps);
+            } else {
+                var sportsman = sessionUser.getSportsman();
+                var competitions = competitionService.find(
+                        CompetitionService.FindByProps.PARTICIPANT,
+                        sportsman);
+                List<Competition> finishedComps = new LinkedList<>();
+                List<Competition> futureComps = new LinkedList<>();
+                for (var c : competitions) {
+                    if(c.getStatus() == Competition.Status.FINISHED) {
+                        finishedComps.add(c);
+                    } else {
+                        futureComps.add(c);
+                    }
+                }
+                var competitors = sportsmanService.find(
+                        SportsmanService.FindByProps.COMPETITORS, sportsman);
+                req.setAttribute("competitors", competitors);
+                req.setAttribute("futureComps", futureComps);
+                req.setAttribute("finishedComps", finishedComps);
+            }
             return new ExecutionResult(true,
-                    "/WEB-INF/jsp/account.jsp");
+                    "/WEB-INF/jsp/user/account.jsp");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

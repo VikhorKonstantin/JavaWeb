@@ -55,7 +55,8 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
                     + "    `competitions`.`name`,\n"
                     + "    `status`, `participation_fee`, `description`,"
                     + " `discipline_id`)\n"
-                    + "VALUES (?, ?, ?, ?, ?, ?, (SELECT id from disciplines where name = ?));\n";
+                    + "VALUES (?, ?, ?, ?, ?, ?,"
+                    + " (SELECT id FROM disciplines WHERE name = ?));\n";
     private static final String TABLE_NAME = "competitions";
 
     private static final String DELETE_COMPETITION =

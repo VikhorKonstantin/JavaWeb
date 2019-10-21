@@ -14,8 +14,8 @@ public class FindSportsmenByApplication implements Specification {
             "SELECT `civl_id`, `sportsmen`.`name` AS sportsmanName,"
             + " `surname`, `gender`,"
             + " `country`, `rating` FROM `sportsmen`"
-            + " JOIN `applications` ON `civl_id` = `sportsman_id`"
-            + " JOIN `competitions` ON `id` = `competition_id`"
+            + " LEFT JOIN `applications` ON `civl_id` = `sportsman_id`"
+            + " LEFT JOIN `competitions` ON `id` = `competition_id`"
             + " WHERE `competitions`.`id` = ?";
 
     private Competition competition;

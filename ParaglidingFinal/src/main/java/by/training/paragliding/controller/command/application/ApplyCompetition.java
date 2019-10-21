@@ -1,12 +1,14 @@
 package by.training.paragliding.controller.command.application;
 
 import by.training.paragliding.bean.entity.Application;
+import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Role;
 import by.training.paragliding.bean.entity.User;
 import by.training.paragliding.controller.command.Executable;
 import by.training.paragliding.controller.command.ExecutionResult;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.ApplicationService;
+import by.training.paragliding.service.CompetitionService;
 import by.training.paragliding.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,9 +24,12 @@ public class ApplyCompetition implements Executable {
     private static final String APPLY_ERROR =
             "Apply error. Application was not added";
     private ApplicationService applicationService;
+    private CompetitionService competitionService;
 
-    public ApplyCompetition(final ApplicationService newApplicationService) {
+    public ApplyCompetition(final ApplicationService newApplicationService,
+                            final CompetitionService newCompetitionService) {
         applicationService = newApplicationService;
+        competitionService = newCompetitionService;
     }
 
     /**
@@ -58,14 +63,14 @@ public class ApplyCompetition implements Executable {
                 }
                 return new ExecutionResult(false,
                         "/competition.html?id="
-                        + competitionId
-                        + "&message=You have applied the competition!");
+                                + competitionId
+                                + "&message=You have applied the competition!");
             } else {
                 return new ExecutionResult(false,
                         "/competition.html?id="
-                        + competitionId
-                        + "&message=You had already been"
-                        + " applied this competition!");
+                                + competitionId
+                                + "&message=You had already been"
+                                + " applied this competition!");
             }
 
         } catch (ServiceException newE) {
@@ -81,6 +86,18 @@ public class ApplyCompetition implements Executable {
     @Override
     public boolean isAllowed(final HttpServletRequest req) {
         var sessionUser = (User) req.getSession().getAttribute("User");
-        return sessionUser.getRole().equals(Role.REGISTERED_SPORTSMAN);
+        if (sessionUser == null
+                || !sessionUser.getRole().equals(Role.REGISTERED_SPORTSMAN)) {
+            return false;
+        }
+        try {
+            var competitionIdSting = req.getParameter("competitionId");
+            var competitionId = Integer.parseInt(competitionIdSting);
+            var competition = competitionService.readById(competitionId);
+            return competition.getStatus()
+                    == Competition.Status.REGISTRATION_OPENED;
+        } catch (ServiceException newE) {
+            return false;
+        }
     }
 }

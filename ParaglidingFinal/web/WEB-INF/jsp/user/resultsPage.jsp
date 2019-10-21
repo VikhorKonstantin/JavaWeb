@@ -62,48 +62,30 @@
 <main class="main">
     <div class="row justify-content-center">
         <div class="card rounded-form" style="width:400px">
-
             <div class="card-body">
-                <h4 class="card-title">${competition.name} <fmt:message key="competition.results"/></h4>
-                <c:url var="resultAction" value="/results.html"/>
-                <form action="${resultAction}" method="post">
-                    <input type="hidden" name="competitionId" value="${competition.id}"/>
-                    <table class="table table-hover">
-                        <thead class="thead-dark">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">INDEX</th>
+                        <th scope="col">CIVL_ID</th>
+                        <th scope="col">NAME</th>
+                        <th scope="col">SCORE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${resultsData}" var="result" varStatus="loop">
                         <tr>
-                            <th scope="col">INDEX</th>
-                            <th scope="col">CIVL_ID</th>
-                            <th scope="col">NAME</th>
-                            <th scope="col">SCORE</th>
+                            <td>${loop.index+1}</td>
+                            <td>${result.key.civlId}</td>
+                            <td>${result.key.name}</td>
+                            <td>${result.value}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${participants}" var="sportsman" varStatus="loop">
-                            <tr>
-                                <td>${loop.index}</td>
-                                <td>${sportsman.civlId}</td>
-                                <td>${sportsman.name}</td>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="score">Score</label>
-                                        <input type="number" name="score${loop.index}" id="score"
-                                               class="form-control" placeholder="Score"
-                                               required>
-                                        <input type="hidden" name="sportsmanId${loop.index}"
-                                               value="${sportsman.civlId}"/>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="form-row">
-                        <button class="btn btn-submit" type="submit">Set results</button>
-                    </div>
-                </form>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </main>
-<c:import url="footer.jsp"/>
+<c:import url="../footer.jsp"/>
 </body>

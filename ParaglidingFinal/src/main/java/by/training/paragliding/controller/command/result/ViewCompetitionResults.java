@@ -62,7 +62,7 @@ public class ViewCompetitionResults implements Executable {
             }
             req.setAttribute("resultsData", resultData);
             return new ExecutionResult(true,
-                    "/WEB-INF/jsp/resultsPage.jsp");
+                    "/WEB-INF/jsp/competition/resultsPage.jsp");
         } catch (ServiceException newE) {
             throw new ControllerException(newE);
         }

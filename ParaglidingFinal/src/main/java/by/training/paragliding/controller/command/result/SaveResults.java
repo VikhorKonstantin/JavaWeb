@@ -81,7 +81,7 @@ public class SaveResults implements Executable {
             if (competitionService.update(competition)) {
                 req.setAttribute("competition", competition);
                 return new ExecutionResult(true,
-                        "/WEB-INF/jsp/competitionPage.jsp");
+                        "/WEB-INF/jsp/competition/competitionPage.jsp");
             } else {
                 throw new ControllerException(UPDATE_FAILED);
             }

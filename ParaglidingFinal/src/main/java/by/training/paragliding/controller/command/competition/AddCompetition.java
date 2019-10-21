@@ -45,11 +45,10 @@ public class AddCompetition implements Executable {
             var sessionUser = (User) req.getSession()
                     .getAttribute("User");
             competition.setOrganizer(sessionUser);
-            logger.debug("Adding competition {}", competition);
             if (competitionService.addCompetition(competition)) {
                 req.setAttribute("competition", competition);
                 return new ExecutionResult(true,
-                        "/WEB-INF/jsp/competitionPage.jsp");
+                        "/WEB-INF/jsp/competition/competitionPage.jsp");
             } else {
                 throw new ControllerException(ADDING_FAILED);
             }

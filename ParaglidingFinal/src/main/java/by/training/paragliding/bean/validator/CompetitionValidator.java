@@ -2,17 +2,11 @@ package by.training.paragliding.bean.validator;
 
 import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.exception.BeanException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
 public class CompetitionValidator implements Validator<Competition> {
-    /**
-     * Logger.
-     */
-    private Logger logger = LogManager.getLogger("CompetitionValidator");
     private static final String DATE_PATTERN = "^\\d{4}-\\d{1,2}-\\d{1,2}$";
     private static final String NAME_PATTERN = "^[0-9.?!a-zA-Z\\s]{0,250}$";
     private static final String FEE_PATTERN = "^[0-9]{0,4}.?[0-9]*";
@@ -44,7 +38,6 @@ public class CompetitionValidator implements Validator<Competition> {
             competition.setParticipationFee(Float.parseFloat(fee));
             competition.setStatus(Competition.Status.valueOf(statusString));
             competition.setDiscipline(discipline);
-            logger.debug("Competition {}", competition);
             return competition;
         } else {
             throw new BeanException(EXC_MSG);

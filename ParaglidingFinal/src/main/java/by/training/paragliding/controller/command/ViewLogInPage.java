@@ -24,6 +24,6 @@ public class ViewLogInPage implements Executable {
                 Objects.requireNonNullElse(msg,
                         "Enter login/password"));
         return new ExecutionResult(true,
-                "/WEB-INF/jsp/logIn.jsp");
+                "/WEB-INF/jsp/user/logIn.jsp");
     }
 }

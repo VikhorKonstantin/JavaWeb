@@ -11,6 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ViewCompetitionList implements Executable {
     /**
@@ -37,16 +40,21 @@ public class ViewCompetitionList implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         try {
-            var futureComps = competitionService.find(
-                    CompetitionService.FindByProps.STATUS,
-                    Competition.Status.ANNOUNCED);
+            var futureRange = EnumSet.range(Competition.Status.ANNOUNCED,
+                    Competition.Status.UNDERWAY);
+            List<Competition> futureComps = new LinkedList<>();
+            for (var status : futureRange) {
+                futureComps.addAll(competitionService.find(
+                        CompetitionService.FindByProps.STATUS,
+                        status));
+            }
             var finishedComps = competitionService.find(
                     CompetitionService.FindByProps.STATUS,
                     Competition.Status.FINISHED);
             req.setAttribute("futureComps", futureComps);
             req.setAttribute("finishedComps", finishedComps);
             return new ExecutionResult(true,
-                    "/WEB-INF/jsp/competitionsList.jsp");
+                    "/WEB-INF/jsp/competition/competitionsList.jsp");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

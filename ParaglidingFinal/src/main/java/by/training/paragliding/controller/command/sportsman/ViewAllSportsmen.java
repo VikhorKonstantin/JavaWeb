@@ -40,7 +40,7 @@ public class ViewAllSportsmen implements Executable {
                     SportsmanService.FindByProps.ALL);
             req.setAttribute("sportsmen", sportsmen);
             return new ExecutionResult(true,
-                    "/WEB-INF/jsp/sportsmenList.jsp");
+                    "/WEB-INF/jsp/user/sportsmenList.jsp");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

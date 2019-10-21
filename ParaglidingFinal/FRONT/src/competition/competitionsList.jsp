@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="utg" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -31,7 +30,7 @@
             </li>
             <li class="nav-item">
                 <c:url value="/competition/all.html" var="competitionsAllUrl"/>
-                <a class="nav-link" href="${competitionsAllUrl}"><fmt:message key="competitions.title"/></a>
+                <a class="nav-link active" href="${competitionsAllUrl}"><fmt:message key="competitions.title"/></a>
             </li>
         </ul>
         <ul class="navbar-nav mr-l-4">
@@ -58,52 +57,18 @@
         </ul>
     </div>
 </nav>
-
 <main class="main">
-    <div class="row justify-content-center">
-        <div class="card rounded-form" style="width:400px">
+    <div class="container">
 
-            <div class="card-body">
-                <h4 class="card-title">${competition.name} <fmt:message key="competition.results"/></h4>
-                <c:url var="resultAction" value="/results.html"/>
-                <form action="${resultAction}" method="post">
-                    <input type="hidden" name="competitionId" value="${competition.id}"/>
-                    <table class="table table-hover">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">INDEX</th>
-                            <th scope="col">CIVL_ID</th>
-                            <th scope="col">NAME</th>
-                            <th scope="col">SCORE</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${participants}" var="sportsman" varStatus="loop">
-                            <tr>
-                                <td>${loop.index}</td>
-                                <td>${sportsman.civlId}</td>
-                                <td>${sportsman.name}</td>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="score">Score</label>
-                                        <input type="number" name="score${loop.index}" id="score"
-                                               class="form-control" placeholder="Score"
-                                               required>
-                                        <input type="hidden" name="sportsmanId${loop.index}"
-                                               value="${sportsman.civlId}"/>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="form-row">
-                        <button class="btn btn-submit" type="submit">Set results</button>
-                    </div>
-                </form>
+            <div class="d-flex justify-content-center">
+                <div class="flex-column">
+                    <utg:compList finishedCompetitions="${finishedComps}"
+                                  futureCompetitions="${futureComps}"/>
+                </div>
             </div>
-        </div>
+
     </div>
+
 </main>
-<c:import url="footer.jsp"/>
+<c:import url="../footer.jsp"/>
 </body>

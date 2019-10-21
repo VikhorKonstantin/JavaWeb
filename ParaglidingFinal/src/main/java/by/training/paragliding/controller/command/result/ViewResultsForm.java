@@ -51,6 +51,6 @@ public class ViewResultsForm implements Executable {
             throw new ControllerException(newE);
         }
         return new ExecutionResult(true,
-                "/WEB-INF/jsp/resultsForm.jsp");
+                "/WEB-INF/jsp/competition/resultsForm.jsp");
     }
 }

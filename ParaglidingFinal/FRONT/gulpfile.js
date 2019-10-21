@@ -32,7 +32,7 @@ var path = {
     },
     src: {
         tag: "src/tags/*.tag",
-        html: "src/*.{htm,html,jsp}",
+        html: "src/**/*.{htm,html,jsp}",
         js: "src/assets/js/*.js",
         css: "src/assets/sass/style.scss",
         img: "src/assets/i/**/*.*",

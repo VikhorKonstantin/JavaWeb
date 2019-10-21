@@ -11,8 +11,11 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
-public class ViewAnnouncedDescriptions implements Executable {
+public class ViewFutureDescriptions implements Executable {
     /**
      * Logger.
      */
@@ -20,7 +23,7 @@ public class ViewAnnouncedDescriptions implements Executable {
 
     private CompetitionService competitionService;
 
-    public ViewAnnouncedDescriptions(final CompetitionService newService) {
+    public ViewFutureDescriptions(final CompetitionService newService) {
         competitionService = newService;
     }
 
@@ -38,10 +41,14 @@ public class ViewAnnouncedDescriptions implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         try {
-            var competitions = competitionService.find(
-                    CompetitionService.FindByProps.STATUS,
-                    Competition.Status.ANNOUNCED);
-            logger.debug(competitions);
+            var futureRange = EnumSet.range(Competition.Status.ANNOUNCED,
+                    Competition.Status.UNDERWAY);
+            List<Competition> competitions = new LinkedList<>();
+            for (var status : futureRange) {
+                competitions.addAll(competitionService.find(
+                        CompetitionService.FindByProps.STATUS,
+                        status));
+            }
             req.setAttribute("competitions", competitions);
             return new ExecutionResult(true,
                     "/WEB-INF/jsp/main.jsp");

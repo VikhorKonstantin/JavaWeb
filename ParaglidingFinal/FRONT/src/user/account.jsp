@@ -67,16 +67,44 @@
 <main class="main">
     <c:choose>
         <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
+            <div class="container">
+                <div class="card rounded-form">
+                    <div class="card-body col-12">
+                        <div class="card-title">
+                            <h2 class="text-center">
+                                <fmt:message key="account.competitors"/>:
+                            </h2>
+                        </div>
+                        <div class="card-text">
+                            <utg:sportsmanTable sportsmen="${competitors}"
+                                                currentId ="${User.sportsman.civlId}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="card rounded-form">
+                    <div class="card-body col-12">
+                        <div class="card-text">
+                            <h2 class="text-center">
+                                <fmt:message key="account.competitions"/>:
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <utg:compList finishedCompetitions="${finishedComps}"
+                          futureCompetitions="${futureComps}"/>
         </c:when>
         <c:otherwise>
             <div class="container">
                 <div class="card rounded-form">
                     <div class="card-body col-12">
                         <div class="card-title">
-                            <h2>
+                            <h2 class="text-center">
                                 <fmt:message key="account.competitions"/>:
                                 <c:url var="addUrl" value="/competition/edit.html"/>
-                                <a class="btn btn-primary text-justify-right"
+                                <a class="btn btn-primary"
                                    href="${addUrl}">
                                     <fmt:message key="account.addComp"/></a>
                             </h2>

@@ -7,10 +7,7 @@ import by.training.paragliding.dao.Repository;
 import by.training.paragliding.dao.Transaction;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.Specification;
-import by.training.paragliding.dao.mysql.sportsmen.FindAllSportsmenSpecification;
-import by.training.paragliding.dao.mysql.sportsmen.FindByCountrySpecification;
-import by.training.paragliding.dao.mysql.sportsmen.FindSportsmenByApplication;
-import by.training.paragliding.dao.mysql.sportsmen.FindSportsmenByRatingRange;
+import by.training.paragliding.dao.mysql.sportsmen.*;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
 import com.neovisionaries.i18n.CountryCode;
@@ -41,7 +38,10 @@ class TransactionBasedSportsmanService
                 TransactionBasedSportsmanService::findByApplication);
         SPECIFICATION_PROVIDER.put(FindByProps.RATING_RANGE,
                 TransactionBasedSportsmanService::findByRatingRange);
+        SPECIFICATION_PROVIDER.put(FindByProps.COMPETITORS,
+                TransactionBasedSportsmanService::findCompetitors);
     }
+
 
     TransactionBasedSportsmanService(final Transaction newTransaction) {
         super(newTransaction);
@@ -111,7 +111,7 @@ class TransactionBasedSportsmanService
     }
 
     /**
-     * @param params Find All Specification has no params.
+     * @param params Find params.
      * @return FindAllSportsmenSpecification
      * @throws ServiceException if method args wrong
      */
@@ -125,7 +125,7 @@ class TransactionBasedSportsmanService
     }
 
     /**
-     * @param range Find All Specification has no params.
+     * @param range range.
      * @return FindSportsmenByRatingRange
      * @throws ServiceException if method args wrong
      */
@@ -134,6 +134,20 @@ class TransactionBasedSportsmanService
         try {
             return new FindSportsmenByRatingRange((Float) range[0],
                     (Float) range[1]);
+        } catch (ClassCastException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * @param newObjects Find params.
+     * @return FindAllSportsmenSpecification
+     * @throws ServiceException if method args wrong
+     */
+    private static Specification findCompetitors(final Object[] newObjects)
+            throws ServiceException {
+        try {
+            return new FindCompetitorsSpecification((Sportsman) newObjects[0]);
         } catch (ClassCastException e) {
             throw new ServiceException(e);
         }

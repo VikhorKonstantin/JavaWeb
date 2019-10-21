@@ -88,7 +88,8 @@ final class CommandProvider implements AutoCloseable {
                     serviceFactory.createSportsmanService()));
             postMap.put("/application",
                     new ApplyCompetition(
-                            serviceFactory.createApplicationService()));
+                            serviceFactory.createApplicationService(),
+                            serviceFactory.createCompetitionService()));
             getMap.put("/resultsPage", new ViewResultsForm(
                     serviceFactory.createCompetitionService(),
                     serviceFactory.createSportsmanService()));
@@ -105,7 +106,7 @@ final class CommandProvider implements AutoCloseable {
             postMap.put("/localeChange", new ChangeLocale());
             getMap.put("/user/account", new ViewAccountPage(
                     serviceFactory.createCompetitionService(),
-                    serviceFactory.createUserService()));
+                    serviceFactory.createSportsmanService()));
             postMap.put("/competition/add", new AddCompetition(
                     serviceFactory.createCompetitionService()
             ));

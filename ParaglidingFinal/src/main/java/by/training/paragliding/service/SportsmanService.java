@@ -10,6 +10,7 @@ public interface SportsmanService
         ALL,
         COUNTRY_CODE,
         APPLICATION,
-        RATING_RANGE
+        RATING_RANGE,
+        COMPETITORS
     }
 }

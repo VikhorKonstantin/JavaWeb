@@ -11,6 +11,7 @@ public interface CompetitionService
     enum FindByProps {
         ALL,
         STATUS,
-        ORGANIZER_AND_STATUS
+        ORGANIZER_AND_STATUS,
+        PARTICIPANT
     }
 }

@@ -91,7 +91,8 @@
                                     </div>
                                 </c:if>
                             </c:when>
-                            <c:when test="${User.role == 'REGISTERED_SPORTSMAN'}">
+                            <c:when test="${User.role == 'REGISTERED_SPORTSMAN'
+                             && competition.status == 'REGISTRATION_OPENED'}">
                                 <c:url value="/application.html" var="applyUrl"/>
                                 <div class="col-4">
                                     <form action="${applyUrl}" method="post">
@@ -138,5 +139,5 @@
         </div>
     </div>
 </main>
-<c:import url="footer.jsp"/>
+<c:import url="../footer.jsp"/>
 </body>

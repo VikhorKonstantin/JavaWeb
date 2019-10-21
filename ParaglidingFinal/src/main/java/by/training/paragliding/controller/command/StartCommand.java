@@ -1,6 +1,6 @@
 package by.training.paragliding.controller.command;
 
-import by.training.paragliding.controller.command.competition.ViewAnnouncedDescriptions;
+import by.training.paragliding.controller.command.competition.ViewFutureDescriptions;
 import by.training.paragliding.controller.exception.ControllerException;
 import by.training.paragliding.service.CompetitionService;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +35,7 @@ public class StartCommand implements Executable {
                                    final HttpServletResponse resp)
             throws ControllerException {
         var competitionCommand =
-                new ViewAnnouncedDescriptions(competitionService);
+                new ViewFutureDescriptions(competitionService);
         return competitionCommand.execute(req, resp);
     }
 }
