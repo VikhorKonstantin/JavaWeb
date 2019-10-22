@@ -66,6 +66,25 @@ class TransactionBasedApplicationService extends
     }
 
     @Override
+    public boolean deleteApplication(final Application newApplication)
+            throws ServiceException {
+        try {
+            Repository<Application> applicationRepository =
+                    transaction.createDao(DaoType.APPLICATION);
+            var result = applicationRepository.delete(newApplication);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Application> find(final FindByProps property,
                                   final Object... values)
             throws ServiceException {

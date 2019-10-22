@@ -41,7 +41,6 @@ public class Controller implements AutoCloseable {
                                        final HttpServletResponse resp)
             throws ControllerException {
         try {
-
             String contextPath = req.getContextPath();
             String uri = req.getRequestURI();
             int beginAction = contextPath.length();

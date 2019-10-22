@@ -8,6 +8,8 @@
               type="java.util.List<by.training.paragliding.bean.entity.Competition>"%>
 <%@ attribute name="futureCompetitions" required="true" rtexprvalue="true"
               type="java.util.List<by.training.paragliding.bean.entity.Competition>"%>
+<%@ attribute name="editable" required="false" rtexprvalue="true"
+              type="java.lang.Boolean" %>
 <div class="container">
     <div class="card rounded-form">
         <div class="card-body col-12">
@@ -23,7 +25,7 @@
                     <utg:competitionTable tableCompetitions="${finishedCompetitions}"/>
                 </div>
                 <div class="tab-pane" id="future" role="tabpanel">
-                    <utg:competitionTable tableCompetitions="${futureCompetitions}"/>
+                    <utg:competitionTable editable="${editable}" tableCompetitions="${futureCompetitions}"/>
                 </div>
             </div>
         </div>

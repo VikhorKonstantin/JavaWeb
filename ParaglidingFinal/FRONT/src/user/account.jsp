@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <utg:compList finishedCompetitions="${finishedComps}"
+            <utg:compList editable="true" finishedCompetitions="${finishedComps}"
                           futureCompetitions="${futureComps}"/>
         </c:when>
         <c:otherwise>

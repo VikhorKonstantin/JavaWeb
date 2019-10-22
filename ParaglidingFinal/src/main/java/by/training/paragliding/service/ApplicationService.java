@@ -7,6 +7,8 @@ public interface ApplicationService
         extends Service<Application, ApplicationService.FindByProps> {
     boolean addApplication(Application newApplication)
             throws ServiceException;
+    public boolean deleteApplication(Application newApplication)
+            throws ServiceException;
     enum FindByProps {
         IDENTIFIERS
     }

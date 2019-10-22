@@ -2,6 +2,7 @@ package by.training.paragliding.controller;
 
 import by.training.paragliding.controller.command.*;
 import by.training.paragliding.controller.command.application.ApplyCompetition;
+import by.training.paragliding.controller.command.application.DeleteApplication;
 import by.training.paragliding.controller.command.competition.*;
 import by.training.paragliding.controller.command.result.SaveResults;
 import by.training.paragliding.controller.command.result.ViewCompetitionResults;
@@ -109,6 +110,9 @@ final class CommandProvider implements AutoCloseable {
                     serviceFactory.createSportsmanService()));
             postMap.put("/competition/add", new AddCompetition(
                     serviceFactory.createCompetitionService()
+            ));
+            postMap.put("/application/del", new DeleteApplication(
+                    serviceFactory.createApplicationService()
             ));
         } catch (ServiceException newE) {
             throw new ControllerException(newE);

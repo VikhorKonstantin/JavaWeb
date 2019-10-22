@@ -7,6 +7,9 @@
 <%@ attribute name="tableCompetitions" required="true" rtexprvalue="true"
               type="java.util.List<by.training.paragliding.bean.entity.Competition>" %>
 <c:url value="/competition.html" var="competitionUrl"/>
+<%@ attribute name="editable" required="false" rtexprvalue="true"
+              type="java.lang.Boolean" %>
+<c:url value="/competition.html" var="competitionUrl"/>
 <table class="table table-hover">
     <thead class="thead-dark">
     <tr>
@@ -32,6 +35,16 @@
             <td><a class="btn btn-primary"
                    href="${competitionUrl}?id=${tableCompetition.id}">
                 <fmt:message key="competition.info"/></a>
+                <c:if test="${editable}">
+                    <c:url value="/application/del.html" var="delUrl"/>
+                    <form action="${delUrl}" method="post">
+                        <button class="btn btn-danger" type="submit">
+                            <input value="${tableCompetition.id}"
+                                   name="competitionId" hidden/>
+                            <fmt:message key="competition.delete"/>
+                        </button>
+                    </form>
+                </c:if>
             </td>
         </tr>
     </c:forEach>
