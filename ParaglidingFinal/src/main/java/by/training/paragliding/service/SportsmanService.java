@@ -6,6 +6,7 @@ import by.training.paragliding.service.exception.ServiceException;
 public interface SportsmanService
         extends Service<Sportsman, SportsmanService.FindByProps> {
     Sportsman readById(final int civlId) throws ServiceException;
+    int size() throws ServiceException;
     enum FindByProps {
         ALL,
         COUNTRY_CODE,

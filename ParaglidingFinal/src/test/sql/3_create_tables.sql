@@ -21,7 +21,6 @@ CREATE TABLE `sportsmen`
     `gender`     char(1)      NOT NULL,
     `country`    VARCHAR(5)   NOT NULL,
     `rating`     FLOAT(4, 1),
-    `image_path` VARCHAR(4096),
     CONSTRAINT PK_sportsmen
         PRIMARY KEY (`civl_id`),
     CONSTRAINT FK_sportsmen_users

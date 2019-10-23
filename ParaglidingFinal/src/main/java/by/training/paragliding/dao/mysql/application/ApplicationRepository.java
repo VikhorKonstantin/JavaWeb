@@ -67,6 +67,17 @@ public class ApplicationRepository extends BaseSqlRepository<Application> {
     }
 
     /**
+     * Returns size of repository.
+     *
+     * @return size of repository
+     * @throws DaoException if something goes wrong
+     */
+    @Override
+    public int size() throws DaoException {
+        return size(TABLE_NAME);
+    }
+
+    /**
      * Returns is repository empty.
      *
      * @return is repository empty.

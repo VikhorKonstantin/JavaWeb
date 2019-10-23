@@ -7,16 +7,28 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class FindAllSportsmenSpecification implements Specification {
+public class FindAllSportsmenPagableSpecification implements Specification {
     private static final String SQL =
             "SELECT `civl_id`, `name` AS sportsmanName, `surname`, `gender`,"
-            + " `country`, `rating` FROM `sportsmen`";
+            + " `country`, `rating` FROM `sportsmen` LIMIT ? OFFSET ?";
+
+    private int limit;
+    private int offset;
+
+    public FindAllSportsmenPagableSpecification(final int newLimit,
+                                                final int newOffset) {
+        limit = newLimit;
+        offset = newOffset;
+    }
 
     @Override
     public PreparedStatement createStatement(final Connection connection)
             throws DaoException {
         try {
-            return connection.prepareStatement(SQL);
+            var statement = connection.prepareStatement(SQL);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            return statement;
         } catch (SQLException newE) {
             throw new DaoException(newE);
         }

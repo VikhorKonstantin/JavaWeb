@@ -94,6 +94,17 @@ public class SportsmenRepository extends BaseSqlRepository<Sportsman> {
     }
 
     /**
+     * Returns size of repository.
+     *
+     * @return size of repository
+     * @throws DaoException if something goes wrong
+     */
+    @Override
+    public int size() throws DaoException {
+        return size(TABLE_NAME);
+    }
+
+    /**
      * Execute query.
      *
      * @param specification specification of a query.

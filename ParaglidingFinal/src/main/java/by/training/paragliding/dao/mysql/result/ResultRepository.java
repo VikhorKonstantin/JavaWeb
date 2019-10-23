@@ -76,6 +76,17 @@ public class ResultRepository extends BaseSqlRepository<Result> {
     }
 
     /**
+     * Returns size of repository.
+     *
+     * @return size of repository
+     * @throws DaoException if something goes wrong
+     */
+    @Override
+    public int size() throws DaoException {
+        return size(TABLE_NAME);
+    }
+
+    /**
      * Updates all fields of the object with the current values.
      *
      * @param newResult object to update

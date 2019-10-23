@@ -126,6 +126,17 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
     }
 
     /**
+     * Returns size of repository.
+     *
+     * @return size of repository
+     * @throws DaoException if something goes wrong
+     */
+    @Override
+    public int size() throws DaoException {
+        return size(TABLE_NAME);
+    }
+
+    /**
      * Updates all fields of the object with the current values.
      *
      * @param newCompetition object to update
@@ -156,4 +167,6 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
             throws DaoException {
         return executeQuery(specification);
     }
+
+
 }

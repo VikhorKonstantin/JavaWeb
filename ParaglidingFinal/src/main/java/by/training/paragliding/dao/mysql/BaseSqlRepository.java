@@ -24,6 +24,8 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
 
     private static final String IS_EMPTY =
             "SELECT NULL FROM %s LIMIT 1";
+    private static final String SIZE
+            = "SELECT COUNT(*) FROM %s;";
 
     public BaseSqlRepository(final Connection newConnection,
                              final Builder<T> newTBuilder) {
@@ -70,6 +72,20 @@ public abstract class BaseSqlRepository<T> implements Repository<T> {
             }
             return resultList;
         } catch (SQLException | BeanException newE) {
+            throw new DaoException(newE);
+        }
+    }
+
+    protected int size(final String tableName) throws DaoException {
+        try (Statement statement = connection.createStatement()) {
+            final var sql =  String.format(SIZE, tableName);
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+                return 0;
+            }
+        } catch (SQLException newE) {
             throw new DaoException(newE);
         }
     }

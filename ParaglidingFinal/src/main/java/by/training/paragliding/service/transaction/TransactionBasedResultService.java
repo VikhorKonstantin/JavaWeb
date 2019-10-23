@@ -92,7 +92,7 @@ class TransactionBasedResultService
         try {
             return new FindByIdentifiersSpecification((Integer) newObjects[0],
                     (Integer) newObjects[1]);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }
     }

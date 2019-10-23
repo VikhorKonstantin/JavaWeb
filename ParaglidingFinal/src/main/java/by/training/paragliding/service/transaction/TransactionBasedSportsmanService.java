@@ -95,6 +95,24 @@ class TransactionBasedSportsmanService
         }
     }
 
+    @Override
+    public int size() throws ServiceException {
+        try {
+            Repository<Sportsman> sportsmanDao =
+                    transaction.createDao(DaoType.SPORTSMAN);
+            var result = sportsmanDao.size();
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
+
     /**
      * @param newCountryCode countryCode to find by.
      * @return FindByCountrySpecification
@@ -105,7 +123,7 @@ class TransactionBasedSportsmanService
         try {
             return new FindByCountrySpecification(
                     (CountryCode) newCountryCode[0]);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }
     }
@@ -118,8 +136,9 @@ class TransactionBasedSportsmanService
     private static Specification findAll(final Object[] params)
             throws ServiceException {
         try {
-            return new FindAllSportsmenSpecification();
-        } catch (ClassCastException e) {
+            return new FindAllSportsmenPagableSpecification(
+                    (Integer) params[0], (Integer) params[1]);
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }
     }
@@ -134,7 +153,7 @@ class TransactionBasedSportsmanService
         try {
             return new FindSportsmenByRatingRange((Float) range[0],
                     (Float) range[1]);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }
     }
@@ -148,7 +167,7 @@ class TransactionBasedSportsmanService
             throws ServiceException {
         try {
             return new FindCompetitorsSpecification((Sportsman) newObjects[0]);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }
     }
@@ -162,7 +181,7 @@ class TransactionBasedSportsmanService
             throws ServiceException {
         try {
             return new FindSportsmenByApplication((Competition) application[0]);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | IndexOutOfBoundsException e) {
             throw new ServiceException(e);
         }
     }

@@ -70,6 +70,11 @@
                 <div class="card-body">
                     <utg:sportsmanTable sportsmen="${sportsmen}"/>
                 </div>
+                <c:if test="${pagable}">
+                    <utg:pagination pageIndex="${page}"
+                                    lastPageIndex="${lastPage}"
+                                    pageURL="/sportsmen/all"/>
+                </c:if>
             </div>
         </div>
     </div>

@@ -29,7 +29,9 @@
                     <fmt:message key="home.title"/> <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <c:url value="/sportsmen/all.html" var="sportsmenAllUrl"/>
+                <c:url value="/sportsmen/all.html" var="sportsmenAllUrl">
+                    <c:param name="pageIndex" value="1"/>
+                </c:url>
                 <a class="nav-link" href="${sportsmenAllUrl}"><fmt:message key="sportsmen.title"/></a>
             </li>
             <li class="nav-item">

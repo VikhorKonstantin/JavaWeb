@@ -59,4 +59,12 @@ public interface Repository<T> {
      * @throws DaoException if something goes wrong
      */
     List<T> query(Specification specification) throws DaoException;
+
+    /**
+     * Returns size of repository.
+     *
+     * @return size of repository
+     * @throws DaoException if something goes wrong
+     */
+    int size() throws DaoException;
 }
