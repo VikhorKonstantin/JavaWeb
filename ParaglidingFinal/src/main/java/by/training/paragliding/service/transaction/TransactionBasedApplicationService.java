@@ -46,10 +46,14 @@ class TransactionBasedApplicationService extends
             throw new ServiceException(e);
         }
     }
+
     @Override
     public boolean addApplication(final Application newApplication)
             throws ServiceException {
         try {
+            if (newApplication == null) {
+                return false;
+            }
             Repository<Application> applicationRepository =
                     transaction.createDao(DaoType.APPLICATION);
             var result = applicationRepository.add(newApplication);
@@ -69,6 +73,9 @@ class TransactionBasedApplicationService extends
     public boolean deleteApplication(final Application newApplication)
             throws ServiceException {
         try {
+            if (newApplication == null) {
+                return false;
+            }
             Repository<Application> applicationRepository =
                     transaction.createDao(DaoType.APPLICATION);
             var result = applicationRepository.delete(newApplication);

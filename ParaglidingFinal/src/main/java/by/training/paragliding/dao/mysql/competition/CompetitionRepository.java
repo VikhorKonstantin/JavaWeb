@@ -9,6 +9,7 @@ import by.training.paragliding.dao.mysql.Specification;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CompetitionRepository extends BaseSqlRepository<Competition> {
     private static final String SELECT_COMP_BY_ID =
@@ -88,8 +89,10 @@ public class CompetitionRepository extends BaseSqlRepository<Competition> {
      */
     @Override
     public boolean add(final Competition newCompetition) throws DaoException {
+        var timeZone = TimeZone.getDefault();
+        var date = newCompetition.getDate();
         return executeUpdate(INSERT_COMPETITION,
-                Date.valueOf(newCompetition.getDate()),
+                newCompetition.getDate(),
                 newCompetition.getOrganizer().getId(),
                 newCompetition.getName(),
                 newCompetition.getStatus().ordinal(),

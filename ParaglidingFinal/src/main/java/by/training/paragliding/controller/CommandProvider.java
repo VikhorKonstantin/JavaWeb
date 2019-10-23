@@ -34,13 +34,74 @@ final class CommandProvider implements AutoCloseable {
     /**
      * Post commands map.
      */
-    private final Map<String, Executable> postMap =
+    private static final Map<String, ThrowingFunction<ServiceFactory,
+            Executable, ServiceException>> postMap =
             new HashMap<>();
     /**
      * Get commands map.
      */
-    private final Map<String, Executable> getMap =
+    private static final Map<String,
+            ThrowingFunction<ServiceFactory,
+                    Executable, ServiceException>> getMap =
             new HashMap<>();
+
+    static {
+        getMap.put("/sportsmen/id",
+                s -> new ViewSportsmanById(s.createSportsmanService()));
+        getMap.put("/sportsmen/all",
+                s -> new ViewAllSportsmen(s.createSportsmanService()));
+        getMap.put("/index", s -> new StartCommand(s
+                .createCompetitionService()));
+        getMap.put("/singUp", s -> new ViewSingUpPage());
+        getMap.put("/logIn", s -> new ViewLogInPage());
+        postMap.put("/user/singUp", s ->
+                new SingUp(s.createUserService()));
+        postMap.put("/user/logIn", s ->
+                new LogIn(s.createUserService()));
+        getMap.put("/user/logOut", s -> new LogOut());
+        getMap.put("/competition/all",
+                s -> new ViewCompetitionList(
+                        s.createCompetitionService()));
+        getMap.put("/competition", s -> new ViewCompetitionById(
+                s.createCompetitionService()
+        ));
+        getMap.put("/competition/edit", s -> new ViewCompetitionsEditPage(
+                s.createCompetitionService()
+        ));
+        postMap.put("/competition/edit", s -> new EditCompetition(
+                s.createCompetitionService()
+        ));
+        getMap.put("/sportsmen/participants", s -> new ViewParticipants(
+                s.createCompetitionService(),
+                s.createSportsmanService()));
+        postMap.put("/application",
+                s -> new ApplyCompetition(
+                        s.createApplicationService(),
+                        s.createCompetitionService()));
+        getMap.put("/resultsPage", s -> new ViewResultsForm(
+                s.createCompetitionService(),
+                s.createSportsmanService()));
+        postMap.put("/results", s -> new SaveResults(
+                s.createResultService(),
+                s.createCompetitionService(),
+                s.createSportsmanService()
+        ));
+        getMap.put("/results", s -> new ViewCompetitionResults(
+                s.createResultService(),
+                s.createCompetitionService(),
+                s.createSportsmanService()
+        ));
+        postMap.put("/localeChange", s -> new ChangeLocale());
+        getMap.put("/user/account", s -> new ViewAccountPage(
+                s.createCompetitionService(),
+                s.createSportsmanService()));
+        postMap.put("/competition/add", s -> new AddCompetition(
+                s.createCompetitionService()
+        ));
+        postMap.put("/application/del", s -> new DeleteApplication(
+                s.createApplicationService()
+        ));
+    }
 
     /**
      * Service factory.
@@ -52,72 +113,11 @@ final class CommandProvider implements AutoCloseable {
      *
      * @param newServiceFactory serviceFactory used
      *                          to create new service instances
-     * @throws ControllerException if ServiceException was thrown
-     *                             while creating new service instances
      */
-    CommandProvider(final ServiceFactory newServiceFactory)
-            throws ControllerException {
+    CommandProvider(final ServiceFactory newServiceFactory) {
         serviceFactory = newServiceFactory;
-        try {
-            getMap.put("/sportsmen/id", new ViewSportsmanById(
-                    serviceFactory.createSportsmanService()));
-            getMap.put("/sportsmen/all", new ViewAllSportsmen(
-                    serviceFactory.createSportsmanService()));
-            getMap.put("/index", new StartCommand(serviceFactory
-                    .createCompetitionService()));
-            getMap.put("/singUp", new ViewSingUpPage());
-            getMap.put("/logIn", new ViewLogInPage());
-            postMap.put("/user/singUp",
-                    new SingUp(serviceFactory.createUserService()));
-            postMap.put("/user/logIn",
-                    new LogIn(serviceFactory.createUserService()));
-            getMap.put("/user/logOut", new LogOut());
-            getMap.put("/competition/all",
-                    new ViewCompetitionList(
-                            serviceFactory.createCompetitionService()));
-            getMap.put("/competition", new ViewCompetitionById(
-                    serviceFactory.createCompetitionService()
-            ));
-            getMap.put("/competition/edit", new ViewCompetitionsEditPage(
-                    serviceFactory.createCompetitionService()
-            ));
-            postMap.put("/competition/edit", new EditCompetition(
-                    serviceFactory.createCompetitionService()
-            ));
-            getMap.put("/sportsmen/participants", new ViewParticipants(
-                    serviceFactory.createCompetitionService(),
-                    serviceFactory.createSportsmanService()));
-            postMap.put("/application",
-                    new ApplyCompetition(
-                            serviceFactory.createApplicationService(),
-                            serviceFactory.createCompetitionService()));
-            getMap.put("/resultsPage", new ViewResultsForm(
-                    serviceFactory.createCompetitionService(),
-                    serviceFactory.createSportsmanService()));
-            postMap.put("/results", new SaveResults(
-                    serviceFactory.createResultService(),
-                    serviceFactory.createCompetitionService(),
-                    serviceFactory.createSportsmanService()
-            ));
-            getMap.put("/results", new ViewCompetitionResults(
-                    serviceFactory.createResultService(),
-                    serviceFactory.createCompetitionService(),
-                    serviceFactory.createSportsmanService()
-            ));
-            postMap.put("/localeChange", new ChangeLocale());
-            getMap.put("/user/account", new ViewAccountPage(
-                    serviceFactory.createCompetitionService(),
-                    serviceFactory.createSportsmanService()));
-            postMap.put("/competition/add", new AddCompetition(
-                    serviceFactory.createCompetitionService()
-            ));
-            postMap.put("/application/del", new DeleteApplication(
-                    serviceFactory.createApplicationService()
-            ));
-        } catch (ServiceException newE) {
-            throw new ControllerException(newE);
-        }
     }
+
 
     @Override
     public void close() throws Exception {
@@ -127,19 +127,41 @@ final class CommandProvider implements AutoCloseable {
     /**
      * @param name name of command.
      * @return Command.
+     * @throws ControllerException if ServiceException was thrown
+     *                             while creating new service instances
      */
-    Executable getPostCommand(final String name) {
+    Executable getPostCommand(final String name) throws ControllerException {
         logger.debug("Command name: {}", name);
-        return postMap.get(name);
+        try {
+            return postMap.get(name).apply(serviceFactory);
+        } catch (ServiceException newE) {
+            throw new ControllerException(newE);
+        }
     }
 
     /**
      * @param name name of command.
      * @return Command.
+     * @throws ControllerException if ServiceException was thrown
+     *                             while creating new service instances
      */
-    Executable getGetCommand(final String name) {
+    Executable getGetCommand(final String name) throws ControllerException {
         logger.debug("Command name: {}", name);
-        return getMap.get(name);
+        try {
+            return getMap.get(name).apply(serviceFactory);
+        } catch (ServiceException newE) {
+            throw new ControllerException(newE);
+        }
+    }
+
+    /**
+     * @param <P> param type.
+     * @param <R> return type.
+     * @param <E> exception type.
+     */
+    @FunctionalInterface
+    private interface ThrowingFunction<P, R, E extends Exception> {
+        R apply(P t) throws E;
     }
 }
 

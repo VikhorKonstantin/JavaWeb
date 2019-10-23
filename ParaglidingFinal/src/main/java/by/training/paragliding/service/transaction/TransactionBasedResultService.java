@@ -38,6 +38,9 @@ class TransactionBasedResultService
     public boolean addResult(final Result newResult)
             throws ServiceException {
         try {
+            if (newResult == null) {
+                return false;
+            }
             Repository<Result> resultRepository =
                     transaction.createDao(DaoType.RESULT);
             var resList = find(FindByProps.IDENTIFIERS,

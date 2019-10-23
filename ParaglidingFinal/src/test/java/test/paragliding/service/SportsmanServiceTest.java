@@ -4,7 +4,6 @@ import by.training.paragliding.bean.entity.Competition;
 import by.training.paragliding.bean.entity.Sportsman;
 import by.training.paragliding.dao.exception.DaoException;
 import by.training.paragliding.dao.mysql.TransactionFactoryImpl;
-import by.training.paragliding.dao.mysql.connection.*;
 import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.SportsmanService;
 import by.training.paragliding.service.exception.ServiceException;
@@ -24,16 +23,10 @@ public class SportsmanServiceTest {
     private SportsmanService service;
     @BeforeClass
     public void init() throws DaoException {
-        ConnectionFactory connectionFactory =
-                new ConnectionFactoryImpl("database_test.properties");
-        ConnectionValidator connectionValidator =
-                new ConnectionValidatorImpl();
-        ConnectionPoolImpl.getInstance()
-                .initialize(5, connectionFactory,
-                        connectionValidator);
         try {
             ServiceFactory serviceFactory
-                    = new TransactionBasedServiceFactory(new TransactionFactoryImpl());
+                    = new TransactionBasedServiceFactory(
+                            new TransactionFactoryImpl());
             service = serviceFactory.createSportsmanService();
         } catch (DaoException | ServiceException newE) {
             newE.printStackTrace();
@@ -56,8 +49,7 @@ public class SportsmanServiceTest {
                 "Matjaz",
                 'M',
                 CountryCode.valueOf("SI"),
-                315.0F,
-                "");
+                315.0F);
         assertEquals(actual, expected);
     }
 
@@ -74,59 +66,51 @@ public class SportsmanServiceTest {
                                 "Jaka",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.8F,
-                                ""),
+                                315.8F),
                         new Sportsman(8388,
                                 "Feraric",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.0F,
-                                ""),
+                                315.0F),
                         new Sportsman(
                                 8389,
                                 "Sluga",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                353.1F,
-                                "")), null},
+                                353.1F)), null},
                 {SportsmanService.FindByProps.COUNTRY_CODE, List.of(new Sportsman(8321,
                                 "Gorenc",
                                 "Jaka",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.8F,
-                                ""),
+                                315.8F),
                         new Sportsman(8388,
                                 "Feraric",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.0F,
-                                ""), new Sportsman(
+                                315.0F), new Sportsman(
                                 8389,
                                 "Sluga",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                353.1F,
-                                "")), CountryCode.SI},
+                                353.1F)), CountryCode.SI},
                 {SportsmanService.FindByProps.APPLICATION, List.of(new Sportsman(8388,
                                 "Feraric",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.0F,
-                                ""),
+                                315.0F),
                         new Sportsman(
                                 8389,
                                 "Sluga",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                353.1F,
-                                "")),
+                                353.1F)),
                         new Competition(1,
                                 "6th FAI European Paragliding"
                                         + " Accuracy Championship",
@@ -138,23 +122,20 @@ public class SportsmanServiceTest {
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.0F,
-                                ""),
+                                315.0F),
                         new Sportsman(8321,
                                 "Gorenc",
                                 "Jaka",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                315.8F,
-                                ""),
+                                315.8F),
                         new Sportsman(
                                 8389,
                                 "Sluga",
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                353.1F,
-                                "")),
+                                353.1F)),
                         0.0F, 500.0F}
         };
     }

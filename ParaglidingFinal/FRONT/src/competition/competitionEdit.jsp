@@ -154,5 +154,5 @@
     </div>
 
 </main>
-<c:import url="../footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>

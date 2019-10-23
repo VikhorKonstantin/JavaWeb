@@ -8,6 +8,8 @@ public interface CompetitionService
     Competition readById(int id) throws ServiceException;
     boolean update(Competition newCompetition) throws ServiceException;
     boolean addCompetition(Competition newCompetition) throws ServiceException;
+    boolean deleteCompetition(Competition newCompetition)
+            throws ServiceException;
     enum FindByProps {
         ALL,
         STATUS,

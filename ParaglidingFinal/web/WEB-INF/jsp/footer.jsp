@@ -6,7 +6,7 @@
 <fmt:setBundle basename="locale"/>
 
 <footer>
-    <nav role="navigation" class="navbar navbar-fixed-bottom">
+    <div role="navigation" class="navbar navbar-fixed-bottom">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
 
             <div class="col-xs-12 col-sm-4 col-md-4">
@@ -20,8 +20,8 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h3 class="footer_h3 fb">FAI</h3>
                 <ul class="footer_ul">
-                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="#">FAI Rating</a></li>
-                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="#">FAI Main</a></li>
+                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="http://civlrankings.fai.org/?a=304&">FAI Rating</a></li>
+                    <li><em class="fas fa-long-arrow-alt-right"></em><a href="https://www.fai.org/commission/civl">FAI Main</a></li>
                 </ul>
             </div>
             <div class="copyright">
@@ -32,5 +32,5 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
 </footer>

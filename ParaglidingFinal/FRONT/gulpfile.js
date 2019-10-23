@@ -72,10 +72,6 @@ gulp.task("css:build", function () {
     return gulp.src(path.src.css, { base: './src/assets/sass/' })
         .pipe(plumber())
         .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer({
-            browsers: ["last 8 versions"],
-            cascade: true
-        }))
         .pipe(cssbeautify())
         .pipe(gulp.dest(path.build.css))
         .pipe(cssnano({

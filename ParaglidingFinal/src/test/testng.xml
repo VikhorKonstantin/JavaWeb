@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name ="Test suite">
+    <test name = "Task1Test">
+        <packages>
+            <package name="test.paragliding.service"/>
+        </packages>
+    </test>
+</suite>

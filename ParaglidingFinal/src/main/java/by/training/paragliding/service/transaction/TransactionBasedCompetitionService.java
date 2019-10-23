@@ -72,6 +72,9 @@ class TransactionBasedCompetitionService
     public boolean addCompetition(final Competition newCompetition)
             throws ServiceException {
         try {
+            if (newCompetition == null) {
+                return false;
+            }
             Repository<Competition> competitionRepository =
                     transaction.createDao(DaoType.COMPETITION);
             var result = competitionRepository.add(newCompetition);
@@ -88,9 +91,33 @@ class TransactionBasedCompetitionService
     }
 
     @Override
+    public boolean deleteCompetition(final Competition newCompetition) throws ServiceException {
+        try {
+            if (newCompetition == null) {
+                return false;
+            }
+            Repository<Competition> competitionRepository =
+                    transaction.createDao(DaoType.COMPETITION);
+            var result = competitionRepository.delete(newCompetition);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            try {
+                transaction.rollback();
+            } catch (DaoException rbExc) {
+                logger.error(ROLL_BACK_EXC_MSG, rbExc);
+            }
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public boolean update(final Competition newCompetition)
             throws ServiceException {
         try {
+            if (newCompetition == null) {
+                return false;
+            }
             Repository<Competition> competitionRepository =
                     transaction.createDao(DaoType.COMPETITION);
             var result = competitionRepository.update(newCompetition);

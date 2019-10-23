@@ -60,32 +60,33 @@
 </nav>
 
 <main class="main">
-    <div class="row justify-content-center">
-        <div class="card rounded-form" style="width:400px">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">INDEX</th>
-                        <th scope="col">CIVL_ID</th>
-                        <th scope="col">NAME</th>
-                        <th scope="col">SCORE</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${resultsData}" var="result" varStatus="loop">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card rounded-form" style="width:400px">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
                         <tr>
-                            <td>${loop.index+1}</td>
-                            <td>${result.key.civlId}</td>
-                            <td>${result.key.name}</td>
-                            <td>${result.value}</td>
+                            <th scope="col">INDEX</th>
+                            <th scope="col">CIVL_ID</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">SCORE</th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${resultsData}" var="result" varStatus="loop">
+                            <tr>
+                                <td>${loop.index+1}</td>
+                                <td>${result.key.civlId}</td>
+                                <td>${result.key.name}</td>
+                                <td>${result.value}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </main>
-<c:import url="../footer.jsp"/>
 </body>
