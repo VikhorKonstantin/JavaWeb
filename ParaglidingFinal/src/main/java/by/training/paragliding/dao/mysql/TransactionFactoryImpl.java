@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public final class TransactionFactoryImpl implements TransactionFactory {
     private Connection connection;
 
-    //todo: move somewhere
+    //todo: Close it!!!
     private static final int TIME_OUT = 25;
 
     public TransactionFactoryImpl() throws DaoException {

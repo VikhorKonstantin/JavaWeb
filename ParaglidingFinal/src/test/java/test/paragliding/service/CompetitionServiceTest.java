@@ -7,27 +7,23 @@ import by.training.paragliding.service.CompetitionService;
 import by.training.paragliding.service.ServiceFactory;
 import by.training.paragliding.service.exception.ServiceException;
 import by.training.paragliding.service.transaction.TransactionBasedServiceFactory;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.testng.Assert.*;
 
 public class CompetitionServiceTest {
     private static final int NEW_ID = 7;
     private CompetitionService service;
     private Competition competition = new Competition();
-
     @BeforeClass
     public void init() throws DaoException {
-        try {
+        try(var fact = new TransactionFactoryImpl()) {
             ServiceFactory serviceFactory
-                    = new TransactionBasedServiceFactory(
-                    new TransactionFactoryImpl());
+                    = new TransactionBasedServiceFactory(fact);
             service = serviceFactory.createCompetitionService();
             var userService = serviceFactory.createUserService();
             var u1 = userService.readById(1);
@@ -56,18 +52,28 @@ public class CompetitionServiceTest {
         assertNull(service.readById(id));
     }
 
+    @Test(description = "positiveScenarioTest",
+            dependsOnMethods = "addCompetitionTest")
+    public void readByIdPositiveScenarioTest() throws ServiceException {
+        assertEquals(service.readById(NEW_ID), competition);
+    }
+
     @DataProvider(name = "AddingDataProvider")
     public Object[][] createAddingData() throws ServiceException, DaoException {
-        competition.setName("NEW_NAME");
         return new Object[][]{
                 {null, false},
                 {competition, true}
         };
     }
 
-    @Test(description = "positiveScenarioTest")
-    public void readByIdPositiveScenarioTest() throws ServiceException {
-        assertEquals(competition, service.readById(NEW_ID));
+    @DataProvider(name = "UpdatingDataProvider")
+    public Object[][] createUpdatingData() throws ServiceException,
+            DaoException {
+        competition.setName("NEW_NAME");
+        return new Object[][]{
+                {null, false},
+                {competition, true}
+        };
     }
 
 
@@ -80,18 +86,22 @@ public class CompetitionServiceTest {
     }
 
     @Test(description = "updateTest",
-            dataProvider = "AddingDataProvider")
+            dataProvider = "UpdatingDataProvider",
+            dependsOnMethods = "addCompetitionTest")
     public void updateCompetitionTest(final Competition newCompetition,
                                       final boolean expected)
             throws ServiceException {
         assertEquals(service.update(newCompetition), expected);
     }
 
-    @AfterClass
-    public void clear() throws ServiceException {
-        service.deleteCompetition(competition);
+    @Test(dependsOnMethods = "updateCompetitionTest")
+    public void clearPositiveScenario() throws ServiceException {
+        assertTrue(service.deleteCompetition(competition));
     }
 
-
+    @Test(dependsOnMethods = "updateCompetitionTest")
+    public void clearNegativeScenario() throws ServiceException {
+        assertFalse(service.deleteCompetition(new Competition()));
+    }
 }
 

@@ -23,10 +23,9 @@ public class SportsmanServiceTest {
     private SportsmanService service;
     @BeforeClass
     public void init() throws DaoException {
-        try {
+        try(var fact = new TransactionFactoryImpl()) {
             ServiceFactory serviceFactory
-                    = new TransactionBasedServiceFactory(
-                            new TransactionFactoryImpl());
+                    = new TransactionBasedServiceFactory(fact);
             service = serviceFactory.createSportsmanService();
         } catch (DaoException | ServiceException newE) {
             newE.printStackTrace();
@@ -59,7 +58,7 @@ public class SportsmanServiceTest {
     }
 
     @DataProvider(name = "findTestDataProvider")
-    public Object[][] createFindTestData() {
+    public Object[][] createFindTestData() throws ServiceException {
         return new Object[][]{
                 {SportsmanService.FindByProps.ALL, List.of(new Sportsman(8321,
                                 "Gorenc",
@@ -79,7 +78,7 @@ public class SportsmanServiceTest {
                                 "Matjaz",
                                 'M',
                                 CountryCode.valueOf("SI"),
-                                353.1F)), null},
+                                353.1F)), service.size(), 0},
                 {SportsmanService.FindByProps.COUNTRY_CODE, List.of(new Sportsman(8321,
                                 "Gorenc",
                                 "Jaka",

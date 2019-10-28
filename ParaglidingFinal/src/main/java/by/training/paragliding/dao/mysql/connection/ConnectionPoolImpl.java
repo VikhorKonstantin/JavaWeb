@@ -130,6 +130,7 @@ public final class ConnectionPoolImpl extends AbstractConnectionPool {
             Connection connection = null;
             try {
                 connection = connections.poll(timeOut, unit);
+                logger.debug("Get connection {}", connection);
                 return connection;
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
@@ -178,11 +179,14 @@ public final class ConnectionPoolImpl extends AbstractConnectionPool {
     private void clearResources() {
         for (var connection : connections) {
             try {
+                connection.clearWarnings();
+                connection.setAutoCommit(true);
                 connection.close();
             } catch (SQLException newE) {
                 logger.error(newE);
             }
         }
+        logger.debug("Resources cleared!!");
     }
 
     /**
@@ -193,7 +197,7 @@ public final class ConnectionPoolImpl extends AbstractConnectionPool {
      */
     @Override
     protected void handleInvalidReturn(final Connection connection) {
-        logger.warn("It is impossible"
+        logger.error("It is impossible"
                 + " to return database connection {} into pool."
                 + " Trying to create new..", connection);
         try {
@@ -212,6 +216,7 @@ public final class ConnectionPoolImpl extends AbstractConnectionPool {
      */
     @Override
     protected void returnToPool(final Connection connection) {
+        logger.debug("Connection {} will be returned to pool", connection);
         executor.submit(new ConnectionReturner(connections, connection));
     }
 
@@ -243,8 +248,6 @@ public final class ConnectionPoolImpl extends AbstractConnectionPool {
         public Void call() throws SQLException {
             while (true) {
                 try {
-                    connection.clearWarnings();
-                    connection.setAutoCommit(true);
                     queue.put(connection);
                     break;
                 } catch (InterruptedException ie) {

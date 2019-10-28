@@ -55,7 +55,7 @@ public class ControllerServlet extends HttpServlet {
      * @param req  Http Servlet Request
      * @param resp Http Servlet Response
      * @throws ServletException if an input or output error is
-     *                         detected when the servlet handles the GET request
+     *                          detected when the servlet handles the GET request
      * @throws IOException      if the request for the GET could not be handled
      */
     @Override
@@ -80,7 +80,7 @@ public class ControllerServlet extends HttpServlet {
      * @param req  Http Servlet Request
      * @param resp Http Servlet Response
      * @throws ServletException if an input or output error is
-     *                        detected when the servlet handles the POST request
+     *                          detected when the servlet handles the POST request
      * @throws IOException      if the request for the POST could not be handled
      */
     @Override
@@ -120,8 +120,10 @@ public class ControllerServlet extends HttpServlet {
 
     private Controller receiveController() throws DaoException,
             ControllerException {
-        return new Controller(new TransactionBasedServiceFactory(
-                new TransactionFactoryImpl()));
+        try (var transactionFactory = new TransactionFactoryImpl()) {
+            return new Controller(new TransactionBasedServiceFactory(
+                    transactionFactory));
+        }
     }
 
     @Override
