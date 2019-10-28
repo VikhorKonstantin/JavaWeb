@@ -20,10 +20,9 @@ public class CompetitionServiceTest {
     private CompetitionService service;
     private Competition competition = new Competition();
     @BeforeClass
-    public void init() throws DaoException {
-        try(var fact = new TransactionFactoryImpl()) {
-            ServiceFactory serviceFactory
-                    = new TransactionBasedServiceFactory(fact);
+    public void init() throws Exception {
+        try(ServiceFactory serviceFactory
+                    = new TransactionBasedServiceFactory(new TransactionFactoryImpl())) {
             service = serviceFactory.createCompetitionService();
             var userService = serviceFactory.createUserService();
             var u1 = userService.readById(1);

@@ -64,8 +64,7 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             process(req, resp);
-        } catch (ServletException | IOException
-                | ControllerException | DaoException e) {
+        } catch (Exception e) {
             logger.error(e);
             req.setAttribute("errorMessage", e.getMessage());
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
@@ -89,8 +88,7 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             process(req, resp);
-        } catch (ServletException | IOException
-                | ControllerException | DaoException e) {
+        } catch (Exception e) {
             logger.error(e);
             req.setAttribute("errorMessage", e.getMessage());
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
@@ -101,29 +99,28 @@ public class ControllerServlet extends HttpServlet {
 
     private void process(final HttpServletRequest req,
                          final HttpServletResponse resp)
-            throws ServletException,
-            ControllerException, IOException, DaoException {
-        Controller controller = receiveController();
-        var result = controller.executeTask(req, resp);
-        if (result.isForward()) {
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher(result.getUrl());
-            logger.debug("FORWARD TO: {}", result.getUrl());
-            dispatcher.forward(req, resp);
-        } else {
-            logger.debug("REDIRECT TO: {}{}",
-                    req.getContextPath(), result.getUrl());
-            resp.sendRedirect(req.getContextPath() + result.getUrl());
+            throws Exception {
+        try(Controller controller = receiveController()) {
+            var result = controller.executeTask(req, resp);
+            if (result.isForward()) {
+                RequestDispatcher dispatcher = getServletContext()
+                        .getRequestDispatcher(result.getUrl());
+                logger.debug("FORWARD TO: {}", result.getUrl());
+                dispatcher.forward(req, resp);
+            } else {
+                logger.debug("REDIRECT TO: {}{}",
+                        req.getContextPath(), result.getUrl());
+                resp.sendRedirect(req.getContextPath() + result.getUrl());
+            }
         }
+
 
     }
 
     private Controller receiveController() throws DaoException,
             ControllerException {
-        try (var transactionFactory = new TransactionFactoryImpl()) {
-            return new Controller(new TransactionBasedServiceFactory(
-                    transactionFactory));
-        }
+        return new Controller(new TransactionBasedServiceFactory(
+                new TransactionFactoryImpl()));
     }
 
     @Override
