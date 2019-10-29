@@ -71,7 +71,8 @@
             <div class="card-body col-12">
                 <div class="login-form">
 
-                    <utg:messageAlertt message="${message}"/>
+                    <fmt:message var="localMessage" key="${message}"/>
+                    <utg:messageAlertt message="${localMessage}"/>
                     <c:url var="logInAction" value="/user/logIn.html"/>
                     <form action="${logInAction}" method="post">
                         <div class="form-group">

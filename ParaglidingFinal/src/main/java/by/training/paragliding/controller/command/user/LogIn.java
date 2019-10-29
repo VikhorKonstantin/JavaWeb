@@ -17,6 +17,8 @@ public class LogIn implements Executable {
      * Logger.
      */
     private Logger logger = LogManager.getLogger("LogIn");
+
+    private static final String LOGIN_ERR_MSG = "login.msg.err";
     private final UserService userService;
 
     public LogIn(final UserService newUserService) {
@@ -46,7 +48,7 @@ public class LogIn implements Executable {
                         false, "/index.html");
             } else {
                 return new ExecutionResult(false,
-                        "/logIn.html?message=Wrong  login/password");
+                        "/logIn.html?message=" + LOGIN_ERR_MSG);
             }
         } catch (ServiceException newE) {
             throw new ControllerException(newE);

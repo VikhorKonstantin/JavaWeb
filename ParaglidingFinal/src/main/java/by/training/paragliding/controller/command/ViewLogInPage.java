@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 public class ViewLogInPage implements Executable {
+    private static final String LOGIN_MSG = "login.msg";
+
     /**
      * Execute command.
      *
@@ -22,7 +24,7 @@ public class ViewLogInPage implements Executable {
         var msg = req.getParameter("message");
         req.setAttribute("message",
                 Objects.requireNonNullElse(msg,
-                        "Enter login/password"));
+                        LOGIN_MSG));
         return new ExecutionResult(true,
                 "/WEB-INF/jsp/user/logIn.jsp");
     }
