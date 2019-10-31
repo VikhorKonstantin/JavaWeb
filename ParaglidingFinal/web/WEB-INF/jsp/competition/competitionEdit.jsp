@@ -66,88 +66,90 @@
         <div class="card rounded-form">
             <div class="card-body col-12">
                 <c:choose>
-                    <c:when test="${competition == null}">
-                        <c:url var="competitionAdd"
-                               value="/competition/add.html"/>
-                    <form action="${competitionAdd}" id="editForm" method="post">
+                <c:when test="${competition == null}">
+                <c:url var="competitionAdd"
+                       value="/competition/add.html"/>
+                <form action="${competitionAdd}" id="editForm" method="post">
                     </c:when>
                     <c:otherwise>
                         <c:url var="competitionEdit"
                                value="/competition/edit.html"/>
-                        <form action="${competitionAdd}" id="editForm" method="post">
-                    </c:otherwise>
-                </c:choose>
+                    <form action="${competitionAdd}" id="editForm" method="post">
+                        </c:otherwise>
+                        </c:choose>
 
-                    <input type="hidden" name="id" value="${competition.id}"/>
-                    <div class="form-row">
-                        <div class="col-md-4 mb-4">
-                            <label class="required" for="nameId"><fmt:message key="competition.name"/> </label>
-                            <input id="nameId" type="text" name="name" class="form-control"
-                                   placeholder="Name"
-                                   title="Latin letters(250 max)"
-                                   pattern="^[0-9.?!a-zA-Z\s]{0,250}$" value="${competition.name}" required>
+                        <input type="hidden" name="id" value="${competition.id}"/>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="nameId"><fmt:message key="competition.name"/> </label>
+                                <input id="nameId" type="text" name="name" class="form-control"
+                                       placeholder="Name"
+                                       title="Latin letters(250 max)"
+                                       pattern="^[0-9.?!a-zA-Z\s]{0,250}$" value="${competition.name}" required>
 
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <label class="required" for="dateId"><fmt:message key="competition.date"/></label>
-                            <input id="dateId" type="text" name="date" class="form-control"
-                                   placeholder="Last name"
-                                   title="year-mm-dd"
-                                   pattern="^\d{4}-\d{1,2}-\d{1,2}$" value="${competition.date}" required>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="dateId"><fmt:message key="competition.date"/></label>
+                                <input id="dateId" type="text" name="date" class="form-control"
+                                       placeholder="Last name"
+                                       title="year-mm-dd"
+                                       pattern="^\d{4}-\d{1,2}-\d{1,2}$" value="${competition.date}" required>
 
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="required" for="feeId"><fmt:message key="competition.fee"/></label>
+                                <input id="feeId" type="text" class="form-control"
+                                       placeholder="Fee" name="fee"
+                                       title="52.212"
+                                       pattern="^[0-9]{0,4}.?[0-9]*$"
+                                       value="${competition.participationFee}" required>
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label class="required" for="feeId"><fmt:message key="competition.fee"/></label>
-                            <input id="feeId" type="text" class="form-control"
-                                   placeholder="Fee" name="fee"
-                                   title="52.212"
-                                   pattern="^[0-9]{0,4}.?[0-9]*$"
-                                   value="${competition.participationFee}" required>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="inputStatus"><fmt:message
+                                        key="competition.status"/></label>
+                                <select name="status" id="inputStatus" class="form-control">
+                                    <option selected>${competition.status}</option>
+                                    <option>ANNOUNCED</option>
+                                    <option>REGISTRATION_OPENED</option>
+                                    <option>REGISTRATION_CLOSED</option>
+                                    <option>UNDERWAY</option>
+                                    <option>FINISHED</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label class="required" for="inputDiscipline"><fmt:message
+                                        key="competition.discipline"/></label>
+                                <select name="discipline" id="inputDiscipline" class="form-control">
+                                    <option selected>${competition.discipline}</option>
+                                    <option>PG_AC</option>
+                                    <option>PG</option>
+                                    <option>PG_AER_SOLO</option>
+                                    <option>PG_AER_SYNCRO</option>
+                                    <option>HG_C1</option>
+                                    <option>HG_C2</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4 mb-4">
-                            <label class="required" for="inputStatus"><fmt:message key="competition.status"/></label>
-                            <select name="status" id="inputStatus" class="form-control">
-                                <option selected>${competition.status}</option>
-                                <option>ANNOUNCED</option>
-                                <option>REGISTRATION_OPENED</option>
-                                <option>REGISTRATION_CLOSED</option>
-                                <option>UNDERWAY</option>
-                                <option>FINISHED</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <label class="required" for="inputDiscipline"><fmt:message
-                                    key="competition.discipline"/></label>
-                            <select name="discipline" id="inputDiscipline" class="form-control">
-                                <option selected>${competition.discipline}</option>
-                                <option>PG_AC</option>
-                                <option>PG</option>
-                                <option>PG_AER_SOLO</option>
-                                <option>PG_AER_SYNCRO</option>
-                                <option>HG_C1</option>
-                                <option>HG_C2</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="Description"><fmt:message key="competition.description"/></label>
-                        <textarea name="description"
-                                  class="form-control bordering" id="Description"
-                                  rows="3"><c:out value="${competition.description}"/></textarea>
-                    </div>
-                    <button class="btn btn-submit" type="submit">
-                        <fmt:message key="submit"/></button>
-                    <c:if test="${competition.status != 'FINISHED'}">
-                        <c:url var="viewResultFormPage" value="/resultsPage.html">
-                            <c:param name="competitionId" value="${competition.id}"/>
-                        </c:url>
-                        <a href="${viewResultFormPage}" class="btn btn-submit">
-                            <fmt:message key="competition.setResults"/></a>
-                    </c:if>
-                </form>
+                        <div class="form-group">
+                            <label for="Description"><fmt:message key="competition.description"/></label>
+                            <textarea name="description"
+                                      class="form-control bordering" id="Description"
+                                      rows="3"><c:out value="${competition.description}"/></textarea>
+                        </div>
+                        <input type="hidden" value="${competition.id}" name="competitionId"/>
+                        <button class="btn btn-submit" type="submit">
+                            <fmt:message key="submit"/></button>
+                        <c:if test="${competition.status != 'FINISHED'}">
+                            <c:url var="viewResultFormPage" value="/resultsPage.html">
+                                <c:param name="competitionId" value="${competition.id}"/>
+                            </c:url>
+                            <a href="${viewResultFormPage}" class="btn btn-submit">
+                                <fmt:message key="competition.setResults"/></a>
+                        </c:if>
+                    </form>
 
             </div>
         </div>

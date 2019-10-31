@@ -39,13 +39,15 @@ public class EditCompetition implements Executable {
     public ExecutionResult execute(final HttpServletRequest req,
                                    final HttpServletResponse resp)
             throws ControllerException {
+        String competitionIdString = req.getParameter("competitionId");
+        int competitionId = Integer.parseInt(competitionIdString);
         try {
             var competitionValidator = new CompetitionValidator();
             var competition = competitionValidator.validate(req);
             if (competitionService.update(competition)) {
                 req.setAttribute("competition", competition);
-                return new ExecutionResult(true,
-                        "/WEB-INF/jsp/competition/competitionPage.jsp");
+                return new ExecutionResult(false,
+                        "/competition.html?id=" + competitionId);
             } else {
                 throw new ControllerException(UPDATE_FAILED);
             }

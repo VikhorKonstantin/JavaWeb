@@ -23,8 +23,7 @@ public class Controller implements AutoCloseable {
      */
     private final CommandProvider provider;
 
-    public Controller(final ServiceFactory newServiceFactory)
-            throws ControllerException {
+    public Controller(final ServiceFactory newServiceFactory) {
         provider = new CommandProvider(newServiceFactory);
     }
 

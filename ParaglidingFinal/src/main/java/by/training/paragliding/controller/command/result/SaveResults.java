@@ -80,8 +80,8 @@ public class SaveResults implements Executable {
             competition.setStatus(Competition.Status.FINISHED);
             if (competitionService.update(competition)) {
                 req.setAttribute("competition", competition);
-                return new ExecutionResult(true,
-                        "/WEB-INF/jsp/competition/competitionPage.jsp");
+                return new ExecutionResult(false,
+                        "/competition.html?id=" + competitionId);
             } else {
                 throw new ControllerException(UPDATE_FAILED);
             }

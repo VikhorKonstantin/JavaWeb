@@ -12,6 +12,7 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h3 class="footer_h3"><fmt:message key="footer.links"/></h3>
                 <ul class="footer_ul">
+                    <c:url value="/index.html" var="HomeRef"/>
                     <li><em class="fas fa-long-arrow-alt-right"></em><a href="${HomeRef}"><fmt:message
                             key="home.title"/></a></li>
                     <li><em class="fas fa-long-arrow-alt-right"></em><a href="#"><fmt:message key="about"/></a></li>
