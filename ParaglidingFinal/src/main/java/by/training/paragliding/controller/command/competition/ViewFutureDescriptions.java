@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ViewFutureDescriptions implements Executable {
@@ -43,7 +43,7 @@ public class ViewFutureDescriptions implements Executable {
         try {
             var futureRange = EnumSet.range(Competition.Status.ANNOUNCED,
                     Competition.Status.UNDERWAY);
-            List<Competition> competitions = new LinkedList<>();
+            List<Competition> competitions = new ArrayList<>();
             for (var status : futureRange) {
                 competitions.addAll(competitionService.find(
                         CompetitionService.FindByProps.STATUS,

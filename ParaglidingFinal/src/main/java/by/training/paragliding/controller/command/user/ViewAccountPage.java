@@ -14,8 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ViewAccountPage implements Executable {
@@ -52,7 +52,7 @@ public class ViewAccountPage implements Executable {
                     || sessionUser.getRole().equals(Role.ADMIN)) {
                 var futureRange = EnumSet.range(Competition.Status.ANNOUNCED,
                         Competition.Status.UNDERWAY);
-                List<Competition> futureComps = new LinkedList<>();
+                List<Competition> futureComps = new ArrayList<>();
                 for (var status : futureRange) {
                     futureComps.addAll(competitionService.find(
                             CompetitionService.FindByProps.ORGANIZER_AND_STATUS,
@@ -68,8 +68,8 @@ public class ViewAccountPage implements Executable {
                 var competitions = competitionService.find(
                         CompetitionService.FindByProps.PARTICIPANT,
                         sportsman);
-                List<Competition> finishedComps = new LinkedList<>();
-                List<Competition> futureComps = new LinkedList<>();
+                List<Competition> finishedComps = new ArrayList<>();
+                List<Competition> futureComps = new ArrayList<>();
                 for (var c : competitions) {
                     if(c.getStatus() == Competition.Status.FINISHED) {
                         finishedComps.add(c);
