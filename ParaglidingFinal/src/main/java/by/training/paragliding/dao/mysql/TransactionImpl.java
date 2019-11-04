@@ -15,7 +15,7 @@ import java.util.function.Function;
 public final class TransactionImpl implements Transaction {
 
     private static Map<DaoType, Function<Connection, Repository>>
-            typeRepositoryMap = new ConcurrentHashMap<>();
+            typeRepositoryMap = new HashMap<>();
 
     static {
         typeRepositoryMap.put(
